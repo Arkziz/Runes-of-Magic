@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.1a",
+  "status": "PASS",
+  "conclusion": "CONTRACT_PARITY_ACCEPTED",
+  "generated_at": "2026-10-29T21:18:12.621285+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "parent_head": "a5394e967a7cb391f89618414620d5433739dbcb"
+  },
+  "authoritative_owners": [
+    "rom_v2/presentation/account_character_contract.py",
+    "rom_v2/application/account_service.py",
+    "rom_v2/application/character_service.py"
+  ],
+  "covered_cases": [
+    "happy",
+    "rejection",
+    "repeat",
+    "stale",
+    "restart"
+  ],
+  "localization_contract": "stable_key_only",
+  "telegram_wiring": false,
+  "runtime_ready": false,
+  "production_persistence_changed": false,
+  "manual_game_check": "NOT_REQUIRED",
+  "next_stage": "21.17.2"
+}
