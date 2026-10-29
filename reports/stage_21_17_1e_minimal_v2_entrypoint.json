@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.1e",
+  "status": "PASS_AUTOMATED",
+  "conclusion": "AWAITING_MANUAL_GAME_CHECK",
+  "generated_at": "2026-10-29T22:32:45.982183+00:00",
+  "git": {
+    "parent_head": "745f5313392f1975d774390c5aa7162af7a4d60b"
+  },
+  "launch_commands": [
+    "python -m rom_v2",
+    "python -m rom_v2.main",
+    "python rom_v2/main.py"
+  ],
+  "main_line_limit": 20,
+  "composition_owner": "rom_v2/app/runtime_launcher.py",
+  "maintained_test_migrated": "tests_v2/test_v2_launcher_transport_resilience.py",
+  "manual_game_check": "REQUIRED"
+}

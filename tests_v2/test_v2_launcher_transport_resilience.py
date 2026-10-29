@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 from rom_v2.app.development_bot import DevelopmentBotConfig,IndependentDevelopmentBot
 from rom_v2.infrastructure.telegram.bot_api import TelegramApiResponse,TelegramTransportError
-from rom_v2.main import _allowed_ids,build_runtime
+from rom_v2.app.runtime_launcher import _allowed_ids,build_runtime
 class RetryApi:
  def __init__(self):self.calls=0;self.bot=None
  def get_updates(self,*,offset=None,timeout=20):
