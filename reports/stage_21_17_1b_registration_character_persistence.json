@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.1b",
+  "status": "PASS",
+  "conclusion": "PERSISTENCE_ACCEPTED",
+  "generated_at": "2026-10-29T21:28:32.519173+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "parent_head": "49edd29d19b3b02c4023491ec3a0145e88264ffd"
+  },
+  "authoritative_owners": [
+    "rom_v2/infrastructure/persistence/account_repository.py",
+    "rom_v2/infrastructure/persistence/account_unit_of_work.py",
+    "rom_v2/infrastructure/persistence/character_repository.py",
+    "rom_v2/infrastructure/persistence/character_unit_of_work.py"
+  ],
+  "verified": [
+    "clean_db_create",
+    "read_after_restart",
+    "idempotent_repeat_start",
+    "account_wallet_atomic_rollback",
+    "character_uncommitted_rollback"
+  ],
+  "production_owner_changes_required": false,
+  "production_db_changed": false,
+  "manual_game_check": "NOT_REQUIRED",
+  "next_stage": "21.17.1c"
+}
