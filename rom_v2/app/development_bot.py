@@ -4,9 +4,10 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from threading import Event
+from time import sleep
 from typing import Iterable, Mapping
 
-from rom_v2.infrastructure.telegram.bot_api import TelegramBotApi
+from rom_v2.infrastructure.telegram.bot_api import TelegramBotApi, TelegramTransportError
 from rom_v2.presentation.development_shell import ShellView, route_shell_action
 from rom_v2.presentation.registration_flow import TelegramRegistrationFlow
 
@@ -20,6 +21,7 @@ class DevelopmentBotConfig:
     token: str
     allowed_user_ids: frozenset[int]
     poll_timeout_seconds: int = 20
+    transport_retry_seconds: float = 2.0
 
     def __post_init__(self) -> None:
         if not str(self.token or "").strip():
@@ -94,7 +96,13 @@ class IndependentDevelopmentBot:
         """Run one stoppable long-polling loop owned only by the V2 process."""
         offset: int | None = None
         while not self._stop.is_set():
-            response = self._api.get_updates(offset=offset, timeout=self._config.poll_timeout_seconds)
+            try:
+                response = self._api.get_updates(offset=offset, timeout=self._config.poll_timeout_seconds)
+            except TelegramTransportError as error:
+                LOGGER.warning("V2 Telegram transport retry: %s", error)
+                if self._config.transport_retry_seconds:
+                    sleep(self._config.transport_retry_seconds)
+                continue
             updates = response.result if isinstance(response.result, list) else []
             for update in updates:
                 if not isinstance(update, Mapping):

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.1d",
+  "status": "PASS_AUTOMATED",
+  "conclusion": "AWAITING_MANUAL_GAME_CHECK",
+  "generated_at": "2026-10-29T22:19:46.010595+00:00",
+  "git": {
+    "parent_head": "1d5cf2ba145ef242f6f5585ba86604c7536dced5"
+  },
+  "launcher": "python -m rom_v2.main",
+  "allowlist_required": false,
+  "database": ".runtime/rom_v2/rom_v2.db",
+  "transport_retry": true,
+  "manual_game_check": "REQUIRED",
+  "next_stage_after_manual_pass": "21.17.2"
+}
