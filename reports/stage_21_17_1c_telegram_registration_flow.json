@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.1c",
+  "status": "PASS_AUTOMATED",
+  "conclusion": "AWAITING_MANUAL_GAME_CHECK",
+  "generated_at": "2026-10-29T22:01:38.530332+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "parent_head": "526e650e5df98fe68271bc362b84678e2c3034d6"
+  },
+  "authoritative_owners": [
+    "rom_v2/presentation/registration_flow.py",
+    "rom_v2/app/development_bot.py"
+  ],
+  "verified": [
+    "telegram_start",
+    "name_entry",
+    "six_class_selection",
+    "back",
+    "cancel",
+    "unknown_class_rejection",
+    "persistent_character_create",
+    "idempotent_repeat_start"
+  ],
+  "production_db_changed": false,
+  "manual_game_check": "REQUIRED",
+  "next_stage_after_manual_pass": "21.17.2"
+}

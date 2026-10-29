@@ -8,6 +8,7 @@ from typing import Iterable, Mapping
 
 from rom_v2.infrastructure.telegram.bot_api import TelegramBotApi
 from rom_v2.presentation.development_shell import ShellView, route_shell_action
+from rom_v2.presentation.registration_flow import TelegramRegistrationFlow
 
 LOGGER = logging.getLogger(__name__)
 
@@ -30,10 +31,11 @@ class DevelopmentBotConfig:
 class IndependentDevelopmentBot:
     """Own the shell polling lifecycle without owning gameplay or durable state."""
 
-    def __init__(self, config: DevelopmentBotConfig, api: TelegramBotApi | None = None) -> None:
+    def __init__(self, config: DevelopmentBotConfig, api: TelegramBotApi | None = None, registration_flow: TelegramRegistrationFlow | None = None) -> None:
         self._config = config
         self._api = api or TelegramBotApi(config.token)
         self._stop = Event()
+        self._registration_flow = registration_flow
 
     def stop(self) -> None:
         """Request graceful termination after the current Telegram request."""
@@ -59,7 +61,13 @@ class IndependentDevelopmentBot:
             if not user_id or not chat_id or not self._authorized(user_id):
                 return
             text = str(message.get("text", "") or "").strip()
-            if text.startswith("/start"):
+            if text.startswith("/start") and self._registration_flow is not None:
+                self._send_view(chat_id, self._registration_flow.start(user_id))
+            elif self._registration_flow is not None:
+                view = self._registration_flow.message(user_id, text)
+                if view is not None:
+                    self._send_view(chat_id, view)
+            elif text.startswith("/start"):
                 self._send_view(chat_id, route_shell_action("/start"))
             return
         if isinstance(callback, Mapping):
@@ -74,7 +82,13 @@ class IndependentDevelopmentBot:
             chat_id = int(chat.get("id", 0) or 0)
             if not user_id or not chat_id or not self._authorized(user_id):
                 return
-            self._send_view(chat_id, route_shell_action(str(callback.get("data", "") or "")))
+            data = str(callback.get("data", "") or "")
+            if self._registration_flow is not None and data.startswith("v2:register:"):
+                view = self._registration_flow.callback(user_id, data)
+                if view is not None:
+                    self._send_view(chat_id, view)
+            else:
+                self._send_view(chat_id, route_shell_action(data))
 
     def run(self) -> None:
         """Run one stoppable long-polling loop owned only by the V2 process."""
