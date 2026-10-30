@@ -1,0 +1,3529 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.2b",
+  "patch_revision": 1,
+  "status": "PASS",
+  "conclusion": "GO_TO_21_17_2C_PROFILE_IMPLEMENTATION",
+  "generated_at_utc": "2026-10-30T19:37:00.692842+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "head_before": "ab9049a47f8d92ecaa004e70e01b2f256ce922dc"
+  },
+  "scope": "read_only_v2_profile_runtime_api_audit",
+  "production_connection_opened": false,
+  "database_mutation_started": false,
+  "network_access": "NOT_USED",
+  "manual_game_check": "NOT_REQUIRED",
+  "findings": {
+    "public_api": [
+      {
+        "path": "rom_v2/domain/primary_stats.py",
+        "functions": [
+          {
+            "name": "normalize_primary_key",
+            "line": 8,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "value",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "str"
+          },
+          {
+            "name": "base_primary_value",
+            "line": 12,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "level",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "earned_points_for_level",
+            "line": 15,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "level",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          }
+        ],
+        "classes": [
+          {
+            "name": "PrimaryStats",
+            "line": 17,
+            "bases": [],
+            "methods": [
+              {
+                "name": "values",
+                "line": 21,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "tuple[int, ...]",
+                "decorators": []
+              },
+              {
+                "name": "total",
+                "line": 22,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "int",
+                "decorators": []
+              },
+              {
+                "name": "add",
+                "line": 23,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "allocation",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "PrimaryStats",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "AttributePointState",
+            "line": 31,
+            "bases": [],
+            "methods": [
+              {
+                "name": "allocate",
+                "line": 36,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "allocation",
+                      "default": null
+                    },
+                    {
+                      "name": "expected_free_points",
+                      "default": "None"
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "AttributePointState",
+                "decorators": []
+              },
+              {
+                "name": "respec",
+                "line": 48,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "AttributePointState",
+                "decorators": []
+              },
+              {
+                "name": "effective_without_equipment",
+                "line": 49,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "level",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "PrimaryStats",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/derived_stats.py",
+        "functions": [
+          {
+            "name": "calculate_max_hp",
+            "line": 36,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "level",
+                  "default": null
+                },
+                {
+                  "name": "total_stamina",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "calculate_patk",
+            "line": 44,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "class_key",
+                  "default": null
+                },
+                {
+                  "name": "stats",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "calculate_matk",
+            "line": 45,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "class_key",
+                  "default": null
+                },
+                {
+                  "name": "stats",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "calculate_pdef",
+            "line": 46,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "equipment_pdef",
+                  "default": null
+                },
+                {
+                  "name": "total_sta",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "calculate_mdef",
+            "line": 47,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "equipment_mdef",
+                  "default": null
+                },
+                {
+                  "name": "total_wis",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "calculate_max_mp",
+            "line": 48,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "class_key",
+                  "default": null
+                },
+                {
+                  "name": "level",
+                  "default": null
+                },
+                {
+                  "name": "total_int",
+                  "default": null
+                },
+                {
+                  "name": "total_wis",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "calculate_physical_crit",
+            "line": 56,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "total_dex",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "float"
+          },
+          {
+            "name": "calculate_magical_crit",
+            "line": 57,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "total_wis",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "float"
+          },
+          {
+            "name": "calculate_dodge",
+            "line": 58,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "defender_dex",
+                  "default": null
+                },
+                {
+                  "name": "attacker_dex",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "float"
+          },
+          {
+            "name": "derive_stats",
+            "line": 68,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "class_key",
+                  "default": null
+                },
+                {
+                  "name": "level",
+                  "default": null
+                },
+                {
+                  "name": "stats",
+                  "default": null
+                },
+                {
+                  "name": "equipment_pdef",
+                  "default": "0"
+                },
+                {
+                  "name": "equipment_mdef",
+                  "default": "0"
+                },
+                {
+                  "name": "attacker_dex",
+                  "default": "0"
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "DerivedStats"
+          }
+        ],
+        "classes": [
+          {
+            "name": "DerivedStats",
+            "line": 65,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/full_stat_snapshot.py",
+        "functions": [
+          {
+            "name": "base_primary_stats",
+            "line": 116,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "level",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "PrimaryStats"
+          },
+          {
+            "name": "build_full_stat_snapshot",
+            "line": 122,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "source",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "FullStatSnapshot"
+          }
+        ],
+        "classes": [
+          {
+            "name": "DerivedBonusLayer",
+            "line": 37,
+            "bases": [],
+            "methods": [
+              {
+                "name": "values",
+                "line": 50,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "tuple[int, ...]",
+                "decorators": []
+              },
+              {
+                "name": "add",
+                "line": 53,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "other",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "DerivedBonusLayer",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "EquippedStatInput",
+            "line": 58,
+            "bases": [],
+            "methods": [
+              {
+                "name": "contributes",
+                "line": 73,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "bool",
+                "decorators": [
+                  "property"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "FullStatSnapshotInput",
+            "line": 79,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "FullStatSnapshot",
+            "line": 102,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/resource_lifecycle.py",
+        "functions": [
+          {
+            "name": "initialize_resources",
+            "line": 20,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "class_key",
+                  "default": null
+                },
+                {
+                  "name": "max_hp",
+                  "default": null
+                },
+                {
+                  "name": "max_mp",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "ResourceState"
+          },
+          {
+            "name": "synchronize_maximums",
+            "line": 27,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "state",
+                  "default": null
+                },
+                {
+                  "name": "class_key",
+                  "default": null
+                },
+                {
+                  "name": "new_max_hp",
+                  "default": null
+                },
+                {
+                  "name": "new_max_mp",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "ResourceState"
+          },
+          {
+            "name": "set_current_resources",
+            "line": 34,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "state",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [
+                {
+                  "name": "current_hp",
+                  "default": "None"
+                },
+                {
+                  "name": "current_mp",
+                  "default": "None"
+                }
+              ],
+              "kwarg": null
+            },
+            "returns": "ResourceState"
+          },
+          {
+            "name": "restore_resources",
+            "line": 40,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "state",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [
+                {
+                  "name": "hp_amount",
+                  "default": "0"
+                },
+                {
+                  "name": "mp_amount",
+                  "default": "0"
+                }
+              ],
+              "kwarg": null
+            },
+            "returns": "ResourceState"
+          },
+          {
+            "name": "apply_pve_defeat",
+            "line": 45,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "state",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "ResourceState"
+          }
+        ],
+        "classes": [
+          {
+            "name": "ResourceState",
+            "line": 8,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/equipment.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "EquipmentItemPolicy",
+            "line": 7,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "EquipmentSlot",
+            "line": 17,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/durability.py",
+        "functions": [
+          {
+            "name": "clamp_durability",
+            "line": 35,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "value",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "rarity_repair_multiplier",
+            "line": 39,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "rarity",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "Decimal"
+          },
+          {
+            "name": "calculate_repair_cost",
+            "line": 45,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "durability",
+                  "default": null
+                },
+                {
+                  "name": "rarity",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "damage_durability",
+            "line": 56,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "durability",
+                  "default": null
+                },
+                {
+                  "name": "amount",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "damage_on_death",
+            "line": 61,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "durability",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "contributes_stats",
+            "line": 65,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "durability",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "bool"
+          }
+        ],
+        "classes": [
+          {
+            "name": "DurabilityError",
+            "line": 16,
+            "bases": [
+              "ValueError"
+            ],
+            "methods": []
+          },
+          {
+            "name": "RepairFailure",
+            "line": 19,
+            "bases": [
+              "str",
+              "Enum"
+            ],
+            "methods": []
+          },
+          {
+            "name": "EquippedDurability",
+            "line": 70,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "RepairQuote",
+            "line": 81,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "RepairResult",
+            "line": 88,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/enhancement.py",
+        "functions": [
+          {
+            "name": "normalize_refine_level",
+            "line": 19,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "level",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "get_refine_max_level",
+            "line": 22,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "kind",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "get_refine_success_chance",
+            "line": 23,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "kind",
+                  "default": null
+                },
+                {
+                  "name": "current_level",
+                  "default": null
+                },
+                {
+                  "name": "use_success_rune",
+                  "default": "False"
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "roll_refine_success",
+            "line": 27,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "chance",
+                  "default": null
+                },
+                {
+                  "name": "rng",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "bool"
+          },
+          {
+            "name": "get_refine_failure_level",
+            "line": 30,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "kind",
+                  "default": null
+                },
+                {
+                  "name": "current_level",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "get_weapon_refine_damage_multiplier",
+            "line": 36,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "level",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "float"
+          },
+          {
+            "name": "apply_weapon_refine_to_damage",
+            "line": 37,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "base_damage",
+                  "default": null
+                },
+                {
+                  "name": "level",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          },
+          {
+            "name": "get_armor_refine_hp_bonus_percent",
+            "line": 38,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "level",
+                  "default": null
+                },
+                {
+                  "name": "rarity",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "float"
+          }
+        ],
+        "classes": [
+          {
+            "name": "EnhancementError",
+            "line": 16,
+            "bases": [
+              "ValueError"
+            ],
+            "methods": []
+          },
+          {
+            "name": "EnhancementFailure",
+            "line": 17,
+            "bases": [
+              "str",
+              "Enum"
+            ],
+            "methods": []
+          },
+          {
+            "name": "EnhancementItem",
+            "line": 43,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "EnhancementCommand",
+            "line": 50,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "EnhancementQuote",
+            "line": 53,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "EnhancementResult",
+            "line": 56,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/primary_stat_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "PrimaryStatResultStatus",
+            "line": 7,
+            "bases": [
+              "StrEnum"
+            ],
+            "methods": []
+          },
+          {
+            "name": "AllocatePrimaryStatsCommand",
+            "line": 9,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "PrimaryStatResult",
+            "line": 11,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "PrimaryStatService",
+            "line": 12,
+            "bases": [],
+            "methods": [
+              {
+                "name": "initialize",
+                "line": 14,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    },
+                    {
+                      "name": "level",
+                      "default": "1"
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "PrimaryStatResult",
+                "decorators": []
+              },
+              {
+                "name": "allocate",
+                "line": 21,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "command",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "PrimaryStatResult",
+                "decorators": []
+              },
+              {
+                "name": "respec",
+                "line": 29,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    },
+                    {
+                      "name": "expected_free_points",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "PrimaryStatResult",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/full_stat_snapshot_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "SnapshotConsumer",
+            "line": 8,
+            "bases": [
+              "str",
+              "Enum"
+            ],
+            "methods": []
+          },
+          {
+            "name": "FullStatSnapshotService",
+            "line": 14,
+            "bases": [],
+            "methods": [
+              {
+                "name": "build",
+                "line": 17,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "source",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "consumer",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "FullStatSnapshot",
+                "decorators": []
+              },
+              {
+                "name": "for_profile",
+                "line": 22,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "source",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "FullStatSnapshot",
+                "decorators": []
+              },
+              {
+                "name": "for_combat",
+                "line": 25,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "source",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "FullStatSnapshot",
+                "decorators": []
+              },
+              {
+                "name": "for_simulator",
+                "line": 28,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "source",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "FullStatSnapshot",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/resource_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "ResourceResult",
+            "line": 7,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "ResourceService",
+            "line": 9,
+            "bases": [],
+            "methods": [
+              {
+                "name": "load",
+                "line": 11,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "max_hp",
+                      "default": null
+                    },
+                    {
+                      "name": "max_mp",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "ResourceResult",
+                "decorators": []
+              },
+              {
+                "name": "initialize",
+                "line": 15,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    },
+                    {
+                      "name": "class_key",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "max_hp",
+                      "default": null
+                    },
+                    {
+                      "name": "max_mp",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "ResourceResult",
+                "decorators": []
+              },
+              {
+                "name": "synchronize",
+                "line": 19,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    },
+                    {
+                      "name": "class_key",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "old_max_hp",
+                      "default": null
+                    },
+                    {
+                      "name": "old_max_mp",
+                      "default": null
+                    },
+                    {
+                      "name": "new_max_hp",
+                      "default": null
+                    },
+                    {
+                      "name": "new_max_mp",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "ResourceResult",
+                "decorators": []
+              },
+              {
+                "name": "set_current",
+                "line": 25,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "max_hp",
+                      "default": null
+                    },
+                    {
+                      "name": "max_mp",
+                      "default": null
+                    },
+                    {
+                      "name": "current_hp",
+                      "default": "None"
+                    },
+                    {
+                      "name": "current_mp",
+                      "default": "None"
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "ResourceResult",
+                "decorators": []
+              },
+              {
+                "name": "restore",
+                "line": 31,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "max_hp",
+                      "default": null
+                    },
+                    {
+                      "name": "max_mp",
+                      "default": null
+                    },
+                    {
+                      "name": "hp_amount",
+                      "default": "0"
+                    },
+                    {
+                      "name": "mp_amount",
+                      "default": "0"
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "ResourceResult",
+                "decorators": []
+              },
+              {
+                "name": "defeat",
+                "line": 37,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "character_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "max_hp",
+                      "default": null
+                    },
+                    {
+                      "name": "max_mp",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "ResourceResult",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/equipment_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "EquipmentResult",
+            "line": 7,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "EquipmentService",
+            "line": 9,
+            "bases": [],
+            "methods": [
+              {
+                "name": "list_slots",
+                "line": 11,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "owner_user_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EquipmentResult",
+                "decorators": []
+              },
+              {
+                "name": "equip",
+                "line": 15,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "policy",
+                      "default": null
+                    },
+                    {
+                      "name": "character_level",
+                      "default": null
+                    },
+                    {
+                      "name": "class_key",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EquipmentResult",
+                "decorators": []
+              },
+              {
+                "name": "unequip",
+                "line": 30,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "owner_user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "slot_key",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EquipmentResult",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/durability_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "DurabilityGateway",
+            "line": 9,
+            "bases": [
+              "Protocol"
+            ],
+            "methods": [
+              {
+                "name": "list_equipped",
+                "line": 11,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "Sequence[EquippedDurability]",
+                "decorators": []
+              },
+              {
+                "name": "repair_atomically",
+                "line": 12,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "quotes",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "RepairResult",
+                "decorators": []
+              },
+              {
+                "name": "damage_equipped_atomically",
+                "line": 13,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "amount",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "tuple[int, ...]",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "DurabilityService",
+            "line": 15,
+            "bases": [],
+            "methods": [
+              {
+                "name": "quote_one",
+                "line": 26,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "inventory_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "RepairQuote | RepairResult",
+                "decorators": []
+              },
+              {
+                "name": "repair_one",
+                "line": 35,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "inventory_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "RepairResult",
+                "decorators": []
+              },
+              {
+                "name": "quote_all",
+                "line": 40,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "tuple[RepairQuote, ...] | RepairResult",
+                "decorators": []
+              },
+              {
+                "name": "repair_all",
+                "line": 48,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "RepairResult",
+                "decorators": []
+              },
+              {
+                "name": "damage_equipped",
+                "line": 53,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "amount",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "tuple[int, ...]",
+                "decorators": []
+              },
+              {
+                "name": "damage_equipped_on_death",
+                "line": 58,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "tuple[int, ...]",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/enhancement_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "EnhancementGateway",
+            "line": 6,
+            "bases": [
+              "Protocol"
+            ],
+            "methods": [
+              {
+                "name": "get_owned_item",
+                "line": 7,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "inventory_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EnhancementItem | None",
+                "decorators": []
+              },
+              {
+                "name": "is_operation_completed",
+                "line": 8,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "operation_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EnhancementResult | None",
+                "decorators": []
+              },
+              {
+                "name": "perform_attempt_atomically",
+                "line": 9,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "command",
+                      "default": null
+                    },
+                    {
+                      "name": "quote",
+                      "default": null
+                    },
+                    {
+                      "name": "roll_succeeded",
+                      "default": null
+                    },
+                    {
+                      "name": "level_after",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EnhancementResult",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "EnhancementService",
+            "line": 10,
+            "bases": [],
+            "methods": [
+              {
+                "name": "quote",
+                "line": 13,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "command",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EnhancementQuote | EnhancementResult",
+                "decorators": []
+              },
+              {
+                "name": "attempt",
+                "line": 24,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "command",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "EnhancementResult",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/services/rune_lifecycle.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "RuneLifecycleGateway",
+            "line": 8,
+            "bases": [
+              "Protocol"
+            ],
+            "methods": [
+              {
+                "name": "load_equipment",
+                "line": 10,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "inventory_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "RuneEquipmentState | None",
+                "decorators": []
+              },
+              {
+                "name": "rune_quantity",
+                "line": 11,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "rune_item_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "int",
+                "decorators": []
+              },
+              {
+                "name": "is_reserved",
+                "line": 12,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "inventory_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "bool",
+                "decorators": []
+              },
+              {
+                "name": "extractor_quantity",
+                "line": 13,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "item_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "int",
+                "decorators": []
+              },
+              {
+                "name": "gold",
+                "line": 14,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "int",
+                "decorators": []
+              },
+              {
+                "name": "commit_insert",
+                "line": 15,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "expected",
+                      "default": null
+                    },
+                    {
+                      "name": "updated",
+                      "default": null
+                    },
+                    {
+                      "name": "rune_item_id",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "bool",
+                "decorators": []
+              },
+              {
+                "name": "commit_extract",
+                "line": 17,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "expected",
+                      "default": null
+                    },
+                    {
+                      "name": "updated",
+                      "default": null
+                    },
+                    {
+                      "name": "rune_item_id",
+                      "default": null
+                    },
+                    {
+                      "name": "extractor_item_id",
+                      "default": null
+                    },
+                    {
+                      "name": "gold_cost",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "bool",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "RuneLifecycleService",
+            "line": 20,
+            "bases": [],
+            "methods": [
+              {
+                "name": "insert",
+                "line": 25,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "equipment_inventory_id",
+                      "default": null
+                    },
+                    {
+                      "name": "slot_index",
+                      "default": null
+                    },
+                    {
+                      "name": "rune",
+                      "default": null
+                    },
+                    {
+                      "name": "character_class",
+                      "default": null
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "RuneMutationResult",
+                "decorators": []
+              },
+              {
+                "name": "extract",
+                "line": 38,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "equipment_inventory_id",
+                      "default": null
+                    },
+                    {
+                      "name": "slot_index",
+                      "default": null
+                    },
+                    {
+                      "name": "extractor_item_id",
+                      "default": "None"
+                    },
+                    {
+                      "name": "gold_cost",
+                      "default": "0"
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "RuneMutationResult",
+                "decorators": []
+              },
+              {
+                "name": "contributions",
+                "line": 58,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "equipment",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "tuple[RuneStatContribution, ...]",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/account_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "AccountResultStatus",
+            "line": 7,
+            "bases": [
+              "StrEnum"
+            ],
+            "methods": []
+          },
+          {
+            "name": "RegisterAccountCommand",
+            "line": 9,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "AccountCommandResult",
+            "line": 12,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "AccountService",
+            "line": 14,
+            "bases": [],
+            "methods": [
+              {
+                "name": "register",
+                "line": 17,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "command",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "AccountCommandResult",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/character_service.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "CharacterResultStatus",
+            "line": 8,
+            "bases": [
+              "StrEnum"
+            ],
+            "methods": []
+          },
+          {
+            "name": "CreateCharacterCommand",
+            "line": 10,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "ResetCharacterCommand",
+            "line": 13,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "CharacterCommandResult",
+            "line": 15,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "CharacterService",
+            "line": 16,
+            "bases": [],
+            "methods": [
+              {
+                "name": "create",
+                "line": 19,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "command",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "CharacterCommandResult",
+                "decorators": []
+              },
+              {
+                "name": "reset",
+                "line": 31,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "command",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "CharacterCommandResult",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "functions": [
+          {
+            "name": "build_development_bot",
+            "line": 116,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "token",
+                  "default": null
+                },
+                {
+                  "name": "allowed_user_ids",
+                  "default": "()"
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "IndependentDevelopmentBot"
+          }
+        ],
+        "classes": [
+          {
+            "name": "DevelopmentBotConfig",
+            "line": 18,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "IndependentDevelopmentBot",
+            "line": 33,
+            "bases": [],
+            "methods": [
+              {
+                "name": "stop",
+                "line": 42,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "None",
+                "decorators": []
+              },
+              {
+                "name": "handle_update",
+                "line": 52,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "update",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "None",
+                "decorators": []
+              },
+              {
+                "name": "run",
+                "line": 95,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "None",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "functions": [
+          {
+            "name": "build_runtime",
+            "line": 26,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "root",
+                  "default": "None"
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "IndependentDevelopmentBot"
+          },
+          {
+            "name": "main",
+            "line": 38,
+            "async": false,
+            "args": {
+              "positional": [],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "int"
+          }
+        ],
+        "classes": []
+      },
+      {
+        "path": "rom_v2/infrastructure/telegram/bot_api.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "TelegramTransportError",
+            "line": 16,
+            "bases": [
+              "RuntimeError"
+            ],
+            "methods": []
+          },
+          {
+            "name": "HttpOpener",
+            "line": 20,
+            "bases": [
+              "Protocol"
+            ],
+            "methods": []
+          },
+          {
+            "name": "TelegramApiResponse",
+            "line": 27,
+            "bases": [],
+            "methods": []
+          },
+          {
+            "name": "TelegramBotApi",
+            "line": 35,
+            "bases": [],
+            "methods": [
+              {
+                "name": "call",
+                "line": 48,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "method",
+                      "default": null
+                    },
+                    {
+                      "name": "payload",
+                      "default": "None"
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "TelegramApiResponse",
+                "decorators": []
+              },
+              {
+                "name": "send_message",
+                "line": 80,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "chat_id",
+                      "default": null
+                    },
+                    {
+                      "name": "text",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "reply_markup",
+                      "default": "None"
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "TelegramApiResponse",
+                "decorators": []
+              },
+              {
+                "name": "get_updates",
+                "line": 87,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [
+                    {
+                      "name": "offset",
+                      "default": "None"
+                    },
+                    {
+                      "name": "timeout",
+                      "default": "20"
+                    }
+                  ],
+                  "kwarg": null
+                },
+                "returns": "TelegramApiResponse",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "RegistrationStep",
+            "line": 11,
+            "bases": [
+              "StrEnum"
+            ],
+            "methods": []
+          },
+          {
+            "name": "RegistrationSession",
+            "line": 13,
+            "bases": [],
+            "methods": [
+              {
+                "name": "accept_name",
+                "line": 18,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "value",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "None",
+                "decorators": []
+              },
+              {
+                "name": "reset_name",
+                "line": 22,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "None",
+                "decorators": []
+              }
+            ]
+          },
+          {
+            "name": "TelegramRegistrationFlow",
+            "line": 25,
+            "bases": [],
+            "methods": [
+              {
+                "name": "start",
+                "line": 30,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "ShellView",
+                "decorators": []
+              },
+              {
+                "name": "message",
+                "line": 33,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "text",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "ShellView | None",
+                "decorators": []
+              },
+              {
+                "name": "callback",
+                "line": 42,
+                "async": false,
+                "args": {
+                  "positional": [
+                    {
+                      "name": "self",
+                      "default": null
+                    },
+                    {
+                      "name": "user_id",
+                      "default": null
+                    },
+                    {
+                      "name": "data",
+                      "default": null
+                    }
+                  ],
+                  "vararg": null,
+                  "kwonly": [],
+                  "kwarg": null
+                },
+                "returns": "ShellView | None",
+                "decorators": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "functions": [
+          {
+            "name": "build_start_view",
+            "line": 18,
+            "async": false,
+            "args": {
+              "positional": [],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "ShellView"
+          },
+          {
+            "name": "build_status_view",
+            "line": 32,
+            "async": false,
+            "args": {
+              "positional": [],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "ShellView"
+          },
+          {
+            "name": "route_shell_action",
+            "line": 47,
+            "async": false,
+            "args": {
+              "positional": [
+                {
+                  "name": "action",
+                  "default": null
+                }
+              ],
+              "vararg": null,
+              "kwonly": [],
+              "kwarg": null
+            },
+            "returns": "ShellView"
+          }
+        ],
+        "classes": [
+          {
+            "name": "ShellView",
+            "line": 11,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/container.py",
+        "functions": [],
+        "classes": [
+          {
+            "name": "V2Container",
+            "line": 10,
+            "bases": [],
+            "methods": []
+          }
+        ]
+      }
+    ],
+    "identity_lookup_api": [
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "class": "TelegramRegistrationFlow",
+        "name": "_account_id",
+        "line": 28,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "self",
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "str",
+        "decorators": []
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "class": "TelegramRegistrationFlow",
+        "name": "_character_id",
+        "line": 29,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "self",
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "str",
+        "decorators": []
+      }
+    ],
+    "profile_data_api": [
+      {
+        "path": "rom_v2/domain/primary_stats.py",
+        "class": "AttributePointState",
+        "name": "effective_without_equipment",
+        "line": 49,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "self",
+              "default": null
+            },
+            {
+              "name": "level",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "PrimaryStats",
+        "decorators": []
+      },
+      {
+        "path": "rom_v2/domain/derived_stats.py",
+        "class": null,
+        "name": "derive_stats",
+        "line": 68,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "class_key",
+              "default": null
+            },
+            {
+              "name": "level",
+              "default": null
+            },
+            {
+              "name": "stats",
+              "default": null
+            },
+            {
+              "name": "equipment_pdef",
+              "default": "0"
+            },
+            {
+              "name": "equipment_mdef",
+              "default": "0"
+            },
+            {
+              "name": "attacker_dex",
+              "default": "0"
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "DerivedStats"
+      },
+      {
+        "path": "rom_v2/domain/full_stat_snapshot.py",
+        "class": null,
+        "name": "base_primary_stats",
+        "line": 116,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "level",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "PrimaryStats"
+      },
+      {
+        "path": "rom_v2/domain/full_stat_snapshot.py",
+        "class": null,
+        "name": "build_full_stat_snapshot",
+        "line": 122,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "source",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "FullStatSnapshot"
+      },
+      {
+        "path": "rom_v2/domain/resource_lifecycle.py",
+        "class": null,
+        "name": "initialize_resources",
+        "line": 20,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "class_key",
+              "default": null
+            },
+            {
+              "name": "max_hp",
+              "default": null
+            },
+            {
+              "name": "max_mp",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "ResourceState"
+      },
+      {
+        "path": "rom_v2/domain/resource_lifecycle.py",
+        "class": null,
+        "name": "set_current_resources",
+        "line": 34,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "state",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [
+            {
+              "name": "current_hp",
+              "default": "None"
+            },
+            {
+              "name": "current_mp",
+              "default": "None"
+            }
+          ],
+          "kwarg": null
+        },
+        "returns": "ResourceState"
+      },
+      {
+        "path": "rom_v2/domain/resource_lifecycle.py",
+        "class": null,
+        "name": "restore_resources",
+        "line": 40,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "state",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [
+            {
+              "name": "hp_amount",
+              "default": "0"
+            },
+            {
+              "name": "mp_amount",
+              "default": "0"
+            }
+          ],
+          "kwarg": null
+        },
+        "returns": "ResourceState"
+      },
+      {
+        "path": "rom_v2/domain/durability.py",
+        "class": null,
+        "name": "clamp_durability",
+        "line": 35,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "value",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "int"
+      },
+      {
+        "path": "rom_v2/domain/durability.py",
+        "class": null,
+        "name": "damage_durability",
+        "line": 56,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "durability",
+              "default": null
+            },
+            {
+              "name": "amount",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "int"
+      },
+      {
+        "path": "rom_v2/domain/durability.py",
+        "class": null,
+        "name": "contributes_stats",
+        "line": 65,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "durability",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "bool"
+      },
+      {
+        "path": "rom_v2/application/full_stat_snapshot_service.py",
+        "class": "FullStatSnapshotService",
+        "name": "for_profile",
+        "line": 22,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "self",
+              "default": null
+            },
+            {
+              "name": "source",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "FullStatSnapshot",
+        "decorators": []
+      },
+      {
+        "path": "rom_v2/application/services/rune_lifecycle.py",
+        "class": "RuneLifecycleGateway",
+        "name": "load_equipment",
+        "line": 10,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "self",
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "default": null
+            },
+            {
+              "name": "inventory_id",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "RuneEquipmentState | None",
+        "decorators": []
+      },
+      {
+        "path": "rom_v2/application/services/rune_lifecycle.py",
+        "class": "RuneLifecycleGateway",
+        "name": "rune_quantity",
+        "line": 11,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "self",
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "default": null
+            },
+            {
+              "name": "rune_item_id",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "int",
+        "decorators": []
+      },
+      {
+        "path": "rom_v2/application/services/rune_lifecycle.py",
+        "class": "RuneLifecycleService",
+        "name": "_owned_equipment",
+        "line": 64,
+        "async": false,
+        "args": {
+          "positional": [
+            {
+              "name": "self",
+              "default": null
+            },
+            {
+              "name": "user_id",
+              "default": null
+            },
+            {
+              "name": "inventory_id",
+              "default": null
+            }
+          ],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "RuneEquipmentState | None",
+        "decorators": []
+      },
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "class": null,
+        "name": "build_status_view",
+        "line": 32,
+        "async": false,
+        "args": {
+          "positional": [],
+          "vararg": null,
+          "kwonly": [],
+          "kwarg": null
+        },
+        "returns": "ShellView"
+      }
+    ],
+    "runtime_composition_calls": [
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "name": "DevelopmentBotConfig",
+        "line": 118,
+        "args": [],
+        "keywords": {
+          "token": "str(token)",
+          "allowed_user_ids": "frozenset((int(value) for value in allowed_user_ids))"
+        }
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "name": "IndependentDevelopmentBot",
+        "line": 122,
+        "args": [
+          "config"
+        ],
+        "keywords": {}
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "name": "self._api.send_message",
+        "line": 50,
+        "args": [
+          "chat_id",
+          "view.text"
+        ],
+        "keywords": {
+          "reply_markup": "view.reply_markup"
+        }
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "name": "TelegramBotApi",
+        "line": 38,
+        "args": [
+          "config.token"
+        ],
+        "keywords": {}
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "name": "self._api.get_updates",
+        "line": 100,
+        "args": [],
+        "keywords": {
+          "offset": "offset",
+          "timeout": "self._config.poll_timeout_seconds"
+        }
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "name": "self.handle_update",
+        "line": 113,
+        "args": [
+          "update"
+        ],
+        "keywords": {}
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "name": "TelegramRegistrationFlow",
+        "line": 34,
+        "args": [
+          "AccountService(SQLiteAccountUnitOfWorkFactory(factory))",
+          "CharacterService(SQLiteCharacterUnitOfWorkFactory(factory))"
+        ],
+        "keywords": {}
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "name": "DevelopmentBotConfig",
+        "line": 35,
+        "args": [],
+        "keywords": {
+          "token": "token",
+          "allowed_user_ids": "allowed",
+          "poll_timeout_seconds": "20",
+          "transport_retry_seconds": "2.0"
+        }
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "name": "IndependentDevelopmentBot",
+        "line": 36,
+        "args": [
+          "config"
+        ],
+        "keywords": {
+          "api": "TelegramBotApi(token, timeout_seconds=35.0)",
+          "registration_flow": "flow"
+        }
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "name": "AccountService",
+        "line": 34,
+        "args": [
+          "SQLiteAccountUnitOfWorkFactory(factory)"
+        ],
+        "keywords": {}
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "name": "CharacterService",
+        "line": 34,
+        "args": [
+          "SQLiteCharacterUnitOfWorkFactory(factory)"
+        ],
+        "keywords": {}
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "name": "TelegramBotApi",
+        "line": 36,
+        "args": [
+          "token"
+        ],
+        "keywords": {
+          "timeout_seconds": "35.0"
+        }
+      }
+    ],
+    "telegram_capabilities": {
+      "send_message": true,
+      "get_updates": true,
+      "callback_ack": false,
+      "inline_keyboard": true,
+      "edit_message": false
+    },
+    "implementation_gaps": [
+      "Extend TelegramBotApi with callback acknowledgement before interactive profile callbacks are connected.",
+      "Use send-message navigation initially or add edit-message support in the Telegram adapter with tests.",
+      "Implement immutable profile view models plus a pure presenter/menu; do not import V1 handlers or copy V1 calculations."
+    ],
+    "decision": "Proceed to 21.17.2c only with the owners and adapter capabilities recorded here. New code must be orchestration/presentation only unless this audit proves a capability is absent."
+  },
+  "verification": {
+    "status": "PASS",
+    "canonical_v2_ci_rc": 0,
+    "report_side_effect": "restored"
+  },
+  "artifacts": [
+    "reports/stage_21_17_2b_v2_profile_runtime_api_audit.json",
+    "MD/STAGE_21_17_2B_V2_PROFILE_RUNTIME_API_AUDIT.md"
+  ],
+  "next_stage": "21.17.2c",
+  "suggested_next_patch": "patch_21_17_2c_implement_v2_profile_presenter_and_menu.py"
+}
