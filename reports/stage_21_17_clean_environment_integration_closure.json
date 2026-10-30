@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "stage": "21.17",
+  "patch_revision": 1,
+  "status": "PASS_ACCEPTED",
+  "conclusion": "STAGE_21_17_CLEAN_ENVIRONMENT_INTEGRATION_CLOSED",
+  "generated_at_utc": "2026-10-30T22:27:35.571995+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "parent_head": "316f1e5150009cc34fc5554f8f5bdb5c2b59047f"
+  },
+  "prerequisites": {
+    "21.17.2f": {
+      "path": "reports/stage_21_17_2f_existing_character_start_idempotency.json",
+      "status": "PASS_AUTOMATED",
+      "conclusion": "EXISTING_CHARACTER_START_IDEMPOTENT"
+    },
+    "21.17.3": {
+      "path": "reports/stage_21_17_3_character_restart_reset_audit.json",
+      "status": "PASS",
+      "conclusion": "GO_TO_21_17_3A_RESET_IMPLEMENTATION"
+    },
+    "21.17.3a": {
+      "path": "reports/stage_21_17_3a_v2_ci_side_effect_free.json",
+      "status": "PASS_AUTOMATED",
+      "conclusion": "CANONICAL_V2_CI_SIDE_EFFECT_FREE"
+    },
+    "21.17.3b": {
+      "path": "reports/stage_21_17_3b_character_reset_confirmation.json",
+      "status": "PASS_AUTOMATED",
+      "conclusion": "CHARACTER_RESET_CONFIRMATION_CONNECTED"
+    },
+    "21.17.3c": {
+      "path": "reports/stage_21_17_3c_registration_class_catalog_parity.json",
+      "status": "PASS_AUTOMATED",
+      "conclusion": "REGISTRATION_CLASS_LABEL_DUPLICATION_REMOVED"
+    }
+  },
+  "canonical_owners": {
+    "registration": "rom_v2/presentation/registration_flow.py + DEFAULT_CLASS_CATALOG",
+    "profile_query": "rom_v2/application/profile_query_service.py",
+    "profile_flow": "rom_v2/presentation/profile_flow.py",
+    "character_reset": "rom_v2/presentation/character_reset_flow.py",
+    "runtime_dispatch": "rom_v2/app/development_bot.py",
+    "runtime_composition": "rom_v2/app/runtime_launcher.py"
+  },
+  "automated_acceptance": {
+    "maintained_tests": [
+      "tests_v2.test_telegram_registration_flow",
+      "tests_v2.test_v2_existing_character_start_idempotency",
+      "tests_v2.test_v2_profile_presenter_menu",
+      "tests_v2.test_v2_profile_query_runtime",
+      "tests_v2.test_v2_profile_menu_markup",
+      "tests_v2.test_v2_character_reset_confirmation",
+      "tests_v2.test_v2_registration_class_catalog_parity",
+      "tests_v2.test_v2_ci_report_side_effect_free"
+    ],
+    "canonical_ci_rc": 0,
+    "parallel_six_class_catalogs": [],
+    "historic_report_sha256_before": "03d59e715e9e15b3018c095509ba62ae35c056443daea3ae1335ad12419200f2",
+    "historic_report_sha256_after": "03d59e715e9e15b3018c095509ba62ae35c056443daea3ae1335ad12419200f2"
+  },
+  "manual_acceptance": {
+    "source": "user-performed Telegram acceptance with exported result.json reviewed in the continuation session",
+    "accepted": true,
+    "cases": [
+      "existing character /start routes to menu without duplicate registration",
+      "profile reads persisted character after process restart",
+      "reset cancel leaves account and character unchanged",
+      "reset confirm deletes character and preserves account",
+      "re-registration creates exactly one replacement character",
+      "registration buttons use all six canonical emoji class names",
+      "scout creation result and profile both display 🏹 Скаут"
+    ]
+  },
+  "constraints": {
+    "v1_imported": false,
+    "production_v1_connection_opened": false,
+    "production_entrypoint_switched": false,
+    "class_keys_changed": false,
+    "database_migration_added": false
+  },
+  "next_roadmap_block": "21.18",
+  "next_action": "READ_ONLY_STAGE_21_18_SCOPE_AND_ACCEPTANCE_AUDIT"
+}
