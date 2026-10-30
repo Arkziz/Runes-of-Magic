@@ -24,7 +24,10 @@ def build_start_view() -> ShellView:
             "поступово окремими наскрізними етапами."
         ),
         reply_markup={
-            "inline_keyboard": [[{"text": "ℹ️ Стан V2", "callback_data": "v2:shell:status"}, [{"text": "Профіль", "callback_data": "v2:profile:root"}]]]
+            "inline_keyboard": [
+                [{"text": "Стан V2", "callback_data": "v2:shell:status"}],
+                [{"text": "Профіль", "callback_data": "v2:profile:root"}],
+            ]
         },
     )
 

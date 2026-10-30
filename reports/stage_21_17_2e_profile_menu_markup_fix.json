@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.2e",
+  "patch_revision": 1,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "PROFILE_MENU_MARKUP_REPAIRED",
+  "generated_at_utc": "2026-10-30T20:55:25.201058+00:00",
+  "git": {
+    "parent_head": "ab7c2ca6825fb41d9025bb76c05b829ceb15539c"
+  },
+  "root_cause": "profile button row was nested inside a Telegram button object, producing HTTP 400 Bad Request",
+  "telegram_keyboard_contract": "list[row[list[button[dict]]]]",
+  "production_connection_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next_stage_after_manual_pass": "21.17.3"
+}
