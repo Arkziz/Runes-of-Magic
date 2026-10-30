@@ -3,6 +3,18 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 @dataclass(frozen=True,slots=True)
+class ProfileSummaryView:
+ name:str
+ class_label:str
+ level:int
+ current_hp:int
+ current_mp:int|None
+
+def present_summary(model:ProfileSummaryView)->str:
+ mp="—" if model.current_mp is None else str(model.current_mp)
+ return "\n".join((f"Профіль: {model.name}",f"Клас: {model.class_label}",f"Рівень: {model.level}",f"HP: {model.current_hp}",f"MP: {mp}"))
+
+@dataclass(frozen=True,slots=True)
 class ProfileIdentityView:
  name:str
  class_label:str

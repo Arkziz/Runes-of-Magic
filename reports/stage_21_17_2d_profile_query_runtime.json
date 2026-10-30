@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.2d",
+  "patch_revision": 1,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "PROFILE_QUERY_RUNTIME_CONNECTED",
+  "generated_at_utc": "2026-10-30T20:46:55.109191+00:00",
+  "git": {
+    "parent_head": "ac7ecaf76d91ca6ef826944111a6efa8a3c9635b"
+  },
+  "read_path": "telegram_user_id -> account -> character -> ProfileSummaryView -> TelegramProfileFlow",
+  "v1_imported": false,
+  "formula_duplication": false,
+  "production_connection_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next_stage_after_manual_pass": "21.17.3"
+}

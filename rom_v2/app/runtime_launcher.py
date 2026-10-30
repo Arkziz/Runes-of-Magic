@@ -5,9 +5,11 @@ from pathlib import Path
 from rom_v2.app.development_bot import DevelopmentBotConfig,IndependentDevelopmentBot
 from rom_v2.application.account_service import AccountService
 from rom_v2.application.character_service import CharacterService
+from rom_v2.application.profile_query_service import ProfileQueryService
 from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory,SQLiteCharacterUnitOfWorkFactory,V2ConnectionFactory,V2Migrator
 from rom_v2.infrastructure.telegram.bot_api import TelegramBotApi
 from rom_v2.presentation.registration_flow import TelegramRegistrationFlow
+from rom_v2.presentation.profile_flow import TelegramProfileFlow
 
 def _dotenv(path:Path)->dict[str,str]:
  values={}
@@ -31,9 +33,11 @@ def build_runtime(root:Path|None=None)->IndependentDevelopmentBot:
  runtime=project/".runtime"/"rom_v2";database=runtime/"rom_v2.db"
  if not database.exists():V2Migrator(database).recreate()
  factory=V2ConnectionFactory(database,runtime_root=runtime)
- flow=TelegramRegistrationFlow(AccountService(SQLiteAccountUnitOfWorkFactory(factory)),CharacterService(SQLiteCharacterUnitOfWorkFactory(factory)))
+ account_factory=SQLiteAccountUnitOfWorkFactory(factory);character_factory=SQLiteCharacterUnitOfWorkFactory(factory)
+ flow=TelegramRegistrationFlow(AccountService(account_factory),CharacterService(character_factory))
+ profile_flow=TelegramProfileFlow(ProfileQueryService(account_factory,character_factory))
  config=DevelopmentBotConfig(token=token,allowed_user_ids=allowed,poll_timeout_seconds=20,transport_retry_seconds=2.0)
- return IndependentDevelopmentBot(config,api=TelegramBotApi(token,timeout_seconds=35.0),registration_flow=flow)
+ return IndependentDevelopmentBot(config,api=TelegramBotApi(token,timeout_seconds=35.0),registration_flow=flow,profile_flow=profile_flow)
 
 def main()->int:
  bot=build_runtime();print("ROM V2 bot started. Press Ctrl+C to stop.")
