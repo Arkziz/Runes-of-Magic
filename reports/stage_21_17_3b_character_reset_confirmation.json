@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.3b",
+  "patch_revision": 3,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "CHARACTER_RESET_CONFIRMATION_CONNECTED",
+  "generated_at_utc": "2026-10-30T21:47:08.303368+00:00",
+  "git": {
+    "parent_head": "5d680bf768effc86ed408915ce94b5b00a887465"
+  },
+  "policy": {
+    "confirmation_required": true,
+    "cancel_non_mutating": true,
+    "stale_confirm_fail_closed": true,
+    "account_preserved": true,
+    "post_reset_start": "registration"
+  },
+  "temporary_sqlite_acceptance": {
+    "before": {
+      "accounts": 1,
+      "characters": 1
+    },
+    "after_cancel": {
+      "accounts": 1,
+      "characters": 1
+    },
+    "after_confirm": {
+      "accounts": 1,
+      "characters": 0
+    }
+  },
+  "production_connection_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next_stage_after_manual_pass": "ROADMAP_CONTINUATION_AFTER_21_17_3_ACCEPTANCE"
+}

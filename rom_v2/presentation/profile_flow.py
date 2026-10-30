@@ -13,5 +13,5 @@ class TelegramProfileFlow:
   if record is None:return ShellView("Профіль ще недоступний. Спочатку створіть персонажа через /start.",{"inline_keyboard":[[{"text":"Назад","callback_data":"v2:shell:start"}]]})
   definition=DEFAULT_CLASS_CATALOG.find(record.class_key);label=definition.display_name if definition else record.class_key
   view=ProfileSummaryView(record.name,label,record.level,record.current_hp,record.current_mp)
-  return ShellView(present_summary(view),{"inline_keyboard":[[{"text":"Назад","callback_data":"v2:shell:start"}]]})
+  return ShellView(present_summary(view),{"inline_keyboard":[[{"text":"Скинути персонажа","callback_data":"v2:character:reset:request"}],[{"text":"Назад","callback_data":"v2:shell:start"}]]})
  def callback(self,user_id:int,data:str)->ShellView|None:return self.open(user_id) if data=="v2:profile:root" else None

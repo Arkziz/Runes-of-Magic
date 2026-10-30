@@ -10,6 +10,7 @@ from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory,SQL
 from rom_v2.infrastructure.telegram.bot_api import TelegramBotApi
 from rom_v2.presentation.registration_flow import TelegramRegistrationFlow
 from rom_v2.presentation.profile_flow import TelegramProfileFlow
+from rom_v2.presentation.character_reset_flow import TelegramCharacterResetFlow
 
 def _dotenv(path:Path)->dict[str,str]:
  values={}
@@ -34,10 +35,12 @@ def build_runtime(root:Path|None=None)->IndependentDevelopmentBot:
  if not database.exists():V2Migrator(database).recreate()
  factory=V2ConnectionFactory(database,runtime_root=runtime)
  account_factory=SQLiteAccountUnitOfWorkFactory(factory);character_factory=SQLiteCharacterUnitOfWorkFactory(factory)
- flow=TelegramRegistrationFlow(AccountService(account_factory),CharacterService(character_factory))
- profile_flow=TelegramProfileFlow(ProfileQueryService(account_factory,character_factory))
+ account_service=AccountService(account_factory);character_service=CharacterService(character_factory);profile_query=ProfileQueryService(account_factory,character_factory)
+ flow=TelegramRegistrationFlow(account_service,character_service)
+ profile_flow=TelegramProfileFlow(profile_query)
+ reset_flow=TelegramCharacterResetFlow(profile_query,character_service)
  config=DevelopmentBotConfig(token=token,allowed_user_ids=allowed,poll_timeout_seconds=20,transport_retry_seconds=2.0)
- return IndependentDevelopmentBot(config,api=TelegramBotApi(token,timeout_seconds=35.0),registration_flow=flow,profile_flow=profile_flow)
+ return IndependentDevelopmentBot(config,api=TelegramBotApi(token,timeout_seconds=35.0),registration_flow=flow,profile_flow=profile_flow,reset_flow=reset_flow)
 
 def main()->int:
  bot=build_runtime();print("ROM V2 bot started. Press Ctrl+C to stop.")
