@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.2c",
+  "patch_revision": 2,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "PROFILE_PRESENTER_MENU_IMPLEMENTED_QUERY_INTEGRATION_DEFERRED",
+  "generated_at_utc": "2026-10-30T20:36:57.007585+00:00",
+  "git": {
+    "parent_head": "d56efa12ac2a236becb675b240d08a8ebe5cc725"
+  },
+  "scope": {
+    "implemented": [
+      "rom_v2/presentation/profile_presenter.py",
+      "rom_v2/presentation/profile_menu.py",
+      "Telegram callback acknowledgement"
+    ],
+    "not_connected": [
+      "durable profile query",
+      "editMessageText"
+    ]
+  },
+  "v1_imported": false,
+  "formula_duplication": false,
+  "production_connection_opened": false,
+  "manual_game_check": "NOT_REQUIRED",
+  "staged_files": [
+    "MD/STAGE_21_17_2C_V2_PROFILE_PRESENTER_MENU.md",
+    "reports/stage_21_17_2c_v2_profile_presenter_menu.json",
+    "rom_v2/app/development_bot.py",
+    "rom_v2/infrastructure/telegram/bot_api.py",
+    "rom_v2/presentation/profile_menu.py",
+    "rom_v2/presentation/profile_presenter.py",
+    "tests_v2/test_v2_profile_presenter_menu.py"
+  ],
+  "next_stage": "21.17.2d"
+}

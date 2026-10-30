@@ -84,6 +84,13 @@ class TelegramBotApi:
             payload["reply_markup"] = dict(reply_markup)
         return self.call("sendMessage", payload)
 
+    def answer_callback_query(self, callback_query_id: str) -> TelegramApiResponse:
+        """Acknowledge one callback without owning navigation or gameplay."""
+        value = str(callback_query_id or "").strip()
+        if not value:
+            raise ValueError("callback_query_id must not be empty")
+        return self.call("answerCallbackQuery", {"callback_query_id": value})
+
     def get_updates(self, *, offset: int | None = None, timeout: int = 20) -> TelegramApiResponse:
         """Read updates for the development long-polling loop."""
         payload: dict[str, object] = {"timeout": max(0, int(timeout)), "allowed_updates": ["message", "callback_query"]}

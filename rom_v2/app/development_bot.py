@@ -84,6 +84,9 @@ class IndependentDevelopmentBot:
             chat_id = int(chat.get("id", 0) or 0)
             if not user_id or not chat_id or not self._authorized(user_id):
                 return
+            callback_id = str(callback.get("id", "") or "").strip()
+            if callback_id:
+                self._api.answer_callback_query(callback_id)
             data = str(callback.get("data", "") or "")
             if self._registration_flow is not None and data.startswith("v2:register:"):
                 view = self._registration_flow.callback(user_id, data)
