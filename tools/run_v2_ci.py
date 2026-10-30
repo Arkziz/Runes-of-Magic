@@ -76,7 +76,7 @@ def run_ci(root: Path) -> dict[str, Any]:
     return {"schema_version":1,"status":"PASS" if not failed else "FAIL","failed_checks":failed,"checks":checks}
 
 
-def main() -> int:
+def _main_with_report_side_effects() -> int:
     """Run the CI baseline and write optional machine-readable evidence."""
     parser=argparse.ArgumentParser(); parser.add_argument("--project-root",default="."); parser.add_argument("--json-out"); args=parser.parse_args()
     result=run_ci(Path(args.project_root).resolve()); text=json.dumps(result,ensure_ascii=False,indent=2)+"\n"
@@ -84,5 +84,22 @@ def main() -> int:
     print(f"ROM V2 CI baseline: {result['status']}")
     for check in result["checks"]: print(f"[{check['status']}] {check['name']}")
     return 0 if result["status"]=="PASS" else 1
+
+
+def _ci_project_root(argv:list[str])->Path:
+    if "--project-root" in argv:
+        index=argv.index("--project-root")
+        if index+1<len(argv):return Path(argv[index+1]).resolve()
+    return Path.cwd().resolve()
+
+def main()->int:
+    root=_ci_project_root(sys.argv[1:])
+    report=root/"reports"/"stage_21_16_2_direct_code_migration_anti_overlay.json"
+    existed=report.is_file();before=report.read_bytes() if existed else None
+    try:return _main_with_report_side_effects()
+    finally:
+        if existed:
+            report.parent.mkdir(parents=True,exist_ok=True);report.write_bytes(before or b"")
+        elif report.exists():report.unlink()
 
 if __name__=="__main__": raise SystemExit(main())

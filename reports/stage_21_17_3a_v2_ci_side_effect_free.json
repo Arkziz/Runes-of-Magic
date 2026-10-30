@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.3a",
+  "patch_revision": 2,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "CANONICAL_V2_CI_SIDE_EFFECT_FREE",
+  "generated_at_utc": "2026-10-30T21:33:21.513205+00:00",
+  "git": {
+    "parent_head": "bd60f7844d173548354c1fb618efbb22a4255795"
+  },
+  "immutable_report": "reports/stage_21_16_2_direct_code_migration_anti_overlay.json",
+  "report_sha256_before": "03d59e715e9e15b3018c095509ba62ae35c056443daea3ae1335ad12419200f2",
+  "report_sha256_after": "03d59e715e9e15b3018c095509ba62ae35c056443daea3ae1335ad12419200f2",
+  "canonical_ci_rc": 0,
+  "production_connection_opened": false,
+  "manual_game_check": "NOT_REQUIRED",
+  "next_stage": "21.17.3b"
+}
