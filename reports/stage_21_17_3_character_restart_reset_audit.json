@@ -1,0 +1,520 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.3",
+  "patch_revision": 1,
+  "status": "PASS",
+  "conclusion": "GO_TO_21_17_3A_RESET_IMPLEMENTATION",
+  "generated_at_utc": "2026-10-30T21:20:28.331452+00:00",
+  "git": {
+    "parent_head": "dde8bca81892b85a26e1990064eea5a917d81175"
+  },
+  "scope": "read_only_character_restart_reset_policy_schema_audit",
+  "production_connection_opened": false,
+  "database_mutation_started": false,
+  "manual_game_check": "NOT_REQUIRED",
+  "findings": {
+    "reset_definitions": [
+      {
+        "path": "rom_v2/application/character_ports.py",
+        "symbol": "delete",
+        "line": 10,
+        "source": "def delete(self,character_id:str)->None:..."
+      },
+      {
+        "path": "rom_v2/application/character_service.py",
+        "symbol": "reset",
+        "line": 31,
+        "source": "def reset(self,command:ResetCharacterCommand)->CharacterCommandResult:\n  with self._unit_of_work_factory() as unit:\n   current=unit.characters.find_by_id(command.character_id)\n   if current is None:return CharacterCommandResult(CharacterResultStatus.NOT_FOUND,\"character_not_found\",None)\n   # V1 DEV reset clears name and class; deleting the V2 character aggregate returns the account to registration.\n   unit.characters.delete(command.character_id);unit.commit()\n  return CharacterCommandResult(CharacterResultStatus.RESET,\"character_reset_requires_registration\",None)"
+      },
+      {
+        "path": "rom_v2/application/guild_core_service.py",
+        "symbol": "delete",
+        "line": 44,
+        "source": "def delete(self,i):self.guilds.pop(i,None)"
+      },
+      {
+        "path": "rom_v2/application/inventory_ports.py",
+        "symbol": "delete_instance",
+        "line": 12,
+        "source": "def delete_instance(self,inventory_id:int)->None: ..."
+      },
+      {
+        "path": "rom_v2/domain/battle_persistence.py",
+        "symbol": "recover_persisted_encounters_after_restart",
+        "line": 120,
+        "source": "def recover_persisted_encounters_after_restart(markers: Iterable[PersistedEncounterMarker], now: datetime) -> tuple[EncounterPersistenceResult, ...]:\n    \"\"\"Apply V1-equivalent stale expiry/cleanup, never exact battle resumption.\"\"\"\n    return tuple(expire_persisted_encounter_once(marker, now) for marker in select_expired_persisted_encounters(markers, now))"
+      },
+      {
+        "path": "rom_v2/domain/dev_data_operations.py",
+        "symbol": "reset",
+        "line": 52,
+        "source": "def reset(self, command: DevDataCommand) -> None: ..."
+      },
+      {
+        "path": "rom_v2/domain/simulator_adapters.py",
+        "symbol": "delete",
+        "line": 139,
+        "source": "def delete(self, key: K) -> None:\n        if not self.transaction_active:\n            raise RuntimeError(\"sandbox_transaction_required\")\n        self._items.pop(key, None)"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/character_repository.py",
+        "symbol": "delete",
+        "line": 21,
+        "source": "def delete(self,character_id:str)->None:\n  changed=self.execute(\"DELETE FROM characters WHERE character_id = ?\",(character_id,));self.require_exact_rowcount(changed)"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "symbol": "delete_instance",
+        "line": 21,
+        "source": "def delete_instance(self,inventory_id:int): self._connection.execute(\"DELETE FROM inventory_items WHERE inventory_id=?\",(inventory_id,))"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrator.py",
+        "symbol": "_delete_v2_database_files",
+        "line": 86,
+        "source": "def _delete_v2_database_files(self) -> None:\n        \"\"\"Delete only V2 DB sidecars; V1 game.db WAL/SHM are outside this ownership boundary.\"\"\"\n        for suffix in (\"\", \"-wal\", \"-shm\", \"-journal\"):\n            candidate = Path(f\"{self._database_path}{suffix}\")\n            candidate.unlink(missing_ok=True)"
+      },
+      {
+        "path": "rom_v2/presentation/account_character_contract.py",
+        "symbol": "present_restart",
+        "line": 62,
+        "source": "def present_restart(account_result:AccountCommandResult,character_result:CharacterCommandResult|None)->AccountCharacterView:\n if account_result.status is AccountResultStatus.REJECTED:return present_account_result(account_result)\n if character_result is None:\n  return AccountCharacterView(AccountCharacterAction.RESUME_CHARACTER,\"registration_required\",\"character_not_registered\",\"character.registration.required\",account_id=account_result.account.account_id if account_result.account else None,state_key=\"character_registration\",retryable=True)\n view=present_character_result(character_result,action=AccountCharacterAction.RESUME_CHARACTER)\n return AccountCharacterView(view.action,view.status,view.reason,view.localization_key,account_id=account_result.account.account_id if account_result.account else None,character_id=view.character_id,state_key=view.state_key,retryable=view.retryable)"
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "symbol": "reset_name",
+        "line": 22,
+        "source": "def reset_name(self) -> None:\n        self.name = None\n        self.step = RegistrationStep.NAME"
+      },
+      {
+        "path": "tests_v2/test_account_character_parity_contract.py",
+        "symbol": "test_stale_reset_target_is_explicit_not_found",
+        "line": 25,
+        "source": "def test_stale_reset_target_is_explicit_not_found(self):\n  view=present_character_result(CharacterCommandResult(CharacterResultStatus.NOT_FOUND,\"character_not_found\",None),action=AccountCharacterAction.RESET_CHARACTER)\n  self.assertEqual((view.action,view.localization_key,view.state_key),(AccountCharacterAction.RESET_CHARACTER,\"character.not_found\",\"character_registration\"));self.assertTrue(view.retryable)"
+      },
+      {
+        "path": "tests_v2/test_account_character_parity_contract.py",
+        "symbol": "test_restart_without_character_returns_registration_state",
+        "line": 28,
+        "source": "def test_restart_without_character_returns_registration_state(self):\n  account=AccountCommandResult(AccountResultStatus.ALREADY_EXISTS,\"telegram_identity_exists\",self.account)\n  view=present_restart(account,None)\n  self.assertEqual((view.action,view.status,view.reason,view.localization_key,view.account_id,view.state_key),(AccountCharacterAction.RESUME_CHARACTER,\"registration_required\",\"character_not_registered\",\"character.registration.required\",\"a\",\"character_registration\"))"
+      },
+      {
+        "path": "tests_v2/test_account_character_parity_contract.py",
+        "symbol": "test_restart_with_character_returns_ready_state",
+        "line": 32,
+        "source": "def test_restart_with_character_returns_ready_state(self):\n  account=AccountCommandResult(AccountResultStatus.ALREADY_EXISTS,\"telegram_identity_exists\",self.account)\n  character=CharacterCommandResult(CharacterResultStatus.ALREADY_EXISTS,\"account_character_exists\",self.character)\n  view=present_restart(account,character)\n  self.assertEqual((view.action,view.character_id,view.state_key),(AccountCharacterAction.RESUME_CHARACTER,\"c\",\"character_ready\"))"
+      },
+      {
+        "path": "tests_v2/test_account_character_persistence.py",
+        "symbol": "test_create_read_repeat_and_restart_are_persistent",
+        "line": 15,
+        "source": "def test_create_read_repeat_and_restart_are_persistent(self):\n  with tempfile.TemporaryDirectory() as d:\n   db,factory=self._clean(d);accounts,characters=self._services(factory);ac,cc=self._commands()\n   self.assertEqual(accounts.register(ac).status,AccountResultStatus.CREATED)\n   self.assertEqual(characters.create(cc).status,CharacterResultStatus.CREATED)\n   self.assertTrue(db.is_file())\n   # Simulate a fresh process composition over the same clean V2 database.\n   restarted_factory=V2ConnectionFactory(db,runtime_root=db.parent)\n   restarted_accounts,restarted_characters=self._services(restarted_factory)\n   replay_account=restarted_accounts.register(ac);replay_character=restarted_characters.create(cc)\n   self.assertEqual((replay_account.status,replay_account.account.account_id),(AccountResultStatus.ALREADY_EXISTS,\"account-1\"))\n   self.assertEqual((replay_character.status,replay_character.character.character_id),(CharacterResultStatus.ALREADY_EXISTS,\"character-1\"))\n   c=restarted_factory.connect_read_only()\n   self.assertEqual(c.execute(\"SELECT COUNT(*) FROM accounts\").fetchone()[0],1)\n   self.assertEqual(c.execute(\"SELECT COUNT(*) FROM crystal_wallets\").fetchone()[0],1)\n   self.assertEqual(c.execute(\"SELECT COUNT(*) FROM characters\").fetchone()[0],1)\n   row=c.execute(\"SELECT account_id,name,class_key,location_key,current_hp,current_mp FROM characters WHERE character_id=?\",(\"character-1\",)).fetchone();c.close()\n   self.assertEqual(tuple(row),(\"account-1\",\"Тест\",\"warrior\",\"start_path\",130,100))"
+      },
+      {
+        "path": "tests_v2/test_admin_crystals.py",
+        "symbol": "test_rollback_restart",
+        "line": 41,
+        "source": "def test_rollback_restart(self):\n  u=U(fail=True)\n  with self.assertRaises(RuntimeError):run(u,c())\n  self.assertEqual(u.wallet.b,40);v=U();run(v,c());r=deepcopy(v);r.begin();self.assertTrue(AdminCrystalAdjustmentService().execute(c(),r).replayed)"
+      },
+      {
+        "path": "tests_v2/test_bag_expansion.py",
+        "symbol": "test_restart_replay_and_reset_survival",
+        "line": 59,
+        "source": "def test_restart_replay_and_reset_survival(self):\n  first_uow=Uow();original=execute(first_uow,first());second_uow=deepcopy(first_uow);second_uow.begin();replay=BagExpansionService().purchase(first(),second_uow);self.assertTrue(replay.replayed);self.assertEqual(replay.receipt,original.receipt);self.assertEqual(second_uow.capacity.c,80)"
+      },
+      {
+        "path": "tests_v2/test_base_equipment_shop.py",
+        "symbol": "test_restart_replay",
+        "line": 65,
+        "source": "def test_restart_replay(self):\n  first=Uow();original=execute(first);second=deepcopy(first);second.begin();replay=BaseEquipmentShopService().confirm(ConfirmPurchase(\"op\",1,1001),second);self.assertTrue(replay.replayed);self.assertEqual(replay.receipt,original.receipt)"
+      },
+      {
+        "path": "tests_v2/test_battle_persistence.py",
+        "symbol": "test_expiry_boundary_and_restart_recovery",
+        "line": 29,
+        "source": "def test_expiry_boundary_and_restart_recovery(self):\n        before = expire_persisted_encounter_once(self.marker, self.t0 + timedelta(minutes=4))\n        self.assertEqual(before.reason, \"not_expired\")\n        recovered = recover_persisted_encounters_after_restart([self.marker], self.t0 + timedelta(minutes=5))\n        self.assertEqual(len(recovered), 1)\n        self.assertEqual(recovered[0].marker.status, PersistedEncounterStatus.EXPIRED)\n        self.assertEqual(recover_persisted_encounters_after_restart([recovered[0].marker], self.t0 + timedelta(minutes=6)), ())"
+      },
+      {
+        "path": "tests_v2/test_character_lifecycle.py",
+        "symbol": "test_reset_removes_character_and_requires_registration",
+        "line": 17,
+        "source": "def test_reset_removes_character_and_requires_registration(self):\n  with tempfile.TemporaryDirectory() as d:\n   f,s=self._service(d);s.create(CreateCharacterCommand(\"c\",\"a\",\"Тест\",\"warrior\",\"start_path\",130,100));result=s.reset(ResetCharacterCommand(\"c\"));self.assertEqual((result.status,result.character),(CharacterResultStatus.RESET,None));c=f.connect_read_only();self.assertEqual(c.execute(\"SELECT COUNT(*) FROM characters\").fetchone()[0],0);self.assertEqual(c.execute(\"SELECT bag_capacity FROM accounts WHERE account_id='a'\").fetchone()[0],60);c.close()"
+      },
+      {
+        "path": "tests_v2/test_crystal_wallet_ledger.py",
+        "symbol": "test_restart_replay",
+        "line": 57,
+        "source": "def test_restart_replay(self):\n  first=Uow();original=self.run_cmd(first,cmd());second=Uow();second.wallet=deepcopy(first.wallet);second.begin();replay=CrystalWalletLedgerService().execute(cmd(),second);self.assertTrue(replay.replayed);self.assertEqual(replay.transaction,original.transaction)"
+      },
+      {
+        "path": "tests_v2/test_daily_reward.py",
+        "symbol": "test_restart_replay",
+        "line": 65,
+        "source": "def test_restart_replay(self):\n  first=Uow();original=execute(first);second=deepcopy(first);second.begin();replay=DailyRewardService().claim(cmd(),second);self.assertTrue(replay.replayed);self.assertEqual(replay.receipt,original.receipt);self.assertEqual(second.inventory.q,5);self.assertEqual(second.tokens.q,7)"
+      },
+      {
+        "path": "tests_v2/test_dev_data_operations.py",
+        "symbol": "reset",
+        "line": 11,
+        "source": "def reset(self,c): self._call(\"reset\",c)"
+      },
+      {
+        "path": "tests_v2/test_dev_data_operations.py",
+        "symbol": "test_give_reset_set_delegate_and_commit",
+        "line": 33,
+        "source": "def test_give_reset_set_delegate_and_commit(self):\n        cases=((DevOperationKind.GIVE,5,\"give\"),(DevOperationKind.RESET,None,\"reset\"),(DevOperationKind.SET,7,\"set\"))\n        for i,(kind,value,name) in enumerate(cases):\n            s,o,r,u=service(); result=s.execute(auth(),DevDataCommand(str(i),kind,2,\"key\",value))\n            self.assertEqual(o.calls[0][0],name); self.assertEqual(r.records,[(str(i),1)]); self.assertEqual(u.commits,1); self.assertFalse(result.replayed)"
+      },
+      {
+        "path": "tests_v2/test_direct_trade.py",
+        "symbol": "test_restart_recovery",
+        "line": 18,
+        "source": "def test_restart_recovery(self):\n  self.u.trades[2]=DirectTrade(2,30,40,\"town\",initiator_ready=True);self.u.locations.update({30:\"town\",40:\"town\"});self.u.expired_ids.add(1);out=self.s.recover();self.assertIn((1,\"expired\"),out);self.assertIn((2,\"preserved\"),out);self.assertFalse(self.u.trade(2).initiator_ready)"
+      },
+      {
+        "path": "tests_v2/test_gold_wallet.py",
+        "symbol": "test_restart_replay_uses_persisted_operation",
+        "line": 82,
+        "source": "def test_restart_replay_uses_persisted_operation(self):\n        first=MemoryUnitOfWork(); original=self.execute(first,command())\n        restarted=MemoryUnitOfWork(); restarted.wallet.balances=deepcopy(first.wallet.balances); restarted.wallet.operations=deepcopy(first.wallet.operations); restarted.begin()\n        replay=GoldWalletService().execute(command(),restarted)\n        self.assertTrue(replay.replayed); self.assertEqual(replay.operation,original.operation); self.assertEqual(restarted.commits,0)"
+      },
+      {
+        "path": "tests_v2/test_location_catalog.py",
+        "symbol": "test_immutable_and_restart_stable",
+        "line": 16,
+        "source": "def test_immutable_and_restart_stable(self):\n        with self.assertRaises(TypeError): LOCATIONS[\"x\"]=require_location(\"start_path\")  # type: ignore[index]\n        with self.assertRaises(FrozenInstanceError): require_location(\"start_path\").name=\"x\"  # type: ignore[misc]\n        def snapshot(module):\n            return (\n                module.LOCATION_ORDER,\n                tuple((key, location.location_id, location.name, location.description,\n                       location.level_min, location.level_max, location.unlock_level,\n                       location.boss_name, location.mob_names)\n                      for key, location in module.LOCATIONS.items()),\n            )\n        module=importlib.import_module(\"rom_v2.content.location_catalog\")\n        before=snapshot(module)\n        module=importlib.reload(module)\n        after=snapshot(module)\n        self.assertEqual(before,after)"
+      },
+      {
+        "path": "tests_v2/test_potion_trading.py",
+        "symbol": "test_restart_replay",
+        "line": 62,
+        "source": "def test_restart_replay(self):\n  first=Uow();original=execute(first,cmd());second=deepcopy(first);second.begin();replay=PotionTradingService().execute(cmd(),second);self.assertTrue(replay.replayed);self.assertEqual(replay.receipt,original.receipt)"
+      },
+      {
+        "path": "tests_v2/test_premium_shop.py",
+        "symbol": "test_restart_replay",
+        "line": 59,
+        "source": "def test_restart_replay(self):\n  first=Uow();original=execute(first,cmd());second=deepcopy(first);second.begin();replay=PremiumShopService().purchase(cmd(),second);self.assertTrue(replay.replayed);self.assertEqual(replay.receipt,original.receipt);self.assertEqual(second.account.expiry,NOW+timedelta(days=15))"
+      },
+      {
+        "path": "tests_v2/test_rune_lifecycle.py",
+        "symbol": "test_atomic_insert_extract_and_restart_shape",
+        "line": 31,
+        "source": "def test_atomic_insert_extract_and_restart_shape(self):\n        inserted=self.s.insert(user_id=1,equipment_inventory_id=10,slot_index=0,rune=self.r,character_class=\"warrior\")\n        self.assertTrue(inserted.success); self.assertEqual(1,len(self.s.contributions(self.g.equipment)))\n        persisted=copy.deepcopy(self.g.equipment)\n        self.assertEqual(101,persisted.sockets[0].rune.item_id)\n        extracted=self.s.extract(user_id=1,equipment_inventory_id=10,slot_index=0,extractor_item_id=201,gold_cost=7)\n        self.assertTrue(extracted.success); self.assertEqual(43,self.g.balance); self.assertEqual(1,self.g.runes[101])"
+      },
+      {
+        "path": "tests_v2/test_world_graph.py",
+        "symbol": "test_immutable_and_restart_stable",
+        "line": 29,
+        "source": "def test_immutable_and_restart_stable(self):\n        with self.assertRaises(TypeError):\n            WORLD_NODES[\"x\"] = get_world_node(\"city\")  # type: ignore[index]\n        with self.assertRaises(FrozenInstanceError):\n            WORLD_NODES[\"city\"].name = \"x\"  # type: ignore[misc]\n        def snapshot(module):\n            return (\n                module.WORLD_NODE_ORDER,\n                tuple((key, node.node_id, node.name, node.kind, node.huntable)\n                      for key, node in module.WORLD_NODES.items()),\n                tuple(module.LOCATION_GRAPH.items()),\n                module.TRAVEL_SECONDS,\n                module.TRANSPORT_REQUIREMENTS,\n            )\n        module = importlib.import_module(\"rom_v2.content.world_graph\")\n        before = snapshot(module)\n        module = importlib.reload(module)\n        self.assertEqual(before, snapshot(module))"
+      }
+    ],
+    "delete_calls": [
+      {
+        "path": "rom_v2/application/character_service.py",
+        "call": "unit.characters.delete",
+        "line": 36
+      },
+      {
+        "path": "rom_v2/application/guild_core_service.py",
+        "call": "self.uow.delete",
+        "line": 30
+      },
+      {
+        "path": "rom_v2/application/inventory_service.py",
+        "call": "uow.inventory.delete_instance",
+        "line": 54
+      },
+      {
+        "path": "rom_v2/application/inventory_service.py",
+        "call": "uow.inventory.delete_instance",
+        "line": 72
+      },
+      {
+        "path": "rom_v2/domain/dev_data_operations.py",
+        "call": "self._operations.reset",
+        "line": 79
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "call": "\"\\nCREATE TABLE accounts (\\n    account_id TEXT PRIMARY KEY NOT NULL CHECK (length(account_id) > 0),\\n    telegram_user_id INTEGER NOT NULL UNIQUE CHECK (telegram_user_id > 0),\\n    status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active','blocked','closed')),\\n    registered_at_utc TEXT NOT NULL CHECK (length(registered_at_utc) > 0),\\n    bag_capacity INTEGER NOT NULL DEFAULT 60 CHECK (bag_capacity BETWEEN 1 AND 1000),\\n    version INTEGER NOT NULL DEFAULT 0 CHECK (version >= 0)\\n) STRICT;\\n\\nCREATE TABLE characters (\\n    character_id TEXT PRIMARY KEY NOT NULL CHECK (length(character_id) > 0),\\n    account_id TEXT NOT NULL UNIQUE,\\n    name TEXT NOT NULL UNIQUE CHECK (length(trim(name)) BETWEEN 1 AND 64),\\n    class_key TEXT NOT NULL CHECK (length(class_key) > 0),\\n    level INTEGER NOT NULL DEFAULT 1 CHECK (level >= 1),\\n    experience INTEGER NOT NULL DEFAULT 0 CHECK (experience >= 0),\\n    location_key TEXT NOT NULL CHECK (length(location_key) > 0),\\n    current_hp INTEGER NOT NULL CHECK (current_hp >= 0),\\n    current_mp INTEGER CHECK (current_mp IS NULL OR current_mp >= 0),\\n    version INTEGER NOT NULL DEFAULT 0 CHECK (version >= 0),\\n    FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE character_primary_stats (\\n    character_id TEXT PRIMARY KEY NOT NULL,\\n    strength INTEGER NOT NULL CHECK (strength >= 0),\\n    dexterity INTEGER NOT NULL CHECK (dexterity >= 0),\\n    intelligence INTEGER NOT NULL CHECK (intelligence >= 0),\\n    wisdom INTEGER NOT NULL CHECK (wisdom >= 0),\\n    stamina INTEGER NOT NULL CHECK (stamina >= 0),\\n    unspent_points INTEGER NOT NULL DEFAULT 0 CHECK (unspent_points >= 0),\\n    FOREIGN KEY (character_id) REFERENCES characters(character_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE gold_wallets (\\n    character_id TEXT PRIMARY KEY NOT NULL,\\n    balance_minor INTEGER NOT NULL DEFAULT 0 CHECK (balance_minor >= 0),\\n    version INTEGER NOT NULL DEFAULT 0 CHECK (version >= 0),\\n    FOREIGN KEY (character_id) REFERENCES characters(character_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE crystal_wallets (\\n    account_id TEXT PRIMARY KEY NOT NULL,\\n    balance INTEGER NOT NULL DEFAULT 0 CHECK (balance >= 0),\\n    version INTEGER NOT NULL DEFAULT 0 CHECK (version >= 0),\\n    FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE operation_records (\\n    operation_id TEXT PRIMARY KEY NOT NULL,\\n    operation_key TEXT NOT NULL CHECK (length(operation_key) > 0),\\n    aggregate_type TEXT NOT NULL CHECK (length(aggregate_type) > 0),\\n    aggregate_id TEXT NOT NULL CHECK (length(aggregate_id) > 0),\\n    status_key TEXT NOT NULL CHECK (status_key IN ('in_progress','completed','failed')),\\n    result_fingerprint TEXT,\\n    created_at_utc TEXT NOT NULL,\\n    completed_at_utc TEXT,\\n    CHECK ((status_key = 'completed' AND completed_at_utc IS NOT NULL) OR (status_key <> 'completed' AND completed_at_utc IS NULL))\\n) STRICT;\\n\\nCREATE TABLE crystal_ledger (\\n    entry_id TEXT PRIMARY KEY NOT NULL,\\n    account_id TEXT NOT NULL,\\n    operation_id TEXT NOT NULL UNIQUE,\\n    amount INTEGER NOT NULL CHECK (amount <> 0),\\n    reason_key TEXT NOT NULL CHECK (length(reason_key) > 0),\\n    created_at_utc TEXT NOT NULL,\\n    FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE RESTRICT ON UPDATE CASCADE,\\n    FOREIGN KEY (operation_id) REFERENCES operation_records(operation_id) ON DELETE RESTRICT ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE item_instances (\\n    item_instance_id TEXT PRIMARY KEY NOT NULL,\\n    definition_key TEXT NOT NULL CHECK (length(definition_key) > 0),\\n    owner_character_id TEXT NOT NULL,\\n    quantity INTEGER NOT NULL DEFAULT 1 CHECK (quantity > 0),\\n    durability INTEGER CHECK (durability IS NULL OR durability BETWEEN 0 AND 100),\\n    enhancement_level INTEGER NOT NULL DEFAULT 0 CHECK (enhancement_level >= 0),\\n    binding_key TEXT NOT NULL DEFAULT 'unbound' CHECK (length(binding_key) > 0),\\n    version INTEGER NOT NULL DEFAULT 0 CHECK (version >= 0),\\n    FOREIGN KEY (owner_character_id) REFERENCES characters(character_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE equipment_slots (\\n    character_id TEXT NOT NULL,\\n    slot_key TEXT NOT NULL CHECK (length(slot_key) > 0),\\n    item_instance_id TEXT NOT NULL UNIQUE,\\n    PRIMARY KEY (character_id, slot_key),\\n    FOREIGN KEY (character_id) REFERENCES characters(character_id) ON DELETE CASCADE ON UPDATE CASCADE,\\n    FOREIGN KEY (item_instance_id) REFERENCES item_instances(item_instance_id) ON DELETE RESTRICT ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE item_reservations (\\n    reservation_id TEXT PRIMARY KEY NOT NULL,\\n    item_instance_id TEXT NOT NULL,\\n    operation_id TEXT NOT NULL,\\n    purpose_key TEXT NOT NULL CHECK (length(purpose_key) > 0),\\n    quantity INTEGER NOT NULL CHECK (quantity > 0),\\n    expires_at_utc TEXT,\\n    UNIQUE (operation_id, item_instance_id),\\n    FOREIGN KEY (item_instance_id) REFERENCES item_instances(item_instance_id) ON DELETE CASCADE ON UPDATE CASCADE,\\n    FOREIGN KEY (operation_id) REFERENCES operation_records(operation_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE quest_progress (\\n    character_id TEXT NOT NULL,\\n    quest_key TEXT NOT NULL CHECK (length(quest_key) > 0),\\n    state_key TEXT NOT NULL CHECK (state_key IN ('active','completed','failed','skipped')),\\n    progress_json TEXT NOT NULL DEFAULT '{}' CHECK (json_valid(progress_json)),\\n    completed_at_utc TEXT,\\n    version INTEGER NOT NULL DEFAULT 0 CHECK (version >= 0),\\n    PRIMARY KEY (character_id, quest_key),\\n    CHECK ((state_key = 'completed' AND completed_at_utc IS NOT NULL) OR (state_key <> 'completed' AND completed_at_utc IS NULL)),\\n    FOREIGN KEY (character_id) REFERENCES characters(character_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE quest_item_balances (\\n    character_id TEXT NOT NULL,\\n    item_key TEXT NOT NULL CHECK (length(item_key) > 0),\\n    quantity INTEGER NOT NULL DEFAULT 0 CHECK (quantity >= 0),\\n    PRIMARY KEY (character_id, item_key),\\n    FOREIGN KEY (character_id) REFERENCES characters(character_id) ON DELETE CASCADE ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE domain_events (\\n    event_id TEXT PRIMARY KEY NOT NULL,\\n    event_key TEXT NOT NULL CHECK (length(event_key) > 0),\\n    aggregate_type TEXT NOT NULL CHECK (length(aggregate_type) > 0),\\n    aggregate_id TEXT NOT NULL CHECK (length(aggregate_id) > 0),\\n    aggregate_version INTEGER NOT NULL CHECK (aggregate_version >= 0),\\n    sequence INTEGER NOT NULL CHECK (sequence >= 0),\\n    occurred_at_utc TEXT NOT NULL,\\n    payload_json TEXT NOT NULL CHECK (json_valid(payload_json)),\\n    correlation_id TEXT NOT NULL,\\n    causation_id TEXT,\\n    schema_version INTEGER NOT NULL DEFAULT 1 CHECK (schema_version >= 1),\\n    UNIQUE (aggregate_type, aggregate_id, aggregate_version, sequence)\\n) STRICT;\\n\\nCREATE TABLE outbox_messages (\\n    message_id TEXT PRIMARY KEY NOT NULL,\\n    event_id TEXT NOT NULL,\\n    topic_key TEXT NOT NULL CHECK (length(topic_key) > 0),\\n    payload_json TEXT NOT NULL CHECK (json_valid(payload_json)),\\n    created_at_utc TEXT NOT NULL,\\n    published_at_utc TEXT,\\n    attempt_count INTEGER NOT NULL DEFAULT 0 CHECK (attempt_count >= 0),\\n    UNIQUE (event_id, topic_key),\\n    FOREIGN KEY (event_id) REFERENCES domain_events(event_id) ON DELETE RESTRICT ON UPDATE CASCADE\\n) STRICT;\\n\\nCREATE TABLE schema_migrations (\\n    version INTEGER PRIMARY KEY NOT NULL CHECK (version >= 1),\\n    migration_key TEXT NOT NULL UNIQUE CHECK (length(migration_key) > 0),\\n    applied_at_utc TEXT NOT NULL,\\n    checksum TEXT NOT NULL CHECK (length(checksum) = 64)\\n) STRICT;\\n\\nCREATE INDEX idx_characters_location ON characters(location_key);\\nCREATE INDEX idx_items_owner_definition ON item_instances(owner_character_id, definition_key);\\nCREATE INDEX idx_quests_character_state ON quest_progress(character_id, state_key);\\nCREATE INDEX idx_events_stream ON domain_events(aggregate_type, aggregate_id, aggregate_version);\\nCREATE INDEX idx_outbox_pending ON outbox_messages(published_at_utc, created_at_utc);\\nCREATE INDEX idx_operations_aggregate ON operation_records(aggregate_type, aggregate_id);\\nCREATE INDEX idx_reservations_expiry ON item_reservations(expires_at_utc);\\n\".strip",
+        "line": 22
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrator.py",
+        "call": "self._delete_v2_database_files",
+        "line": 33
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "call": "s.reset_name",
+        "line": 48
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "call": "s.reset_name",
+        "line": 59
+      },
+      {
+        "path": "tests_v2/test_account_character_parity_contract.py",
+        "call": "present_restart",
+        "line": 30
+      },
+      {
+        "path": "tests_v2/test_account_character_parity_contract.py",
+        "call": "present_restart",
+        "line": 35
+      },
+      {
+        "path": "tests_v2/test_account_character_persistence.py",
+        "call": "restarted_accounts.register",
+        "line": 24
+      },
+      {
+        "path": "tests_v2/test_account_character_persistence.py",
+        "call": "restarted_characters.create",
+        "line": 24
+      },
+      {
+        "path": "tests_v2/test_account_character_persistence.py",
+        "call": "restarted_factory.connect_read_only",
+        "line": 27
+      },
+      {
+        "path": "tests_v2/test_battle_persistence.py",
+        "call": "recover_persisted_encounters_after_restart",
+        "line": 32
+      },
+      {
+        "path": "tests_v2/test_battle_persistence.py",
+        "call": "recover_persisted_encounters_after_restart",
+        "line": 35
+      },
+      {
+        "path": "tests_v2/test_character_lifecycle.py",
+        "call": "s.reset",
+        "line": 19
+      },
+      {
+        "path": "tests_v2/test_character_lifecycle.py",
+        "call": "ResetCharacterCommand",
+        "line": 19
+      },
+      {
+        "path": "tests_v2/test_gold_wallet.py",
+        "call": "restarted.begin",
+        "line": 84
+      }
+    ],
+    "foreign_keys": [
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "line": 54,
+        "sql": "FOREIGN KEY (character_id)"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "line": 61,
+        "sql": "FOREIGN KEY (character_id)"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "line": 103,
+        "sql": "FOREIGN KEY (owner_character_id)"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "line": 111,
+        "sql": "FOREIGN KEY (character_id)"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "line": 136,
+        "sql": "FOREIGN KEY (character_id)"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "line": 144,
+        "sql": "FOREIGN KEY (character_id)"
+      }
+    ],
+    "tables": [
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "accounts",
+        "line": 23
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "characters",
+        "line": 32
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "character_primary_stats",
+        "line": 46
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "gold_wallets",
+        "line": 57
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "crystal_wallets",
+        "line": 64
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "operation_records",
+        "line": 71
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "crystal_ledger",
+        "line": 83
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "item_instances",
+        "line": 94
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "equipment_slots",
+        "line": 106
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "item_reservations",
+        "line": 115
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "quest_progress",
+        "line": 127
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "quest_item_balances",
+        "line": 139
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "domain_events",
+        "line": 147
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "outbox_messages",
+        "line": 162
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "table": "schema_migrations",
+        "line": 174
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v003_item_identity_parity.py",
+        "table": "item_definitions",
+        "line": 6
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v003_item_identity_parity.py",
+        "table": "inventory_items",
+        "line": 12
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v004_equipment_slots_parity.py",
+        "table": "equipment_slots",
+        "line": 7
+      }
+    ],
+    "character_reference_files": [
+      {
+        "path": "rom_v2/application/character_ports.py",
+        "character_id_references": 2
+      },
+      {
+        "path": "rom_v2/application/character_service.py",
+        "character_id_references": 7
+      },
+      {
+        "path": "rom_v2/application/primary_stat_ports.py",
+        "character_id_references": 3
+      },
+      {
+        "path": "rom_v2/application/primary_stat_service.py",
+        "character_id_references": 9
+      },
+      {
+        "path": "rom_v2/application/profile_query_service.py",
+        "character_id_references": 2
+      },
+      {
+        "path": "rom_v2/application/resource_ports.py",
+        "character_id_references": 2
+      },
+      {
+        "path": "rom_v2/application/resource_service.py",
+        "character_id_references": 16
+      },
+      {
+        "path": "rom_v2/domain/character.py",
+        "character_id_references": 3
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/character_repository.py",
+        "character_id_references": 10
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "character_id_references": 25
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/primary_stat_repository.py",
+        "character_id_references": 9
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/resource_repository.py",
+        "character_id_references": 6
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/schema_contract.py",
+        "character_id_references": 28
+      },
+      {
+        "path": "rom_v2/presentation/account_character_contract.py",
+        "character_id_references": 8
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "character_id_references": 2
+      },
+      {
+        "path": "tests_v2/test_account_character_parity_contract.py",
+        "character_id_references": 4
+      },
+      {
+        "path": "tests_v2/test_account_character_persistence.py",
+        "character_id_references": 3
+      },
+      {
+        "path": "tests_v2/test_v2_profile_query_runtime.py",
+        "character_id_references": 1
+      }
+    ],
+    "required_policy": [
+      "Reset deletes the character aggregate only; the account remains active.",
+      "Reset requires an explicit confirmation callback and cancel performs no mutation.",
+      "A second/stale confirmation fails closed and must not delete the account.",
+      "After committed reset, /start opens the registration wizard.",
+      "Re-registration reuses the existing account and creates exactly one character.",
+      "All character-owned dependent rows must be deleted by verified repository/UoW behavior or explicit same-transaction cleanup."
+    ],
+    "risks": [
+      "Current CharacterService.reset deletes the aggregate; Telegram confirmation/runtime wiring is not yet accepted."
+    ],
+    "decision": "Proceed to implementation refinement 21.17.3a only with confirmation/cancel routing, account preservation, same-transaction dependent cleanup, temporary SQLite cardinality tests, and manual Telegram acceptance."
+  },
+  "next_stage": "21.17.3a",
+  "suggested_next_patch": "patch_21_17_3a_implement_character_reset_confirmation.py"
+}
