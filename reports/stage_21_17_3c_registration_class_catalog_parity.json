@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.3c",
+  "patch_revision": 1,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "REGISTRATION_CLASS_LABEL_DUPLICATION_REMOVED",
+  "generated_at_utc": "2026-10-30T22:15:40.408824+00:00",
+  "git": {
+    "parent_head": "5579a44ad6ea3b453da8b9cb255c42a8751bd1a8"
+  },
+  "canonical_owner": "rom_v2/domain/class_catalog.py::DEFAULT_CLASS_CATALOG",
+  "removed_owner": "rom_v2/presentation/registration_flow.py::CLASS_LABELS",
+  "head_wide_parallel_catalogs_before": [
+    {
+      "path": "rom_v2/presentation/registration_flow.py",
+      "line": 10
+    }
+  ],
+  "head_wide_parallel_catalogs_after": [],
+  "class_keys_changed": false,
+  "database_migration_required": false,
+  "production_connection_opened": false,
+  "manual_game_check": "RECOMMENDED",
+  "acceptance_focus": "registration buttons and creation result use canonical emoji display names"
+}

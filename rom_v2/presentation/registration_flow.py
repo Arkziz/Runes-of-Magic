@@ -5,9 +5,9 @@ from enum import StrEnum
 from uuid import uuid5, NAMESPACE_URL
 from rom_v2.application.account_service import AccountService, RegisterAccountCommand
 from rom_v2.application.character_service import CharacterResultStatus, CharacterService, CreateCharacterCommand
+from rom_v2.domain.class_catalog import DEFAULT_CLASS_CATALOG
 from rom_v2.presentation.development_shell import ShellView
 
-CLASS_LABELS = {"warrior":"Воїн","knight":"Лицар","scout":"Розвідник","rogue":"Розбійник","mage":"Маг","priest":"Жрець"}
 class RegistrationStep(StrEnum): NAME="name"; CLASS="class"
 @dataclass(slots=True)
 class RegistrationSession:
@@ -36,7 +36,7 @@ class TelegramRegistrationFlow:
         name = str(text or "").strip()
         if not name: return ShellView("Ім’я не може бути порожнім.",{"inline_keyboard":[]})
         s.accept_name(name)
-        buttons=[[{"text":label,"callback_data":f"v2:register:class:{key}"}] for key,label in CLASS_LABELS.items()]
+        buttons=[[{"text":item.display_name,"callback_data":f"v2:register:class:{item.key}"}] for item in DEFAULT_CLASS_CATALOG.all()]
         buttons.append([{"text":"Назад","callback_data":"v2:register:back"},{"text":"Скасувати","callback_data":"v2:register:cancel"}])
         return ShellView("Оберіть клас персонажа.",{"inline_keyboard":buttons})
     def callback(self,user_id:int,data:str)->ShellView|None:
@@ -50,7 +50,8 @@ class TelegramRegistrationFlow:
         prefix="v2:register:class:"
         if not data.startswith(prefix): return None
         key=data[len(prefix):]
-        if key not in CLASS_LABELS: return ShellView("Невідомий клас. Оберіть клас зі списку.",{"inline_keyboard":[]})
+        definition=DEFAULT_CLASS_CATALOG.find(key)
+        if definition is None: return ShellView("Невідомий клас. Оберіть клас зі списку.",{"inline_keyboard":[]})
         result=self._characters.create(CreateCharacterCommand(self._character_id(user_id),s.account_id,s.name or "",key,"start_path",130,100))
         if result.status is CharacterResultStatus.ALREADY_EXISTS and result.character is not None:
             self._sessions.pop(user_id,None)
@@ -59,4 +60,4 @@ class TelegramRegistrationFlow:
             s.reset_name()
             return ShellView(f"Не вдалося створити персонажа ({result.reason}). Введіть ім’я ще раз.",{"inline_keyboard":[]})
         self._sessions.pop(user_id,None)
-        return ShellView(f"Персонажа створено: {result.character.name}\nКлас: {CLASS_LABELS[result.character.class_key]}",{"inline_keyboard":[[{"text":"До меню","callback_data":"v2:shell:start"}]]})
+        return ShellView(f"Персонажа створено: {result.character.name}\nКлас: {DEFAULT_CLASS_CATALOG.require(result.character.class_key).display_name}",{"inline_keyboard":[[{"text":"До меню","callback_data":"v2:shell:start"}]]})
