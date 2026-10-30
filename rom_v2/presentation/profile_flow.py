@@ -6,6 +6,8 @@ from rom_v2.presentation.development_shell import ShellView
 from rom_v2.presentation.profile_presenter import ProfileSummaryView,present_summary
 class TelegramProfileFlow:
  def __init__(self,query:ProfileQueryService)->None:self._query=query
+ def has_profile(self,user_id:int)->bool:
+  return self._query.by_telegram_user_id(user_id) is not None
  def open(self,user_id:int)->ShellView:
   record=self._query.by_telegram_user_id(user_id)
   if record is None:return ShellView("Профіль ще недоступний. Спочатку створіть персонажа через /start.",{"inline_keyboard":[[{"text":"Назад","callback_data":"v2:shell:start"}]]})

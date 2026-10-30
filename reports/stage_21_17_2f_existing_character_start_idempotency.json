@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "stage": "21.17.2f",
+  "patch_revision": 2,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "EXISTING_CHARACTER_START_IDEMPOTENT",
+  "generated_at_utc": "2026-10-30T21:11:05.130768+00:00",
+  "git": {
+    "parent_head": "e549fb9abf4dc3a0f6329a166713e9c01967c5dd"
+  },
+  "policy": {
+    "existing_character_start": "route_to_menu",
+    "missing_character_start": "open_registration",
+    "already_exists_message": "existing_character_not_created"
+  },
+  "database_cardinality_changed_by_patch": false,
+  "v1_imported": false,
+  "production_connection_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next_stage_after_manual_pass": "21.17.3"
+}

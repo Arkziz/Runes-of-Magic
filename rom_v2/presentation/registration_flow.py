@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from uuid import uuid5, NAMESPACE_URL
 from rom_v2.application.account_service import AccountService, RegisterAccountCommand
-from rom_v2.application.character_service import CharacterService, CreateCharacterCommand
+from rom_v2.application.character_service import CharacterResultStatus, CharacterService, CreateCharacterCommand
 from rom_v2.presentation.development_shell import ShellView
 
 CLASS_LABELS = {"warrior":"Воїн","knight":"Лицар","scout":"Розвідник","rogue":"Розбійник","mage":"Маг","priest":"Жрець"}
@@ -52,6 +52,9 @@ class TelegramRegistrationFlow:
         key=data[len(prefix):]
         if key not in CLASS_LABELS: return ShellView("Невідомий клас. Оберіть клас зі списку.",{"inline_keyboard":[]})
         result=self._characters.create(CreateCharacterCommand(self._character_id(user_id),s.account_id,s.name or "",key,"start_path",130,100))
+        if result.status is CharacterResultStatus.ALREADY_EXISTS and result.character is not None:
+            self._sessions.pop(user_id,None)
+            return ShellView(f"Персонаж уже існує: {result.character.name}",{"inline_keyboard":[[{"text":"До меню","callback_data":"v2:shell:start"}]]})
         if result.character is None:
             s.reset_name()
             return ShellView(f"Не вдалося створити персонажа ({result.reason}). Введіть ім’я ще раз.",{"inline_keyboard":[]})

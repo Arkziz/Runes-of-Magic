@@ -65,8 +65,13 @@ class IndependentDevelopmentBot:
             if not user_id or not chat_id or not self._authorized(user_id):
                 return
             text = str(message.get("text", "") or "").strip()
-            if text.startswith("/start") and self._registration_flow is not None:
-                self._send_view(chat_id, self._registration_flow.start(user_id))
+            if text.startswith("/start"):
+                if self._profile_flow is not None and self._profile_flow.has_profile(user_id):
+                    self._send_view(chat_id, route_shell_action("/start"))
+                elif self._registration_flow is not None:
+                    self._send_view(chat_id, self._registration_flow.start(user_id))
+                else:
+                    self._send_view(chat_id, route_shell_action("/start"))
             elif self._registration_flow is not None:
                 view = self._registration_flow.message(user_id, text)
                 if view is not None:
