@@ -69,6 +69,13 @@ class IndependentDevelopmentBot:
             if not user_id or not chat_id or not self._authorized(user_id):
                 return
             text = str(message.get("text", "") or "").strip()
+            if text == "/start":
+                self._api.send_message(chat_id, "Меню V2", reply_markup={"keyboard": [[{"text": "🎒 Інвентар"}]], "resize_keyboard": True, "is_persistent": True})
+            if text == "🎒 Інвентар" and self._inventory_flow is not None:
+                view = self._inventory_flow.callback(user_id, "v2:inventory:open")
+                if view is not None: self._send_view(chat_id, view)
+                return
+
             if text.startswith("/start"):
                 if self._profile_flow is not None and self._profile_flow.has_profile(user_id):
                     self._send_view(chat_id, route_shell_action("/start"))

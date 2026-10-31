@@ -35,7 +35,7 @@ class IndependentDevelopmentBotShellTests(unittest.TestCase):
         bot.handle_update({"message": {"from": {"id": 11}, "chat": {"id": 11}, "text": "/start"}})
         self.assertEqual(api.sent, [])
         bot.handle_update({"message": {"from": {"id": 10}, "chat": {"id": 10}, "text": "/start"}})
-        self.assertEqual(len(api.sent), 1)
+        self.assertEqual(len(api.sent), 2)
 
 
 if __name__ == "__main__":

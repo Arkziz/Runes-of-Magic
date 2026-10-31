@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1b-menu-entry",
+  "patch_revision": 7,
+  "status": "PASS_AUTOMATED_PENDING_MANUAL",
+  "conclusion": "PERSISTENT_INVENTORY_MENU_ENTRY_ADDED",
+  "generated_at_utc": "2026-10-31T21:10:15.672480+00:00",
+  "git": {
+    "parent_head": "2a66debdda2d9a32a06216f5a31acc9fa9ea4d09"
+  },
+  "inline_menu_owner": "rom_v2/presentation/development_shell.py",
+  "persistent_keyboard_owner": "rom_v2/app/development_bot.py",
+  "dispatch_owner": "rom_v2/app/development_bot.py",
+  "button": {
+    "text": "🎒 Інвентар",
+    "type": "persistent_reply_keyboard_installed_by_first_start_message_then_canonical_inline_menu",
+    "is_persistent": true,
+    "routes_to": "v2:inventory:open"
+  },
+  "v1_reference": {
+    "source": "user-supplied result.json and screenshot",
+    "adopted": "persistent reply-keyboard access",
+    "not_copied": "V1 callback namespace and V1 inventory categories"
+  },
+  "production_database_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next": "repeat 21.18.1b Telegram acceptance from /start"
+}

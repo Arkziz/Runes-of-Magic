@@ -12,8 +12,8 @@ class ExistingStartAcceptanceTest(unittest.TestCase):
  def test_existing_character_start_routes_to_menu_without_registration(self):
   profile=SimpleNamespace(has_profile=Mock(return_value=True));registration=SimpleNamespace(start=Mock())
   bot,api=self.bot(profile,registration);bot.handle_update(self.update())
-  registration.start.assert_not_called();profile.has_profile.assert_called_once_with(42);self.assertEqual(api.send_message.call_count,1)
-  markup=api.send_message.call_args.kwargs["reply_markup"];callbacks=[b["callback_data"] for row in markup["inline_keyboard"] for b in row];self.assertIn("v2:profile:root",callbacks)
+  registration.start.assert_not_called();profile.has_profile.assert_called_once_with(42);self.assertEqual(api.send_message.call_count,2)
+  markup=api.send_message.call_args_list[-1].kwargs["reply_markup"];callbacks=[b["callback_data"] for row in markup["inline_keyboard"] for b in row];self.assertIn("v2:profile:root",callbacks)
  def test_missing_character_start_opens_registration(self):
   profile=SimpleNamespace(has_profile=Mock(return_value=False));view=SimpleNamespace(text="register",reply_markup={});registration=SimpleNamespace(start=Mock(return_value=view))
   bot,api=self.bot(profile,registration);bot.handle_update(self.update());registration.start.assert_called_once_with(42);self.assertEqual(api.send_message.call_args.args[1],"register")
