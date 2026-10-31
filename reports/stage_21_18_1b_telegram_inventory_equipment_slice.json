@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1b",
+  "patch_revision": 4,
+  "status": "PASS_AUTOMATED_PENDING_MANUAL",
+  "conclusion": "TELEGRAM_INVENTORY_EQUIPMENT_SLICE_IMPLEMENTED",
+  "generated_at_utc": "2026-10-31T20:48:01.961703+00:00",
+  "git": {
+    "parent_head": "95edb75ee5345ef8a645e53de9aca7f9b0721c1b"
+  },
+  "callbacks": [
+    "v2:inventory:open",
+    "v2:inventory:page:<page>",
+    "v2:inventory:sort:<key>",
+    "v2:inventory:item:<inventory_id>",
+    "v2:equipment:open",
+    "v2:equipment:equip:<inventory_id>",
+    "v2:equipment:unequip:<slot_key>"
+  ],
+  "owners": {
+    "presentation": "rom_v2/presentation/inventory_flow.py",
+    "inventory_service": "rom_v2/application/inventory_service.py",
+    "equipment_service": "rom_v2/application/equipment_service.py",
+    "profile_query": "rom_v2/application/profile_query_service.py"
+  },
+  "duplicate_public_owners": 0,
+  "sql_in_presentation": false,
+  "production_database_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next": "manual Telegram acceptance then 21.18.1b closure"
+}

@@ -4,6 +4,11 @@ import os
 from pathlib import Path
 from rom_v2.app.development_bot import DevelopmentBotConfig,IndependentDevelopmentBot
 from rom_v2.application.account_service import AccountService
+from rom_v2.application.inventory_service import InventoryService
+from rom_v2.application.equipment_service import EquipmentService
+from rom_v2.infrastructure.persistence.inventory_unit_of_work import SQLiteInventoryUnitOfWorkFactory
+from rom_v2.infrastructure.persistence.equipment_unit_of_work import SQLiteEquipmentUnitOfWorkFactory
+from rom_v2.presentation.inventory_flow import TelegramInventoryEquipmentFlow
 from rom_v2.application.character_service import CharacterService
 from rom_v2.application.profile_query_service import ProfileQueryService
 from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory,SQLiteCharacterUnitOfWorkFactory,V2ConnectionFactory,V2Migrator
@@ -39,8 +44,9 @@ def build_runtime(root:Path|None=None)->IndependentDevelopmentBot:
  flow=TelegramRegistrationFlow(account_service,character_service)
  profile_flow=TelegramProfileFlow(profile_query)
  reset_flow=TelegramCharacterResetFlow(profile_query,character_service)
+ inventory_flow=TelegramInventoryEquipmentFlow(InventoryService(SQLiteInventoryUnitOfWorkFactory(factory)),EquipmentService(SQLiteEquipmentUnitOfWorkFactory(factory)),profile_query)
  config=DevelopmentBotConfig(token=token,allowed_user_ids=allowed,poll_timeout_seconds=20,transport_retry_seconds=2.0)
- return IndependentDevelopmentBot(config,api=TelegramBotApi(token,timeout_seconds=35.0),registration_flow=flow,profile_flow=profile_flow,reset_flow=reset_flow)
+ return IndependentDevelopmentBot(config,api=TelegramBotApi(token,timeout_seconds=35.0),registration_flow=flow,profile_flow=profile_flow,reset_flow=reset_flow,inventory_flow=inventory_flow)
 
 def main()->int:
  bot=build_runtime();print("ROM V2 bot started. Press Ctrl+C to stop.")

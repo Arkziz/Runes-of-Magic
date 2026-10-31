@@ -10,6 +10,7 @@ from typing import Iterable, Mapping
 from rom_v2.infrastructure.telegram.bot_api import TelegramBotApi, TelegramTransportError
 from rom_v2.presentation.development_shell import ShellView, route_shell_action
 from rom_v2.presentation.registration_flow import TelegramRegistrationFlow
+from rom_v2.presentation.inventory_flow import TelegramInventoryEquipmentFlow
 from rom_v2.presentation.profile_flow import TelegramProfileFlow
 from rom_v2.presentation.character_reset_flow import TelegramCharacterResetFlow
 
@@ -35,11 +36,12 @@ class DevelopmentBotConfig:
 class IndependentDevelopmentBot:
     """Own the shell polling lifecycle without owning gameplay or durable state."""
 
-    def __init__(self, config: DevelopmentBotConfig, api: TelegramBotApi | None = None, registration_flow: TelegramRegistrationFlow | None = None, profile_flow: TelegramProfileFlow | None = None, reset_flow: TelegramCharacterResetFlow | None = None) -> None:
+    def __init__(self, config: DevelopmentBotConfig, api: TelegramBotApi | None = None, registration_flow: TelegramRegistrationFlow | None = None, profile_flow: TelegramProfileFlow | None = None, reset_flow: TelegramCharacterResetFlow | None = None, inventory_flow: TelegramInventoryEquipmentFlow | None = None) -> None:
         self._config = config
         self._api = api or TelegramBotApi(config.token)
         self._stop = Event()
         self._registration_flow = registration_flow
+        self._inventory_flow = inventory_flow
         self._profile_flow = profile_flow
         self._reset_flow = reset_flow
 
@@ -97,6 +99,10 @@ class IndependentDevelopmentBot:
             if callback_id:
                 self._api.answer_callback_query(callback_id)
             data = str(callback.get("data", "") or "")
+            if self._inventory_flow is not None and (data.startswith("v2:inventory:") or data.startswith("v2:equipment:")):
+                view = self._inventory_flow.callback(user_id, data)
+                if view is not None: self._send_view(chat_id, view)
+                return
             if self._reset_flow is not None:
                 reset_view = self._reset_flow.callback(user_id, data)
                 if reset_view is not None:
