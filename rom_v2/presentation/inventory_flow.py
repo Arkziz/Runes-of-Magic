@@ -1,5 +1,6 @@
 """Single Telegram presentation owner for inventory and equipment."""
 from __future__ import annotations
+from rom_v2.presentation.navigation import EQUIPMENT_OPEN, equipment_back_row, inventory_inline_rows
 from rom_v2.domain.equipment import EquipmentItemPolicy,SLOT_KEYS
 from rom_v2.presentation.development_shell import ShellView
 PAGE_SIZE=8
@@ -23,7 +24,7 @@ class TelegramInventoryEquipmentFlow:
   if page:nav.append(self._button("Назад",f"v2:inventory:page:{page-1}"))
   if page+1<pages:nav.append(self._button("Далі",f"v2:inventory:page:{page+1}"))
   if nav:keys.append(nav)
-  keys.append([self._button("Екіпірування","v2:equipment:open"),self._button("За ID","v2:inventory:sort:inventory_id")])
+  keys.append([self._button("Екіпірування",EQUIPMENT_OPEN)])
   return ShellView("\n".join(text),{"inline_keyboard":keys})
  def _details(self,user_id,inventory_id):
   result=self._inventory.list_inventory(user_id);item=next((x for x in result.instances if x.inventory_id==inventory_id),None)
@@ -54,7 +55,6 @@ class TelegramInventoryEquipmentFlow:
   if value.startswith('v2:inventory:page:'):
    try:return self._list(user_id,int(value.rsplit(':',1)[1]))
    except ValueError:return self._list(user_id)
-  if value.startswith('v2:inventory:sort:'):return self._list(user_id,0,value.rsplit(':',1)[1])
   if value.startswith('v2:inventory:item:'):
    try:return self._details(user_id,int(value.rsplit(':',1)[1]))
    except ValueError:return self._list(user_id)

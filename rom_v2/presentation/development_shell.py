@@ -1,5 +1,6 @@
 """Presentation-only independent ROM V2 development shell."""
 from __future__ import annotations
+from rom_v2.presentation.navigation import back_to_main_inline_keyboard, shell_inline_keyboard
 
 from dataclasses import dataclass
 from typing import Final
@@ -23,12 +24,7 @@ def build_start_view() -> ShellView:
             "Незалежне ядро V2 запущено. Ігрові функції підключатимуться "
             "поступово окремими наскрізними етапами."
         ),
-        reply_markup={
-            "inline_keyboard": [
-                [{"text": "Стан V2", "callback_data": "v2:shell:status"}],
-                [{"text": "Профіль", "callback_data": "v2:profile:root"}],
-            ]
-        },
+        reply_markup=shell_inline_keyboard(),
     )
 
 

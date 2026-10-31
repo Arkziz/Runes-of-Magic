@@ -1,5 +1,6 @@
 """Composition and polling loop for the independent V2 development bot."""
 from __future__ import annotations
+from rom_v2.presentation.navigation import BACK_TEXT, INVENTORY_OPEN, INVENTORY_TEXT, PROFILE_ROOT, PROFILE_TEXT, main_reply_keyboard, profile_reply_keyboard
 
 import logging
 from dataclasses import dataclass
@@ -70,18 +71,18 @@ class IndependentDevelopmentBot:
                 return
             text = str(message.get("text", "") or "").strip()
             if text == "/start":
-                self._api.send_message(chat_id, "Меню V2", reply_markup={"keyboard": [[{"text": "👤 Профіль"}]], "resize_keyboard": True, "is_persistent": True})
-            if text == "👤 Профіль" and self._profile_flow is not None:
-                self._api.send_message(chat_id, "👤 Розділ персонажа відкрито", reply_markup={"keyboard": [[{"text": "🎒 Інвентар"}], [{"text": "🔙 Назад"}]], "resize_keyboard": True, "is_persistent": True})
-                view = self._profile_flow.callback(user_id, "v2:profile:root")
+                self._api.send_message(chat_id, "Меню V2", reply_markup=main_reply_keyboard())
+            if text == PROFILE_TEXT and self._profile_flow is not None:
+                self._api.send_message(chat_id, "👤 Розділ персонажа відкрито", reply_markup=profile_reply_keyboard())
+                view = self._profile_flow.callback(user_id, PROFILE_ROOT)
                 if view is not None: self._send_view(chat_id, view)
                 return
-            if text == "🔙 Назад":
-                self._api.send_message(chat_id, "Повернення до основного розділу.", reply_markup={"keyboard": [[{"text": "👤 Профіль"}]], "resize_keyboard": True, "is_persistent": True})
+            if text == BACK_TEXT:
+                self._api.send_message(chat_id, "Повернення до основного розділу.", reply_markup=main_reply_keyboard())
                 self._send_view(chat_id, route_shell_action("/start"))
                 return
-            if text == "🎒 Інвентар" and self._inventory_flow is not None:
-                view = self._inventory_flow.callback(user_id, "v2:inventory:open")
+            if text == INVENTORY_TEXT and self._inventory_flow is not None:
+                view = self._inventory_flow.callback(user_id, INVENTORY_OPEN)
                 if view is not None: self._send_view(chat_id, view)
                 return
 
@@ -119,7 +120,7 @@ class IndependentDevelopmentBot:
                 view = self._inventory_flow.callback(user_id, data)
                 if view is not None: self._send_view(chat_id, view)
                 return
-            if self._reset_flow is not None:
+            if self._reset_flow is not None and data in {"v2:character:reset:confirm", "v2:character:reset:cancel"}:
                 reset_view = self._reset_flow.callback(user_id, data)
                 if reset_view is not None:
                     self._send_view(chat_id, reset_view)
