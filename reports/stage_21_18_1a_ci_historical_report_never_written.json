@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1a-ci",
+  "patch_revision": 3,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "CANONICAL_CI_NEVER_WRITES_HISTORICAL_REPORT",
+  "generated_at_utc": "2026-10-31T18:22:54.919873+00:00",
+  "git": {
+    "parent_head": "1a9e6ff478825412c9483555e14b820f2fced32b"
+  },
+  "historical_report": "reports/stage_21_16_2_direct_code_migration_anti_overlay.json",
+  "state_before": {
+    "sha256": "03d59e715e9e15b3018c095509ba62ae35c056443daea3ae1335ad12419200f2",
+    "size": 537,
+    "mtime_ns": 1793470255325023300,
+    "ctime_ns": 1793387775286018500
+  },
+  "state_after_unit_checks": {
+    "sha256": "03d59e715e9e15b3018c095509ba62ae35c056443daea3ae1335ad12419200f2",
+    "size": 537,
+    "mtime_ns": 1793470255325023300,
+    "ctime_ns": 1793387775286018500
+  },
+  "state_after_canonical_ci": {
+    "sha256": "03d59e715e9e15b3018c095509ba62ae35c056443daea3ae1335ad12419200f2",
+    "size": 537,
+    "mtime_ns": 1793470255325023300,
+    "ctime_ns": 1793387775286018500
+  },
+  "write_owners_removed": [
+    "tools/run_v2_ci.py restoration boundary",
+    "tests_v2/test_direct_code_ownership.py committed-report output target"
+  ],
+  "superseded_test_contract": "tests_v2/test_v2_ci_report_side_effect_free.py updated from restore-after-write to never-write",
+  "replacement_output": "TemporaryDirectory/direct_code_migration_anti_overlay.json",
+  "database_opened": false,
+  "manual_game_check": "NOT_REQUIRED",
+  "next": "21.18.1b Telegram inventory/equipment slice audit"
+}

@@ -86,20 +86,9 @@ def _main_with_report_side_effects() -> int:
     return 0 if result["status"]=="PASS" else 1
 
 
-def _ci_project_root(argv:list[str])->Path:
-    if "--project-root" in argv:
-        index=argv.index("--project-root")
-        if index+1<len(argv):return Path(argv[index+1]).resolve()
-    return Path.cwd().resolve()
-
 def main()->int:
-    root=_ci_project_root(sys.argv[1:])
-    report=root/"reports"/"stage_21_16_2_direct_code_migration_anti_overlay.json"
-    existed=report.is_file();before=report.read_bytes() if existed else None
-    try:return _main_with_report_side_effects()
-    finally:
-        if existed:
-            report.parent.mkdir(parents=True,exist_ok=True);report.write_bytes(before or b"")
-        elif report.exists():report.unlink()
+    """Run canonical CI without opening immutable closure artifacts for writing."""
+    return _main_with_report_side_effects()
+
 
 if __name__=="__main__": raise SystemExit(main())
