@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from rom_v2.application.inventory_ports import InventoryReservationReaderPort, InventoryUnitOfWorkFactoryPort
 from rom_v2.domain.item import ItemInstance
+from rom_v2.domain.inventory import InventoryAggregate
 
 @dataclass(frozen=True,slots=True)
 class InventoryResult:
@@ -29,17 +30,14 @@ class InventoryService:
         with self._uow_factory() as uow:
             definition=uow.inventory.get_definition(item_id)
             if definition is None: return InventoryResult("rejected","item_definition_not_found")
-            rows=list(uow.inventory.list_by_owner(owner_user_id)); same=[x for x in rows if x.item_id==item_id and x.quantity<max_stack]
-            free=sum(max_stack-x.quantity for x in same); remaining=max(0,quantity-free); new_rows=(remaining+max_stack-1)//max_stack
-            if len(rows)+new_rows>capacity: return InventoryResult("rejected","inventory_capacity_exceeded")
-            left=quantity; changed=[]
-            for row in same:
-                transfer=min(left,max_stack-row.quantity)
-                if transfer:
-                    uow.inventory.change_quantity(row.inventory_id,row.quantity+transfer); changed.append(row.with_quantity(row.quantity+transfer)); left-=transfer
-                if not left: break
-            while left:
-                transfer=min(left,max_stack); changed.append(uow.inventory.insert_instance(owner_user_id,item_id,transfer)); left-=transfer
+            rows=tuple(uow.inventory.list_by_owner(owner_user_id))
+            try: plan=InventoryAggregate(owner_user_id,capacity,rows).plan_addition(item_id,quantity,max_stack)
+            except OverflowError: return InventoryResult("rejected","inventory_capacity_exceeded")
+            changed=[]
+            for row,new_quantity in plan.stack_updates:
+                uow.inventory.change_quantity(row.inventory_id,new_quantity); changed.append(row.with_quantity(new_quantity))
+            for stack_quantity in plan.new_stack_quantities:
+                changed.append(uow.inventory.insert_instance(owner_user_id,item_id,stack_quantity))
             uow.commit(); return InventoryResult("ok",instances=tuple(changed),affected_quantity=quantity)
 
     def consume_exact(self,owner_user_id:int,inventory_id:int,quantity:int)->InventoryResult:

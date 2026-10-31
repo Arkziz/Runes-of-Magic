@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1a",
+  "patch_revision": 2,
+  "status": "PASS_AUTOMATED",
+  "conclusion": "INVENTORY_EQUIPMENT_APPLICATION_COMPLETION",
+  "generated_at_utc": "2026-10-31T18:10:55.359860+00:00",
+  "git": {
+    "parent_head": "bb998296cb708fc0c4fdf92317eee74d3914c4ba"
+  },
+  "owners": {
+    "inventory_aggregate": "rom_v2/domain/inventory.py",
+    "item_identity": "rom_v2/domain/item.py",
+    "equipment_policy": "rom_v2/domain/equipment.py",
+    "inventory_orchestration": "rom_v2/application/inventory_service.py",
+    "equipment_orchestration": "rom_v2/application/equipment_service.py"
+  },
+  "duplicate_prevention": {
+    "before": {
+      "InventoryAdditionPlan": [],
+      "InventoryAggregate": []
+    },
+    "after": {
+      "InventoryAdditionPlan": [
+        "rom_v2/domain/inventory.py"
+      ],
+      "InventoryAggregate": [
+        "rom_v2/domain/inventory.py"
+      ]
+    },
+    "blocking_duplicates": 0
+  },
+  "behavior": {
+    "stable_identity": "inventory_id",
+    "foreign_owner_rejected_by_aggregate": true,
+    "capacity_planning_pure": true,
+    "stack_plan_deterministic": true,
+    "repository_and_uow_owners_unchanged": true,
+    "telegram_ui_connected": false
+  },
+  "database_migration_added": false,
+  "production_connection_opened": false,
+  "manual_game_check": "NOT_REQUIRED",
+  "next": "21.18.1b Telegram inventory/equipment slice audit and integration"
+}
