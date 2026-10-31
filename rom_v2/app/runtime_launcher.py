@@ -44,7 +44,7 @@ def build_runtime(root:Path|None=None)->IndependentDevelopmentBot:
  flow=TelegramRegistrationFlow(account_service,character_service)
  profile_flow=TelegramProfileFlow(profile_query)
  reset_flow=TelegramCharacterResetFlow(profile_query,character_service)
- inventory_flow=TelegramInventoryEquipmentFlow(InventoryService(SQLiteInventoryUnitOfWorkFactory(factory)),EquipmentService(SQLiteEquipmentUnitOfWorkFactory(factory)),profile_query)
+ inventory_flow=TelegramInventoryEquipmentFlow(InventoryService(SQLiteInventoryUnitOfWorkFactory(factory.connect_read_write)),EquipmentService(SQLiteEquipmentUnitOfWorkFactory(factory.connect_read_write)),profile_query)
  config=DevelopmentBotConfig(token=token,allowed_user_ids=allowed,poll_timeout_seconds=20,transport_retry_seconds=2.0)
  return IndependentDevelopmentBot(config,api=TelegramBotApi(token,timeout_seconds=35.0),registration_flow=flow,profile_flow=profile_flow,reset_flow=reset_flow,inventory_flow=inventory_flow)
 

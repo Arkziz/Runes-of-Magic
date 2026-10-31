@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1b-inventory-equipment-uow-runtime-wiring",
+  "patch_revision": 1,
+  "status": "PASS_AUTOMATED_PENDING_MANUAL",
+  "conclusion": "INVENTORY_EQUIPMENT_UOW_RUNTIME_WIRING_CORRECTED",
+  "generated_at_utc": "2026-10-31T21:30:33.724103+00:00",
+  "git": {
+    "parent_head": "3b80a20e10c6f5cd237e9df0d5fe99be64ef32f9"
+  },
+  "connection_owner": "V2ConnectionFactory.connect_read_write",
+  "inventory_uow": "SQLiteInventoryUnitOfWorkFactory(factory.connect_read_write)",
+  "equipment_uow": "SQLiteEquipmentUnitOfWorkFactory(factory.connect_read_write)",
+  "isolated_runtime_smoke": [
+    "InventoryService.list_inventory(4242)",
+    "EquipmentService.list_slots(4242)"
+  ],
+  "production_database_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next": "restart bot and open inventory/equipment"
+}
