@@ -1,0 +1,4104 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.2a-pre-mutation-owner-runtime-review",
+  "patch_revision": 1,
+  "status": "PASS_READ_ONLY",
+  "decision": "GO_TO_21_18_2A_PERSISTENCE_AND_RUNTIME_COMPLETION_IMPLEMENTATION",
+  "generated_at_utc": "2026-10-31T23:18:16.176312+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "head": "2730133b385bae96e3ac0e4b9945543b6459c085"
+  },
+  "source_audit": "reports/stage_21_18_2_v1_world_map_travel_audit.json",
+  "current_head_evidence": {
+    "rom_v2/content/world_graph.py": {
+      "path": "rom_v2/content/world_graph.py",
+      "sha256": "15376560f22e31554d31c5b2011cc1c608183e19d604ebfaee7cea150c4db49f",
+      "symbols": [
+        {
+          "name": "WorldNode",
+          "line": 18,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "get_world_node",
+          "line": 42,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "validate_world_graph",
+          "line": 58,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 9,
+          "text": "from types import MappingProxyType"
+        },
+        {
+          "line": 10,
+          "text": "from typing import AbstractSet, Mapping"
+        }
+      ],
+      "strings": [
+        {
+          "line": 1,
+          "value": "Canonical immutable V2 World Graph for V1 parity.\n\nThe graph is pure static content. It owns world-node identity, adjacency and the\n20-second travel duration, but no per-user travel state or persistence.\n"
+        },
+        {
+          "line": 26,
+          "value": "location"
+        },
+        {
+          "line": 27,
+          "value": "location"
+        },
+        {
+          "line": 65,
+          "value": "travel duration mismatch"
+        },
+        {
+          "line": 71,
+          "value": "location"
+        },
+        {
+          "line": 73,
+          "value": "location"
+        },
+        {
+          "line": 97,
+          "value": "Location Catalog references do not match huntable graph nodes"
+        }
+      ],
+      "calls": []
+    },
+    "rom_v2/content/location_catalog.py": {
+      "path": "rom_v2/content/location_catalog.py",
+      "sha256": "d87d023fcb7685b252caa56318c61a9eb4b64a356ec4c5270222c3deda7449f9",
+      "symbols": [
+        {
+          "name": "LocationDefinition",
+          "line": 18,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "get_location",
+          "line": 60,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "require_location",
+          "line": 64,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "get_location_display_name",
+          "line": 70,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "is_location_unlocked",
+          "line": 74,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "get_unlocked_locations",
+          "line": 80,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "validate_location_catalog",
+          "line": 86,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 9,
+          "text": "from types import MappingProxyType"
+        },
+        {
+          "line": 10,
+          "text": "from typing import Mapping"
+        },
+        {
+          "line": 58,
+          "text": "from rom_v2.content.world_graph import validate_world_graph"
+        }
+      ],
+      "strings": [
+        {
+          "line": 1,
+          "value": "Canonical immutable V2 catalog for the two V1-parity locations.\n\nThis module is pure content. It has no persistence, Telegram, clock or random\nsource dependency. Stable technical IDs are never reformatted for presentation.\n"
+        },
+        {
+          "line": 19,
+          "value": "Immutable canonical definition of one huntable location."
+        },
+        {
+          "line": 61,
+          "value": "Return a canonical location or None; never fabricate an unknown record."
+        },
+        {
+          "line": 65,
+          "value": "Return a canonical location and fail closed for unknown technical IDs."
+        },
+        {
+          "line": 75,
+          "value": "Apply the V1 unlock threshold for one known location."
+        },
+        {
+          "line": 81,
+          "value": "Enumerate unlocked locations in canonical catalog order."
+        },
+        {
+          "line": 44,
+          "value": "Глибша частина лісу, куди не заходять випадкові подорожні. Між старими деревами ховаються гоблінські дозори, шамани, берсерки та слуги темних рун. Повітря тут важче, а кожен крок може привести до засідки або стародавніх руїн."
+        },
+        {
+          "line": 88,
+          "value": "location order mismatch"
+        },
+        {
+          "line": 67,
+          "value": "unknown location_id: "
+        },
+        {
+          "line": 90,
+          "value": "location identity mismatch: "
+        },
+        {
+          "line": 94,
+          "value": "incomplete location: "
+        }
+      ],
+      "calls": []
+    },
+    "rom_v2/domain/travel_aggregate.py": {
+      "path": "rom_v2/domain/travel_aggregate.py",
+      "sha256": "25652f88af25ac1d58fe57ca11eaf15985fe4bed7eefd62c23a9ba352bd9f906",
+      "symbols": [
+        {
+          "name": "TravelStatus",
+          "line": 5,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "TravelAggregate",
+          "line": 7,
+          "kind": "ClassDef"
+        }
+      ],
+      "imports": [],
+      "strings": [],
+      "calls": []
+    },
+    "rom_v2/application/travel_service.py": {
+      "path": "rom_v2/application/travel_service.py",
+      "sha256": "b711315637f6f9ef90312ca796b270c195e07498c1fb276fa92886c44a99f9a1",
+      "symbols": [
+        {
+          "name": "TravelResult",
+          "line": 8,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "TravelService",
+          "line": 9,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "MemoryBusy",
+          "line": 45,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "MemoryUow",
+          "line": 48,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "recover_due",
+          "line": 44,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "get_busy",
+          "line": 47,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "cas_location",
+          "line": 55,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "due",
+          "line": 59,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 4,
+          "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+        },
+        {
+          "line": 5,
+          "text": "from rom_v2.content.world_graph import CITY_NODE_ID, TRAVEL_SECONDS, are_adjacent, get_world_node"
+        },
+        {
+          "line": 6,
+          "text": "from rom_v2.domain.travel_aggregate import TravelAggregate, TravelStatus"
+        }
+      ],
+      "strings": [
+        {
+          "line": 58,
+          "value": "location"
+        },
+        {
+          "line": 30,
+          "value": "travel_not_found"
+        },
+        {
+          "line": 36,
+          "value": "travel_not_found"
+        },
+        {
+          "line": 24,
+          "value": "location_locked"
+        },
+        {
+          "line": 25,
+          "value": "already_travelling"
+        },
+        {
+          "line": 20,
+          "value": "location"
+        },
+        {
+          "line": 39,
+          "value": "location"
+        },
+        {
+          "line": 57,
+          "value": "location"
+        }
+      ],
+      "calls": [
+        {
+          "line": 42,
+          "text": "self.uow.cas_location(t.user_id,t.from_node,t.to_node)"
+        }
+      ]
+    },
+    "rom_v2/application/map_presentation.py": {
+      "path": "rom_v2/application/map_presentation.py",
+      "sha256": "e270b119016b2791b66136acc16ce5d4339ba805cb5daf780b59661665cd3a9d",
+      "symbols": [
+        {
+          "name": "MapMode",
+          "line": 10,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "MapAction",
+          "line": 12,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "ActiveTravelView",
+          "line": 18,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "MapView",
+          "line": 21,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "build_map_view",
+          "line": 47,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 7,
+          "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+        },
+        {
+          "line": 8,
+          "text": "from rom_v2.content.world_graph import CITY_NODE_ID, get_adjacent_nodes, get_world_node"
+        }
+      ],
+      "strings": [
+        {
+          "line": 32,
+          "value": "map:"
+        },
+        {
+          "line": 33,
+          "value": "map:"
+        },
+        {
+          "line": 34,
+          "value": "map:cancel:"
+        },
+        {
+          "line": 52,
+          "value": "❌ Скасувати подорож"
+        },
+        {
+          "line": 60,
+          "value": "map:open"
+        },
+        {
+          "line": 60,
+          "value": "map:players"
+        },
+        {
+          "line": 54,
+          "value": "map:open"
+        }
+      ],
+      "calls": [
+        {
+          "line": 50,
+          "text": "(now or datetime.now(timezone.utc)).astimezone(timezone.utc)"
+        },
+        {
+          "line": 50,
+          "text": "datetime.now(timezone.utc)"
+        }
+      ]
+    },
+    "rom_v2/presentation/navigation.py": {
+      "path": "rom_v2/presentation/navigation.py",
+      "sha256": "f5b2bc5610279a4d69f7f17b493ea0148f307845594e9182bb265867f7ef1af6",
+      "symbols": [],
+      "imports": [],
+      "strings": [],
+      "calls": []
+    },
+    "rom_v2/app/development_bot.py": {
+      "path": "rom_v2/app/development_bot.py",
+      "sha256": "6934cab30291da1f866dea6e1a968d3ad93a645d3f9ea54aad80df39b5004ae6",
+      "symbols": [
+        {
+          "name": "build_development_bot",
+          "line": 161,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 9,
+          "text": "from typing import Iterable, Mapping"
+        }
+      ],
+      "strings": [
+        {
+          "line": 76,
+          "value": "👤 Розділ персонажа відкрито"
+        },
+        {
+          "line": 81,
+          "value": "Повернення до основного розділу."
+        }
+      ],
+      "calls": []
+    },
+    "rom_v2/app/runtime_launcher.py": {
+      "path": "rom_v2/app/runtime_launcher.py",
+      "sha256": "8d81e5b1db3e2323f80d906c1e9826825497728c8f777723fbc9ee03dd6aa2c2",
+      "symbols": [
+        {
+          "name": "build_runtime",
+          "line": 34,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 9,
+          "text": "from rom_v2.infrastructure.persistence.inventory_unit_of_work import SQLiteInventoryUnitOfWorkFactory"
+        },
+        {
+          "line": 10,
+          "text": "from rom_v2.infrastructure.persistence.equipment_unit_of_work import SQLiteEquipmentUnitOfWorkFactory"
+        },
+        {
+          "line": 14,
+          "text": "from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory, SQLiteCharacterUnitOfWorkFactory, V2ConnectionFactory, V2Migrator"
+        }
+      ],
+      "strings": [],
+      "calls": [
+        {
+          "line": 52,
+          "text": "build_runtime()"
+        }
+      ]
+    }
+  },
+  "discovery": {
+    "relevant_files": [
+      {
+        "path": "rom_v2/app/foundation_runtime.py",
+        "sha256": "cb12bda933857340235d01df436026d8d2e462dade5a3902ba58ac46a3b54333",
+        "hits": [
+          {
+            "line": 10,
+            "text": "{\"account_uow_factory\", \"character_uow_factory\", \"clock\", \"random_source\"}"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "sha256": "8d81e5b1db3e2323f80d906c1e9826825497728c8f777723fbc9ee03dd6aa2c2",
+        "hits": [
+          {
+            "line": 9,
+            "text": "from rom_v2.infrastructure.persistence.inventory_unit_of_work import SQLiteInventoryUnitOfWorkFactory"
+          },
+          {
+            "line": 10,
+            "text": "from rom_v2.infrastructure.persistence.equipment_unit_of_work import SQLiteEquipmentUnitOfWorkFactory"
+          },
+          {
+            "line": 14,
+            "text": "from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory,SQLiteCharacterUnitOfWorkFactory,V2ConnectionFactory,V2Migrator"
+          },
+          {
+            "line": 42,
+            "text": "account_factory=SQLiteAccountUnitOfWorkFactory(factory);character_factory=SQLiteCharacterUnitOfWorkFactory(factory)"
+          },
+          {
+            "line": 47,
+            "text": "inventory_flow=TelegramInventoryEquipmentFlow(InventoryService(SQLiteInventoryUnitOfWorkFactory(factory.connect_read_write)),EquipmentService(SQLiteEquipmentUnitOfWorkFactory(factory.connect_read_write)),profile_query)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/app/v1_reference_isolation.py",
+        "sha256": "fb91b1a6835f3591cd1a06e86a2e96884d984eb63e69ec3191667b11a0077ae4",
+        "hits": [
+          {
+            "line": 34,
+            "text": "# These are repository-root V1 namespaces. Imports under ``rom_v2`` are never"
+          },
+          {
+            "line": 62,
+            "text": "Read-only audit and fixture construction may inspect repository files. They"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/account_ports.py",
+        "sha256": "1393ab1bfe43b9ea5f39fdd78f2947f05307d320d5b9b64f3b5975fd980768e9",
+        "hits": [
+          {
+            "line": 5,
+            "text": "class AccountRepositoryPort(Protocol):"
+          },
+          {
+            "line": 10,
+            "text": "class AccountUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 11,
+            "text": "accounts:AccountRepositoryPort"
+          },
+          {
+            "line": 12,
+            "text": "def __enter__(self)->AccountUnitOfWorkPort:..."
+          },
+          {
+            "line": 15,
+            "text": "class AccountUnitOfWorkFactoryPort(Protocol):"
+          },
+          {
+            "line": 16,
+            "text": "def __call__(self)->AccountUnitOfWorkPort:..."
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/account_service.py",
+        "sha256": "201d86d7260361b371aad32ab571dd91513df27b3d302a56a54fe2572e5b9673",
+        "hits": [
+          {
+            "line": 5,
+            "text": "from rom_v2.application.account_ports import AccountUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 16,
+            "text": "def __init__(self,unit_of_work_factory:AccountUnitOfWorkFactoryPort)->None:self._unit_of_work_factory=unit_of_work_factory"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/bag_expansion.py",
+        "sha256": "11cf3c03a6a616f3993450318f41e1638f08b48eefac97f2bde38adf561bbc11",
+        "hits": [
+          {
+            "line": 55,
+            "text": "class BagExpansionUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 64,
+            "text": "def purchase(self,command:BagExpansionCommand,uow:BagExpansionUnitOfWorkPort)->BagExpansionResult:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/base_equipment_shop.py",
+        "sha256": "295f1d18d797ed80b57b58cdf9cc247a5469fe8e3ff604031ecfb4c33e19c885",
+        "hits": [
+          {
+            "line": 37,
+            "text": "class ShopRepositoryPort(Protocol):"
+          },
+          {
+            "line": 50,
+            "text": "class ShopUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 51,
+            "text": "shop:ShopRepositoryPort; wallet:ShopWalletPort; inventory:ShopInventoryPort; allocator:ShopItemAllocatorPort"
+          },
+          {
+            "line": 57,
+            "text": "def confirm(self,command:ConfirmPurchase,uow:ShopUnitOfWorkPort)->PurchaseResult:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/character_ports.py",
+        "sha256": "d48b40bc43142a05c8284167d673f58edce92ebf117886f76fe3ad545867eb58",
+        "hits": [
+          {
+            "line": 5,
+            "text": "class CharacterRepositoryPort(Protocol):"
+          },
+          {
+            "line": 11,
+            "text": "class CharacterUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 12,
+            "text": "characters:CharacterRepositoryPort"
+          },
+          {
+            "line": 13,
+            "text": "def __enter__(self)->CharacterUnitOfWorkPort:..."
+          },
+          {
+            "line": 16,
+            "text": "class CharacterUnitOfWorkFactoryPort(Protocol):"
+          },
+          {
+            "line": 17,
+            "text": "def __call__(self)->CharacterUnitOfWorkPort:..."
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/character_service.py",
+        "sha256": "d8f68f1770cdf14028572ffbeebc253d67a34b4ae64403e199eddc0f5132b767",
+        "hits": [
+          {
+            "line": 5,
+            "text": "from rom_v2.application.character_ports import CharacterUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 11,
+            "text": "character_id:str;account_id:str;name:str;class_key:str;location_key:str;current_hp:int;current_mp:int|None"
+          },
+          {
+            "line": 18,
+            "text": "def __init__(self,unit_of_work_factory:CharacterUnitOfWorkFactoryPort,class_catalog:ClassCatalog=DEFAULT_CLASS_CATALOG)->None:self._unit_of_work_factory=unit_of_work_factory;self._class_catalog=class_catalog"
+          },
+          {
+            "line": 22,
+            "text": "normalized=validate_character_name(command.name);candidate=Character(command.character_id,command.account_id,normalized,command.class_key,1,0,command.location_key,command.current_hp,command.current_mp)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/crystal_wallet_ledger.py",
+        "sha256": "b5f97a567a55ca270e320e48f69ad98fad22dce023b7c83f5d2279ad089a5b0f",
+        "hits": [
+          {
+            "line": 42,
+            "text": "class CrystalWalletRepositoryPort(Protocol):"
+          },
+          {
+            "line": 50,
+            "text": "class CrystalWalletUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 51,
+            "text": "wallet: CrystalWalletRepositoryPort"
+          },
+          {
+            "line": 59,
+            "text": "def execute(self,command:CrystalWalletCommand,uow:CrystalWalletUnitOfWorkPort)->CrystalWalletResult:"
+          },
+          {
+            "line": 78,
+            "text": "def compensate(self,*,original_transaction_id:str,idempotency_key:str,reason_code:str,source:str,uow:CrystalWalletUnitOfWorkPort)->CrystalWalletResult:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/daily_reward.py",
+        "sha256": "aaaba0ac866cb7fdd1cf008e9ca0733262c307d7bea4b36d249d31eff01a2e23",
+        "hits": [
+          {
+            "line": 75,
+            "text": "class DailyRewardUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 87,
+            "text": "def claim(self,command:DailyRewardClaimCommand,uow:DailyRewardUnitOfWorkPort)->DailyRewardResult:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/direct_trade_service.py",
+        "sha256": "7dd2ec6e995be7d39c11bb05eaf993ab8dbb4aa642f2cce4173bed619ac70166",
+        "hits": [
+          {
+            "line": 10,
+            "text": "if self.uow.location(trade.initiator_id)!=trade.location_id or self.uow.location(trade.recipient_id)!=trade.location_id:return \"location_changed\""
+          },
+          {
+            "line": 84,
+            "text": "def __init__(self,trades,locations,online=None):self.trades={t.trade_id:t for t in trades};self.locations=dict(locations);self.online_users=set(locations if online is None else online);self.busy=set();self.expired_ids=set();self.releases=[];self.settlements=[];self.terminals=[];self.sessions=[];self.commits=0;self.rollbacks=0;self.settlement_error=None"
+          },
+          {
+            "line": 88,
+            "text": "def location(self,u):return self.locations.get(u)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/equipment_ports.py",
+        "sha256": "d69599c10f4c81eca867e1e5037cd813f50971f28b71f294bf78196c53d98904",
+        "hits": [
+          {
+            "line": 6,
+            "text": "class EquipmentRepositoryPort(Protocol):"
+          },
+          {
+            "line": 11,
+            "text": "class EquipmentUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 12,
+            "text": "equipment:EquipmentRepositoryPort"
+          },
+          {
+            "line": 13,
+            "text": "def __enter__(self)->\"EquipmentUnitOfWorkPort\": ..."
+          },
+          {
+            "line": 17,
+            "text": "class EquipmentUnitOfWorkFactoryPort(Protocol):"
+          },
+          {
+            "line": 18,
+            "text": "def __call__(self)->EquipmentUnitOfWorkPort: ..."
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/equipment_service.py",
+        "sha256": "1b0b9c416886f067f5beb2a987ae4fa2b72309a37d8668f6095f2769d9dd8a09",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.application.equipment_ports import EquipmentUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 10,
+            "text": "def __init__(self,uow_factory:EquipmentUnitOfWorkFactoryPort): self._uow_factory=uow_factory"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/gold_wallet.py",
+        "sha256": "8ebf4970269c9ad9de0f6b49e25f5a48516751af69a630e136a25ef151ed6562",
+        "hits": [
+          {
+            "line": 61,
+            "text": "class GoldWalletRepositoryPort(Protocol):"
+          },
+          {
+            "line": 68,
+            "text": "class GoldWalletUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 69,
+            "text": "wallet: GoldWalletRepositoryPort"
+          },
+          {
+            "line": 90,
+            "text": "def execute(self, command: GoldWalletCommand, unit_of_work: GoldWalletUnitOfWorkPort) -> GoldWalletResult:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/inventory_ports.py",
+        "sha256": "888e5d54e6e0f60efc438b3cc6ed3bfd178ccec1da86aa8e1f98f3aa64d85c82",
+        "hits": [
+          {
+            "line": 6,
+            "text": "class InventoryRepositoryPort(Protocol):"
+          },
+          {
+            "line": 17,
+            "text": "class InventoryUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 18,
+            "text": "inventory: InventoryRepositoryPort"
+          },
+          {
+            "line": 19,
+            "text": "def __enter__(self)->\"InventoryUnitOfWorkPort\": ..."
+          },
+          {
+            "line": 24,
+            "text": "class InventoryUnitOfWorkFactoryPort(Protocol):"
+          },
+          {
+            "line": 25,
+            "text": "def __call__(self)->InventoryUnitOfWorkPort: ..."
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/inventory_service.py",
+        "sha256": "61ce3eba084eadc4566a70ff65b1d8ab5004bc352eeb9ab76223c8b8398f536f",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.application.inventory_ports import InventoryReservationReaderPort, InventoryUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 16,
+            "text": "def __init__(self,uow_factory:InventoryUnitOfWorkFactoryPort,reservations:InventoryReservationReaderPort|None=None):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/item_id_namespace_service.py",
+        "sha256": "820913f4988675e535ee0c284e44cea4b06a1b2f2a629f1883f98a24c64dca7a",
+        "hits": [
+          {
+            "line": 43,
+            "text": "# the successful first promotion removes the temporary preview allocation."
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/map_presentation.py",
+        "sha256": "e270b119016b2791b66136acc16ce5d4339ba805cb5daf780b59661665cd3a9d",
+        "hits": [
+          {
+            "line": 7,
+            "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+          },
+          {
+            "line": 8,
+            "text": "from rom_v2.content.world_graph import CITY_NODE_ID,get_adjacent_nodes,get_world_node"
+          },
+          {
+            "line": 18,
+            "text": "class ActiveTravelView:"
+          },
+          {
+            "line": 19,
+            "text": "travel_id:int;revision:int;from_label:str;to_label:str;remaining_seconds:int;cancel:MapAction"
+          },
+          {
+            "line": 22,
+            "text": "mode:MapMode;current_node_id:str;current_label:str;directions:tuple[DirectionView,...];actions:tuple[MapAction,...];active_travel:ActiveTravelView|None=None"
+          },
+          {
+            "line": 25,
+            "text": "action:str;node_id:str|None=None;travel_id:int|None=None;revision:int|None=None"
+          },
+          {
+            "line": 32,
+            "text": "if command.action in {\"open\",\"players\"} and not any((command.node_id,command.travel_id,command.revision)):return f\"map:{command.action}\""
+          },
+          {
+            "line": 33,
+            "text": "if command.action in {\"info\",\"preview\",\"start\"} and command.node_id and get_world_node(command.node_id):return f\"map:{command.action}:{command.node_id}\""
+          },
+          {
+            "line": 34,
+            "text": "if command.action==\"cancel\" and command.travel_id and command.revision:return f\"map:cancel:{command.travel_id}:{command.revision}\""
+          },
+          {
+            "line": 43,
+            "text": "if len(parts)==4 and parts[:2]==[\"map\",\"cancel\"] and int(parts[2])>0 and int(parts[3])>0:return CallbackCommand(\"cancel\",travel_id=int(parts[2]),revision=int(parts[3]))"
+          },
+          {
+            "line": 47,
+            "text": "def build_map_view(current_node_id,player_level,*,active_travel=None,now=None):"
+          },
+          {
+            "line": 49,
+            "text": "if active_travel is not None:"
+          },
+          {
+            "line": 50,
+            "text": "moment=(now or datetime.now(timezone.utc)).astimezone(timezone.utc);arrival=active_travel.arrival_at.astimezone(timezone.utc)"
+          },
+          {
+            "line": 52,
+            "text": "cancel=MapAction(\"cancel\",\"❌ Скасувати подорож\",encode_callback(CallbackCommand(\"cancel\",travel_id=active_travel.travel_id,revision=active_travel.revision)))"
+          },
+          {
+            "line": 53,
+            "text": "trip=ActiveTravelView(active_travel.travel_id,active_travel.revision,node_label(active_travel.from_node),node_label(active_travel.to_node),remaining,cancel)"
+          },
+          {
+            "line": 54,
+            "text": "return MapView(MapMode.IN_TRANSIT,current,label,(),(MapAction(\"open\",\"🔄 Оновити\",\"map:open\"),),trip)"
+          },
+          {
+            "line": 57,
+            "text": "unlocked=target==CITY_NODE_ID or is_location_unlocked(target,player_level)"
+          },
+          {
+            "line": 60,
+            "text": "return MapView(MapMode.READY,current,label,tuple(directions),(MapAction(\"open\",\"🔄 Оновити\",\"map:open\"),MapAction(\"players\",\"👥 Гравці поруч\",\"map:players\")))"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/npc_dialogue_service.py",
+        "sha256": "0770c0e8815a48e7208a1127858323bb6e2c1e329490247aafd73c4c47b96a88",
+        "hits": [
+          {
+            "line": 22,
+            "text": "def view(self,npc_id:str,player_location_id:str)->V2NpcInteractionResult:"
+          },
+          {
+            "line": 25,
+            "text": "if npc.location_id!=player_location_id:return V2NpcInteractionResult(False,\"wrong_location\")"
+          },
+          {
+            "line": 30,
+            "text": "return V2NpcInteractionResult(True,view=V2NpcView(npc.npc_id,npc.display_name,npc.location_id,tuple(actions)))"
+          },
+          {
+            "line": 31,
+            "text": "def accept(self,command:V2NpcAcceptCommand,player_location_id:str)->V2NpcInteractionResult:"
+          },
+          {
+            "line": 34,
+            "text": "if npc.location_id!=player_location_id:return V2NpcInteractionResult(False,\"wrong_location\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/overlevel_policy_service.py",
+        "sha256": "727054b98f4bd2e50ce603f39bdc518f62c36585f62817fbd94c1a1538b719e2",
+        "hits": [
+          {
+            "line": 10,
+            "text": "class InMemoryOverlevelUnitOfWork:"
+          },
+          {
+            "line": 23,
+            "text": "def __init__(self,uow:InMemoryOverlevelUnitOfWork,definitions:Iterable[OverlevelQuestDefinition],max_levels:Mapping[str,int]=LOCATION_MAX_LEVELS):"
+          },
+          {
+            "line": 27,
+            "text": "unknown={q.location_id for q in ordered}-set(self._max_levels)"
+          },
+          {
+            "line": 28,
+            "text": "if unknown:raise ValueError(\"missing_location_max_level:\"+repr(sorted(unknown)))"
+          },
+          {
+            "line": 36,
+            "text": "for location_id in exceeded:"
+          },
+          {
+            "line": 37,
+            "text": "defs=tuple(q for q in self._definitions if q.location_id==location_id)"
+          },
+          {
+            "line": 46,
+            "text": "rows[definition.quest_id]=OverlevelQuestRow(definition.quest_id,definition.number,location_id,OverlevelQuestStatus.SKIPPED,progress,definition.target_quantity,False)"
+          },
+          {
+            "line": 50,
+            "text": "results.append(OverlevelLocationResult(location_id,int(self._max_levels[location_id]),completed,already_skipped,skipped_now,len(doomed)))"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/ports/clock.py",
+        "sha256": "a023e54dae514692a5b76a491d7aa86f502d338a980e34e3ea8712eff1c9b6ee",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"Clock port for deterministic ROM V2 time access.\"\"\""
+          },
+          {
+            "line": 8,
+            "text": "class Clock(Protocol):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/ports/repositories.py",
+        "sha256": "04c04f838b7326ae54159a2e4beca195bbd921009d71c6651e1609739044d8af",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"Aggregate-oriented repository ports for ROM V2.\"\"\""
+          },
+          {
+            "line": 10,
+            "text": "class AggregateRepository(Protocol[AggregateT, AggregateIdT]):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/ports/unit_of_work.py",
+        "sha256": "478483f14652372af2dc698e867bf89da849d9acf3133bb54bac3b7f3e6679d4",
+        "hits": [
+          {
+            "line": 7,
+            "text": "class UnitOfWork(Protocol):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/post_combat_hooks.py",
+        "sha256": "43fa33d268fb1d5de66acb55648c3d215c23f26e8568c03b4486950cdb24c1d8",
+        "hits": [
+          {
+            "line": 26,
+            "text": "location_key: str"
+          },
+          {
+            "line": 47,
+            "text": "class PostCombatHooksUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 57,
+            "text": "unit_of_work: PostCombatHooksUnitOfWorkPort) -> PostCombatDispatchResult:"
+          },
+          {
+            "line": 86,
+            "text": "if not event.enemy_key.strip() or not event.location_key.strip():raise PostCombatHookContractError(\"enemy_and_location_required\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/potion_trading.py",
+        "sha256": "b55b6ee63fd7cfa6b4dcceecc6d0c93c123373b0dff7837cd32ddf2b76706769",
+        "hits": [
+          {
+            "line": 70,
+            "text": "class PotionTradingUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 80,
+            "text": "def execute(self,command:PotionTradeCommand,uow:PotionTradingUnitOfWorkPort)->PotionTradeResult:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/premium_shop.py",
+        "sha256": "07d79dfd85be092eee12d09986cc55a21d562bc727d27dd4eaf75a507c2b6f4a",
+        "hits": [
+          {
+            "line": 53,
+            "text": "class PremiumClockPort(Protocol):"
+          },
+          {
+            "line": 55,
+            "text": "class PremiumShopUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 59,
+            "text": "clock:PremiumClockPort"
+          },
+          {
+            "line": 65,
+            "text": "def purchase(self,command:PremiumPurchaseCommand,uow:PremiumShopUnitOfWorkPort)->PremiumPurchaseResult:"
+          },
+          {
+            "line": 75,
+            "text": "now=self._utc(uow.clock.now_utc(),\"clock_must_return_aware_utc\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/primary_stat_ports.py",
+        "sha256": "13b7f2be183553b79e4c3cf31f412383512ecf66446576568c3869ab2bbf2fce",
+        "hits": [
+          {
+            "line": 5,
+            "text": "class PrimaryStatRepositoryPort(Protocol):"
+          },
+          {
+            "line": 9,
+            "text": "class PrimaryStatUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 10,
+            "text": "primary_stats:PrimaryStatRepositoryPort"
+          },
+          {
+            "line": 11,
+            "text": "def __enter__(self)->PrimaryStatUnitOfWorkPort:..."
+          },
+          {
+            "line": 14,
+            "text": "class PrimaryStatUnitOfWorkFactoryPort(Protocol):"
+          },
+          {
+            "line": 15,
+            "text": "def __call__(self)->PrimaryStatUnitOfWorkPort:..."
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/primary_stat_service.py",
+        "sha256": "ed4f62ad826bb457f48a6536f92272fb49b56831bded38a596081ec694b5ca06",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"Application service for atomic V1-parity attribute allocation.\"\"\""
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.application.primary_stat_ports import PrimaryStatUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 9,
+            "text": "class AllocatePrimaryStatsCommand:character_id:str;allocation:dict[str,int];expected_free_points:int"
+          },
+          {
+            "line": 13,
+            "text": "def __init__(self,uow_factory:PrimaryStatUnitOfWorkFactoryPort)->None:self._uow_factory=uow_factory"
+          },
+          {
+            "line": 25,
+            "text": "try:updated=state.allocate(command.allocation,command.expected_free_points)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/profile_query_service.py",
+        "sha256": "5ac1b31de5869525a7947f2572cf7362f9d3abc47927c0f3f54c4ff78c44a32e",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.application.account_ports import AccountUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.application.character_ports import CharacterUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 10,
+            "text": "def __init__(self,accounts:AccountUnitOfWorkFactoryPort,characters:CharacterUnitOfWorkFactoryPort)->None:self._accounts=accounts;self._characters=characters"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/quest_engine_service.py",
+        "sha256": "38f0304d515a060e1168ab8d2f09523a8d43da121a664ef73d5ba1dc8f711be9",
+        "hits": [
+          {
+            "line": 6,
+            "text": "def availability(self,user_id,definition,level,location_id):"
+          },
+          {
+            "line": 10,
+            "text": "if location_id!=definition.location_id:return V2QuestResult(False,\"wrong_location\")"
+          },
+          {
+            "line": 14,
+            "text": "def accept(self,user_id,definition,level,location_id):"
+          },
+          {
+            "line": 15,
+            "text": "result=self.availability(user_id,definition,level,location_id)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/resource_ports.py",
+        "sha256": "e229e7f8b65fc6d80105805b496c1a754776c619e63df48a76152c9c08c6f7a9",
+        "hits": [
+          {
+            "line": 5,
+            "text": "class ResourceRepositoryPort(Protocol):"
+          },
+          {
+            "line": 8,
+            "text": "class ResourceUnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 9,
+            "text": "resources:ResourceRepositoryPort"
+          },
+          {
+            "line": 10,
+            "text": "def __enter__(self)->ResourceUnitOfWorkPort:..."
+          },
+          {
+            "line": 13,
+            "text": "class ResourceUnitOfWorkFactoryPort(Protocol):"
+          },
+          {
+            "line": 14,
+            "text": "def __call__(self)->ResourceUnitOfWorkPort:..."
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/resource_service.py",
+        "sha256": "5088369b3d69e68c3960f4f9d36a44d0f17b9d75916714c847307cc96e4d2823",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.application.resource_ports import ResourceUnitOfWorkFactoryPort"
+          },
+          {
+            "line": 10,
+            "text": "def __init__(self,uow_factory:ResourceUnitOfWorkFactoryPort)->None:self._uow_factory=uow_factory"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/reward_settlement.py",
+        "sha256": "a1fe24234faf72b4f646e7cbc27ebe92d4c0f56e84f3ad86aa8d793b9441b791",
+        "hits": [
+          {
+            "line": 72,
+            "text": "class RewardSettlementClaimRepository(Protocol):"
+          },
+          {
+            "line": 77,
+            "text": "class RewardPlayerProgressionRepository(Protocol):"
+          },
+          {
+            "line": 81,
+            "text": "class RewardWalletRepository(Protocol):"
+          },
+          {
+            "line": 84,
+            "text": "class RewardLootRepository(Protocol):"
+          },
+          {
+            "line": 87,
+            "text": "class RewardObjectiveProgressRepository(Protocol):"
+          },
+          {
+            "line": 90,
+            "text": "class RewardHistoryRepository(Protocol):"
+          },
+          {
+            "line": 93,
+            "text": "class RewardSettlementUnitOfWork(Protocol):"
+          },
+          {
+            "line": 94,
+            "text": "claims: RewardSettlementClaimRepository"
+          },
+          {
+            "line": 95,
+            "text": "progression: RewardPlayerProgressionRepository"
+          },
+          {
+            "line": 96,
+            "text": "wallet: RewardWalletRepository"
+          },
+          {
+            "line": 97,
+            "text": "loot: RewardLootRepository"
+          },
+          {
+            "line": 98,
+            "text": "objective_progress: RewardObjectiveProgressRepository"
+          },
+          {
+            "line": 99,
+            "text": "history: RewardHistoryRepository"
+          },
+          {
+            "line": 105,
+            "text": "def settle(self, command: RewardSettlementCommand, uow: RewardSettlementUnitOfWork) -> RewardSettlementResult:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/story_navigation_service.py",
+        "sha256": "d039a4c4d96c6e4b58fda66e5e1afe8c6451da91465f6a5fd282761b5fb57c4d",
+        "hits": [
+          {
+            "line": 6,
+            "text": "LOCATION_LABELS={\"start_path\":\"Початок Шляху\",\"dark_forest\":\"Темний Бір\"}"
+          },
+          {
+            "line": 28,
+            "text": "for location_id,start in ((\"start_path\",1),(\"dark_forest\",51)):"
+          },
+          {
+            "line": 30,
+            "text": "for offset,title in enumerate(SECTION_TITLES[location_id]):"
+          },
+          {
+            "line": 36,
+            "text": "section=StorySectionView(f\"{location_id}_{offset+1:02d}\",location_id,offset+1,title,(first-1)//10+1,tuple(views));ensure_safe_ui_text(section.display_title);sections.append(section)"
+          },
+          {
+            "line": 37,
+            "text": "stories.append(StoryView(location_id,location_id,ensure_safe_ui_text(LOCATION_LABELS[location_id]),\"🧭\" if location_id==\"start_path\" else \"🌲\",tuple(sections)))"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/application/travel_service.py",
+        "sha256": "b711315637f6f9ef90312ca796b270c195e07498c1fb276fa92886c44a99f9a1",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.content.world_graph import CITY_NODE_ID,TRAVEL_SECONDS,are_adjacent,get_world_node"
+          },
+          {
+            "line": 6,
+            "text": "from rom_v2.domain.travel_aggregate import TravelAggregate,TravelStatus"
+          },
+          {
+            "line": 8,
+            "text": "class TravelResult:success:bool;reason:str|None=None;travel:TravelAggregate|None=None;location:str|None=None"
+          },
+          {
+            "line": 9,
+            "text": "class TravelService:"
+          },
+          {
+            "line": 15,
+            "text": "if self.busy.get_busy(user_id):return TravelResult(False,\"player_busy\")"
+          },
+          {
+            "line": 19,
+            "text": "if p is None:return TravelResult(False,\"user_not_found\")"
+          },
+          {
+            "line": 20,
+            "text": "source=str(p[\"location\"] or CITY_NODE_ID);target=str(to_node)"
+          },
+          {
+            "line": 21,
+            "text": "if get_world_node(source) is None:return TravelResult(False,\"invalid_current_node\")"
+          },
+          {
+            "line": 22,
+            "text": "if get_world_node(target) is None:return TravelResult(False,\"unknown_destination\")"
+          },
+          {
+            "line": 23,
+            "text": "if not are_adjacent(source,target):return TravelResult(False,\"not_adjacent\")"
+          },
+          {
+            "line": 24,
+            "text": "if target!=CITY_NODE_ID and not is_location_unlocked(target,int(p[\"level\"] or 1)):return TravelResult(False,\"location_locked\")"
+          },
+          {
+            "line": 25,
+            "text": "if self.uow.get_active(user_id):return TravelResult(False,\"already_travelling\")"
+          },
+          {
+            "line": 26,
+            "text": "t=TravelAggregate(self.uow.next_id(),user_id,source,target,TravelStatus.ACTIVE,1,now,now+timedelta(seconds=TRAVEL_SECONDS));self.uow.save(t);self.uow.commit();return TravelResult(True,travel=t)"
+          },
+          {
+            "line": 28,
+            "text": "def cancel(self,user_id,travel_id,revision,now):"
+          },
+          {
+            "line": 29,
+            "text": "now=self._utc(now);t=self.uow.get(travel_id)"
+          },
+          {
+            "line": 30,
+            "text": "if t is None:return TravelResult(False,\"travel_not_found\")"
+          },
+          {
+            "line": 32,
+            "text": "if changed is None:return TravelResult(False,reason,t)"
+          },
+          {
+            "line": 33,
+            "text": "self.uow.save(changed);self.uow.commit();return TravelResult(True,travel=changed)"
+          },
+          {
+            "line": 34,
+            "text": "def complete(self,travel_id,now):"
+          },
+          {
+            "line": 35,
+            "text": "now=self._utc(now);t=self.uow.get(travel_id)"
+          },
+          {
+            "line": 36,
+            "text": "if t is None:return TravelResult(False,\"travel_not_found\")"
+          },
+          {
+            "line": 38,
+            "text": "if p is None:return TravelResult(False,\"user_not_found\")"
+          },
+          {
+            "line": 39,
+            "text": "changed,reason=t.complete(str(p[\"location\"] or CITY_NODE_ID),now)"
+          },
+          {
+            "line": 40,
+            "text": "if changed is None:return TravelResult(False,reason,t)"
+          },
+          {
+            "line": 41,
+            "text": "if changed.status is TravelStatus.FAILED:self.uow.save(changed);self.uow.commit();return TravelResult(False,reason,changed)"
+          },
+          {
+            "line": 42,
+            "text": "if not self.uow.cas_location(t.user_id,t.from_node,t.to_node):return TravelResult(False,\"terminal_claim_lost\",t)"
+          },
+          {
+            "line": 43,
+            "text": "self.uow.save(changed);self.uow.commit();return TravelResult(True,travel=changed,location=t.to_node)"
+          },
+          {
+            "line": 44,
+            "text": "def recover_due(self,now,limit=100):return tuple(self.complete(t.travel_id,now) for t in self.uow.due(self._utc(now),max(1,min(100,int(limit)))))"
+          },
+          {
+            "line": 49,
+            "text": "def __init__(self,players):self.players={k:dict(v) for k,v in players.items()};self.travels={};self.seq=0;self.commits=0;self.rollbacks=0"
+          },
+          {
+            "line": 51,
+            "text": "def get_active(self,u):return next((t for t in self.travels.values() if t.user_id==u and t.status is TravelStatus.ACTIVE),None)"
+          },
+          {
+            "line": 52,
+            "text": "def get(self,i):return self.travels.get(i)"
+          },
+          {
+            "line": 54,
+            "text": "def save(self,t):self.travels[t.travel_id]=t"
+          },
+          {
+            "line": 55,
+            "text": "def cas_location(self,u,e,v):"
+          },
+          {
+            "line": 57,
+            "text": "if p is None or str(p[\"location\"] or CITY_NODE_ID)!=e:return False"
+          },
+          {
+            "line": 58,
+            "text": "p[\"location\"]=v;return True"
+          },
+          {
+            "line": 59,
+            "text": "def due(self,n,l):return sorted((t for t in self.travels.values() if t.status is TravelStatus.ACTIVE and t.arrival_at<=n),key=lambda t:(t.arrival_at,t.travel_id))[:l]"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/location_catalog.py",
+        "sha256": "d87d023fcb7685b252caa56318c61a9eb4b64a356ec4c5270222c3deda7449f9",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"Canonical immutable V2 catalog for the two V1-parity locations."
+          },
+          {
+            "line": 3,
+            "text": "This module is pure content. It has no persistence, Telegram, clock or random"
+          },
+          {
+            "line": 15,
+            "text": "UNKNOWN_LOCATION_NAME = \"🧭 Невідома місцевість\""
+          },
+          {
+            "line": 18,
+            "text": "class LocationDefinition:"
+          },
+          {
+            "line": 19,
+            "text": "\"\"\"Immutable canonical definition of one huntable location.\"\"\""
+          },
+          {
+            "line": 20,
+            "text": "location_id: str"
+          },
+          {
+            "line": 29,
+            "text": "_START_PATH = LocationDefinition("
+          },
+          {
+            "line": 30,
+            "text": "location_id=START_PATH_ID,"
+          },
+          {
+            "line": 41,
+            "text": "_DARK_FOREST = LocationDefinition("
+          },
+          {
+            "line": 42,
+            "text": "location_id=DARK_FOREST_ID,"
+          },
+          {
+            "line": 53,
+            "text": "LOCATION_ORDER: tuple[str, ...] = (START_PATH_ID, DARK_FOREST_ID)"
+          },
+          {
+            "line": 54,
+            "text": "LOCATIONS: Mapping[str, LocationDefinition] = MappingProxyType({"
+          },
+          {
+            "line": 58,
+            "text": "from rom_v2.content.world_graph import validate_world_graph"
+          },
+          {
+            "line": 60,
+            "text": "def get_location(location_id: str) -> LocationDefinition | None:"
+          },
+          {
+            "line": 61,
+            "text": "\"\"\"Return a canonical location or None; never fabricate an unknown record.\"\"\""
+          },
+          {
+            "line": 62,
+            "text": "return LOCATIONS.get(str(location_id or \"\").strip())"
+          },
+          {
+            "line": 64,
+            "text": "def require_location(location_id: str) -> LocationDefinition:"
+          },
+          {
+            "line": 65,
+            "text": "\"\"\"Return a canonical location and fail closed for unknown technical IDs.\"\"\""
+          },
+          {
+            "line": 66,
+            "text": "normalized=str(location_id or \"\").strip(); location=LOCATIONS.get(normalized)"
+          },
+          {
+            "line": 67,
+            "text": "if location is None: raise KeyError(f\"unknown location_id: {normalized}\")"
+          },
+          {
+            "line": 68,
+            "text": "return location"
+          },
+          {
+            "line": 70,
+            "text": "def get_location_display_name(location_id: str) -> str:"
+          },
+          {
+            "line": 72,
+            "text": "return require_location(location_id).name"
+          },
+          {
+            "line": 74,
+            "text": "def is_location_unlocked(location_id: str, player_level: int) -> bool:"
+          },
+          {
+            "line": 75,
+            "text": "\"\"\"Apply the V1 unlock threshold for one known location.\"\"\""
+          },
+          {
+            "line": 78,
+            "text": "return player_level >= require_location(location_id).unlock_level"
+          },
+          {
+            "line": 80,
+            "text": "def get_unlocked_locations(player_level: int) -> tuple[LocationDefinition, ...]:"
+          },
+          {
+            "line": 81,
+            "text": "\"\"\"Enumerate unlocked locations in canonical catalog order.\"\"\""
+          },
+          {
+            "line": 84,
+            "text": "return tuple(LOCATIONS[key] for key in LOCATION_ORDER if player_level>=LOCATIONS[key].unlock_level)"
+          },
+          {
+            "line": 86,
+            "text": "def validate_location_catalog() -> None:"
+          },
+          {
+            "line": 88,
+            "text": "if tuple(LOCATIONS) != LOCATION_ORDER: raise ValueError(\"location order mismatch\")"
+          },
+          {
+            "line": 89,
+            "text": "for key, location in LOCATIONS.items():"
+          },
+          {
+            "line": 90,
+            "text": "if key != location.location_id: raise ValueError(f\"location identity mismatch: {key}\")"
+          },
+          {
+            "line": 91,
+            "text": "if not (1 <= location.level_min <= location.level_max): raise ValueError(f\"invalid level range: {key}\")"
+          },
+          {
+            "line": 92,
+            "text": "if location.unlock_level != location.level_min: raise ValueError(f\"unlock mismatch: {key}\")"
+          },
+          {
+            "line": 93,
+            "text": "if not location.name or not location.description or not location.boss_name or not location.mob_names:"
+          },
+          {
+            "line": 94,
+            "text": "raise ValueError(f\"incomplete location: {key}\")"
+          },
+          {
+            "line": 95,
+            "text": "if len(location.mob_names) != len(set(location.mob_names)): raise ValueError(f\"duplicate mob: {key}\")"
+          },
+          {
+            "line": 96,
+            "text": "validate_world_graph(location_ids=set(LOCATIONS))"
+          },
+          {
+            "line": 98,
+            "text": "validate_location_catalog()"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_dark_forest_51_60.py",
+        "sha256": "9fe20b35503f0aa1aaef2f8b7b46283945f69f1d11e669f8255196c06fc45db5",
+        "hits": [
+          {
+            "line": 5,
+            "text": "V2StoryQuestContentRecord('dark_forest_051_shadow_beyond_the_border', 51, 'Тінь за межею', 'TALK', 'dark_forest', 6, 'start_path_050_road_ahead', 'elder', 'elder', 1, 'Після перемоги над Ватажком Староста отримує тривожні повідомлення зі старого прикордонного шляху. Біля входу до Темного Бору з’явилися гоблінські дозори, а кілька мисливців не повернулися з лісу.', 'Поговорити зі Старостою про загрозу біля Темного Бору.', 'Перемога над Ватажком повернула спокій на дорогу через Початок Шляху, але "
+          },
+          {
+            "line": 8,
+            "text": "V2StoryQuestContentRecord('dark_forest_054_sign_on_the_old_road', 54, 'Знак на старому шляху', 'QUEST_ITEM', 'dark_forest', 6, 'dark_forest_053_not_a_random_patrol', 'mercenary_head', 'mercenary_head', 1, 'Голова Найманців просить знайти гоблінський прикордонний знак біля старого шляху та зберегти його як доказ організованої присутності дозорів.', 'Шукати під час полювання доказ того, що гобліни позначають межі контрольованої території.', 'Знак має бути вирізаний із темного дерева й перев’язаний"
+          },
+          {
+            "line": 11,
+            "text": "V2StoryQuestContentRecord('dark_forest_057_runic_trace', 57, 'Рунічний слід', 'QUEST_ITEM', 'dark_forest', 6, 'dark_forest_056_camp_by_the_road', 'mercenary_head', 'mercenary_head', 1, 'Після зачистки прикордонного табору Голова Найманців просить знайти предмет, який пояснить синювате світіння серед гоблінських трофеїв.', 'Шукати під час полювання предмет зі слідами рунічної корупції.', 'Розвідники бачили серед покинутих речей уламки темного металу. Частина з них була холодною, хоча лежала біля "
+          },
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=6 or quest.location_id!='dark_forest': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_dark_forest_61_70.py",
+        "sha256": "2c6c06e4685a04155db0cf228717a38068aa14b5ac4ea0c8e24dd4f76908d3ea",
+        "hits": [
+          {
+            "line": 8,
+            "text": "V2StoryQuestContentRecord('dark_forest_064_voice_of_the_patrol', 64, 'Голос дозору', 'QUEST_ITEM', 'dark_forest', 7, 'dark_forest_063_answer_from_the_forest', 'mercenary_head', 'mercenary_head', 1, 'Знайти предмет, за допомогою якого гоблінські дозорні передають звукові сигнали.', 'Шукати під час полювання предмет для передавання сигналів.', 'Тепер ми знаємо, що дозорні використовують невеликий предмет, який носять на поясі.\\n\\nПродовжуй полювання поблизу внутрішніх стежок. Нам потрібен один ціл"
+          },
+          {
+            "line": 12,
+            "text": "V2StoryQuestContentRecord('dark_forest_068_heavy_token', 68, 'Важкий жетон', 'QUEST_ITEM', 'dark_forest', 7, 'dark_forest_067_cut_the_supply_line', 'mercenary_head', 'mercenary_head', 1, 'Після бою розвідники помітили, що окремі гоблінські дозорні носять на поясах металеві предмети.', 'Шукати під час полювання металевий предмет гоблінського дозорного.', 'Під час зачистки розвідники помітили незвичну деталь. Деякі дозорні носили на поясах важкі металеві предмети.\\n\\nЗдалеку неможливо визначити, ч"
+          },
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=7 or quest.location_id!='dark_forest': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_dark_forest_71_80.py",
+        "sha256": "8aba4c63bbec41fb45a3a2fed20f5d606b40fb16bc5e79c4b646a2de7ad62758",
+        "hits": [
+          {
+            "line": 8,
+            "text": "V2StoryQuestContentRecord('dark_forest_074_signs_by_the_stone_ravine', 74, 'Знаки біля кам’яного яру', 'QUEST_ITEM', 'dark_forest', 8, 'dark_forest_073_not_a_military_camp', 'mercenary_head', 'mercenary_head', 1, 'Серед предметів сьомої стоянки може зберігатися доказ призначення невідомих знаків.', 'Шукати під час полювання предмет зі знаками зі сьомої стоянки.', 'Розвідники позначили місце, але не змогли визначити, що саме лежить на столах.\\n\\nШукай предмет, на якому збереглося хоча б одне повн"
+          },
+          {
+            "line": 12,
+            "text": "V2StoryQuestContentRecord('dark_forest_078_remnants_of_the_ritual', 78, 'Залишки обряду', 'QUEST_ITEM', 'dark_forest', 8, 'dark_forest_077_extinguish_the_ritual_fires', 'alchemist', 'alchemist', 1, 'Після відступу охорони можна оглянути залишки матеріалів у ритуальних чашах.', 'Шукати під час полювання зразок матеріалу з ритуальних чаш.', 'Тепер до чаш можна наблизитися, але залишки суміші все ще можуть бути небезпечними.\\n\\nВикористовуй лише видану посудину. Не торкайся матеріалу руками й не зм"
+          },
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=8 or quest.location_id!='dark_forest': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_dark_forest_81_90.py",
+        "sha256": "5ba9a29f2a883595da9cfba6ea27d34faac1c769b443501768c6a9dca2d2b148",
+        "hits": [
+          {
+            "line": 8,
+            "text": "V2StoryQuestContentRecord('dark_forest_084_dark_soil', 84, 'Темний ґрунт', 'QUEST_ITEM', 'dark_forest', 9, 'dark_forest_083_land_without_tracks', 'mercenary_head', 'mercenary_head', 1, 'Потрібно отримати матеріал із безплідної ділянки для подальшого дослідження.', 'Шукати під час полювання зразок матеріалу з безплідної ділянки.', 'Зовнішніх ознак недостатньо, щоб визначити природу змін.\\n\\nВізьми підготовлену посудину та знайди матеріал, який помітно відрізняється від звичайної землі Темного Бор"
+          },
+          {
+            "line": 12,
+            "text": "V2StoryQuestContentRecord('dark_forest_088_traces_among_the_roots', 88, 'Сліди серед коріння', 'QUEST_ITEM', 'dark_forest', 9, 'dark_forest_087_through_black_roots', 'alchemist', 'alchemist', 1, 'Перевірити територію біля чорного коріння та знайти предмет, який не міг з’явитися там природним шляхом.', 'Шукати під час полювання сторонній предмет біля чорного коріння.', 'Після зачистки розвідники змогли встановити смужки тканини. На одній ділянці вони темніють значно швидше.\\n\\nОглянь місцевість п"
+          },
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=9 or quest.location_id!='dark_forest': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_dark_forest_91_100.py",
+        "sha256": "e3299a906b4ab7510e3ebe46183d13a13a47d1792bfc9b3ac6eb9bdecad00a98",
+        "hits": [
+          {
+            "line": 8,
+            "text": "V2StoryQuestContentRecord('dark_forest_094_symbol_of_the_old_ruins', 94, 'Символ старих руїн', 'QUEST_ITEM', 'dark_forest', 10, 'dark_forest_093_sign_above_the_gate', 'mercenary_head', 'mercenary_head', 1, 'Потрібно знайти частину знака зі старих руїн, на якій збереглося повне зображення.', 'Шукати під час полювання фрагмент символу зі старих руїн.', 'Під час сутичок біля руїн частина зовнішніх укріплень була пошкоджена. На землі могли залишитися уламки металевого знака.\\n\\nЗнайди фрагмент, на я"
+          },
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=10 or quest.location_id!='dark_forest': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_start_path_11_20.py",
+        "sha256": "d83193032ec50929b923700732ec0e484dc47ac047ef94ee192d5a66b3385ce4",
+        "hits": [
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=2 or quest.location_id!='start_path': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_start_path_21_30.py",
+        "sha256": "3eb8691d49adb31cebeed1d6c83aa4fed99356c2247ea8c552c7ee564f08c2cf",
+        "hits": [
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=3 or quest.location_id!='start_path': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_start_path_31_40.py",
+        "sha256": "18180c28cdf2da7961d024857e5dd30d808ad5221ec2c10f22fb3e012f59d48a",
+        "hits": [
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=4 or quest.location_id!='start_path': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/story_start_path_41_50.py",
+        "sha256": "8d70fb5d417358b4fc5464ad64212cc253d3ea60d6299112ce0c7345d3bc1874",
+        "hits": [
+          {
+            "line": 13,
+            "text": "V2StoryQuestContentRecord('start_path_049_pack_leader', 49, 'Ватажок зграї', 'BOSS', 'start_path', 5, 'start_path_048_final_perimeter', 'mercenary_head', None, 1, 'Герой перемагає Ватажка через RNG encounter або гарантований виклик.', 'Перемогти Ватажка зграї у локації «Початок Шляху», а потім доповісти Голові Найманців.', 'Ватажок тримається біля лігва. Вирушай у «Початок Шляху» та натисни «👀 Роззирнутися». Там Ватажка можна викликати на бій. Також він може зустрітися випадково під час звичайно"
+          },
+          {
+            "line": 14,
+            "text": "V2StoryQuestContentRecord('start_path_050_road_ahead', 50, 'Дорога далі', 'TURN_IN', 'start_path', 5, 'start_path_049_pack_leader', 'elder', 'elder', 1, 'Герой повертається до Старости з підсумком перемоги над Ватажком і завершує історію «Початок Шляху».', 'Доповісти Старості про перемогу над Ватажком і завершення вирішального походу.', 'Староста чекає остаточної доповіді про Ватажка, стан зграї та безпеку шляху біля лігва.', 'Староста вислуховує доповідь про перемогу над Ватажком. Без провідник"
+          },
+          {
+            "line": 25,
+            "text": "if quest.unlock_level!=5 or quest.location_id!='start_path': raise ValueError('invalid_level_or_location')"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/content/world_graph.py",
+        "sha256": "15376560f22e31554d31c5b2011cc1c608183e19d604ebfaee7cea150c4db49f",
+        "hits": [
+          {
+            "line": 4,
+            "text": "20-second travel duration, but no per-user travel state or persistence."
+          },
+          {
+            "line": 15,
+            "text": "TRAVEL_SECONDS = 20"
+          },
+          {
+            "line": 26,
+            "text": "_START_PATH = WorldNode(START_PATH_ID, \"🌿 Початок Шляху\", \"location\", True)"
+          },
+          {
+            "line": 27,
+            "text": "_DARK_FOREST = WorldNode(DARK_FOREST_ID, \"🌲 Темний Бір\", \"location\", True)"
+          },
+          {
+            "line": 35,
+            "text": "LOCATION_GRAPH: Mapping[str, tuple[str, ...]] = MappingProxyType({"
+          },
+          {
+            "line": 48,
+            "text": "return LOCATION_GRAPH.get(str(node_id or \"\").strip(), ())"
+          },
+          {
+            "line": 56,
+            "text": "return target in LOCATION_GRAPH[source]"
+          },
+          {
+            "line": 58,
+            "text": "def validate_world_graph(*, location_ids: AbstractSet[str] | None = None) -> None:"
+          },
+          {
+            "line": 62,
+            "text": "if tuple(LOCATION_GRAPH) != WORLD_NODE_ORDER:"
+          },
+          {
+            "line": 64,
+            "text": "if TRAVEL_SECONDS != 20:"
+          },
+          {
+            "line": 65,
+            "text": "raise ValueError(\"travel duration mismatch\")"
+          },
+          {
+            "line": 71,
+            "text": "if node.kind not in {\"city\", \"location\"}:"
+          },
+          {
+            "line": 73,
+            "text": "if node.huntable != (node.kind == \"location\"):"
+          },
+          {
+            "line": 79,
+            "text": "neighbors = LOCATION_GRAPH[current]"
+          },
+          {
+            "line": 85,
+            "text": "if current not in LOCATION_GRAPH.get(neighbor, ()):"
+          },
+          {
+            "line": 92,
+            "text": "if DARK_FOREST_ID in LOCATION_GRAPH[CITY_NODE_ID]:"
+          },
+          {
+            "line": 94,
+            "text": "if location_ids is not None:"
+          },
+          {
+            "line": 96,
+            "text": "if set(location_ids) != huntable_ids:"
+          },
+          {
+            "line": 97,
+            "text": "raise ValueError(\"Location Catalog references do not match huntable graph nodes\")"
+          },
+          {
+            "line": 99,
+            "text": "validate_world_graph()"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/battle_persistence.py",
+        "sha256": "30048c3e6e462f48ce312cfdd1390815f4a8f42e571f00cb3ad3785c67ea51d9",
+        "hits": [
+          {
+            "line": 4,
+            "text": "contains no database, repository, Telegram, wall-clock, or full battle snapshot"
+          },
+          {
+            "line": 79,
+            "text": "\"\"\"Create one active marker; repository-level actor uniqueness is deferred.\"\"\""
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/central_loot.py",
+        "sha256": "96509c933eeb02063eb1688a8da017a9becaece2124b00b57670f74b34fd3ce6",
+        "hits": [
+          {
+            "line": 78,
+            "text": "player_class: str, location_key: str,"
+          },
+          {
+            "line": 80,
+            "text": "self._validate(enemy_class, enemy_level, player_class, location_key, rules)"
+          },
+          {
+            "line": 114,
+            "text": "def _validate(enemy_class, enemy_level, player_class, location_key, groups):"
+          },
+          {
+            "line": 117,
+            "text": "if not player_class.strip() or not location_key.strip():raise CentralLootConfigurationError(\"player_class_and_location_required\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/character.py",
+        "sha256": "684efcb528747a7a1f4312d1eadf54483db6dfc81d01d869ffe7200c6def3c54",
+        "hits": [
+          {
+            "line": 21,
+            "text": "character_id:str;account_id:str;name:str;class_key:str;level:int;experience:int;location_key:str;current_hp:int;current_mp:int|None"
+          },
+          {
+            "line": 30,
+            "text": "if not self.location_key.strip():raise ValueError(\"location_key_required\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/dev_data_operations.py",
+        "sha256": "f35bd8757b769ad211a142ed947de894817ff9827d1597692173102d339ab1a5",
+        "hits": [
+          {
+            "line": 50,
+            "text": "\"\"\"Application service/repository facade; implementations enforce domain invariants.\"\"\""
+          },
+          {
+            "line": 61,
+            "text": "class UnitOfWorkPort(Protocol):"
+          },
+          {
+            "line": 62,
+            "text": "def __enter__(self) -> \"UnitOfWorkPort\": ..."
+          },
+          {
+            "line": 69,
+            "text": "def __init__(self, operations: DevDataOperationsPort, receipts: DevOperationReceiptPort, uow: UnitOfWorkPort):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/direct_trade.py",
+        "sha256": "ee0e7db9df7dfc3bda64d22829b2a4c982779332966224d1d698336f8481c180",
+        "hits": [
+          {
+            "line": 20,
+            "text": "trade_id:int;initiator_id:int;recipient_id:int;location_id:str;revision:int=0;status:TradeStatus=TradeStatus.EDITING;initiator_offer:TradeOffer|None=None;recipient_offer:TradeOffer|None=None;initiator_ready:bool=False;recipient_ready:bool=False;initiator_confirmed:bool=False;recipient_confirmed:bool=False"
+          },
+          {
+            "line": 23,
+            "text": "if not self.location_id.strip() or self.revision<0:raise ValueError(\"invalid_trade_state\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/events.py",
+        "sha256": "52fafca5ab34813479021e73c624b139bff618e288cfa978717865d29eff3f20",
+        "hits": [
+          {
+            "line": 136,
+            "text": "definition_map: dict[str, EventDefinition] = {}"
+          },
+          {
+            "line": 138,
+            "text": "if definition.event_key in definition_map:"
+          },
+          {
+            "line": 142,
+            "text": "reward_map: dict[str, DirectRewardCatalog] = {}"
+          },
+          {
+            "line": 144,
+            "text": "if catalog.event_key in reward_map:"
+          },
+          {
+            "line": 146,
+            "text": "if catalog.event_key not in definition_map:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/inactivity_reminders.py",
+        "sha256": "12fcc2f7cf10690ff01da0fb3482417e7f713e1b6615bdad4483ebc9a3ab06ab",
+        "hits": [
+          {
+            "line": 85,
+            "text": "\"\"\"Evaluate exactly one cycle from injected activity, clock and audit state.\"\"\""
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/npc_dialogue_model.py",
+        "sha256": "4a9af38d973de98873dd9be7957b2fb8ba291a5dcc5a9c1c0677b150d0509bf5",
+        "hits": [
+          {
+            "line": 12,
+            "text": "location_id: str"
+          },
+          {
+            "line": 15,
+            "text": "if not self.npc_id.strip() or not self.display_name.strip() or not self.location_id.strip():"
+          },
+          {
+            "line": 32,
+            "text": "location_id: str"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/overlevel_policy.py",
+        "sha256": "eef0f42c0c733dd9cfca5a2c3a341d7e6f02689a38fbeca14a2772fa1729239f",
+        "hits": [
+          {
+            "line": 7,
+            "text": "LOCATION_MAX_LEVELS=MappingProxyType({\"start_path\":5,\"dark_forest\":10})"
+          },
+          {
+            "line": 13,
+            "text": "quest_id:str;number:int;location_id:str;target_quantity:int=1"
+          },
+          {
+            "line": 15,
+            "text": "if not self.quest_id or self.number<1 or self.location_id not in LOCATION_MAX_LEVELS or self.target_quantity<1:raise ValueError(\"invalid_overlevel_quest_definition\")"
+          },
+          {
+            "line": 18,
+            "text": "quest_id:str;number:int;location_id:str;status:OverlevelQuestStatus;progress:int;target_quantity:int;reward_claimed:bool=False"
+          },
+          {
+            "line": 23,
+            "text": "class OverlevelLocationResult:"
+          },
+          {
+            "line": 24,
+            "text": "location_id:str;max_level:int;completed:int;already_skipped:int;skipped_now:int;quest_items_deleted:int"
+          },
+          {
+            "line": 27,
+            "text": "current_level:int;changed:int;locations:tuple[OverlevelLocationResult,...]"
+          },
+          {
+            "line": 29,
+            "text": "def exceeded_locations(self):return tuple(x.location_id for x in self.locations)"
+          },
+          {
+            "line": 30,
+            "text": "def is_location_exceeded(current_level:int,location_id:str,max_levels=LOCATION_MAX_LEVELS)->bool:"
+          },
+          {
+            "line": 31,
+            "text": "if location_id not in max_levels:raise KeyError(\"unknown_story_location\")"
+          },
+          {
+            "line": 32,
+            "text": "return int(current_level)>int(max_levels[location_id])"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/premium_combat.py",
+        "sha256": "e6f36ce64ab06606acb9a65d1fe005b6c37b2c44865e75ecef1a1aac670a5c91",
+        "hits": [
+          {
+            "line": 4,
+            "text": "combat EXP and combat gold. It owns no clock, persistence, loot, presentation,"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/primary_stats.py",
+        "sha256": "904560126d76a237afff801c8fc274d0ad9b5a1d7849b949b2db1328904059c6",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"V1-faithful primary-stat state and allocation rules.\"\"\""
+          },
+          {
+            "line": 23,
+            "text": "def add(self,allocation:dict[str,int])->PrimaryStats:"
+          },
+          {
+            "line": 25,
+            "text": "for raw,amount in allocation.items():"
+          },
+          {
+            "line": 27,
+            "text": "if type(amount) is not int or amount<0:raise ValueError(\"allocation_quantity_invalid\")"
+          },
+          {
+            "line": 36,
+            "text": "def allocate(self,allocation:dict[str,int],expected_free_points:int|None=None)->AttributePointState:"
+          },
+          {
+            "line": 37,
+            "text": "if not allocation:raise ValueError(\"allocation_empty\")"
+          },
+          {
+            "line": 40,
+            "text": "for raw,amount in allocation.items():"
+          },
+          {
+            "line": 42,
+            "text": "if type(amount) is not int or amount<0:raise ValueError(\"allocation_quantity_invalid\")"
+          },
+          {
+            "line": 45,
+            "text": "if spent<=0:raise ValueError(\"allocation_empty\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/quest_engine.py",
+        "sha256": "38276ff1ff4e5d482746327ea71501d58da82c5488e9dbb043a4ff7e641f3718",
+        "hits": [
+          {
+            "line": 11,
+            "text": "quest_id:int;location_id:str;order:int;objective_type:V2QuestObjectiveType;target:int=1;required_level:int=1;previous_quest_id:int|None=None;required_item_key:str|None=None;required_item_quantity:int=0;reward:V2QuestReward=V2QuestReward()"
+          },
+          {
+            "line": 13,
+            "text": "if self.quest_id<1 or not self.location_id or self.order<1 or self.target<1 or self.required_level<1 or self.required_item_quantity<0:raise ValueError(\"invalid_quest_definition\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/simulator_adapters.py",
+        "sha256": "ee93b0caf451c32333ac241ebcac54d142f36583c6fabf588859ef5970ee7fd1",
+        "hits": [
+          {
+            "line": 3,
+            "text": "These adapters provide deterministic clock, seeded randomness and isolated"
+          },
+          {
+            "line": 29,
+            "text": "class ClockPort(Protocol):"
+          },
+          {
+            "line": 41,
+            "text": "class SimulationClockAdapter:"
+          },
+          {
+            "line": 42,
+            "text": "\"\"\"Injected deterministic UTC clock; never reads wall-clock time.\"\"\""
+          },
+          {
+            "line": 50,
+            "text": "def at_start(cls, value: datetime | None = None) -> \"SimulationClockAdapter\":"
+          },
+          {
+            "line": 58,
+            "text": "raise ValueError(\"simulation_clock_cannot_move_backwards\")"
+          },
+          {
+            "line": 114,
+            "text": "class IsolatedRepository(Generic[K, T]):"
+          },
+          {
+            "line": 115,
+            "text": "\"\"\"Deep-copying in-memory repository with explicit transaction snapshots.\"\"\""
+          },
+          {
+            "line": 163,
+            "text": "clock: SimulationClockAdapter"
+          },
+          {
+            "line": 165,
+            "text": "repositories: dict[str, IsolatedRepository[object, object]]"
+          },
+          {
+            "line": 170,
+            "text": "clock=SimulationClockAdapter.at_start(start_at),"
+          },
+          {
+            "line": 175,
+            "text": "def register_repository(self, name: str, repository: IsolatedRepository[object, object]) -> None:"
+          },
+          {
+            "line": 178,
+            "text": "raise ValueError(\"repository_name_must_not_be_empty\")"
+          },
+          {
+            "line": 180,
+            "text": "raise ValueError(f\"duplicate_simulator_repository::{key}\")"
+          },
+          {
+            "line": 181,
+            "text": "self.repositories[key] = repository"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/story_content.py",
+        "sha256": "8e7d6ec83c8c84821bd237e75d8ef7a46cdcece73c7c062391c81390c09ba5f3",
+        "hits": [
+          {
+            "line": 12,
+            "text": "location_id: str"
+          },
+          {
+            "line": 28,
+            "text": "if not self.location_id.strip() or self.unlock_level <= 0 or self.target_quantity <= 0: raise ValueError(\"invalid_quest_contract\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/story_navigation.py",
+        "sha256": "74fd8e8481ff93d5e840bef8ea78adeb2484dd690d0c02ad489d19a14b2709ad",
+        "hits": [
+          {
+            "line": 20,
+            "text": "section_id:str;location_id:str;number:int;title:str;required_level:int;quests:tuple[StoryQuestView,...]"
+          },
+          {
+            "line": 25,
+            "text": "story_id:str;location_id:str;display_name:str;icon:str;sections:tuple[StorySectionView,...]"
+          },
+          {
+            "line": 30,
+            "text": "if \"start_path\" in value or \"dark_forest\" in value:raise ValueError(\"technical_location_id_exposed\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/travel_aggregate.py",
+        "sha256": "25652f88af25ac1d58fe57ca11eaf15985fe4bed7eefd62c23a9ba352bd9f906",
+        "hits": [
+          {
+            "line": 5,
+            "text": "class TravelStatus(StrEnum):ACTIVE=\"active\";ARRIVED=\"arrived\";CANCELLED=\"cancelled\";FAILED=\"failed\""
+          },
+          {
+            "line": 7,
+            "text": "class TravelAggregate:"
+          },
+          {
+            "line": 8,
+            "text": "travel_id:int;user_id:int;from_node:str;to_node:str;status:TravelStatus;revision:int;started_at:datetime;arrival_at:datetime;cancelled_at:datetime|None=None;completed_at:datetime|None=None"
+          },
+          {
+            "line": 10,
+            "text": "if min(self.travel_id,self.user_id,self.revision)<1:raise ValueError(\"positive identity/revision required\")"
+          },
+          {
+            "line": 15,
+            "text": "if self.status is not TravelStatus.ACTIVE:return None,\"already_terminal\""
+          },
+          {
+            "line": 18,
+            "text": "return replace(self,status=TravelStatus.CANCELLED,revision=self.revision+1,cancelled_at=now),None"
+          },
+          {
+            "line": 19,
+            "text": "def complete(self,current_location,now):"
+          },
+          {
+            "line": 20,
+            "text": "if self.status is not TravelStatus.ACTIVE:return None,\"already_terminal\""
+          },
+          {
+            "line": 22,
+            "text": "if current_location!=self.from_node:return replace(self,status=TravelStatus.FAILED,revision=self.revision+1,completed_at=now),\"source_changed\""
+          },
+          {
+            "line": 23,
+            "text": "return replace(self,status=TravelStatus.ARRIVED,revision=self.revision+1,completed_at=now),None"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/domain/utc_time.py",
+        "sha256": "947ed27babfe745b4fce125f6ff46b731d6446d6063533002ef6b90382f1f772",
+        "hits": [
+          {
+            "line": 17,
+            "text": "return datetime.now(timezone.utc)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/__init__.py",
+        "sha256": "08dc4a3188d8f139bffb25a8abb35cd2b69a10e9e7bb7150ea8c80a5bf7832a7",
+        "hits": [
+          {
+            "line": 2,
+            "text": "from rom_v2.infrastructure.persistence.account_repository import SQLiteAccountRepository"
+          },
+          {
+            "line": 3,
+            "text": "from rom_v2.infrastructure.persistence.account_unit_of_work import SQLiteAccountUnitOfWork,SQLiteAccountUnitOfWorkFactory"
+          },
+          {
+            "line": 4,
+            "text": "from rom_v2.infrastructure.persistence.character_repository import SQLiteCharacterRepository"
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.infrastructure.persistence.character_unit_of_work import SQLiteCharacterUnitOfWork,SQLiteCharacterUnitOfWorkFactory"
+          },
+          {
+            "line": 8,
+            "text": "from rom_v2.infrastructure.persistence.repository_base import RepositoryContractError,SQLiteRepositoryBase"
+          },
+          {
+            "line": 10,
+            "text": "from rom_v2.infrastructure.persistence.unit_of_work import SQLiteUnitOfWork"
+          },
+          {
+            "line": 11,
+            "text": "__all__=[\"ConnectionProfile\",\"MigrationResult\",\"RepositoryContractError\",\"SCHEMA_CONTRACT\",\"SQLiteAccountRepository\",\"SQLiteAccountUnitOfWork\",\"SQLiteAccountUnitOfWorkFactory\",\"SQLiteCharacterRepository\",\"SQLiteCharacterUnitOfWork\",\"SQLiteCharacterUnitOfWorkFactory\",\"SQLiteRepositoryBase\",\"SQLiteUnitOfWork\",\"V2ConnectionFactory\",\"V2Migrator\"]"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/account_repository.py",
+        "sha256": "6f7decea0dc280a362d6f402a2ce32a80952668c872e407b57a552e3c1a12ba1",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"SQLite repository for V1-faithful account registration state.\"\"\""
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.infrastructure.persistence.repository_base import SQLiteRepositoryBase"
+          },
+          {
+            "line": 6,
+            "text": "class SQLiteAccountRepository(SQLiteRepositoryBase):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/account_unit_of_work.py",
+        "sha256": "30294f7e88febe1a70004b142bfbd1918a4c83052c240d7086890538194d81fc",
+        "hits": [
+          {
+            "line": 6,
+            "text": "from rom_v2.infrastructure.persistence.account_repository import SQLiteAccountRepository"
+          },
+          {
+            "line": 8,
+            "text": "from rom_v2.infrastructure.persistence.unit_of_work import SQLiteUnitOfWork"
+          },
+          {
+            "line": 11,
+            "text": "class SQLiteAccountUnitOfWork:"
+          },
+          {
+            "line": 14,
+            "text": "self._inner = SQLiteUnitOfWork(connection_factory)"
+          },
+          {
+            "line": 15,
+            "text": "self.accounts: SQLiteAccountRepository"
+          },
+          {
+            "line": 17,
+            "text": "def __enter__(self) -> SQLiteAccountUnitOfWork:"
+          },
+          {
+            "line": 19,
+            "text": "self.accounts = SQLiteAccountRepository(self._inner.connection)"
+          },
+          {
+            "line": 29,
+            "text": "class SQLiteAccountUnitOfWorkFactory:"
+          },
+          {
+            "line": 34,
+            "text": "def __call__(self) -> SQLiteAccountUnitOfWork:"
+          },
+          {
+            "line": 35,
+            "text": "return SQLiteAccountUnitOfWork(self._connection_factory)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/character_repository.py",
+        "sha256": "464e1bbe09cbb213f07c1991a0601a7d2c6d32016b1584e9950a9e049b9e842a",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"SQLite repository for V1-faithful character lifecycle state.\"\"\""
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.infrastructure.persistence.repository_base import SQLiteRepositoryBase"
+          },
+          {
+            "line": 6,
+            "text": "class SQLiteCharacterRepository(SQLiteRepositoryBase):"
+          },
+          {
+            "line": 8,
+            "text": "def _map(row:sqlite3.Row)->Character:return Character(str(row[\"character_id\"]),str(row[\"account_id\"]),str(row[\"name\"]),str(row[\"class_key\"]),int(row[\"level\"]),int(row[\"experience\"]),str(row[\"location_key\"]),int(row[\"current_hp\"]),None if row[\"current_mp\"] is None else int(row[\"current_mp\"]))"
+          },
+          {
+            "line": 20,
+            "text": "changed=self.execute(\"INSERT INTO characters(character_id,account_id,name,class_key,level,experience,location_key,current_hp,current_mp) VALUES (?,?,?,?,?,?,?,?,?)\",(character.character_id,character.account_id,character.name,character.class_key,character.level,character.experience,character.location_key,character.current_hp,character.current_mp));self.require_exact_rowcount(changed)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/character_unit_of_work.py",
+        "sha256": "1c587ea633b142b8348027963217a2809407e47a3b8ca19c7ff353f664a0d2a5",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.infrastructure.persistence.character_repository import SQLiteCharacterRepository"
+          },
+          {
+            "line": 6,
+            "text": "from rom_v2.infrastructure.persistence.unit_of_work import SQLiteUnitOfWork"
+          },
+          {
+            "line": 8,
+            "text": "class SQLiteCharacterUnitOfWork:"
+          },
+          {
+            "line": 9,
+            "text": "def __init__(self, connection_factory: V2ConnectionFactory) -> None: self._inner=SQLiteUnitOfWork(connection_factory)"
+          },
+          {
+            "line": 10,
+            "text": "def __enter__(self) -> SQLiteCharacterUnitOfWork:"
+          },
+          {
+            "line": 11,
+            "text": "self._inner.__enter__(); self.characters=SQLiteCharacterRepository(self._inner.connection); return self"
+          },
+          {
+            "line": 14,
+            "text": "class SQLiteCharacterUnitOfWorkFactory:"
+          },
+          {
+            "line": 16,
+            "text": "def __call__(self) -> SQLiteCharacterUnitOfWork: return SQLiteCharacterUnitOfWork(self._connection_factory)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "sha256": "a2502e256a385dd10381d2126ad00672dee7a2aeff9a08f02bc76e6b175a3245",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"SQLite equipment repository bound to exact inventory_items.inventory_id.\"\"\""
+          },
+          {
+            "line": 6,
+            "text": "class SQLiteEquipmentRepository:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "sha256": "cdeb81d4edc6c2635167c090c0e2b3a3f6cd2b71b5ef20f9640cf444656c9376",
+        "hits": [
+          {
+            "line": 3,
+            "text": "from rom_v2.infrastructure.persistence.equipment_repository import SQLiteEquipmentRepository"
+          },
+          {
+            "line": 4,
+            "text": "class SQLiteEquipmentUnitOfWork:"
+          },
+          {
+            "line": 6,
+            "text": "def __enter__(self):self.connection=self._factory();self.connection.execute(\"BEGIN IMMEDIATE\");self.equipment=SQLiteEquipmentRepository(self.connection);return self"
+          },
+          {
+            "line": 13,
+            "text": "class SQLiteEquipmentUnitOfWorkFactory:"
+          },
+          {
+            "line": 15,
+            "text": "def __call__(self):return SQLiteEquipmentUnitOfWork(self._factory)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "sha256": "e404fa78d10aa15f7deab48d9101ecdb8a970bcd0d8d96fbaa28ee5975dd0dc0",
+        "hits": [
+          {
+            "line": 6,
+            "text": "class SQLiteInventoryRepository:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+        "sha256": "8f7213c0018d4ad5a936c5c260e0f79d72be7e48ec7752efd569dc4b6dd8b4c9",
+        "hits": [
+          {
+            "line": 3,
+            "text": "from rom_v2.infrastructure.persistence.inventory_repository import SQLiteInventoryRepository"
+          },
+          {
+            "line": 4,
+            "text": "class SQLiteInventoryUnitOfWork:"
+          },
+          {
+            "line": 7,
+            "text": "self.connection=self._factory(); self.connection.execute(\"BEGIN IMMEDIATE\"); self.inventory=SQLiteInventoryRepository(self.connection); return self"
+          },
+          {
+            "line": 14,
+            "text": "class SQLiteInventoryUnitOfWorkFactory:"
+          },
+          {
+            "line": 16,
+            "text": "def __call__(self): return SQLiteInventoryUnitOfWork(self._factory)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "sha256": "d145d8a5bffb90f1bcd36a73a3b131e041c15c8a0d7f517664880a997915c6b7",
+        "hits": [
+          {
+            "line": 39,
+            "text": "location_key TEXT NOT NULL CHECK (length(location_key) > 0),"
+          },
+          {
+            "line": 181,
+            "text": "CREATE INDEX idx_characters_location ON characters(location_key);"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrator.py",
+        "sha256": "68a5d676ae7fa535351712842fe6fa36f02f1f3e8e588dfd98644e57eac159b9",
+        "hits": [
+          {
+            "line": 46,
+            "text": "datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace(\"+00:00\", \"Z\"),"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/primary_stat_repository.py",
+        "sha256": "39692fff52f9153a445844cbd6d96c4529b6583118b640cfde64f878e2a19511",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"SQLite repository for allocated primary stats and point invariants.\"\"\""
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.infrastructure.persistence.repository_base import SQLiteRepositoryBase"
+          },
+          {
+            "line": 6,
+            "text": "class SQLitePrimaryStatRepository(SQLiteRepositoryBase):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/primary_stat_unit_of_work.py",
+        "sha256": "563d40c8e460c9565a11d4767cacb6b220b7803adad915954cb4a98adb9f76ca",
+        "hits": [
+          {
+            "line": 5,
+            "text": "from rom_v2.infrastructure.persistence.primary_stat_repository import SQLitePrimaryStatRepository"
+          },
+          {
+            "line": 6,
+            "text": "from rom_v2.infrastructure.persistence.unit_of_work import SQLiteUnitOfWork"
+          },
+          {
+            "line": 7,
+            "text": "class SQLitePrimaryStatUnitOfWork:"
+          },
+          {
+            "line": 8,
+            "text": "def __init__(self,factory:V2ConnectionFactory)->None:self._inner=SQLiteUnitOfWork(factory)"
+          },
+          {
+            "line": 9,
+            "text": "def __enter__(self)->SQLitePrimaryStatUnitOfWork:self._inner.__enter__();self.primary_stats=SQLitePrimaryStatRepository(self._inner.connection);return self"
+          },
+          {
+            "line": 12,
+            "text": "class SQLitePrimaryStatUnitOfWorkFactory:"
+          },
+          {
+            "line": 14,
+            "text": "def __call__(self)->SQLitePrimaryStatUnitOfWork:return SQLitePrimaryStatUnitOfWork(self._factory)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/repository_base.py",
+        "sha256": "12d894e864eb52bf44090bc64bd8a5eae53b8002f6d2eb8598f4921395834a42",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"Transaction-bound repository primitives for ROM V2 SQLite adapters.\"\"\""
+          },
+          {
+            "line": 11,
+            "text": "class RepositoryContractError(RuntimeError):"
+          },
+          {
+            "line": 12,
+            "text": "\"\"\"Expose a stable machine-readable repository contract failure.\"\"\""
+          },
+          {
+            "line": 20,
+            "text": "class SQLiteRepositoryBase:"
+          },
+          {
+            "line": 24,
+            "text": "\"\"\"Bind the repository to an already-active explicit transaction.\"\"\""
+          },
+          {
+            "line": 26,
+            "text": "raise RepositoryContractError(\"repository_requires_active_transaction\")"
+          },
+          {
+            "line": 28,
+            "text": "raise RepositoryContractError(\"repository_requires_row_factory\")"
+          },
+          {
+            "line": 83,
+            "text": "raise RepositoryContractError(\"repository_row_not_found\")"
+          },
+          {
+            "line": 89,
+            "text": "raise RepositoryContractError(\"invalid_expected_rowcount\")"
+          },
+          {
+            "line": 91,
+            "text": "raise RepositoryContractError(\"repository_rowcount_mismatch\")"
+          },
+          {
+            "line": 96,
+            "text": "raise RepositoryContractError(\"repository_transaction_not_active\")"
+          },
+          {
+            "line": 100,
+            "text": "\"\"\"Reject empty and multi-statement SQL at the repository boundary.\"\"\""
+          },
+          {
+            "line": 103,
+            "text": "raise RepositoryContractError(\"empty_repository_statement\")"
+          },
+          {
+            "line": 105,
+            "text": "raise RepositoryContractError(\"multiple_repository_statements_forbidden\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/resource_repository.py",
+        "sha256": "3d0d505aed3c824170140b6c9cf88a49700f85a5ee0a77d01476e3ddc5dd3ce8",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.infrastructure.persistence.repository_base import SQLiteRepositoryBase"
+          },
+          {
+            "line": 5,
+            "text": "class SQLiteResourceRepository(SQLiteRepositoryBase):"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/resource_unit_of_work.py",
+        "sha256": "fb2d9a2706ea84042af8834f5460834e4776e175763182034136f7dd51d686ce",
+        "hits": [
+          {
+            "line": 5,
+            "text": "from rom_v2.infrastructure.persistence.resource_repository import SQLiteResourceRepository"
+          },
+          {
+            "line": 6,
+            "text": "from rom_v2.infrastructure.persistence.unit_of_work import SQLiteUnitOfWork"
+          },
+          {
+            "line": 7,
+            "text": "class SQLiteResourceUnitOfWork:"
+          },
+          {
+            "line": 8,
+            "text": "def __init__(self,factory:V2ConnectionFactory)->None:self._inner=SQLiteUnitOfWork(factory)"
+          },
+          {
+            "line": 9,
+            "text": "def __enter__(self):self._inner.__enter__();self.resources=SQLiteResourceRepository(self._inner.connection);return self"
+          },
+          {
+            "line": 12,
+            "text": "class SQLiteResourceUnitOfWorkFactory:"
+          },
+          {
+            "line": 14,
+            "text": "def __call__(self)->SQLiteResourceUnitOfWork:return SQLiteResourceUnitOfWork(self._factory)"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/schema_contract.py",
+        "sha256": "f3699faa19e2a4777e047da987807fb26b929dcb51663c1ee4c317a74da5972c",
+        "hits": [
+          {
+            "line": 79,
+            "text": "\"location_key\": column(\"TEXT\", checks=(\"length(location_key) > 0\",)),"
+          },
+          {
+            "line": 274,
+            "text": "{\"name\": \"idx_characters_location\", \"table\": \"characters\", \"columns\": [\"location_key\"], \"unique\": False},"
+          },
+          {
+            "line": 283,
+            "text": "\"travel\": {\"decision\": \"deferred_no_placeholder_table\", \"future_owner\": \"world_travel\"},"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/unit_of_work.py",
+        "sha256": "97b715f80a786e550b9bd1c234a09bfee80228e321dd7dab57fb9632959061cb",
+        "hits": [
+          {
+            "line": 13,
+            "text": "class SQLiteUnitOfWork:"
+          },
+          {
+            "line": 36,
+            "text": "def __enter__(self) -> SQLiteUnitOfWork:"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/presentation/overlevel_policy.py",
+        "sha256": "0133ce75f5bcd37454129044ec694cc7be1515b470db03beb526d226a75c9ce8",
+        "hits": [
+          {
+            "line": 4,
+            "text": "LOCATION_NAMES={\"start_path\":\"Початок Шляху\",\"dark_forest\":\"Темний Бір\"}"
+          },
+          {
+            "line": 7,
+            "text": "for item in result.locations:"
+          },
+          {
+            "line": 8,
+            "text": "if item.skipped_now>0:lines.append(f\"{LOCATION_NAMES[item.location_id]}: пропущено без нагород: {item.skipped_now}\")"
+          }
+        ]
+      },
+      {
+        "path": "rom_v2/presentation/story_navigation.py",
+        "sha256": "bc1d1222fa69d1b1bc31993424fce71c81541b516f6eb58dca4cb6a9e06874ab",
+        "hits": [
+          {
+            "line": 21,
+            "text": "def parent_route(route:StoryRoute,quest_to_section:dict[int,str]|None=None,section_to_location:dict[str,str]|None=None)->StoryRoute:"
+          },
+          {
+            "line": 26,
+            "text": "if not section_to_location or str(route.value) not in section_to_location:raise KeyError(\"section_parent_unknown\")"
+          },
+          {
+            "line": 27,
+            "text": "return StoryRoute(\"loc\",section_to_location[str(route.value)])"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_account_character_persistence.py",
+        "sha256": "9899427d86ce7269220d3fcb798029a7e639eeed2fe845afe57e6b328eec2af7",
+        "hits": [
+          {
+            "line": 6,
+            "text": "from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory,SQLiteCharacterUnitOfWorkFactory,V2ConnectionFactory,V2Migrator"
+          },
+          {
+            "line": 12,
+            "text": "return AccountService(SQLiteAccountUnitOfWorkFactory(factory)),CharacterService(SQLiteCharacterUnitOfWorkFactory(factory))"
+          },
+          {
+            "line": 31,
+            "text": "row=c.execute(\"SELECT account_id,name,class_key,location_key,current_hp,current_mp FROM characters WHERE character_id=?\",(\"character-1\",)).fetchone();c.close()"
+          },
+          {
+            "line": 33,
+            "text": "def test_account_wallet_creation_is_atomic_on_repository_failure(self):"
+          },
+          {
+            "line": 37,
+            "text": "with SQLiteAccountUnitOfWorkFactory(factory)() as unit:"
+          },
+          {
+            "line": 46,
+            "text": "with SQLiteCharacterUnitOfWorkFactory(factory)() as unit:"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_account_domain.py",
+        "sha256": "24392934f3d3550084c8bd9f2d2faa3867e3e91ed00b8b54806aa911af331f6f",
+        "hits": [
+          {
+            "line": 5,
+            "text": "from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory,V2ConnectionFactory,V2Migrator"
+          },
+          {
+            "line": 9,
+            "text": "root=Path(d)/\"db\";db=root/\"rom_v2.db\";V2Migrator(db).recreate();f=V2ConnectionFactory(db,runtime_root=root);s=AccountService(SQLiteAccountUnitOfWorkFactory(f));cmd=RegisterAccountCommand(\"a\",1,\"2026-01-01T00:00:00Z\",60);self.assertEqual(s.register(cmd).status,AccountResultStatus.CREATED);self.assertEqual(s.register(cmd).status,AccountResultStatus.ALREADY_EXISTS);c=f.connect_read_only();self.assertEqual(c.execute(\"SELECT balance FROM crystal_wallets\").fetchone()[0],0);c.close()"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_architecture_enforcement.py",
+        "sha256": "96b7da51a94b8c1552bc07f66c5c6a9858ffa5634761b74b085e7dc5d349feab",
+        "hits": [
+          {
+            "line": 51,
+            "text": "\"rom_v2/application/ports/clock.py\", \"rom_v2/application/ports/random_source.py\","
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_base_equipment_shop.py",
+        "sha256": "b6bc183762ab95169e3c061c3a0d6b2e4424c78e6d9b3fbb70e31a242fa917bb",
+        "hits": [
+          {
+            "line": 26,
+            "text": "if p not in self.map:self.map[p]=self.n;self.n+=1"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_callback_codec_registry.py",
+        "sha256": "f92eaf3090d34f8ed7bd8e36724672174e827a3052456253715fc467bff3a6a5",
+        "hits": [
+          {
+            "line": 73,
+            "text": "unknown = codec.encode(CallbackRoute(namespace=\"map\", action=\"travel\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_central_loot.py",
+        "sha256": "225f2d09b633c3a616a5d496de84f38b0639056c2e22e6629a4a003911fbb808",
+        "hits": [
+          {
+            "line": 14,
+            "text": "out=CentralLootPlanner().plan(enemy_class=\"normal\",enemy_level=3,player_class=\"scout\",location_key=\"x\",rules=groups,rng=rng)"
+          },
+          {
+            "line": 18,
+            "text": "out=CentralLootPlanner().plan(enemy_class=\"elite\",enemy_level=2,player_class=\"mage\",location_key=\"x\",rules=(LootGroup(\"g\",(r,)),),rng=rng)"
+          },
+          {
+            "line": 21,
+            "text": "rng=SeqRng(.2);out=CentralLootPlanner().plan(enemy_class=\"boss\",enemy_level=5,player_class=\"knight\",location_key=\"x\",rules=(LootGroup(\"g\",(rule(\"a\"),)),),rng=rng)"
+          },
+          {
+            "line": 24,
+            "text": "rng=SeqRng(.1);out=CentralLootPlanner().plan(enemy_class=\"normal\",enemy_level=1,player_class=\"warrior\",location_key=\"x\",rules=(LootGroup(\"g\",(rule(\"a\"),rule(\"b\")),1),),rng=rng)"
+          },
+          {
+            "line": 27,
+            "text": "rng=SeqRng();out=CentralLootPlanner().plan(enemy_class=\"normal\",enemy_level=1,player_class=\"priest\",location_key=\"x\",rules=(LootGroup(\"g\",(rule(\"a\",enabled=False),)),),rng=rng)"
+          },
+          {
+            "line": 31,
+            "text": "out=CentralLootPlanner().plan(enemy_class=\"boss\",enemy_level=7,player_class=\"rogue\",location_key=\"x\",rules=(LootGroup(\"g\",(r,)),),rng=rng)"
+          },
+          {
+            "line": 35,
+            "text": "with self.assertRaises(CentralLootConfigurationError):CentralLootPlanner().plan(enemy_class=\"normal\",enemy_level=1,player_class=\"x\",location_key=\"x\",rules=(LootGroup(\"g\",(bad,)),),rng=rng)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_character_lifecycle.py",
+        "sha256": "3de1f27ebdfa4f0e341a87647239e371f172d74f8669fa406a8ee63835dd4d03",
+        "hits": [
+          {
+            "line": 6,
+            "text": "from rom_v2.infrastructure.persistence import SQLiteCharacterUnitOfWorkFactory,V2ConnectionFactory,V2Migrator"
+          },
+          {
+            "line": 9,
+            "text": "root=Path(d)/\"db\";db=root/\"rom_v2.db\";V2Migrator(db).recreate();f=V2ConnectionFactory(db,runtime_root=root);c=f.connect_read_write();c.execute(\"INSERT INTO accounts(account_id,telegram_user_id,registered_at_utc,bag_capacity) VALUES('a',1,'2026-01-01T00:00:00Z',60)\");c.close();return f,CharacterService(SQLiteCharacterUnitOfWorkFactory(f))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_class_catalog.py",
+        "sha256": "c6db0d1b40d26f9bb9f18552f38886aa64cf84977927b142649a0a0ede721054",
+        "hits": [
+          {
+            "line": 7,
+            "text": "from rom_v2.infrastructure.persistence import SQLiteCharacterUnitOfWorkFactory,V2ConnectionFactory,V2Migrator"
+          },
+          {
+            "line": 35,
+            "text": "root=Path(d)/\"db\";db=root/\"rom_v2.db\";V2Migrator(db).recreate();factory=V2ConnectionFactory(db,runtime_root=root);c=factory.connect_read_write();c.execute(\"INSERT INTO accounts VALUES ('a',1,'active','2026-01-01T00:00:00Z',60,0)\");c.close();service=CharacterService(SQLiteCharacterUnitOfWorkFactory(factory));result=service.create(CreateCharacterCommand(\"c\",\"a\",\"ValidName\",\"unknown\",\"start_path\",130,100));self.assertEqual((result.status,result.reason),(CharacterResultStatus.REJECTED,\"class_key_unk"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_direct_trade.py",
+        "sha256": "9671b7cc18e7c099c540f9f51c7557622f5ef8cfbdf32af63e686c909e629cf4",
+        "hits": [
+          {
+            "line": 11,
+            "text": "self.assertEqual(self.s.ready(1,10,9).reason,\"stale_revision\");self.u.locations[20]=\"forest\";self.assertEqual(self.s.ready(1,10,0).reason,\"location_changed\")"
+          },
+          {
+            "line": 19,
+            "text": "self.u.trades[2]=DirectTrade(2,30,40,\"town\",initiator_ready=True);self.u.locations.update({30:\"town\",40:\"town\"});self.u.expired_ids.add(1);out=self.s.recover();self.assertIn((1,\"expired\"),out);self.assertIn((2,\"preserved\"),out);self.assertFalse(self.u.trade(2).initiator_ready)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_equipment_slots.py",
+        "sha256": "34badd673ac113fe0391d1eff370da4f0cac495fa833ca3c1a1f1a6c9ac591d0",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.infrastructure.persistence.equipment_repository import SQLiteEquipmentRepository"
+          },
+          {
+            "line": 12,
+            "text": "def __enter__(u):u.c=outer.db;u.c.execute('BEGIN IMMEDIATE');u.equipment=SQLiteEquipmentRepository(u.c);return u"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_event_schedules_rewards.py",
+        "sha256": "974dda85c14cbd98f8f93a84a3d90d34522ea5535709c69c1f47ac55582abdcb",
+        "hits": [
+          {
+            "line": 30,
+            "text": "def test_upcoming_active_completed_are_clock_deterministic(self) -> None:"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_foundational_runtime_gaps.py",
+        "sha256": "800bc98317fa3ff3b1345c7b7f8e32c6ca9fa9cba6b3e595235cc39827942f2a",
+        "hits": [
+          {
+            "line": 25,
+            "text": "ports[\"clock\"] = None"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_gold_wallet.py",
+        "sha256": "e42e65c35dcce4e6ccb861e16e8e2484de9d7b9be21f6eeaa9a994f8587183a9",
+        "hits": [
+          {
+            "line": 24,
+            "text": "class MemoryUnitOfWork:"
+          },
+          {
+            "line": 47,
+            "text": "uow=MemoryUnitOfWork(Decimal(\"2.00\")); result=self.execute(uow,command(amount=Decimal(\"1.005\")))"
+          },
+          {
+            "line": 50,
+            "text": "uow=MemoryUnitOfWork(Decimal(\"2.00\")); result=self.execute(uow,command(direction=GoldDirection.DEBIT,amount=Decimal(\"2.00\")))"
+          },
+          {
+            "line": 53,
+            "text": "uow=MemoryUnitOfWork(Decimal(\"1.00\"))"
+          },
+          {
+            "line": 57,
+            "text": "uow=MemoryUnitOfWork(); first=self.execute(uow,command()); uow.begin(); second=GoldWalletService().execute(command(),uow)"
+          },
+          {
+            "line": 60,
+            "text": "uow=MemoryUnitOfWork(); self.execute(uow,command())"
+          },
+          {
+            "line": 65,
+            "text": "uow=MemoryUnitOfWork(fail_commit=True)"
+          },
+          {
+            "line": 75,
+            "text": "GoldWalletService().execute(command(amount=value),MemoryUnitOfWork())"
+          },
+          {
+            "line": 78,
+            "text": "with self.subTest(reason=reason), self.assertRaisesRegex(GoldWalletContractError,reason): GoldWalletService().execute(cmd,MemoryUnitOfWork())"
+          },
+          {
+            "line": 80,
+            "text": "uow=MemoryUnitOfWork(); operation=self.execute(uow,command()).operation"
+          },
+          {
+            "line": 83,
+            "text": "first=MemoryUnitOfWork(); original=self.execute(first,command())"
+          },
+          {
+            "line": 84,
+            "text": "restarted=MemoryUnitOfWork(); restarted.wallet.balances=deepcopy(first.wallet.balances); restarted.wallet.operations=deepcopy(first.wallet.operations); restarted.begin()"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_inactivity_reminders.py",
+        "sha256": "f7db482154d9c405fc6f4382326b802c474bed0e9b3fbae03f554f811b04ffae",
+        "hits": [
+          {
+            "line": 32,
+            "text": "def test_evaluation_is_clock_deterministic(self) -> None:"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_inventory_service.py",
+        "sha256": "98fc81a0846ffe8eb47744da3cff23aa9f6cba6ce8a82fdf2de0de9f874da3d5",
+        "hits": [
+          {
+            "line": 3,
+            "text": "from rom_v2.infrastructure.persistence.inventory_unit_of_work import SQLiteInventoryUnitOfWorkFactory"
+          },
+          {
+            "line": 9,
+            "text": "# shared in-memory DB needs proxy connection semantics for focused repository test"
+          },
+          {
+            "line": 18,
+            "text": "from rom_v2.infrastructure.persistence.inventory_repository import SQLiteInventoryRepository"
+          },
+          {
+            "line": 19,
+            "text": "u.connection=self.db; u.inventory=SQLiteInventoryRepository(self.db)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_location_catalog.py",
+        "sha256": "b485887d0cddd8b6b3cc0187c6ad76e520914ba7346f302b8ce2755e722f4d0b",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.content.location_catalog import *"
+          },
+          {
+            "line": 6,
+            "text": "class LocationCatalogTest(unittest.TestCase):"
+          },
+          {
+            "line": 7,
+            "text": "def test_exact_two_location_identity_order_and_levels(self):"
+          },
+          {
+            "line": 8,
+            "text": "self.assertEqual(LOCATION_ORDER,(\"start_path\",\"dark_forest\"))"
+          },
+          {
+            "line": 9,
+            "text": "self.assertEqual(tuple(LOCATIONS),LOCATION_ORDER)"
+          },
+          {
+            "line": 10,
+            "text": "self.assertEqual(len(LOCATIONS),2)"
+          },
+          {
+            "line": 11,
+            "text": "start=require_location(\"start_path\"); dark=require_location(\"dark_forest\")"
+          },
+          {
+            "line": 17,
+            "text": "with self.assertRaises(TypeError): LOCATIONS[\"x\"]=require_location(\"start_path\")  # type: ignore[index]"
+          },
+          {
+            "line": 18,
+            "text": "with self.assertRaises(FrozenInstanceError): require_location(\"start_path\").name=\"x\"  # type: ignore[misc]"
+          },
+          {
+            "line": 21,
+            "text": "module.LOCATION_ORDER,"
+          },
+          {
+            "line": 22,
+            "text": "tuple((key, location.location_id, location.name, location.description,"
+          },
+          {
+            "line": 23,
+            "text": "location.level_min, location.level_max, location.unlock_level,"
+          },
+          {
+            "line": 24,
+            "text": "location.boss_name, location.mob_names)"
+          },
+          {
+            "line": 25,
+            "text": "for key, location in module.LOCATIONS.items()),"
+          },
+          {
+            "line": 27,
+            "text": "module=importlib.import_module(\"rom_v2.content.location_catalog\")"
+          },
+          {
+            "line": 33,
+            "text": "self.assertIsNone(get_location(\"unknown_zone\"))"
+          },
+          {
+            "line": 35,
+            "text": "lambda: require_location(\"unknown_zone\"),"
+          },
+          {
+            "line": 36,
+            "text": "lambda: get_location_display_name(\"unknown_zone\"),"
+          },
+          {
+            "line": 41,
+            "text": "self.assertEqual(tuple(x.location_id for x in get_unlocked_locations(1)),(\"start_path\",))"
+          },
+          {
+            "line": 42,
+            "text": "self.assertEqual(tuple(x.location_id for x in get_unlocked_locations(5)),(\"start_path\",))"
+          },
+          {
+            "line": 43,
+            "text": "self.assertEqual(tuple(x.location_id for x in get_unlocked_locations(6)),(\"start_path\",\"dark_forest\"))"
+          },
+          {
+            "line": 44,
+            "text": "self.assertTrue(is_location_unlocked(\"start_path\",1)); self.assertFalse(is_location_unlocked(\"dark_forest\",5)); self.assertTrue(is_location_unlocked(\"dark_forest\",6))"
+          },
+          {
+            "line": 46,
+            "text": "with self.assertRaises(ValueError): get_unlocked_locations(invalid)  # type: ignore[arg-type]"
+          },
+          {
+            "line": 48,
+            "text": "self.assertIsNone(validate_location_catalog())"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_map_presentation.py",
+        "sha256": "adba3d2a9425ca0392f92f284b8d6d5d7b54f6073d898d01668290210bf32810",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.domain.travel_aggregate import TravelAggregate,TravelStatus"
+          },
+          {
+            "line": 7,
+            "text": "v=build_map_view(\"start_path\",5);self.assertEqual([d.node_id for d in v.directions],[\"city\",\"dark_forest\"]);self.assertTrue(v.directions[0].unlocked);self.assertFalse(v.directions[1].unlocked);self.assertIsNone(v.directions[1].action);self.assertEqual(v.directions[1].label,\"🌲 Темний Бір\")"
+          },
+          {
+            "line": 9,
+            "text": "v=build_map_view(\"city\",6);labels=[v.current_label,*[d.label for d in v.directions],*[a.label for a in v.actions]];self.assertNotIn(\"start_path\",\" \".join(labels));self.assertEqual(node_label(\"missing\"),UNKNOWN_PLACE)"
+          },
+          {
+            "line": 11,
+            "text": "for c in (CallbackCommand(\"open\"),CallbackCommand(\"players\"),CallbackCommand(\"preview\",node_id=\"start_path\"),CallbackCommand(\"cancel\",travel_id=7,revision=2)):self.assertEqual(decode_callback(encode_callback(c)),c)"
+          },
+          {
+            "line": 12,
+            "text": "for bad in (\"\",\"map:start:missing\",\"map:cancel:x:1\",\"map:cancel:1:0\",\"other:open\"):self.assertIsNone(decode_callback(bad))"
+          },
+          {
+            "line": 14,
+            "text": "now=datetime(2026,1,1,tzinfo=timezone.utc);t=TravelAggregate(3,1,\"city\",\"start_path\",TravelStatus.ACTIVE,2,now,now+timedelta(seconds=20));v=build_map_view(\"city\",6,active_travel=t,now=now+timedelta(seconds=1,microseconds=1));self.assertEqual((v.mode,v.active_travel.remaining_seconds),(MapMode.IN_TRANSIT,19));self.assertEqual(v.directions,());self.assertEqual(decode_callback(v.active_travel.cancel.callback_data).revision,2)"
+          },
+          {
+            "line": 16,
+            "text": "now=datetime(2026,1,1,tzinfo=timezone.utc);t=TravelAggregate(3,1,\"city\",\"start_path\",TravelStatus.ACTIVE,1,now,now+timedelta(seconds=20));self.assertEqual(build_map_view(\"city\",6,active_travel=t,now=now+timedelta(seconds=21)).active_travel.remaining_seconds,0)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_npc_dialogue_model.py",
+        "sha256": "1d0428c4d1d6fc42003ae94f6d966e816c384cd4f71adcf713527c1a9f340add",
+        "hits": [
+          {
+            "line": 7,
+            "text": "def test_unknown_and_wrong_location(self):"
+          },
+          {
+            "line": 8,
+            "text": "s,_=self.service();self.assertEqual(s.view(\"missing\",\"loc_a\").reason,\"unknown_npc\");self.assertEqual(s.view(\"npc_a\",\"loc_b\").reason,\"wrong_location\")"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_overlevel_policy.py",
+        "sha256": "e37aec3eb69bd5a675c247ebd97e2d4920a8de317ea5aa31d9efb0f1f39d306e",
+        "hits": [
+          {
+            "line": 6,
+            "text": "def service(self):u=InMemoryOverlevelUnitOfWork();return u,OverlevelPolicyService(u,defs())"
+          },
+          {
+            "line": 8,
+            "text": "u,s=self.service();r=s.reconcile(1,5);self.assertEqual(r.changed,0);self.assertEqual(r.locations,());self.assertEqual(u.rows.get(1,{}),{})"
+          },
+          {
+            "line": 9,
+            "text": "def test_start_path_location_wide(self):"
+          },
+          {
+            "line": 15,
+            "text": "u,s=self.service();r=s.reconcile(1,11);self.assertEqual(r.changed,100);self.assertEqual(len(r.locations),2);self.assertEqual(len(u.rows[1]),100)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_premium_combat.py",
+        "sha256": "ffa7b2f4322d9addcafad74e1337a2fbce42e64a7c5fae9d5ea5f2e3ae8e7972",
+        "hits": [
+          {
+            "line": 23,
+            "text": "def test_api_has_no_clock_loot_or_non_combat_inputs(self):"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_premium_shop.py",
+        "sha256": "cb777b117177f6c08c911e0fb27ad2917a4dc3c92a79c26d73c42085817b43fa",
+        "hits": [
+          {
+            "line": 20,
+            "text": "class Clock:"
+          },
+          {
+            "line": 24,
+            "text": "def __init__(self,b=500,e=None,fail=False):self.account=Account(e);self.wallet=Wallet(b);self.receipts=Receipts();self.clock=Clock();self.fail=fail;self.commits=0;self.rollbacks=0;self.snap=None"
+          },
+          {
+            "line": 25,
+            "text": "def begin(self):self.snap=deepcopy((self.account,self.wallet,self.receipts,self.clock))"
+          },
+          {
+            "line": 31,
+            "text": "if self.snap:self.account,self.wallet,self.receipts,self.clock=self.snap;self.snap=None"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_primary_stats.py",
+        "sha256": "3e579f01fe42866e097c3d9dcb91d38d55390efd5048c429846d7467ab55b36c",
+        "hits": [
+          {
+            "line": 6,
+            "text": "def test_invariant_allocation_stale_and_respec(self):"
+          },
+          {
+            "line": 9,
+            "text": "def test_invalid_allocations(self):"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_quest_engine.py",
+        "sha256": "283de6056811d5fbbfdb6c84d65fdc7e2a805305130ef05cb93fa8e801c7914f",
+        "hits": [
+          {
+            "line": 17,
+            "text": "def test_wrong_location(self):"
+          },
+          {
+            "line": 18,
+            "text": "u,s=self.service();self.assertEqual(s.availability(10,definition(),1,\"other\").reason,\"wrong_location\")"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_reward_settlement.py",
+        "sha256": "bbae637b667ab75d7539248469fb2acac27933bb325db4aec11d86c9729c5773",
+        "hits": [
+          {
+            "line": 8,
+            "text": "RewardSettlementUnitOfWork, RewardSettlementValidationError,"
+          },
+          {
+            "line": 85,
+            "text": "self.assertFalse(any(\"message\" in name or \"send\" in name for name in RewardSettlementUnitOfWork.__annotations__))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_simulator_adapters.py",
+        "sha256": "6aa490f44c4c50b74924d236ef5ef58b1390a765a71bca58fbb2265520afe1ae",
+        "hits": [
+          {
+            "line": 11,
+            "text": "IsolatedRepository,"
+          },
+          {
+            "line": 13,
+            "text": "SimulationClockAdapter,"
+          },
+          {
+            "line": 24,
+            "text": "def test_clock_is_deterministic_aware_utc_and_forward_only(self) -> None:"
+          },
+          {
+            "line": 26,
+            "text": "clock = SimulationClockAdapter.at_start(start)"
+          },
+          {
+            "line": 27,
+            "text": "self.assertEqual(clock.now_utc(), datetime(2026, 1, 1, tzinfo=timezone.utc))"
+          },
+          {
+            "line": 28,
+            "text": "self.assertEqual(clock.advance(timedelta(minutes=5)), datetime(2026, 1, 1, 0, 5, tzinfo=timezone.utc))"
+          },
+          {
+            "line": 30,
+            "text": "clock.advance(timedelta(seconds=-1))"
+          },
+          {
+            "line": 32,
+            "text": "SimulationClockAdapter.at_start(datetime(2026, 1, 1))"
+          },
+          {
+            "line": 55,
+            "text": "def test_repository_requires_transaction_and_rolls_back_deep_copies(self) -> None:"
+          },
+          {
+            "line": 56,
+            "text": "repo = IsolatedRepository(((1, Value(5)),))"
+          },
+          {
+            "line": 69,
+            "text": "def test_repository_commit_persists_only_inside_sandbox(self) -> None:"
+          },
+          {
+            "line": 71,
+            "text": "repo = IsolatedRepository(((1, source),))"
+          },
+          {
+            "line": 78,
+            "text": "def test_adapter_bundle_isolated_and_duplicate_repository_fails(self) -> None:"
+          },
+          {
+            "line": 80,
+            "text": "repository = IsolatedRepository()"
+          },
+          {
+            "line": 81,
+            "text": "bundle.register_repository(\"characters\", repository)"
+          },
+          {
+            "line": 82,
+            "text": "self.assertIs(bundle.repositories[\"characters\"], repository)"
+          },
+          {
+            "line": 83,
+            "text": "with self.assertRaisesRegex(ValueError, \"duplicate_simulator_repository\"):"
+          },
+          {
+            "line": 84,
+            "text": "bundle.register_repository(\"characters\", IsolatedRepository())"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_11_20.py",
+        "sha256": "3189bbeb289381d70b5e02b63b74e6423ea1bf34181effe3924010ea67d170b2",
+        "hits": [
+          {
+            "line": 9,
+            "text": "for q in STORY_START_PATH_11_20:self.assertEqual((q.unlock_level,q.location_id,q.reward_exp,q.reward_gold),(2,\"start_path\",36,0.43))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_1_10.py",
+        "sha256": "4b4d8224e8db567df203b4c470a08fe9a1581f55b0ef086c9f5e10505c9df357",
+        "hits": [
+          {
+            "line": 9,
+            "text": "def test_location_and_rewards(self):"
+          },
+          {
+            "line": 11,
+            "text": "self.assertEqual(q.location_id,\"start_path\");self.assertEqual(q.reward_exp,30);self.assertAlmostEqual(q.reward_gold,0.27)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_21_30.py",
+        "sha256": "770270bf9f05c8dd0de18f8dea49897eee10886f88424a7003987b245ee7fb72",
+        "hits": [
+          {
+            "line": 11,
+            "text": "for q in STORY_START_PATH_21_30:self.assertEqual((q.unlock_level,q.location_id),(3,\"start_path\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_31_40.py",
+        "sha256": "1b57c3d1e7fb699f43e22eb8c02b8a8741f7ed8316e35a9dde44115e2b80c3a0",
+        "hits": [
+          {
+            "line": 12,
+            "text": "for q in STORY_START_PATH_31_40:self.assertEqual((q.unlock_level,q.location_id),(4,\"start_path\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_41_50.py",
+        "sha256": "4b065f7bb5deb402d6ae8c750c13fa14b6f22b3d4c595bffa86523a5bed6d694",
+        "hits": [
+          {
+            "line": 12,
+            "text": "for q in STORY_START_PATH_41_50:self.assertEqual((q.unlock_level,q.location_id),(5,\"start_path\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_51_60.py",
+        "sha256": "b0789f1267d520c1298e5b36488eb38920ba81b44ce8e7a5981981aa0018391d",
+        "hits": [
+          {
+            "line": 9,
+            "text": "for q in STORY_DARK_FOREST_51_60:self.assertEqual((q.unlock_level,q.location_id,q.reward_exp,q.reward_gold),(6,\"dark_forest\",66,1.84))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_61_70.py",
+        "sha256": "2fc914ce1c93792d776f23970219c66fb0d810510b6756c1dc5aad2c95623e70",
+        "hits": [
+          {
+            "line": 10,
+            "text": "for q in STORY_DARK_FOREST_61_70:self.assertEqual((q.unlock_level,q.location_id),(7,\"dark_forest\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_71_80.py",
+        "sha256": "53a6bbce91225d08fe4f536256e31ee2d57721b6d571b15523eca4a710d4ab28",
+        "hits": [
+          {
+            "line": 10,
+            "text": "for q in STORY_DARK_FOREST_71_80:self.assertEqual((q.unlock_level,q.location_id),(8,\"dark_forest\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_81_90.py",
+        "sha256": "b84d0737070759e848e2c41423a0f850b9a501cee82ffb78cbd0d1c541a3cc9a",
+        "hits": [
+          {
+            "line": 10,
+            "text": "for q in STORY_DARK_FOREST_81_90:self.assertEqual((q.unlock_level,q.location_id),(9,\"dark_forest\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_story_content_91_100.py",
+        "sha256": "8f708260b2a71727ce36b5c95a3a3f902c6aa200bd0cf3f5a554326a2934ca6d",
+        "hits": [
+          {
+            "line": 10,
+            "text": "for q in STORY_DARK_FOREST_91_100:self.assertEqual((q.unlock_level,q.location_id),(10,\"dark_forest\"))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_telegram_registration_flow.py",
+        "sha256": "054448b50ea79fcb608d0d4e0dcff3b62bbdf8cabb03969e0ba21168ccfc0ce0",
+        "hits": [
+          {
+            "line": 6,
+            "text": "from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory, SQLiteCharacterUnitOfWorkFactory, V2ConnectionFactory, V2Migrator"
+          },
+          {
+            "line": 11,
+            "text": "return f,TelegramRegistrationFlow(AccountService(SQLiteAccountUnitOfWorkFactory(f)),CharacterService(SQLiteCharacterUnitOfWorkFactory(f)))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_travel_aggregate.py",
+        "sha256": "0f9bb0c10b2c204d43baa8bc96a6bae5f9ce0adf512301fa3d407c652676cc48",
+        "hits": [
+          {
+            "line": 3,
+            "text": "from rom_v2.application.travel_service import *"
+          },
+          {
+            "line": 4,
+            "text": "from rom_v2.domain.travel_aggregate import TravelStatus"
+          },
+          {
+            "line": 6,
+            "text": "def setUp(self):self.n=datetime(2026,1,1,tzinfo=timezone.utc);self.u=MemoryUow({1:{\"location\":\"city\",\"level\":6}});self.b=MemoryBusy();self.s=TravelService(self.u,self.b)"
+          },
+          {
+            "line": 8,
+            "text": "t=self.s.start(1,\"start_path\",self.n).travel;self.assertEqual((t.revision,(t.arrival_at-t.started_at).seconds),(1,20));r=self.s.complete(t.travel_id,self.n+timedelta(seconds=20));self.assertTrue(r.success);self.assertEqual((r.travel.status,self.u.players[1][\"location\"]),(TravelStatus.ARRIVED,\"start_path\"))"
+          },
+          {
+            "line": 12,
+            "text": "t=self.s.start(1,\"start_path\",self.n).travel;self.assertEqual(self.s.cancel(1,t.travel_id,2,self.n).reason,\"stale_revision\");r=self.s.cancel(1,t.travel_id,1,self.n);self.assertEqual((r.travel.status,r.travel.revision),(TravelStatus.CANCELLED,2));self.assertEqual(self.s.cancel(1,t.travel_id,2,self.n).reason,\"already_terminal\")"
+          },
+          {
+            "line": 14,
+            "text": "t=self.s.start(1,\"start_path\",self.n).travel;self.u.players[1][\"location\"]=\"dark_forest\";r=self.s.complete(t.travel_id,self.n+timedelta(seconds=20));self.assertEqual((r.reason,r.travel.status),(\"source_changed\",TravelStatus.FAILED))"
+          },
+          {
+            "line": 16,
+            "text": "a=self.s.start(1,\"start_path\",self.n).travel;self.u.players[2]={\"location\":\"city\",\"level\":6};b=self.s.start(2,\"start_path\",self.n+timedelta(seconds=1)).travel;r=self.s.recover_due(self.n+timedelta(seconds=30),1);self.assertEqual((len(r),r[0].travel.travel_id,self.u.get(b.travel_id).status),(1,a.travel_id,TravelStatus.ACTIVE))"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_v1_reference_isolation_contract.py",
+        "sha256": "ed3d5b060761ec97566e64bdf3bf2b4f62bf425fa35c81c3db5c1a8dcd53e486",
+        "hits": [
+          {
+            "line": 42,
+            "text": "def test_repository_v2_tree_has_no_v1_runtime_imports(self) -> None:"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_v2_character_reset_confirmation.py",
+        "sha256": "6492603f91d482d5b41b798ab614d16c892b5801436cb7054cab09a76a8233d8",
+        "hits": [
+          {
+            "line": 7,
+            "text": "from rom_v2.infrastructure.persistence import SQLiteAccountUnitOfWorkFactory,SQLiteCharacterUnitOfWorkFactory,V2ConnectionFactory,V2Migrator"
+          },
+          {
+            "line": 11,
+            "text": "db=root/\"rom_v2.db\";V2Migrator(db).recreate();factory=V2ConnectionFactory(db,runtime_root=root);af=SQLiteAccountUnitOfWorkFactory(factory);cf=SQLiteCharacterUnitOfWorkFactory(factory)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_v2_inventory_equipment_uow_runtime_wiring.py",
+        "sha256": "85fbb2103eae2d217a6ff1ac836a032e5cdd20af5803e010453c735140e4aeba",
+        "hits": [
+          {
+            "line": 18,
+            "text": "self.assertIn(\"SQLiteInventoryUnitOfWorkFactory(factory.connect_read_write)\",source)"
+          },
+          {
+            "line": 19,
+            "text": "self.assertIn(\"SQLiteEquipmentUnitOfWorkFactory(factory.connect_read_write)\",source)"
+          },
+          {
+            "line": 20,
+            "text": "self.assertNotIn(\"SQLiteInventoryUnitOfWorkFactory(factory)\",source)"
+          },
+          {
+            "line": 21,
+            "text": "self.assertNotIn(\"SQLiteEquipmentUnitOfWorkFactory(factory)\",source)"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_v2_repository_base.py",
+        "sha256": "7c5b2589bf3e567c9ab15cb19905d7aabaeb60597f46cddf23f43ed723010d0c",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"Tests for the transaction-bound ROM V2 SQLite repository base.\"\"\""
+          },
+          {
+            "line": 9,
+            "text": "RepositoryContractError,"
+          },
+          {
+            "line": 10,
+            "text": "SQLiteRepositoryBase,"
+          },
+          {
+            "line": 11,
+            "text": "SQLiteUnitOfWork,"
+          },
+          {
+            "line": 17,
+            "text": "class AccountRepository(SQLiteRepositoryBase):"
+          },
+          {
+            "line": 33,
+            "text": "class SQLiteRepositoryBaseTest(unittest.TestCase):"
+          },
+          {
+            "line": 42,
+            "text": "def test_repository_requires_active_unit_of_work_transaction(self) -> None:"
+          },
+          {
+            "line": 47,
+            "text": "with self.assertRaisesRegex(RepositoryContractError, \"repository_requires_active_transaction\"):"
+          },
+          {
+            "line": 48,
+            "text": "AccountRepository(connection)"
+          },
+          {
+            "line": 51,
+            "text": "def test_repository_uses_unit_of_work_connection_and_commit(self) -> None:"
+          },
+          {
+            "line": 52,
+            "text": "\"\"\"Persist repository writes only through the Unit of Work commit point.\"\"\""
+          },
+          {
+            "line": 55,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 56,
+            "text": "repository = AccountRepository(unit.connection)"
+          },
+          {
+            "line": 57,
+            "text": "repository.add(\"a\", 1)"
+          },
+          {
+            "line": 58,
+            "text": "self.assertEqual(repository.get(\"a\")[\"telegram_user_id\"], 1)"
+          },
+          {
+            "line": 64,
+            "text": "def test_repository_write_rolls_back_with_unit_of_work(self) -> None:"
+          },
+          {
+            "line": 65,
+            "text": "\"\"\"Prove that repository adapters do not commit independently.\"\"\""
+          },
+          {
+            "line": 68,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 69,
+            "text": "AccountRepository(unit.connection).add(\"a\", 1)"
+          },
+          {
+            "line": 74,
+            "text": "def test_repository_rejects_use_after_transaction_terminal(self) -> None:"
+          },
+          {
+            "line": 75,
+            "text": "\"\"\"Prevent a repository from escaping its Unit of Work lifetime.\"\"\""
+          },
+          {
+            "line": 78,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 79,
+            "text": "repository = AccountRepository(unit.connection)"
+          },
+          {
+            "line": 81,
+            "text": "with self.assertRaisesRegex(RepositoryContractError, \"repository_transaction_not_active\"):"
+          },
+          {
+            "line": 82,
+            "text": "repository.fetch_all(\"SELECT * FROM accounts\")"
+          },
+          {
+            "line": 88,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 89,
+            "text": "repository = AccountRepository(unit.connection)"
+          },
+          {
+            "line": 90,
+            "text": "with self.assertRaisesRegex(RepositoryContractError, \"repository_row_not_found\"):"
+          },
+          {
+            "line": 91,
+            "text": "repository.get(\"missing\")"
+          },
+          {
+            "line": 92,
+            "text": "with self.assertRaisesRegex(RepositoryContractError, \"repository_rowcount_mismatch\"):"
+          },
+          {
+            "line": 93,
+            "text": "repository.require_exact_rowcount(0)"
+          },
+          {
+            "line": 96,
+            "text": "\"\"\"Keep one repository call mapped to one auditable SQL statement.\"\"\""
+          },
+          {
+            "line": 99,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 100,
+            "text": "repository = AccountRepository(unit.connection)"
+          },
+          {
+            "line": 101,
+            "text": "with self.assertRaisesRegex(RepositoryContractError, \"empty_repository_statement\"):"
+          },
+          {
+            "line": 102,
+            "text": "repository.fetch_all(\"  \")"
+          },
+          {
+            "line": 103,
+            "text": "with self.assertRaisesRegex(RepositoryContractError, \"multiple_repository_statements_forbidden\"):"
+          },
+          {
+            "line": 104,
+            "text": "repository.fetch_all(\"SELECT 1; SELECT 2\")"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_v2_unit_of_work.py",
+        "sha256": "2716a0cf7847fd79ef1a14abc91ff1fa55d9c0b02bd8d3c01f8593bf566136b6",
+        "hits": [
+          {
+            "line": 10,
+            "text": "SQLiteUnitOfWork,"
+          },
+          {
+            "line": 16,
+            "text": "class SQLiteUnitOfWorkTest(unittest.TestCase):"
+          },
+          {
+            "line": 36,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 54,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 66,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 77,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          },
+          {
+            "line": 90,
+            "text": "unit = SQLiteUnitOfWork(factory)"
+          },
+          {
+            "line": 103,
+            "text": "with SQLiteUnitOfWork(factory) as unit:"
+          }
+        ]
+      },
+      {
+        "path": "tests_v2/test_world_graph.py",
+        "sha256": "b305e0ecd1fbf5ac021c16c37c5b5f05930b847fc8810e427803e0ea88adc9f1",
+        "hits": [
+          {
+            "line": 4,
+            "text": "from rom_v2.content.world_graph import *"
+          },
+          {
+            "line": 10,
+            "text": "self.assertEqual(TRAVEL_SECONDS, 20)"
+          },
+          {
+            "line": 13,
+            "text": "self.assertEqual((WORLD_NODES[\"start_path\"].kind, WORLD_NODES[\"start_path\"].huntable), (\"location\", True))"
+          },
+          {
+            "line": 14,
+            "text": "self.assertEqual((WORLD_NODES[\"dark_forest\"].kind, WORLD_NODES[\"dark_forest\"].huntable), (\"location\", True))"
+          },
+          {
+            "line": 39,
+            "text": "tuple(module.LOCATION_GRAPH.items()),"
+          },
+          {
+            "line": 40,
+            "text": "module.TRAVEL_SECONDS,"
+          },
+          {
+            "line": 43,
+            "text": "module = importlib.import_module(\"rom_v2.content.world_graph\")"
+          },
+          {
+            "line": 47,
+            "text": "def test_referential_validation_against_location_catalog(self):"
+          },
+          {
+            "line": 48,
+            "text": "self.assertIsNone(validate_world_graph(location_ids={\"start_path\", \"dark_forest\"}))"
+          },
+          {
+            "line": 50,
+            "text": "validate_world_graph(location_ids={\"start_path\"})"
+          },
+          {
+            "line": 52,
+            "text": "validate_world_graph(location_ids={\"start_path\", \"dark_forest\", \"third\"})"
+          },
+          {
+            "line": 54,
+            "text": "self.assertIsNone(validate_world_graph())"
+          }
+        ]
+      },
+      {
+        "path": "migrations/043_existing_character_attribute_point_policy.py",
+        "sha256": "1f7f1a33ad301909c20b5bb0f5bd5d1d5e0969f9970f7966becbfa51f0d3349a",
+        "hits": [
+          {
+            "line": 20,
+            "text": "timestamp = datetime.now(timezone.utc).isoformat()"
+          }
+        ]
+      },
+      {
+        "path": "migrations/045a_seed_new_path_sphere_dependency.py",
+        "sha256": "5d61076ca90b1055caf8d9109c0a1662d6ef67c341d4f1de3c7f7e0363cb58dd",
+        "hits": [
+          {
+            "line": 8,
+            "text": "moving startup calls or duplicating travel schema ownership."
+          }
+        ]
+      },
+      {
+        "path": "migrations/049_persistent_location_travel.py",
+        "sha256": "fe2ef03b216bade9d2ac4168c496e46904ab25865822605e69b9639155a445e9",
+        "hits": [
+          {
+            "line": 1,
+            "text": "\"\"\"Stage 18.22.1 persistent location travel foundation.\"\"\""
+          },
+          {
+            "line": 4,
+            "text": "CREATE TABLE IF NOT EXISTS location_travels ("
+          },
+          {
+            "line": 21,
+            "text": "CREATE UNIQUE INDEX IF NOT EXISTS ux_location_travels_one_active_user"
+          },
+          {
+            "line": 22,
+            "text": "ON location_travels(user_id) WHERE status='active';"
+          },
+          {
+            "line": 23,
+            "text": "CREATE INDEX IF NOT EXISTS ix_location_travels_due"
+          },
+          {
+            "line": 24,
+            "text": "ON location_travels(status, arrival_at, id);"
+          },
+          {
+            "line": 25,
+            "text": "CREATE INDEX IF NOT EXISTS ix_location_travels_user_history"
+          },
+          {
+            "line": 26,
+            "text": "ON location_travels(user_id, id DESC);"
+          }
+        ]
+      },
+      {
+        "path": "migrations/052_registration_date_pipeline.py",
+        "sha256": "419963f87095e316a4eb3502fcb289b4fdcc1d03da5050c7bebe6e3f43791d69",
+        "hits": [
+          {
+            "line": 9,
+            "text": "return datetime.now(timezone.utc).isoformat()"
+          }
+        ]
+      },
+      {
+        "path": "migrations/runner.py",
+        "sha256": "289fc45e1d870ed2858c79d82d2bdb88bddd692e6d74588cea7104ea53e2e744",
+        "hits": [
+          {
+            "line": 79,
+            "text": "spec = importlib.util.spec_from_file_location(module_name, path)"
+          }
+        ]
+      }
+    ],
+    "test_paths": [
+      "tests_v2/test_account_character_persistence.py",
+      "tests_v2/test_account_domain.py",
+      "tests_v2/test_architecture_enforcement.py",
+      "tests_v2/test_base_equipment_shop.py",
+      "tests_v2/test_callback_codec_registry.py",
+      "tests_v2/test_central_loot.py",
+      "tests_v2/test_character_lifecycle.py",
+      "tests_v2/test_class_catalog.py",
+      "tests_v2/test_direct_trade.py",
+      "tests_v2/test_equipment_slots.py",
+      "tests_v2/test_event_schedules_rewards.py",
+      "tests_v2/test_foundational_runtime_gaps.py",
+      "tests_v2/test_gold_wallet.py",
+      "tests_v2/test_inactivity_reminders.py",
+      "tests_v2/test_inventory_service.py",
+      "tests_v2/test_location_catalog.py",
+      "tests_v2/test_map_presentation.py",
+      "tests_v2/test_npc_dialogue_model.py",
+      "tests_v2/test_overlevel_policy.py",
+      "tests_v2/test_premium_combat.py",
+      "tests_v2/test_premium_shop.py",
+      "tests_v2/test_primary_stats.py",
+      "tests_v2/test_quest_engine.py",
+      "tests_v2/test_reward_settlement.py",
+      "tests_v2/test_simulator_adapters.py",
+      "tests_v2/test_story_content_11_20.py",
+      "tests_v2/test_story_content_1_10.py",
+      "tests_v2/test_story_content_21_30.py",
+      "tests_v2/test_story_content_31_40.py",
+      "tests_v2/test_story_content_41_50.py",
+      "tests_v2/test_story_content_51_60.py",
+      "tests_v2/test_story_content_61_70.py",
+      "tests_v2/test_story_content_71_80.py",
+      "tests_v2/test_story_content_81_90.py",
+      "tests_v2/test_story_content_91_100.py",
+      "tests_v2/test_telegram_registration_flow.py",
+      "tests_v2/test_travel_aggregate.py",
+      "tests_v2/test_v1_reference_isolation_contract.py",
+      "tests_v2/test_v2_character_reset_confirmation.py",
+      "tests_v2/test_v2_inventory_equipment_uow_runtime_wiring.py",
+      "tests_v2/test_v2_repository_base.py",
+      "tests_v2/test_v2_unit_of_work.py",
+      "tests_v2/test_world_graph.py"
+    ],
+    "persistence_paths": [
+      "migrations/043_existing_character_attribute_point_policy.py",
+      "migrations/045a_seed_new_path_sphere_dependency.py",
+      "migrations/049_persistent_location_travel.py",
+      "migrations/052_registration_date_pipeline.py",
+      "migrations/runner.py",
+      "rom_v2/application/ports/unit_of_work.py",
+      "rom_v2/domain/battle_persistence.py",
+      "rom_v2/infrastructure/persistence/__init__.py",
+      "rom_v2/infrastructure/persistence/account_repository.py",
+      "rom_v2/infrastructure/persistence/account_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/character_repository.py",
+      "rom_v2/infrastructure/persistence/character_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/equipment_repository.py",
+      "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/inventory_repository.py",
+      "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+      "rom_v2/infrastructure/persistence/migrator.py",
+      "rom_v2/infrastructure/persistence/primary_stat_repository.py",
+      "rom_v2/infrastructure/persistence/primary_stat_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/repository_base.py",
+      "rom_v2/infrastructure/persistence/resource_repository.py",
+      "rom_v2/infrastructure/persistence/resource_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/schema_contract.py",
+      "rom_v2/infrastructure/persistence/unit_of_work.py",
+      "tests_v2/test_account_character_persistence.py",
+      "tests_v2/test_v2_repository_base.py",
+      "tests_v2/test_v2_unit_of_work.py"
+    ],
+    "runtime_paths": [
+      "rom_v2/app/runtime_launcher.py",
+      "rom_v2/application/map_presentation.py",
+      "rom_v2/presentation/overlevel_policy.py",
+      "rom_v2/presentation/story_navigation.py",
+      "tests_v2/test_map_presentation.py"
+    ]
+  },
+  "owner_matrix": {
+    "world_graph": {
+      "owner": "rom_v2/content/world_graph.py",
+      "state": "CANONICAL_CONTENT_OWNER",
+      "owns": [
+        "world nodes",
+        "adjacency",
+        "travel duration"
+      ]
+    },
+    "location_catalog": {
+      "owner": "rom_v2/content/location_catalog.py",
+      "state": "CANONICAL_CONTENT_OWNER",
+      "owns": [
+        "localized display names",
+        "unlock thresholds",
+        "location definitions"
+      ]
+    },
+    "travel_domain": {
+      "owner": "rom_v2/domain/travel_aggregate.py",
+      "state": "CANONICAL_DOMAIN_OWNER",
+      "owns": [
+        "active/arrived/cancelled/failed transitions",
+        "revision",
+        "due/cancel rules"
+      ]
+    },
+    "travel_application": {
+      "owner": "rom_v2/application/travel_service.py",
+      "state": "CANONICAL_APPLICATION_OWNER",
+      "owns": [
+        "start/cancel/complete/recover orchestration",
+        "busy check",
+        "CAS location coordination"
+      ]
+    },
+    "map_presentation": {
+      "owner": "rom_v2/application/map_presentation.py",
+      "state": "PURE_PRESENTATION_CONTRACT",
+      "owns": [
+        "localized map DTOs",
+        "typed map callback codec",
+        "ETA projection"
+      ]
+    },
+    "navigation": {
+      "owner": "rom_v2/presentation/navigation.py",
+      "state": "CANONICAL_MARKUP_OWNER",
+      "owns": [
+        "user labels",
+        "pure reply/inline keyboard builders"
+      ]
+    },
+    "persistence": {
+      "owner": [
+        "migrations/049_persistent_location_travel.py"
+      ],
+      "state": "PROVEN",
+      "must_own": [
+        "travel rows",
+        "active uniqueness",
+        "due query",
+        "optimistic revision/CAS",
+        "commit/rollback"
+      ]
+    },
+    "telegram_flow": {
+      "owner": "rom_v2/presentation/map_travel_flow.py (candidate new adapter)",
+      "state": "MISSING_OR_NOT_PROVEN",
+      "must_own": [
+        "Telegram view rendering",
+        "callback delegation only; no travel policy or SQL"
+      ]
+    },
+    "runtime_composition": {
+      "owner": "rom_v2/app/runtime_launcher.py",
+      "state": "NOT_WIRED",
+      "must_own": [
+        "construct repository/UoW/service/flow",
+        "inject clock or time source",
+        "restart recovery entry"
+      ]
+    },
+    "dispatch": {
+      "owner": "rom_v2/app/development_bot.py",
+      "state": "NOT_WIRED",
+      "must_own": [
+        "message/callback parsing and delegation only"
+      ]
+    }
+  },
+  "callback_contract": {
+    "namespace": "v2:map",
+    "approved": [
+      "v2:map:open",
+      "v2:map:preview:<node_id>",
+      "v2:map:start:<node_id>",
+      "v2:map:refresh",
+      "v2:map:cancel:<travel_id>:<revision>"
+    ],
+    "forbidden": [
+      "raw SQL identifiers",
+      "unvalidated arbitrary node IDs",
+      "completion callback that mutates before ETA"
+    ],
+    "rules": [
+      "decode fail-closed",
+      "validate node through world graph",
+      "cancel requires travel id plus revision",
+      "completion remains server-authoritative"
+    ]
+  },
+  "clock_contract": {
+    "owner": "application boundary injected callable/protocol",
+    "rule": "domain/service tests use aware UTC timestamps; presentation may project remaining seconds from injected now",
+    "forbidden": "hidden wall-clock reads inside persistence or domain transition methods"
+  },
+  "busy_contract": {
+    "owner": "application BusyStateReader protocol consumed by TravelService",
+    "rule": "start denies any authoritative busy state before travel persistence",
+    "telegram_adapter": "may aggregate runtime-only registration/PvE state only through the injected reader"
+  },
+  "localized_presentation_contract": [
+    "use term «розділ» in user-facing world navigation",
+    "resolve names only through canonical localized catalog",
+    "never expose technical node/location IDs"
+  ],
+  "exact_candidate_implementation_allowlist": [
+    "rom_v2/application/travel_ports.py",
+    "rom_v2/infrastructure/persistence/travel_repository.py",
+    "rom_v2/infrastructure/persistence/travel_unit_of_work.py",
+    "rom_v2/presentation/map_travel_flow.py",
+    "rom_v2/presentation/navigation.py",
+    "rom_v2/app/development_bot.py",
+    "rom_v2/app/runtime_launcher.py",
+    "tests_v2/test_v2_travel_persistence.py",
+    "tests_v2/test_v2_map_travel_flow.py",
+    "tests_v2/test_v2_travel_runtime_wiring.py",
+    "tests_v2/test_v2_travel_restart_recovery.py",
+    "reports/stage_21_18_2a_world_map_travel_runtime.json",
+    "MD/STAGE_21_18_2A_WORLD_MAP_TRAVEL_RUNTIME.md"
+  ],
+  "mandatory_tests": [
+    "catalog/graph parity and localized display names",
+    "unknown or locked destination fail-closed",
+    "non-adjacent destination rejected",
+    "busy player rejected before save",
+    "single active travel invariant",
+    "aware UTC ETA and cancel-before-arrival",
+    "cancel at/after arrival rejected",
+    "completion before ETA rejected",
+    "completion exactly once with CAS location",
+    "source changed produces failed terminal state",
+    "stale cancel revision rejected",
+    "restart recovery completes due travel",
+    "restart preserves not-yet-due travel",
+    "raw technical IDs absent from user text",
+    "Telegram callbacks delegate without SQL/policy",
+    "canonical V2 CI and isolated file-backed DB smoke"
+  ],
+  "implementation_gates": [
+    "exact backup before mutation",
+    "automatic rollback",
+    "AST validation",
+    "isolated temporary database only",
+    "no production database open",
+    "focused tests plus canonical V2 CI",
+    "exact staging allowlist",
+    "post-failure recovery verification",
+    "manual Telegram matrix required"
+  ],
+  "production_files_modified": false,
+  "production_database_opened": false,
+  "manual_game_check": "NOT_REQUIRED"
+}
