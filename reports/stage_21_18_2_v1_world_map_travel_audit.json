@@ -1,0 +1,2092 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.2",
+  "patch_revision": 4,
+  "status": "PASS_READ_ONLY",
+  "conclusion": "GO_TO_21_18_2A_PRE_MUTATION_OWNER_AND_RUNTIME_REVIEW",
+  "generated_at_utc": "2026-10-31T23:11:45.438835+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "head": "0af9a200e257fd7601b5c8eb56184da8a39ec9fa"
+  },
+  "source": {
+    "dump": "ROM_FULL_DUMP.txt",
+    "sha256": "c1f419a4ed7f7412bf2fbf2d91321788bc0100c7dfe371ddb69183556f997f40",
+    "section_count": 424
+  },
+  "scope": [
+    "location resolution",
+    "map navigation",
+    "unlocks",
+    "travel start",
+    "ETA",
+    "completion",
+    "cancellation",
+    "busy restrictions",
+    "restart",
+    "stale/replayed actions"
+  ],
+  "core_v1_owners": {
+    "graph": "data/location_graph.py",
+    "localized_locations": "data/locations.py",
+    "presentation": "data/travel_presentation.py",
+    "persistence": "db_modules/location.py + migrations/049_persistent_location_travel.py",
+    "telegram_dispatch": "handlers/map.py",
+    "location_context": "systems/location_context_system.py",
+    "travel_policy": "systems/travel_system.py"
+  },
+  "registration_and_dispatch_evidence": [
+    {
+      "path": "handlers/map.py",
+      "imports": [],
+      "callbacks": [],
+      "symbols": []
+    },
+    {
+      "path": "main.py",
+      "imports": [],
+      "callbacks": [],
+      "symbols": []
+    }
+  ],
+  "v1_core_evidence": {
+    "data/location_graph.py": {
+      "path": "data/location_graph.py",
+      "sha256": "77a9ec091f8d1564c5184bfac714ae9b0d6d0db52241ec618a9e6a5e2192bd4a",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 6,
+          "text": "\"\"\"Canonical world-node graph for travel between locations.\"\"\""
+        },
+        {
+          "line": 8,
+          "text": "TRAVEL_SECONDS = 20"
+        },
+        {
+          "line": 10,
+          "text": "WORLD_NODES = {"
+        },
+        {
+          "line": 12,
+          "text": "\"start_path\": {\"id\": \"start_path\", \"name\": \"🌿 Початок Шляху\", \"kind\": \"location\", \"huntable\": True},"
+        },
+        {
+          "line": 13,
+          "text": "\"dark_forest\": {\"id\": \"dark_forest\", \"name\": \"🌲 Темний Бір\", \"kind\": \"location\", \"huntable\": True},"
+        },
+        {
+          "line": 16,
+          "text": "LOCATION_GRAPH = {"
+        },
+        {
+          "line": 22,
+          "text": "def get_world_node(node_id):"
+        },
+        {
+          "line": 23,
+          "text": "return WORLD_NODES.get(str(node_id))"
+        },
+        {
+          "line": 26,
+          "text": "return tuple(LOCATION_GRAPH.get(str(node_id), ()))"
+        },
+        {
+          "line": 31,
+          "text": "def validate_location_graph():"
+        },
+        {
+          "line": 33,
+          "text": "for node, neighbors in LOCATION_GRAPH.items():"
+        },
+        {
+          "line": 34,
+          "text": "if node not in WORLD_NODES: errors.append(f\"unknown graph node: {node}\")"
+        },
+        {
+          "line": 37,
+          "text": "if neighbor not in WORLD_NODES: errors.append(f\"unknown neighbor: {neighbor}\")"
+        },
+        {
+          "line": 38,
+          "text": "elif node not in LOCATION_GRAPH.get(neighbor, ()): errors.append(f\"asymmetric edge: {node}->{neighbor}\")"
+        },
+        {
+          "line": 39,
+          "text": "if set(WORLD_NODES) != set(LOCATION_GRAPH): errors.append(\"WORLD_NODES and LOCATION_GRAPH keys differ\")"
+        },
+        {
+          "line": 43,
+          "text": "validate_location_graph()"
+        }
+      ]
+    },
+    "data/locations.py": {
+      "path": "data/locations.py",
+      "sha256": "a62ab0db7336c9c659a9f2b0ad6e628e21f162443d91f34d31d10c1aaa755dc0",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 6,
+          "text": "LOCATIONS = {"
+        },
+        {
+          "line": 40,
+          "text": "\"Глибша частина лісу, куди не заходять випадкові подорожні. \""
+        },
+        {
+          "line": 65,
+          "text": "LOCATION_ORDER = ["
+        },
+        {
+          "line": 71,
+          "text": "def get_location(location_id):"
+        },
+        {
+          "line": 72,
+          "text": "return LOCATIONS.get(location_id, LOCATIONS[\"start_path\"])"
+        },
+        {
+          "line": 75,
+          "text": "def get_unlocked_locations(player_level):"
+        },
+        {
+          "line": 78,
+          "text": "for location_id in LOCATION_ORDER:"
+        },
+        {
+          "line": 79,
+          "text": "location = LOCATIONS[location_id]"
+        },
+        {
+          "line": 81,
+          "text": "if player_level >= location[\"unlock_level\"]:"
+        },
+        {
+          "line": 82,
+          "text": "result.append(location)"
+        },
+        {
+          "line": 87,
+          "text": "def is_location_unlocked(location_id, player_level):"
+        },
+        {
+          "line": 88,
+          "text": "location = LOCATIONS.get(location_id)"
+        },
+        {
+          "line": 90,
+          "text": "if not location:"
+        },
+        {
+          "line": 93,
+          "text": "return player_level >= location[\"unlock_level\"]"
+        }
+      ]
+    },
+    "data/travel_presentation.py": {
+      "path": "data/travel_presentation.py",
+      "sha256": "8672a160fb9f7857b44ba6c1645fe14aaf3b039d9f4f2be7bd22678821f4cba7",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 7,
+          "text": "\"\"\"Canonical, spoiler-free presentation metadata for location travel.\"\"\""
+        },
+        {
+          "line": 10,
+          "text": "UNKNOWN_LOCATION_NAME = \"🧭 Невідома місцевість\""
+        },
+        {
+          "line": 16,
+          "text": "\"arrival\": \"Навколо простягаються відкриті землі та дороги, якими проходять мандрівники, торговці й найманці.\","
+        },
+        {
+          "line": 21,
+          "text": "\"arrival\": \"За міськими воротами знову відкриті крамниці, майстерні та знайомі вулиці.\","
+        },
+        {
+          "line": 26,
+          "text": "\"arrival\": \"Густі крони затуляють небо, а між деревами простягаються вузькі лісові стежки.\","
+        },
+        {
+          "line": 31,
+          "text": "\"arrival\": \"Після тісних лісових стежок перед тобою знову відкриваються широкі дороги та просторі землі.\","
+        },
+        {
+          "line": 35,
+          "text": "CITY_MAP_INTRO = \"Місто — безпечний осередок торгівлі, ремесел і відпочинку. Звідси починається дорога до земель за міськими мурами.\""
+        },
+        {
+          "line": 36,
+          "text": "CITY_DESTINATION_SUMMARY = \"Відкриті землі та дороги неподалік від Міста.\""
+        },
+        {
+          "line": 38,
+          "text": "def get_node_name(node_id, world_nodes):"
+        },
+        {
+          "line": 40,
+          "text": "return (world_nodes.get(str(node_id)) or {}).get(\"name\") or UNKNOWN_LOCATION_NAME"
+        },
+        {
+          "line": 43,
+          "text": "\"\"\"Return approved route metadata or safe generic text for an unknown edge.\"\"\""
+        },
+        {
+          "line": 46,
+          "text": "\"active\": \"Подорож триває за обраним маршрутом.\","
+        },
+        {
+          "line": 47,
+          "text": "\"arrival\": \"Подорож завершено, і перед тобою відкривається нова місцевість.\","
+        },
+        {
+          "line": 50,
+          "text": "def format_arrival_destination(node_id, world_nodes):"
+        },
+        {
+          "line": 51,
+          "text": "\"\"\"Use natural Ukrainian destination grammar for known travel nodes.\"\"\""
+        },
+        {
+          "line": 54,
+          "text": "if key==\"start_path\": return \"Ти прибув до локації «Початок Шляху».\""
+        },
+        {
+          "line": 56,
+          "text": "return f\"Ти прибув до місцевості «{get_node_name(key, world_nodes)}».\""
+        }
+      ]
+    },
+    "db_modules/location.py": {
+      "path": "db_modules/location.py",
+      "sha256": "8e9d701a3eceac1ae496520abebf050bf9e6e4dbbd2c168690950353081b50e2",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 7,
+          "text": "Location management module."
+        },
+        {
+          "line": 13,
+          "text": "def get_current_location(user_id):"
+        },
+        {
+          "line": 15,
+          "text": "SELECT current_location"
+        },
+        {
+          "line": 30,
+          "text": "def set_current_location(user_id, location_id):"
+        },
+        {
+          "line": 33,
+          "text": "SET current_location=?"
+        },
+        {
+          "line": 35,
+          "text": "\"\"\", (location_id, user_id))"
+        }
+      ]
+    },
+    "handlers/map.py": {
+      "path": "handlers/map.py",
+      "sha256": "04553866e26d0e79236fc137035c6d24bac5c5b0880a9c442adc43479d64f8f8",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 9,
+          "text": "from data.locations import LOCATIONS, get_location, is_location_unlocked"
+        },
+        {
+          "line": 10,
+          "text": "from data.location_graph import CITY_NODE, TRAVEL_SECONDS, WORLD_NODES, get_adjacent_nodes"
+        },
+        {
+          "line": 11,
+          "text": "from data.travel_presentation import CITY_MAP_INTRO, CITY_DESTINATION_SUMMARY, get_node_name, get_route_presentation"
+        },
+        {
+          "line": 12,
+          "text": "from data.mobs import get_mobs_for_location"
+        },
+        {
+          "line": 13,
+          "text": "from db import get_current_location, get_player_stats"
+        },
+        {
+          "line": 14,
+          "text": "from keyboards import map_kb, main_kb, city_kb"
+        },
+        {
+          "line": 15,
+          "text": "from systems.travel_system import get_active_travel, get_travel, start_travel, cancel_travel, is_user_travelling"
+        },
+        {
+          "line": 17,
+          "text": "MAP_COLLAPSE_BUTTON = \"🔽 Згорнути мапу\""
+        },
+        {
+          "line": 24,
+          "text": "return get_node_name(node_id, WORLD_NODES)"
+        },
+        {
+          "line": 30,
+          "text": "def _remaining_seconds(travel,now=None):"
+        },
+        {
+          "line": 32,
+          "text": "arrival=datetime.fromisoformat(str(travel[\"arrival_at\"]))"
+        },
+        {
+          "line": 33,
+          "text": "if arrival.tzinfo is None: arrival=arrival.replace(tzinfo=timezone.utc)"
+        },
+        {
+          "line": 34,
+          "text": "return max(0,int((arrival-current).total_seconds()+0.999))"
+        },
+        {
+          "line": 36,
+          "text": "def build_location_info_text(location_id,player_level):"
+        },
+        {
+          "line": 37,
+          "text": "location=get_location(location_id); mobs=get_mobs_for_location(location_id)"
+        },
+        {
+          "line": 38,
+          "text": "text=(f\"{location['name']}\\n\\n🏷 Рівні зони: {location['level_min']}–{location['level_max']}\\n\\n📖 {location['description']}\\n\\n👹 Моби цієї зони:\\n\")"
+        },
+        {
+          "line": 40,
+          "text": "if player_level>int(location['level_max']): text+=\"\\n⚠️ Твій рівень перевищує рекомендований рівень цієї зони.\""
+        },
+        {
+          "line": 43,
+          "text": "def build_world_map_text(user_id):"
+        },
+        {
+          "line": 44,
+          "text": "active=get_active_travel(user_id)"
+        },
+        {
+          "line": 47,
+          "text": "return (\"🚶 Триває подорож\\n\\n\"+f\"{_node_name(active['from_node'])}\\n→ {_node_name(active['to_node'])}\\n\\n\"+f\"{route['active']}\\n\\n\"+f\"⏱️ Залишилося: {_remaining_seconds(active)} секунд\\n\\n\"+\"Після прибуття пункт призначення стане твоєю поточною локацією.\")"
+        },
+        {
+          "line": 48,
+          "text": "node=get_current_location(user_id) or CITY_NODE; level=get_player_level_from_stats(user_id)"
+        },
+        {
+          "line": 50,
+          "text": "return (\"🗺️ Мапа світу\\n\\n📍 Поточна локація:\\n🏙️ Місто\\n\\n\"+f\"{CITY_MAP_INTRO}\\n\\n\"+\"🧭 Доступні напрямки:\\n\\n🌿 Початок Шляху\\n\"+f\"{CITY_DESTINATION_SUMMARY}\\n\\n\"+f\"⏱️ Час у дорозі: {TRAVEL_SECONDS} секунд.\\n\\n\"+\"Обери напрямок, щоб переглянути маршрут перед подорожжю.\")"
+        },
+        {
+          "line": 51,
+          "text": "location=get_location(node)"
+        },
+        {
+          "line": 52,
+          "text": "return (\"🗺️ Мапа світу\\n\\n📍 Поточна локація:\\n\"+f\"{location['name']}\\n\\n👤 Твій рівень: {level}\\n\\n📖 {location['description']}\")"
+        },
+        {
+          "line": 54,
+          "text": "def build_map_inline_kb(user_id):"
+        },
+        {
+          "line": 55,
+          "text": "kb=types.InlineKeyboardMarkup(row_width=1); active=get_active_travel(user_id)"
+        },
+        {
+          "line": 57,
+          "text": "kb.add(types.InlineKeyboardButton(\"🔄 Оновити\",callback_data=f\"map:refresh:{active['id']}:{active['revision']}\"))"
+        },
+        {
+          "line": 58,
+          "text": "kb.add(types.InlineKeyboardButton(\"❌ Скасувати подорож\",callback_data=f\"map:cancel:{active['id']}:{active['revision']}\"));return kb"
+        },
+        {
+          "line": 59,
+          "text": "current=get_current_location(user_id) or CITY_NODE; level=get_player_level_from_stats(user_id)"
+        },
+        {
+          "line": 61,
+          "text": "node=WORLD_NODES[target]"
+        },
+        {
+          "line": 62,
+          "text": "if target!=CITY_NODE and not is_location_unlocked(target,level):"
+        },
+        {
+          "line": 63,
+          "text": "unlock=int(LOCATIONS[target]['unlock_level']); label=f\"🔒 {node['name']} · {unlock} рівень\"; data=f\"map:locked:{target}\""
+        },
+        {
+          "line": 69,
+          "text": "data=f\"map:preview:{target}\""
+        },
+        {
+          "line": 71,
+          "text": "kb.add(types.InlineKeyboardButton(\"👥 Гравці локації\",callback_data=\"map:players\"))"
+        },
+        {
+          "line": 74,
+          "text": "def build_travel_preview_text(user_id,target):"
+        },
+        {
+          "line": 75,
+          "text": "source=get_current_location(user_id) or CITY_NODE"
+        },
+        {
+          "line": 77,
+          "text": "return (\"🚶 Подорож\\n\\n\"+f\"{_node_name(source)}\\n→ {_node_name(target)}\\n\\n\"+f\"{route['preview']}\\n\\n\"+f\"⏱️ Час у дорозі: {TRAVEL_SECONDS} секунд.\\n\\n\"+\"Поточна локація зміниться лише після завершення подорожі.\")"
+        },
+        {
+          "line": 79,
+          "text": "def build_travel_preview_kb(target):"
+        },
+        {
+          "line": 81,
+          "text": "kb.add(types.InlineKeyboardButton(\"🚶 Вирушити\",callback_data=f\"map:start:{target}\"))"
+        },
+        {
+          "line": 82,
+          "text": "kb.add(types.InlineKeyboardButton(\"◀️ Повернутися до мапи\",callback_data=\"map:open\"));return kb"
+        },
+        {
+          "line": 84,
+          "text": "def render_map_message(bot,chat_id,user_id,message_id=None):"
+        },
+        {
+          "line": 85,
+          "text": "text=build_world_map_text(user_id); inline=build_map_inline_kb(user_id)"
+        },
+        {
+          "line": 92,
+          "text": "return {\"location_locked\":\"🔒 Локація ще недоступна за рівнем.\",\"not_adjacent\":\"⚠️ Цей напрямок більше не є сусіднім.\",\"already_travelling\":\"🚶 Подорож уже триває.\",\"unknown_destination\":\"⚠️ Невідомий напрямок.\",\"invalid_current_node\":\"⚠️ Поточне місцезнаходження некоректне.\",\"player_busy\":\"⚠️ Зараз персонаж зайнятий іншою дією.\"}.get(reason,\"⚠️ Не вдалося розпочати подорож. Відкрий мапу повторно.\")"
+        },
+        {
+          "line": 96,
+          "text": "def _travel_start_busy(bot,user_id):"
+        },
+        {
+          "line": 97,
+          "text": "if getattr(bot,\"user_data\",{}).get(int(user_id)) is not None: return {\"type\":\"pve\"}"
+        },
+        {
+          "line": 105,
+          "text": "def register_map_handlers(bot):"
+        },
+        {
+          "line": 107,
+          "text": "def show_map(message):"
+        },
+        {
+          "line": 108,
+          "text": "bot.send_message(message.chat.id,\"🗺️ Мапу відкрито.\",reply_markup=map_kb());render_map_message(bot,message.chat.id,message.from_user.id)"
+        },
+        {
+          "line": 110,
+          "text": "@bot.message_handler(func=lambda m:m.text==MAP_COLLAPSE_BUTTON)"
+        },
+        {
+          "line": 111,
+          "text": "def collapse_map(message):"
+        },
+        {
+          "line": 112,
+          "text": "node=get_current_location(message.from_user.id) or CITY_NODE"
+        },
+        {
+          "line": 117,
+          "text": "@bot.message_handler(func=lambda m:str(getattr(m,'text','') or '') in CITY_ACTION_BUTTONS and is_user_travelling(int(m.from_user.id)))"
+        },
+        {
+          "line": 118,
+          "text": "def block_city_actions_during_travel(message):"
+        },
+        {
+          "line": 119,
+          "text": "bot.send_message(message.chat.id,\"🚶 Міські дії недоступні під час подорожі. Відкрий мапу, щоб переглянути статус або скасувати маршрут.\")"
+        },
+        {
+          "line": 121,
+          "text": "@bot.callback_query_handler(func=lambda c:str(getattr(c,'data','')).startswith('map:'))"
+        },
+        {
+          "line": 122,
+          "text": "def map_callbacks(call):"
+        },
+        {
+          "line": 125,
+          "text": "if action=='open': _safe_answer(bot,call);render_map_message(bot,chat,uid,mid);return"
+        },
+        {
+          "line": 127,
+          "text": "try: travel_id=int(parts[2]);revision=int(parts[3])"
+        },
+        {
+          "line": 129,
+          "text": "active=get_active_travel(uid)"
+        },
+        {
+          "line": 130,
+          "text": "if not active or travel_id != int(active[\"id\"]) or revision != int(active[\"revision\"]):"
+        },
+        {
+          "line": 131,
+          "text": "old=get_travel(travel_id)"
+        },
+        {
+          "line": 132,
+          "text": "_safe_answer(bot,call,\"Подорож уже завершена або скасована.\",True)"
+        },
+        {
+          "line": 133,
+          "text": "render_map_message(bot,chat,uid,mid);return"
+        },
+        {
+          "line": 134,
+          "text": "_safe_answer(bot,call);render_map_message(bot,chat,uid,mid);return"
+        },
+        {
+          "line": 137,
+          "text": "if get_active_travel(uid): _safe_answer(bot,call,\"Під час подорожі список недоступний.\",True);return"
+        },
+        {
+          "line": 138,
+          "text": "from systems.player_interaction_system import get_online_players_in_same_location,touch_player_activity"
+        },
+        {
+          "line": 139,
+          "text": "from handlers.player_interaction import build_location_players_text,build_location_players_kb"
+        },
+        {
+          "line": 140,
+          "text": "touch_player_activity(uid);result=get_online_players_in_same_location(uid,page=0,page_size=8)"
+        },
+        {
+          "line": 141,
+          "text": "bot.edit_message_text(build_location_players_text(result),chat_id=chat,message_id=mid,parse_mode='HTML',reply_markup=build_location_players_kb(result));return"
+        },
+        {
+          "line": 143,
+          "text": "target=parts[2] if len(parts)>2 else '';loc=LOCATIONS.get(target) or {};_safe_answer(bot,call,f\"Потрібний рівень: {loc.get('unlock_level','?')}\",True);return"
+        },
+        {
+          "line": 146,
+          "text": "# Authoritative validation occurs again in start_travel."
+        },
+        {
+          "line": 147,
+          "text": "if target not in get_adjacent_nodes(get_current_location(uid) or CITY_NODE): render_map_message(bot,chat,uid,mid);return"
+        },
+        {
+          "line": 148,
+          "text": "bot.edit_message_text(build_travel_preview_text(uid,target),chat_id=chat,message_id=mid,reply_markup=build_travel_preview_kb(target));return"
+        },
+        {
+          "line": 150,
+          "text": "target=parts[2] if len(parts)>2 else '';result=start_travel(uid,target,busy_checker=lambda user_id:_travel_start_busy(bot,user_id))"
+        },
+        {
+          "line": 151,
+          "text": "if not result.get('success'): _safe_answer(bot,call,_failure_message(result.get('reason')),True);render_map_message(bot,chat,uid,mid);return"
+        },
+        {
+          "line": 152,
+          "text": "_safe_answer(bot,call,\"Подорож розпочато\");render_map_message(bot,chat,uid,mid);return"
+        },
+        {
+          "line": 154,
+          "text": "try: travel_id=int(parts[2]);revision=int(parts[3])"
+        },
+        {
+          "line": 156,
+          "text": "result=cancel_travel(uid,travel_id,expected_revision=revision)"
+        },
+        {
+          "line": 157,
+          "text": "_safe_answer(bot,call,\"Подорож скасовано.\" if result.get('success') else \"Подорож уже завершена.\",not result.get('success'))"
+        },
+        {
+          "line": 158,
+          "text": "render_map_message(bot,chat,uid,mid);return"
+        }
+      ]
+    },
+    "systems/location_context_system.py": {
+      "path": "systems/location_context_system.py",
+      "sha256": "8ab5bd6bc55a4fe9a8836dd5f065ef0dab8278b721efaac2897fba46970f634a",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 6,
+          "text": "\"\"\"Authoritative keyboard and navigation context for a player's world node.\"\"\""
+        },
+        {
+          "line": 9,
+          "text": "from db import get_current_location"
+        },
+        {
+          "line": 10,
+          "text": "from data.location_graph import CITY_NODE, WORLD_NODES"
+        },
+        {
+          "line": 11,
+          "text": "from systems.travel_system import is_user_travelling"
+        },
+        {
+          "line": 14,
+          "text": "def get_location_context_kind(user_id):"
+        },
+        {
+          "line": 15,
+          "text": "\"\"\"Return travel, city, location, or invalid without changing location.\"\"\""
+        },
+        {
+          "line": 17,
+          "text": "if is_user_travelling(uid):"
+        },
+        {
+          "line": 18,
+          "text": "return \"travel\""
+        },
+        {
+          "line": 19,
+          "text": "node = str(get_current_location(uid) or CITY_NODE)"
+        },
+        {
+          "line": 22,
+          "text": "profile = WORLD_NODES.get(node)"
+        },
+        {
+          "line": 23,
+          "text": "if profile and profile.get(\"kind\") == \"location\":"
+        },
+        {
+          "line": 24,
+          "text": "return \"location\""
+        },
+        {
+          "line": 28,
+          "text": "def get_location_context_kb(user_id):"
+        },
+        {
+          "line": 30,
+          "text": "from keyboards import city_kb, main_kb, map_kb"
+        },
+        {
+          "line": 32,
+          "text": "kind = get_location_context_kind(user_id)"
+        },
+        {
+          "line": 33,
+          "text": "if kind == \"travel\":"
+        },
+        {
+          "line": 34,
+          "text": "return map_kb()"
+        },
+        {
+          "line": 37,
+          "text": "if kind == \"location\":"
+        },
+        {
+          "line": 39,
+          "text": "# Unknown location state must not expose hunting controls."
+        },
+        {
+          "line": 40,
+          "text": "return map_kb()"
+        },
+        {
+          "line": 43,
+          "text": "def get_location_context_return_text(user_id):"
+        },
+        {
+          "line": 44,
+          "text": "kind = get_location_context_kind(user_id)"
+        },
+        {
+          "line": 45,
+          "text": "if kind == \"travel\":"
+        },
+        {
+          "line": 46,
+          "text": "return \"🚶 Повернення до статусу подорожі.\""
+        },
+        {
+          "line": 49,
+          "text": "if kind == \"location\":"
+        },
+        {
+          "line": 50,
+          "text": "return \"🏕️ Повернення до основного меню локації.\""
+        }
+      ]
+    },
+    "systems/travel_system.py": {
+      "path": "systems/travel_system.py",
+      "sha256": "3f49723a3e6b064bf4152da0042679c268187620c3b6e3c8d9c798449e7cfa0f",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 6,
+          "text": "\"\"\"Persistent, server-authoritative travel domain for Stage 18.22.1.\"\"\""
+        },
+        {
+          "line": 11,
+          "text": "from data.location_graph import CITY_NODE, TRAVEL_SECONDS, WORLD_NODES, are_adjacent"
+        },
+        {
+          "line": 12,
+          "text": "from data.travel_presentation import format_arrival_destination, get_route_presentation"
+        },
+        {
+          "line": 13,
+          "text": "from data.locations import is_location_unlocked"
+        },
+        {
+          "line": 33,
+          "text": "def init_travel_system(db_path=None):"
+        },
+        {
+          "line": 37,
+          "text": "CREATE TABLE IF NOT EXISTS location_travels ("
+        },
+        {
+          "line": 42,
+          "text": "started_at TEXT NOT NULL,arrival_at TEXT NOT NULL,cancelled_at TEXT,completed_at TEXT,"
+        },
+        {
+          "line": 45,
+          "text": "CREATE UNIQUE INDEX IF NOT EXISTS ux_location_travels_one_active_user ON location_travels(user_id) WHERE status='active';"
+        },
+        {
+          "line": 46,
+          "text": "CREATE INDEX IF NOT EXISTS ix_location_travels_due ON location_travels(status,arrival_at,id);"
+        },
+        {
+          "line": 47,
+          "text": "CREATE INDEX IF NOT EXISTS ix_location_travels_user_history ON location_travels(user_id,id DESC);"
+        },
+        {
+          "line": 48,
+          "text": "\"\"\"); conn.commit(); return {'success':True,'table':'location_travels'}"
+        },
+        {
+          "line": 51,
+          "text": "def get_active_travel(user_id, *, db_path=None):"
+        },
+        {
+          "line": 53,
+          "text": "try: return _row(conn.execute(\"SELECT * FROM location_travels WHERE user_id=? AND status='active' ORDER BY id DESC LIMIT 1\",(int(user_id),)).fetchone())"
+        },
+        {
+          "line": 56,
+          "text": "def get_travel(travel_id, *, db_path=None):"
+        },
+        {
+          "line": 58,
+          "text": "try: return _row(conn.execute('SELECT * FROM location_travels WHERE id=?',(int(travel_id),)).fetchone())"
+        },
+        {
+          "line": 61,
+          "text": "def get_due_active_travels(*, now=None, limit=100, db_path=None):"
+        },
+        {
+          "line": 63,
+          "text": "try: return [dict(r) for r in conn.execute(\"SELECT * FROM location_travels WHERE status='active' AND arrival_at<=? ORDER BY arrival_at,id LIMIT ?\",(_iso(now),max(1,int(limit)))).fetchall()]"
+        },
+        {
+          "line": 67,
+          "text": "user=conn.execute('SELECT current_location,level FROM users WHERE user_id=?',(int(user_id),)).fetchone()"
+        },
+        {
+          "line": 69,
+          "text": "source=str(user['current_location'] or CITY_NODE)"
+        },
+        {
+          "line": 71,
+          "text": "if source not in WORLD_NODES: return {'success':False,'reason':'invalid_current_node','current_node':source}"
+        },
+        {
+          "line": 72,
+          "text": "if target not in WORLD_NODES: return {'success':False,'reason':'unknown_destination'}"
+        },
+        {
+          "line": 74,
+          "text": "if target != CITY_NODE and not is_location_unlocked(target,int(user['level'] or 1)):"
+        },
+        {
+          "line": 75,
+          "text": "return {'success':False,'reason':'location_locked','from_node':source,'to_node':target}"
+        },
+        {
+          "line": 78,
+          "text": "def start_travel(user_id,to_node,*,now=None,busy_checker=None,db_path=None):"
+        },
+        {
+          "line": 82,
+          "text": "current=_utc(now); stamp=_iso(current); arrival=_iso(current+timedelta(seconds=TRAVEL_SECONDS))"
+        },
+        {
+          "line": 88,
+          "text": "active=conn.execute(\"SELECT * FROM location_travels WHERE user_id=? AND status='active'\",(int(user_id),)).fetchone()"
+        },
+        {
+          "line": 89,
+          "text": "if active: conn.rollback(); return {'success':False,'reason':'already_travelling','travel':dict(active)}"
+        },
+        {
+          "line": 90,
+          "text": "cur=conn.execute(\"INSERT INTO location_travels(user_id,from_node,to_node,status,revision,started_at,arrival_at,created_at,updated_at) VALUES (?,?,?,'active',1,?,?,?,?)\","
+        },
+        {
+          "line": 91,
+          "text": "(int(user_id),available['from_node'],available['to_node'],stamp,arrival,stamp,stamp))"
+        },
+        {
+          "line": 92,
+          "text": "travel_id=int(cur.lastrowid); conn.commit()"
+        },
+        {
+          "line": 93,
+          "text": "return {'success':True,'travel_id':travel_id,'from_node':available['from_node'],'to_node':available['to_node'],'started_at':stamp,'arrival_at':arrival,'travel_seconds':TRAVEL_SECONDS,'revision':1}"
+        },
+        {
+          "line": 95,
+          "text": "conn.rollback(); return {'success':False,'reason':'already_travelling'}"
+        },
+        {
+          "line": 99,
+          "text": "def cancel_travel(user_id,travel_id,*,expected_revision=None,now=None,db_path=None):"
+        },
+        {
+          "line": 103,
+          "text": "params=[stamp,stamp,int(travel_id),int(user_id)]; where=\"id=? AND user_id=? AND status='active' AND arrival_at>?\"; params.append(stamp)"
+        },
+        {
+          "line": 105,
+          "text": "cur=conn.execute(f\"UPDATE location_travels SET status='cancelled',revision=revision+1,cancelled_at=?,updated_at=? WHERE {where}\",params)"
+        },
+        {
+          "line": 106,
+          "text": "if cur.rowcount==1: conn.commit(); return {'success':True,'status':'cancelled','travel_id':int(travel_id)}"
+        },
+        {
+          "line": 107,
+          "text": "row=conn.execute('SELECT * FROM location_travels WHERE id=? AND user_id=?',(int(travel_id),int(user_id))).fetchone(); conn.rollback()"
+        },
+        {
+          "line": 108,
+          "text": "return {'success':False,'reason':'not_cancellable','travel':_row(row)}"
+        },
+        {
+          "line": 112,
+          "text": "def complete_travel(travel_id,*,now=None,db_path=None):"
+        },
+        {
+          "line": 116,
+          "text": "row=conn.execute('SELECT * FROM location_travels WHERE id=?',(int(travel_id),)).fetchone()"
+        },
+        {
+          "line": 117,
+          "text": "if not row: conn.rollback(); return {'success':False,'reason':'travel_not_found'}"
+        },
+        {
+          "line": 118,
+          "text": "if row['status']!='active': conn.rollback(); return {'success':False,'reason':'already_terminal','travel':dict(row)}"
+        },
+        {
+          "line": 119,
+          "text": "if row['arrival_at']>stamp: conn.rollback(); return {'success':False,'reason':'not_due','travel':dict(row)}"
+        },
+        {
+          "line": 120,
+          "text": "user=conn.execute('SELECT current_location FROM users WHERE user_id=?',(int(row['user_id']),)).fetchone()"
+        },
+        {
+          "line": 121,
+          "text": "if not user or str(user['current_location'] or CITY_NODE)!=str(row['from_node']):"
+        },
+        {
+          "line": 122,
+          "text": "conn.execute(\"UPDATE location_travels SET status='failed',revision=revision+1,completed_at=?,updated_at=? WHERE id=? AND status='active'\",(stamp,stamp,int(travel_id))); conn.commit()"
+        },
+        {
+          "line": 124,
+          "text": "cur=conn.execute(\"UPDATE location_travels SET status='arrived',revision=revision+1,completed_at=?,updated_at=? WHERE id=? AND status='active'\",(stamp,stamp,int(travel_id)))"
+        },
+        {
+          "line": 126,
+          "text": "updated=conn.execute('UPDATE users SET current_location=? WHERE user_id=? AND current_location=?',(str(row['to_node']),int(row['user_id']),str(row['from_node'])))"
+        },
+        {
+          "line": 127,
+          "text": "if updated.rowcount!=1: raise RuntimeError('atomic location update failed')"
+        },
+        {
+          "line": 128,
+          "text": "conn.commit(); return {'success':True,'status':'arrived','travel_id':int(travel_id),'user_id':int(row['user_id']),'from_node':row['from_node'],'to_node':row['to_node']}"
+        },
+        {
+          "line": 132,
+          "text": "def recover_due_travels(*,now=None,limit=100,db_path=None):"
+        },
+        {
+          "line": 134,
+          "text": "for travel in get_due_active_travels(now=now,limit=limit,db_path=db_path): results.append(complete_travel(travel['id'],now=now,db_path=db_path))"
+        },
+        {
+          "line": 138,
+          "text": "# ROM 18.22.2 arrival notification worker"
+        },
+        {
+          "line": 141,
+          "text": "_TRAVEL_WORKER_STARTED=False"
+        },
+        {
+          "line": 143,
+          "text": "def _arrival_keyboard(node_id):"
+        },
+        {
+          "line": 147,
+          "text": "def _send_arrival(bot,result):"
+        },
+        {
+          "line": 149,
+          "text": "from handlers.map import build_map_inline_kb"
+        },
+        {
+          "line": 151,
+          "text": "text=(\"✅ Подорож завершено\\n\\n\"+f\"{format_arrival_destination(result['to_node'],WORLD_NODES)}\\n\\n\"+f\"{route['arrival']}\")"
+        },
+        {
+          "line": 152,
+          "text": "bot.send_message(int(result['user_id']),text,reply_markup=_arrival_keyboard(result['to_node']))"
+        },
+        {
+          "line": 153,
+          "text": "bot.send_message(int(result['user_id']),\"🗺️ Доступні напрямки:\",reply_markup=build_map_inline_kb(int(result['user_id'])))"
+        },
+        {
+          "line": 158,
+          "text": "def recover_travels_after_restart(bot=None,now=None):"
+        },
+        {
+          "line": 159,
+          "text": "recovered=recover_due_travels(now=now)"
+        },
+        {
+          "line": 163,
+          "text": "if result.get('success') and _send_arrival(bot,result): notified.append(result['travel_id'])"
+        },
+        {
+          "line": 164,
+          "text": "return {'success':True,'processed':recovered['processed'],'notified_travel_ids':notified,'results':recovered['results']}"
+        },
+        {
+          "line": 166,
+          "text": "def start_travel_worker(bot,interval_seconds=1.0):"
+        },
+        {
+          "line": 167,
+          "text": "global _TRAVEL_WORKER_STARTED"
+        },
+        {
+          "line": 168,
+          "text": "if _TRAVEL_WORKER_STARTED:return False"
+        },
+        {
+          "line": 169,
+          "text": "_TRAVEL_WORKER_STARTED=True"
+        },
+        {
+          "line": 172,
+          "text": "try: recover_travels_after_restart(bot)"
+        },
+        {
+          "line": 175,
+          "text": "threading.Thread(target=worker,name='location-travel-worker',daemon=True).start();return True"
+        },
+        {
+          "line": 178,
+          "text": "def is_user_travelling(user_id, *, db_path=None):"
+        },
+        {
+          "line": 179,
+          "text": "return get_active_travel(int(user_id),db_path=db_path) is not None"
+        }
+      ]
+    },
+    "migrations/049_persistent_location_travel.py": {
+      "path": "migrations/049_persistent_location_travel.py",
+      "sha256": "c6ac7b2a76fafe7c3759550ca0141844a8eab9e22b010bc56de19d27b54d7ac2",
+      "parse": "FAIL:3:leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers",
+      "symbols": [],
+      "imports": [],
+      "callbacks": [],
+      "tables": [],
+      "constants": {},
+      "relevant_lines": [
+        {
+          "line": 6,
+          "text": "\"\"\"Stage 18.22.1 persistent location travel foundation.\"\"\""
+        },
+        {
+          "line": 9,
+          "text": "CREATE TABLE IF NOT EXISTS location_travels ("
+        },
+        {
+          "line": 18,
+          "text": "arrival_at TEXT NOT NULL,"
+        },
+        {
+          "line": 26,
+          "text": "CREATE UNIQUE INDEX IF NOT EXISTS ux_location_travels_one_active_user"
+        },
+        {
+          "line": 27,
+          "text": "ON location_travels(user_id) WHERE status='active';"
+        },
+        {
+          "line": 28,
+          "text": "CREATE INDEX IF NOT EXISTS ix_location_travels_due"
+        },
+        {
+          "line": 29,
+          "text": "ON location_travels(status, arrival_at, id);"
+        },
+        {
+          "line": 30,
+          "text": "CREATE INDEX IF NOT EXISTS ix_location_travels_user_history"
+        },
+        {
+          "line": 31,
+          "text": "ON location_travels(user_id, id DESC);"
+        }
+      ]
+    }
+  },
+  "behavioral_fixtures": {
+    "location_resolution": {
+      "evidence_owner": "data/locations.py + db_modules/location.py + systems/location_context_system.py",
+      "required": "technical location key resolves to a localized human name; user text must not expose raw location identifiers"
+    },
+    "map_navigation": {
+      "evidence_owner": "handlers/map.py + data/location_graph.py",
+      "required": "destinations derive from the canonical graph and current resolved location"
+    },
+    "travel_start": {
+      "evidence_owner": "systems/travel_system.py",
+      "required": "validate current location, destination adjacency/unlock and busy restrictions before persistence"
+    },
+    "eta": {
+      "evidence_owner": "data/location_graph.py + data/travel_presentation.py",
+      "required": "ETA derives from canonical travel duration and persisted start/arrival timestamps"
+    },
+    "complete": {
+      "evidence_owner": "systems/travel_system.py + db_modules/location.py",
+      "required": "completion changes location only when arrival is due and clears travel state exactly once"
+    },
+    "cancel": {
+      "evidence_owner": "systems/travel_system.py",
+      "required": "cancellation follows the effective V1 path and must not fabricate destination arrival"
+    },
+    "restart": {
+      "evidence_owner": "migrations/049_persistent_location_travel.py",
+      "required": "pending travel survives process restart through persisted travel state"
+    },
+    "stale_or_replayed": {
+      "evidence_owner": "handlers/map.py + systems/travel_system.py",
+      "required": "stale or repeated actions fail closed without duplicate completion or partial location mutation"
+    }
+  },
+  "duplicate_candidates": [],
+  "v2_readiness": {
+    "location_catalog": {
+      "status": "READY_OR_PARTIAL",
+      "owner": "rom_v2/content/location_catalog.py",
+      "evidence": {
+        "path": "rom_v2/content/location_catalog.py",
+        "sha256": "d87d023fcb7685b252caa56318c61a9eb4b64a356ec4c5270222c3deda7449f9",
+        "parse": "PASS",
+        "symbols": [
+          {
+            "name": "LocationDefinition",
+            "line": 18,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "get_location",
+            "line": 60,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "require_location",
+            "line": 64,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "get_location_display_name",
+            "line": 70,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "is_location_unlocked",
+            "line": 74,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "get_unlocked_locations",
+            "line": 80,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "validate_location_catalog",
+            "line": 86,
+            "kind": "FunctionDef"
+          }
+        ],
+        "imports": [
+          {
+            "line": 9,
+            "text": "from types import MappingProxyType"
+          },
+          {
+            "line": 10,
+            "text": "from typing import Mapping"
+          },
+          {
+            "line": 58,
+            "text": "from rom_v2.content.world_graph import validate_world_graph"
+          }
+        ],
+        "callbacks": [
+          {
+            "line": 19,
+            "value": "Immutable canonical definition of one huntable location."
+          },
+          {
+            "line": 61,
+            "value": "Return a canonical location or None; never fabricate an unknown record."
+          },
+          {
+            "line": 65,
+            "value": "Return a canonical location and fail closed for unknown technical IDs."
+          },
+          {
+            "line": 75,
+            "value": "Apply the V1 unlock threshold for one known location."
+          },
+          {
+            "line": 81,
+            "value": "Enumerate unlocked locations in canonical catalog order."
+          },
+          {
+            "line": 88,
+            "value": "location order mismatch"
+          },
+          {
+            "line": 67,
+            "value": "unknown location_id: "
+          },
+          {
+            "line": 90,
+            "value": "location identity mismatch: "
+          },
+          {
+            "line": 94,
+            "value": "incomplete location: "
+          }
+        ],
+        "tables": [],
+        "constants": {
+          "UNKNOWN_LOCATION_NAME": "🧭 Невідома місцевість",
+          "LOCATION_ORDER": "(START_PATH_ID, DARK_FOREST_ID)",
+          "LOCATIONS": "MappingProxyType({START_PATH_ID: _START_PATH, DARK_FOREST_ID: _DARK_FOREST})",
+          "location_id": "ANNOTATION_ONLY_NO_VALUE",
+          "location": "LOCATIONS.get(normalized)"
+        },
+        "relevant_lines": [
+          {
+            "line": 1,
+            "text": "\"\"\"Canonical immutable V2 catalog for the two V1-parity locations."
+          },
+          {
+            "line": 9,
+            "text": "from types import MappingProxyType"
+          },
+          {
+            "line": 10,
+            "text": "from typing import Mapping"
+          },
+          {
+            "line": 15,
+            "text": "UNKNOWN_LOCATION_NAME = \"🧭 Невідома місцевість\""
+          },
+          {
+            "line": 18,
+            "text": "class LocationDefinition:"
+          },
+          {
+            "line": 19,
+            "text": "\"\"\"Immutable canonical definition of one huntable location.\"\"\""
+          },
+          {
+            "line": 20,
+            "text": "location_id: str"
+          },
+          {
+            "line": 29,
+            "text": "_START_PATH = LocationDefinition("
+          },
+          {
+            "line": 30,
+            "text": "location_id=START_PATH_ID,"
+          },
+          {
+            "line": 41,
+            "text": "_DARK_FOREST = LocationDefinition("
+          },
+          {
+            "line": 42,
+            "text": "location_id=DARK_FOREST_ID,"
+          },
+          {
+            "line": 44,
+            "text": "description=(\"Глибша частина лісу, куди не заходять випадкові подорожні. Між старими деревами \""
+          },
+          {
+            "line": 53,
+            "text": "LOCATION_ORDER: tuple[str, ...] = (START_PATH_ID, DARK_FOREST_ID)"
+          },
+          {
+            "line": 54,
+            "text": "LOCATIONS: Mapping[str, LocationDefinition] = MappingProxyType({"
+          },
+          {
+            "line": 58,
+            "text": "from rom_v2.content.world_graph import validate_world_graph"
+          },
+          {
+            "line": 60,
+            "text": "def get_location(location_id: str) -> LocationDefinition | None:"
+          },
+          {
+            "line": 61,
+            "text": "\"\"\"Return a canonical location or None; never fabricate an unknown record.\"\"\""
+          },
+          {
+            "line": 62,
+            "text": "return LOCATIONS.get(str(location_id or \"\").strip())"
+          },
+          {
+            "line": 64,
+            "text": "def require_location(location_id: str) -> LocationDefinition:"
+          },
+          {
+            "line": 65,
+            "text": "\"\"\"Return a canonical location and fail closed for unknown technical IDs.\"\"\""
+          },
+          {
+            "line": 66,
+            "text": "normalized=str(location_id or \"\").strip(); location=LOCATIONS.get(normalized)"
+          },
+          {
+            "line": 67,
+            "text": "if location is None: raise KeyError(f\"unknown location_id: {normalized}\")"
+          },
+          {
+            "line": 68,
+            "text": "return location"
+          },
+          {
+            "line": 70,
+            "text": "def get_location_display_name(location_id: str) -> str:"
+          },
+          {
+            "line": 72,
+            "text": "return require_location(location_id).name"
+          },
+          {
+            "line": 74,
+            "text": "def is_location_unlocked(location_id: str, player_level: int) -> bool:"
+          },
+          {
+            "line": 75,
+            "text": "\"\"\"Apply the V1 unlock threshold for one known location.\"\"\""
+          },
+          {
+            "line": 78,
+            "text": "return player_level >= require_location(location_id).unlock_level"
+          },
+          {
+            "line": 80,
+            "text": "def get_unlocked_locations(player_level: int) -> tuple[LocationDefinition, ...]:"
+          },
+          {
+            "line": 81,
+            "text": "\"\"\"Enumerate unlocked locations in canonical catalog order.\"\"\""
+          },
+          {
+            "line": 84,
+            "text": "return tuple(LOCATIONS[key] for key in LOCATION_ORDER if player_level>=LOCATIONS[key].unlock_level)"
+          },
+          {
+            "line": 86,
+            "text": "def validate_location_catalog() -> None:"
+          },
+          {
+            "line": 88,
+            "text": "if tuple(LOCATIONS) != LOCATION_ORDER: raise ValueError(\"location order mismatch\")"
+          },
+          {
+            "line": 89,
+            "text": "for key, location in LOCATIONS.items():"
+          },
+          {
+            "line": 90,
+            "text": "if key != location.location_id: raise ValueError(f\"location identity mismatch: {key}\")"
+          },
+          {
+            "line": 91,
+            "text": "if not (1 <= location.level_min <= location.level_max): raise ValueError(f\"invalid level range: {key}\")"
+          },
+          {
+            "line": 92,
+            "text": "if location.unlock_level != location.level_min: raise ValueError(f\"unlock mismatch: {key}\")"
+          },
+          {
+            "line": 93,
+            "text": "if not location.name or not location.description or not location.boss_name or not location.mob_names:"
+          },
+          {
+            "line": 94,
+            "text": "raise ValueError(f\"incomplete location: {key}\")"
+          },
+          {
+            "line": 95,
+            "text": "if len(location.mob_names) != len(set(location.mob_names)): raise ValueError(f\"duplicate mob: {key}\")"
+          },
+          {
+            "line": 96,
+            "text": "validate_world_graph(location_ids=set(LOCATIONS))"
+          },
+          {
+            "line": 98,
+            "text": "validate_location_catalog()"
+          }
+        ],
+        "source": "CURRENT_GIT_HEAD"
+      }
+    },
+    "travel_domain": {
+      "status": "READY_OR_PARTIAL",
+      "owner": "rom_v2/domain/travel_aggregate.py",
+      "evidence": {
+        "path": "rom_v2/domain/travel_aggregate.py",
+        "sha256": "25652f88af25ac1d58fe57ca11eaf15985fe4bed7eefd62c23a9ba352bd9f906",
+        "parse": "PASS",
+        "symbols": [
+          {
+            "name": "TravelStatus",
+            "line": 5,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "TravelAggregate",
+            "line": 7,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "cancel",
+            "line": 13,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "complete",
+            "line": 19,
+            "kind": "FunctionDef"
+          }
+        ],
+        "imports": [],
+        "callbacks": [],
+        "tables": [
+          {
+            "line": 10,
+            "text": "min(self.travel_id,self.user_id,self.revision)"
+          }
+        ],
+        "constants": {
+          "travel_id": "ANNOTATION_ONLY_NO_VALUE"
+        },
+        "relevant_lines": [
+          {
+            "line": 5,
+            "text": "class TravelStatus(StrEnum):ACTIVE=\"active\";ARRIVED=\"arrived\";CANCELLED=\"cancelled\";FAILED=\"failed\""
+          },
+          {
+            "line": 7,
+            "text": "class TravelAggregate:"
+          },
+          {
+            "line": 8,
+            "text": "travel_id:int;user_id:int;from_node:str;to_node:str;status:TravelStatus;revision:int;started_at:datetime;arrival_at:datetime;cancelled_at:datetime|None=None;completed_at:datetime|None=None"
+          },
+          {
+            "line": 10,
+            "text": "if min(self.travel_id,self.user_id,self.revision)<1:raise ValueError(\"positive identity/revision required\")"
+          },
+          {
+            "line": 12,
+            "text": "if self.started_at.tzinfo is None or self.arrival_at.tzinfo is None or self.arrival_at<=self.started_at:raise ValueError(\"valid aware timeline required\")"
+          },
+          {
+            "line": 15,
+            "text": "if self.status is not TravelStatus.ACTIVE:return None,\"already_terminal\""
+          },
+          {
+            "line": 17,
+            "text": "if now>=self.arrival_at:return None,\"already_due\""
+          },
+          {
+            "line": 18,
+            "text": "return replace(self,status=TravelStatus.CANCELLED,revision=self.revision+1,cancelled_at=now),None"
+          },
+          {
+            "line": 19,
+            "text": "def complete(self,current_location,now):"
+          },
+          {
+            "line": 20,
+            "text": "if self.status is not TravelStatus.ACTIVE:return None,\"already_terminal\""
+          },
+          {
+            "line": 21,
+            "text": "if now<self.arrival_at:return None,\"not_due\""
+          },
+          {
+            "line": 22,
+            "text": "if current_location!=self.from_node:return replace(self,status=TravelStatus.FAILED,revision=self.revision+1,completed_at=now),\"source_changed\""
+          },
+          {
+            "line": 23,
+            "text": "return replace(self,status=TravelStatus.ARRIVED,revision=self.revision+1,completed_at=now),None"
+          }
+        ],
+        "source": "CURRENT_GIT_HEAD"
+      }
+    },
+    "travel_application": {
+      "status": "READY_OR_PARTIAL",
+      "owner": "rom_v2/application/travel_service.py",
+      "evidence": {
+        "path": "rom_v2/application/travel_service.py",
+        "sha256": "b711315637f6f9ef90312ca796b270c195e07498c1fb276fa92886c44a99f9a1",
+        "parse": "PASS",
+        "symbols": [
+          {
+            "name": "TravelResult",
+            "line": 8,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "TravelService",
+            "line": 9,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "MemoryBusy",
+            "line": 45,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "start",
+            "line": 14,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "cancel",
+            "line": 28,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "complete",
+            "line": 34,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "get_busy",
+            "line": 47,
+            "kind": "FunctionDef"
+          },
+          {
+            "name": "cas_location",
+            "line": 55,
+            "kind": "FunctionDef"
+          }
+        ],
+        "imports": [
+          {
+            "line": 4,
+            "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.content.world_graph import CITY_NODE_ID, TRAVEL_SECONDS, are_adjacent, get_world_node"
+          },
+          {
+            "line": 6,
+            "text": "from rom_v2.domain.travel_aggregate import TravelAggregate, TravelStatus"
+          }
+        ],
+        "callbacks": [
+          {
+            "line": 58,
+            "value": "location"
+          },
+          {
+            "line": 30,
+            "value": "travel_not_found"
+          },
+          {
+            "line": 36,
+            "value": "travel_not_found"
+          },
+          {
+            "line": 22,
+            "value": "unknown_destination"
+          },
+          {
+            "line": 24,
+            "value": "location_locked"
+          },
+          {
+            "line": 25,
+            "value": "already_travelling"
+          },
+          {
+            "line": 20,
+            "value": "location"
+          },
+          {
+            "line": 39,
+            "value": "location"
+          },
+          {
+            "line": 57,
+            "value": "location"
+          }
+        ],
+        "tables": [
+          {
+            "line": 29,
+            "text": "self.uow.get(travel_id)"
+          },
+          {
+            "line": 35,
+            "text": "self.uow.get(travel_id)"
+          },
+          {
+            "line": 44,
+            "text": "tuple(self.complete(t.travel_id,now) for t in self.uow.due(self._utc(now),max(1,min(100,int(limit)))))"
+          },
+          {
+            "line": 26,
+            "text": "TravelAggregate(self.uow.next_id(),user_id,source,target,TravelStatus.ACTIVE,1,now,now+timedelta(seconds=TRAVEL_SECONDS))"
+          },
+          {
+            "line": 30,
+            "text": "TravelResult(False,\"travel_not_found\")"
+          },
+          {
+            "line": 36,
+            "text": "TravelResult(False,\"travel_not_found\")"
+          },
+          {
+            "line": 59,
+            "text": "sorted((t for t in self.travels.values() if t.status is TravelStatus.ACTIVE and t.arrival_at<=n),key=lambda t:(t.arrival_at,t.travel_id))"
+          },
+          {
+            "line": 44,
+            "text": "self.complete(t.travel_id,now)"
+          },
+          {
+            "line": 26,
+            "text": "timedelta(seconds=TRAVEL_SECONDS)"
+          }
+        ],
+        "constants": {
+          "travel": null,
+          "location": null
+        },
+        "relevant_lines": [
+          {
+            "line": 4,
+            "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+          },
+          {
+            "line": 5,
+            "text": "from rom_v2.content.world_graph import CITY_NODE_ID,TRAVEL_SECONDS,are_adjacent,get_world_node"
+          },
+          {
+            "line": 6,
+            "text": "from rom_v2.domain.travel_aggregate import TravelAggregate,TravelStatus"
+          },
+          {
+            "line": 8,
+            "text": "class TravelResult:success:bool;reason:str|None=None;travel:TravelAggregate|None=None;location:str|None=None"
+          },
+          {
+            "line": 9,
+            "text": "class TravelService:"
+          },
+          {
+            "line": 15,
+            "text": "if self.busy.get_busy(user_id):return TravelResult(False,\"player_busy\")"
+          },
+          {
+            "line": 19,
+            "text": "if p is None:return TravelResult(False,\"user_not_found\")"
+          },
+          {
+            "line": 20,
+            "text": "source=str(p[\"location\"] or CITY_NODE_ID);target=str(to_node)"
+          },
+          {
+            "line": 21,
+            "text": "if get_world_node(source) is None:return TravelResult(False,\"invalid_current_node\")"
+          },
+          {
+            "line": 22,
+            "text": "if get_world_node(target) is None:return TravelResult(False,\"unknown_destination\")"
+          },
+          {
+            "line": 23,
+            "text": "if not are_adjacent(source,target):return TravelResult(False,\"not_adjacent\")"
+          },
+          {
+            "line": 24,
+            "text": "if target!=CITY_NODE_ID and not is_location_unlocked(target,int(p[\"level\"] or 1)):return TravelResult(False,\"location_locked\")"
+          },
+          {
+            "line": 25,
+            "text": "if self.uow.get_active(user_id):return TravelResult(False,\"already_travelling\")"
+          },
+          {
+            "line": 26,
+            "text": "t=TravelAggregate(self.uow.next_id(),user_id,source,target,TravelStatus.ACTIVE,1,now,now+timedelta(seconds=TRAVEL_SECONDS));self.uow.save(t);self.uow.commit();return TravelResult(True,travel=t)"
+          },
+          {
+            "line": 28,
+            "text": "def cancel(self,user_id,travel_id,revision,now):"
+          },
+          {
+            "line": 29,
+            "text": "now=self._utc(now);t=self.uow.get(travel_id)"
+          },
+          {
+            "line": 30,
+            "text": "if t is None:return TravelResult(False,\"travel_not_found\")"
+          },
+          {
+            "line": 32,
+            "text": "if changed is None:return TravelResult(False,reason,t)"
+          },
+          {
+            "line": 33,
+            "text": "self.uow.save(changed);self.uow.commit();return TravelResult(True,travel=changed)"
+          },
+          {
+            "line": 34,
+            "text": "def complete(self,travel_id,now):"
+          },
+          {
+            "line": 35,
+            "text": "now=self._utc(now);t=self.uow.get(travel_id)"
+          },
+          {
+            "line": 36,
+            "text": "if t is None:return TravelResult(False,\"travel_not_found\")"
+          },
+          {
+            "line": 38,
+            "text": "if p is None:return TravelResult(False,\"user_not_found\")"
+          },
+          {
+            "line": 39,
+            "text": "changed,reason=t.complete(str(p[\"location\"] or CITY_NODE_ID),now)"
+          },
+          {
+            "line": 40,
+            "text": "if changed is None:return TravelResult(False,reason,t)"
+          },
+          {
+            "line": 41,
+            "text": "if changed.status is TravelStatus.FAILED:self.uow.save(changed);self.uow.commit();return TravelResult(False,reason,changed)"
+          },
+          {
+            "line": 42,
+            "text": "if not self.uow.cas_location(t.user_id,t.from_node,t.to_node):return TravelResult(False,\"terminal_claim_lost\",t)"
+          },
+          {
+            "line": 43,
+            "text": "self.uow.save(changed);self.uow.commit();return TravelResult(True,travel=changed,location=t.to_node)"
+          },
+          {
+            "line": 44,
+            "text": "def recover_due(self,now,limit=100):return tuple(self.complete(t.travel_id,now) for t in self.uow.due(self._utc(now),max(1,min(100,int(limit)))))"
+          },
+          {
+            "line": 49,
+            "text": "def __init__(self,players):self.players={k:dict(v) for k,v in players.items()};self.travels={};self.seq=0;self.commits=0;self.rollbacks=0"
+          },
+          {
+            "line": 51,
+            "text": "def get_active(self,u):return next((t for t in self.travels.values() if t.user_id==u and t.status is TravelStatus.ACTIVE),None)"
+          },
+          {
+            "line": 52,
+            "text": "def get(self,i):return self.travels.get(i)"
+          },
+          {
+            "line": 54,
+            "text": "def save(self,t):self.travels[t.travel_id]=t"
+          },
+          {
+            "line": 55,
+            "text": "def cas_location(self,u,e,v):"
+          },
+          {
+            "line": 57,
+            "text": "if p is None or str(p[\"location\"] or CITY_NODE_ID)!=e:return False"
+          },
+          {
+            "line": 58,
+            "text": "p[\"location\"]=v;return True"
+          },
+          {
+            "line": 59,
+            "text": "def due(self,n,l):return sorted((t for t in self.travels.values() if t.status is TravelStatus.ACTIVE and t.arrival_at<=n),key=lambda t:(t.arrival_at,t.travel_id))[:l]"
+          }
+        ],
+        "source": "CURRENT_GIT_HEAD"
+      }
+    },
+    "map_presentation_contract": {
+      "status": "READY_OR_PARTIAL",
+      "owner": "rom_v2/application/map_presentation.py",
+      "evidence": {
+        "path": "rom_v2/application/map_presentation.py",
+        "sha256": "e270b119016b2791b66136acc16ce5d4339ba805cb5daf780b59661665cd3a9d",
+        "parse": "PASS",
+        "symbols": [
+          {
+            "name": "MapMode",
+            "line": 10,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "MapAction",
+            "line": 12,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "ActiveTravelView",
+            "line": 18,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "MapView",
+            "line": 21,
+            "kind": "ClassDef"
+          },
+          {
+            "name": "build_map_view",
+            "line": 47,
+            "kind": "FunctionDef"
+          }
+        ],
+        "imports": [
+          {
+            "line": 7,
+            "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+          },
+          {
+            "line": 8,
+            "text": "from rom_v2.content.world_graph import CITY_NODE_ID, get_adjacent_nodes, get_world_node"
+          }
+        ],
+        "callbacks": [
+          {
+            "line": 1,
+            "value": "Pure localized Map Presentation DTOs and callback codec."
+          },
+          {
+            "line": 32,
+            "value": "map:"
+          },
+          {
+            "line": 33,
+            "value": "map:"
+          },
+          {
+            "line": 34,
+            "value": "map:cancel:"
+          },
+          {
+            "line": 52,
+            "value": "❌ Скасувати подорож"
+          },
+          {
+            "line": 40,
+            "value": "map"
+          },
+          {
+            "line": 41,
+            "value": "map"
+          },
+          {
+            "line": 42,
+            "value": "map"
+          },
+          {
+            "line": 60,
+            "value": "map:open"
+          },
+          {
+            "line": 60,
+            "value": "map:players"
+          },
+          {
+            "line": 43,
+            "value": "map"
+          },
+          {
+            "line": 54,
+            "value": "map:open"
+          }
+        ],
+        "tables": [
+          {
+            "line": 52,
+            "text": "MapAction(\"cancel\",\"❌ Скасувати подорож\",encode_callback(CallbackCommand(\"cancel\",travel_id=active_travel.travel_id,revision=active_travel.revision)))"
+          },
+          {
+            "line": 53,
+            "text": "ActiveTravelView(active_travel.travel_id,active_travel.revision,node_label(active_travel.from_node),node_label(active_travel.to_node),remaining,cancel)"
+          },
+          {
+            "line": 32,
+            "text": "any((command.node_id,command.travel_id,command.revision))"
+          },
+          {
+            "line": 43,
+            "text": "CallbackCommand(\"cancel\",travel_id=int(parts[2]),revision=int(parts[3]))"
+          },
+          {
+            "line": 52,
+            "text": "encode_callback(CallbackCommand(\"cancel\",travel_id=active_travel.travel_id,revision=active_travel.revision))"
+          },
+          {
+            "line": 52,
+            "text": "CallbackCommand(\"cancel\",travel_id=active_travel.travel_id,revision=active_travel.revision)"
+          }
+        ],
+        "constants": {
+          "travel_id": null,
+          "remaining_seconds": "ANNOTATION_ONLY_NO_VALUE",
+          "active_travel": null
+        },
+        "relevant_lines": [
+          {
+            "line": 1,
+            "text": "\"\"\"Pure localized Map Presentation DTOs and callback codec.\"\"\""
+          },
+          {
+            "line": 7,
+            "text": "from rom_v2.content.location_catalog import is_location_unlocked"
+          },
+          {
+            "line": 8,
+            "text": "from rom_v2.content.world_graph import CITY_NODE_ID,get_adjacent_nodes,get_world_node"
+          },
+          {
+            "line": 10,
+            "text": "class MapMode(StrEnum):READY=\"ready\";IN_TRANSIT=\"in_transit\""
+          },
+          {
+            "line": 12,
+            "text": "class MapAction:"
+          },
+          {
+            "line": 16,
+            "text": "node_id:str;label:str;unlocked:bool;action:MapAction|None"
+          },
+          {
+            "line": 18,
+            "text": "class ActiveTravelView:"
+          },
+          {
+            "line": 19,
+            "text": "travel_id:int;revision:int;from_label:str;to_label:str;remaining_seconds:int;cancel:MapAction"
+          },
+          {
+            "line": 21,
+            "text": "class MapView:"
+          },
+          {
+            "line": 22,
+            "text": "mode:MapMode;current_node_id:str;current_label:str;directions:tuple[DirectionView,...];actions:tuple[MapAction,...];active_travel:ActiveTravelView|None=None"
+          },
+          {
+            "line": 25,
+            "text": "action:str;node_id:str|None=None;travel_id:int|None=None;revision:int|None=None"
+          },
+          {
+            "line": 28,
+            "text": "node=get_world_node(str(node_id or \"\").strip())"
+          },
+          {
+            "line": 32,
+            "text": "if command.action in {\"open\",\"players\"} and not any((command.node_id,command.travel_id,command.revision)):return f\"map:{command.action}\""
+          },
+          {
+            "line": 33,
+            "text": "if command.action in {\"info\",\"preview\",\"start\"} and command.node_id and get_world_node(command.node_id):return f\"map:{command.action}:{command.node_id}\""
+          },
+          {
+            "line": 34,
+            "text": "if command.action==\"cancel\" and command.travel_id and command.revision:return f\"map:cancel:{command.travel_id}:{command.revision}\""
+          },
+          {
+            "line": 40,
+            "text": "if parts==[\"map\",\"open\"]:return CallbackCommand(\"open\")"
+          },
+          {
+            "line": 41,
+            "text": "if parts==[\"map\",\"players\"]:return CallbackCommand(\"players\")"
+          },
+          {
+            "line": 42,
+            "text": "if len(parts)==3 and parts[0]==\"map\" and parts[1] in {\"info\",\"preview\",\"start\"} and get_world_node(parts[2]):return CallbackCommand(parts[1],node_id=parts[2])"
+          },
+          {
+            "line": 43,
+            "text": "if len(parts)==4 and parts[:2]==[\"map\",\"cancel\"] and int(parts[2])>0 and int(parts[3])>0:return CallbackCommand(\"cancel\",travel_id=int(parts[2]),revision=int(parts[3]))"
+          },
+          {
+            "line": 47,
+            "text": "def build_map_view(current_node_id,player_level,*,active_travel=None,now=None):"
+          },
+          {
+            "line": 49,
+            "text": "if active_travel is not None:"
+          },
+          {
+            "line": 50,
+            "text": "moment=(now or datetime.now(timezone.utc)).astimezone(timezone.utc);arrival=active_travel.arrival_at.astimezone(timezone.utc)"
+          },
+          {
+            "line": 51,
+            "text": "remaining=max(0,math.ceil((arrival-moment).total_seconds()))"
+          },
+          {
+            "line": 52,
+            "text": "cancel=MapAction(\"cancel\",\"❌ Скасувати подорож\",encode_callback(CallbackCommand(\"cancel\",travel_id=active_travel.travel_id,revision=active_travel.revision)))"
+          },
+          {
+            "line": 53,
+            "text": "trip=ActiveTravelView(active_travel.travel_id,active_travel.revision,node_label(active_travel.from_node),node_label(active_travel.to_node),remaining,cancel)"
+          },
+          {
+            "line": 54,
+            "text": "return MapView(MapMode.IN_TRANSIT,current,label,(),(MapAction(\"open\",\"🔄 Оновити\",\"map:open\"),),trip)"
+          },
+          {
+            "line": 57,
+            "text": "unlocked=target==CITY_NODE_ID or is_location_unlocked(target,player_level)"
+          },
+          {
+            "line": 58,
+            "text": "action=MapAction(\"preview\",f\"➡️ {node_label(target)}\",encode_callback(CallbackCommand(\"preview\",node_id=target))) if unlocked else None"
+          },
+          {
+            "line": 60,
+            "text": "return MapView(MapMode.READY,current,label,tuple(directions),(MapAction(\"open\",\"🔄 Оновити\",\"map:open\"),MapAction(\"players\",\"👥 Гравці поруч\",\"map:players\")))"
+          }
+        ],
+        "source": "CURRENT_GIT_HEAD"
+      }
+    },
+    "persistence_and_uow": {
+      "status": "REQUIRES_21_18_2A_REVIEW",
+      "owner": "must be resolved from current V2 repository/UoW/composition code",
+      "evidence": "audit does not infer readiness from contracts alone"
+    },
+    "telegram_runtime": {
+      "status": "MISSING_OR_NOT_PROVEN",
+      "owner": "must integrate with canonical rom_v2/presentation/navigation.py and development bot dispatch",
+      "evidence": "no playable claim is made by this audit"
+    }
+  },
+  "implementation_blockers": [
+    "exact V2 repository/UoW owner for travel persistence not yet approved",
+    "exact runtime composition and Telegram callback namespace not yet approved",
+    "busy-policy owner and injected clock boundary must be proven",
+    "localized location-name resolver must be reused; technical IDs prohibited in user text",
+    "restart and stale callback behavior require isolated integration fixtures"
+  ],
+  "next_stage_requirements": [
+    "resolve authoritative V2 owners and exact mutation scope",
+    "prove clock injection owner",
+    "prove travel persistence schema/repository/UoW wiring",
+    "define typed callbacks for map/open/start/status/cancel/complete",
+    "reuse rom_v2/presentation/navigation.py for all labels and markup",
+    "run isolated restart, stale and duplicate-completion tests",
+    "manual game check required only in 21.18.2a"
+  ],
+  "production_files_modified": false,
+  "production_database_opened": false,
+  "manual_game_check": "NOT_REQUIRED"
+}
