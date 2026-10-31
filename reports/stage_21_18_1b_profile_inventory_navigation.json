@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1b-profile-inventory-navigation",
+  "patch_revision": 2,
+  "status": "PASS_AUTOMATED_PENDING_MANUAL",
+  "conclusion": "PROFILE_INVENTORY_NAVIGATION_CORRECTED",
+  "generated_at_utc": "2026-10-31T21:23:02.069396+00:00",
+  "git": {
+    "parent_head": "53edb7f43bfdc8261a3d02ead1e22c1d36d59d3a"
+  },
+  "profile_query_api": "by_telegram_user_id",
+  "navigation": {
+    "start_keyboard": [
+      [
+        "👤 Профіль"
+      ]
+    ],
+    "profile_keyboard": [
+      [
+        "🎒 Інвентар"
+      ],
+      [
+        "🔙 Назад"
+      ]
+    ],
+    "back_keyboard": [
+      [
+        "👤 Профіль"
+      ]
+    ]
+  },
+  "dispatch": {
+    "profile_text": "v2:profile:root",
+    "inventory_text": "v2:inventory:open",
+    "back_text": "canonical /start shell view"
+  },
+  "v1_reference": "user-supplied result.json",
+  "production_database_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next": "restart bot and repeat profile/inventory acceptance"
+}

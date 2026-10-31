@@ -8,7 +8,7 @@ ALLOWED_SORT_KEYS=("inventory_id","item_id","quantity")
 SLOT_LABELS={"main_hand":"Основна рука","off_hand":"Друга рука","helmet":"Шолом","shoulders":"Плечі","chest":"Нагрудник","gloves":"Рукавиці","legs":"Штани","boots":"Взуття","necklace":"Намисто","ring":"Перстень"}
 class TelegramInventoryEquipmentFlow:
  def __init__(self,inventory_service,equipment_service,profile_query):self._inventory=inventory_service;self._equipment=equipment_service;self._profile=profile_query
- def _character(self,user_id):return self._profile.get_by_telegram_user_id(user_id)
+ def _character(self,user_id):return self._profile.by_telegram_user_id(user_id)
  @staticmethod
  def _button(text,data):return {"text":text,"callback_data":data}
  def _list(self,user_id,page=0,sort_key=DEFAULT_SORT):

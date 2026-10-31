@@ -70,7 +70,16 @@ class IndependentDevelopmentBot:
                 return
             text = str(message.get("text", "") or "").strip()
             if text == "/start":
-                self._api.send_message(chat_id, "Меню V2", reply_markup={"keyboard": [[{"text": "🎒 Інвентар"}]], "resize_keyboard": True, "is_persistent": True})
+                self._api.send_message(chat_id, "Меню V2", reply_markup={"keyboard": [[{"text": "👤 Профіль"}]], "resize_keyboard": True, "is_persistent": True})
+            if text == "👤 Профіль" and self._profile_flow is not None:
+                self._api.send_message(chat_id, "👤 Розділ персонажа відкрито", reply_markup={"keyboard": [[{"text": "🎒 Інвентар"}], [{"text": "🔙 Назад"}]], "resize_keyboard": True, "is_persistent": True})
+                view = self._profile_flow.callback(user_id, "v2:profile:root")
+                if view is not None: self._send_view(chat_id, view)
+                return
+            if text == "🔙 Назад":
+                self._api.send_message(chat_id, "Повернення до основного розділу.", reply_markup={"keyboard": [[{"text": "👤 Профіль"}]], "resize_keyboard": True, "is_persistent": True})
+                self._send_view(chat_id, route_shell_action("/start"))
+                return
             if text == "🎒 Інвентар" and self._inventory_flow is not None:
                 view = self._inventory_flow.callback(user_id, "v2:inventory:open")
                 if view is not None: self._send_view(chat_id, view)

@@ -9,7 +9,7 @@ class E:
  def equip(self,*a):return SimpleNamespace(status="ok",reason=None)
  def unequip(self,*a):return SimpleNamespace(status="ok",reason=None)
 class P:
- def get_by_telegram_user_id(self,u):return SimpleNamespace(level=10,class_key="warrior")
+ def by_telegram_user_id(self,u):return SimpleNamespace(level=10,class_key="warrior")
 class TelegramInventoryEquipmentSliceTest(unittest.TestCase):
  def test_contract_constants_are_single(self):self.assertEqual(PAGE_SIZE,8);self.assertEqual(DEFAULT_SORT,"inventory_id");self.assertEqual(ALLOWED_SORT_KEYS,("inventory_id","item_id","quantity"))
  def test_empty_inventory_and_stale_identity_fail_closed(self):
