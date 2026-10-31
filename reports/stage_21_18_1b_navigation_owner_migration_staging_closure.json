@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1b-navigation-owner-migration-staging-closure",
+  "patch_revision": 3,
+  "status": "PASS_AUTOMATED_PENDING_MANUAL",
+  "conclusion": "NAVIGATION_OWNER_MIGRATION_COMMIT_MADE_SELF_CONTAINED",
+  "generated_at_utc": "2026-10-31T22:53:22.081322+00:00",
+  "git": {
+    "parent_head": "7dcc633e4ca0629af441fe666bdd13bf15001165"
+  },
+  "recovered_files": [
+    "rom_v2/presentation/navigation.py",
+    "tests_v2/test_v2_navigation_ownership.py",
+    "tests_v2/test_v2_navigation_transitions.py"
+  ],
+  "canonical_owner": "rom_v2/presentation/navigation.py",
+  "production_database_opened": false,
+  "manual_game_check": "REQUIRED",
+  "next": "restart bot and validate navigation matrix"
+}
