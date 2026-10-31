@@ -1,0 +1,4795 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1b-keyboard-navigation-ownership-audit",
+  "patch_revision": 1,
+  "status": "PASS_READ_ONLY",
+  "conclusion": "GO_TO_NAVIGATION_OWNER_MIGRATION_REVIEW",
+  "generated_at_utc": "2026-10-31T21:53:53.129914+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "head": "23c70a3dda9d0f0ee4ee79397f778aaf2a5f1ec1"
+  },
+  "v1_keyboard_files": [
+    "handlers/about_game.py",
+    "handlers/admin_crystal_credit.py",
+    "handlers/attribute_allocation.py",
+    "handlers/auction_house.py",
+    "handlers/blacksmith.py",
+    "handlers/blacksmith_repair_confirm.py",
+    "handlers/city.py",
+    "handlers/combat.py",
+    "handlers/contracts.py",
+    "handlers/crystal_shop.py",
+    "handlers/daily.py",
+    "handlers/event_ui.py",
+    "handlers/external_links.py",
+    "handlers/fatigue_artifact.py",
+    "handlers/guild.py",
+    "handlers/inventory.py",
+    "handlers/map.py",
+    "handlers/name_rune.py",
+    "handlers/player_interaction.py",
+    "handlers/player_rankings.py",
+    "handlers/profile.py",
+    "handlers/pvp_interaction.py",
+    "handlers/pvp_round_ui.py",
+    "handlers/refine.py",
+    "handlers/runes.py",
+    "handlers/start.py",
+    "handlers/story_boss_invocation_wiring.py",
+    "handlers/story_quest_hierarchy_ui.py",
+    "handlers/story_quest_npc_runtime.py",
+    "handlers/story_quests.py",
+    "handlers/timed_exp_bonus.py",
+    "handlers/world_chronicles.py",
+    "keyboards.py",
+    "systems/pvp_round_ui.py"
+  ],
+  "v1_evidence": [
+    {
+      "path": "handlers/about_game.py",
+      "labels": [
+        {
+          "line": 14,
+          "value": "button"
+        },
+        {
+          "line": 14,
+          "value": "about:section:{key}"
+        },
+        {
+          "line": 16,
+          "value": "❌ Закрити"
+        },
+        {
+          "line": 16,
+          "value": "about:close"
+        },
+        {
+          "line": 19,
+          "value": "⬅️ Попередній"
+        },
+        {
+          "line": 19,
+          "value": "about:section:{ABOUT_GAME_SECTION_ORDER[i-1]}"
+        },
+        {
+          "line": 20,
+          "value": "📖 До розділів"
+        },
+        {
+          "line": 20,
+          "value": "about:menu"
+        },
+        {
+          "line": 21,
+          "value": "Наступний ➡️"
+        },
+        {
+          "line": 21,
+          "value": "about:section:{ABOUT_GAME_SECTION_ORDER[i+1]}"
+        },
+        {
+          "line": 22,
+          "value": "❌ Закрити"
+        },
+        {
+          "line": 22,
+          "value": "about:close"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 14,
+          "value": "about:section:{key}"
+        },
+        {
+          "line": 16,
+          "value": "about:close"
+        },
+        {
+          "line": 19,
+          "value": "about:section:{ABOUT_GAME_SECTION_ORDER[i-1]}"
+        },
+        {
+          "line": 20,
+          "value": "about:menu"
+        },
+        {
+          "line": 21,
+          "value": "about:section:{ABOUT_GAME_SECTION_ORDER[i+1]}"
+        },
+        {
+          "line": 22,
+          "value": "about:close"
+        }
+      ],
+      "keyboard_lines": 7
+    },
+    {
+      "path": "handlers/admin_crystal_credit.py",
+      "labels": [
+        {
+          "line": 17,
+          "value": "➕ Нарахувати кристали"
+        },
+        {
+          "line": 17,
+          "value": "➖ Вилучити кристали"
+        },
+        {
+          "line": 17,
+          "value": "📜 Історія адмін-операцій"
+        },
+        {
+          "line": 17,
+          "value": "❌ Закрити адмін-меню"
+        },
+        {
+          "line": 51,
+          "value": "🔙 До списку"
+        },
+        {
+          "line": 51,
+          "value": "ac:history:{max(0,int(page))}"
+        },
+        {
+          "line": 51,
+          "value": "❌ Закрити історію"
+        },
+        {
+          "line": 51,
+          "value": "ac:history_close"
+        },
+        {
+          "line": 53,
+          "value": "page"
+        },
+        {
+          "line": 53,
+          "value": "total_pages"
+        },
+        {
+          "line": 56,
+          "value": "#{row["
+        },
+        {
+          "line": 56,
+          "value": "]} · {symbol} ({_button_name(row)})"
+        },
+        {
+          "line": 56,
+          "value": "ac:history_detail:{row["
+        },
+        {
+          "line": 56,
+          "value": "]}:{page}"
+        },
+        {
+          "line": 57,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 57,
+          "value": "ac:history:{page-1}"
+        },
+        {
+          "line": 58,
+          "value": "{page+1}/{total_pages}"
+        },
+        {
+          "line": 58,
+          "value": "ac:noop"
+        },
+        {
+          "line": 59,
+          "value": "has_next"
+        },
+        {
+          "line": 59,
+          "value": "Далі ➡️"
+        },
+        {
+          "line": 59,
+          "value": "ac:history:{page+1}"
+        },
+        {
+          "line": 60,
+          "value": "❌ Закрити історію"
+        },
+        {
+          "line": 60,
+          "value": "ac:history_close"
+        },
+        {
+          "line": 114,
+          "value": "✅ Підтвердити операцію"
+        },
+        {
+          "line": 114,
+          "value": "ac:confirm:{nonce}"
+        },
+        {
+          "line": 114,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 114,
+          "value": "ac:cancel"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 51,
+          "value": "ac:history:{max(0,int(page))}"
+        },
+        {
+          "line": 51,
+          "value": "ac:history_close"
+        },
+        {
+          "line": 56,
+          "value": "ac:history_detail:{row["
+        },
+        {
+          "line": 57,
+          "value": "ac:history:{page-1}"
+        },
+        {
+          "line": 58,
+          "value": "ac:noop"
+        },
+        {
+          "line": 59,
+          "value": "ac:history:{page+1}"
+        },
+        {
+          "line": 60,
+          "value": "ac:history_close"
+        },
+        {
+          "line": 114,
+          "value": "ac:confirm:{nonce}"
+        },
+        {
+          "line": 114,
+          "value": "ac:cancel"
+        }
+      ],
+      "keyboard_lines": 9
+    },
+    {
+      "path": "handlers/attribute_allocation.py",
+      "labels": [
+        {
+          "line": 274,
+          "value": "attr:minus:{name}"
+        },
+        {
+          "line": 289,
+          "value": "attr:plus:{name}"
+        },
+        {
+          "line": 301,
+          "value": "✅ Підтвердити"
+        },
+        {
+          "line": 301,
+          "value": "attr:confirm"
+        },
+        {
+          "line": 304,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 304,
+          "value": "attr:cancel"
+        },
+        {
+          "line": 313,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 313,
+          "value": "attr:cancel"
+        },
+        {
+          "line": 316,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 316,
+          "value": "attr:back"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 274,
+          "value": "attr:minus:{name}"
+        },
+        {
+          "line": 289,
+          "value": "attr:plus:{name}"
+        },
+        {
+          "line": 301,
+          "value": "attr:confirm"
+        },
+        {
+          "line": 304,
+          "value": "attr:cancel"
+        },
+        {
+          "line": 313,
+          "value": "attr:cancel"
+        },
+        {
+          "line": 316,
+          "value": "attr:back"
+        }
+      ],
+      "keyboard_lines": 8
+    },
+    {
+      "path": "handlers/auction_house.py",
+      "labels": [
+        {
+          "line": 1479,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 1479,
+          "value": "ah_sell_page:{category}:{page - 1}"
+        },
+        {
+          "line": 1481,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 1481,
+          "value": "ah_sell_page:{category}:{page + 1}"
+        },
+        {
+          "line": 1485,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 1485,
+          "value": "ah_menu"
+        },
+        {
+          "line": 1758,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 1758,
+          "value": "ah_buy_page:{page - 1}"
+        },
+        {
+          "line": 1760,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 1760,
+          "value": "ah_buy_page:{page + 1}"
+        },
+        {
+          "line": 1764,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 1764,
+          "value": "ah_menu"
+        },
+        {
+          "line": 1785,
+          "value": "✅ Купити"
+        },
+        {
+          "line": 1785,
+          "value": "ah_buy_confirm:{lot_id}"
+        },
+        {
+          "line": 1786,
+          "value": "🔙 Назад до лотів"
+        },
+        {
+          "line": 1786,
+          "value": "ah_buy_page:{page}"
+        },
+        {
+          "line": 1787,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 1787,
+          "value": "ah_menu"
+        },
+        {
+          "line": 1793,
+          "value": "✅ Підтвердити покупку"
+        },
+        {
+          "line": 1793,
+          "value": "ah_buy_execute:{lot_id}"
+        },
+        {
+          "line": 1794,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 1794,
+          "value": "ah_buy_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 1926,
+          "value": "💰 Ввести ціну"
+        },
+        {
+          "line": 1926,
+          "value": "ahsrp:{category}:{inventory_id}:{page}"
+        },
+        {
+          "line": 1928,
+          "value": "🔢 Вказати кількість"
+        },
+        {
+          "line": 1928,
+          "value": "ahsrq:{category}:{inventory_id}:{page}"
+        },
+        {
+          "line": 1930,
+          "value": "🔙 До списку предметів"
+        },
+        {
+          "line": 1930,
+          "value": "ah_sell_page:{category}:{page}"
+        },
+        {
+          "line": 1931,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 1931,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2238,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 2238,
+          "value": "ah_my_page:{page - 1}"
+        },
+        {
+          "line": 2240,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 2240,
+          "value": "ah_my_page:{page + 1}"
+        },
+        {
+          "line": 2244,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2244,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2265,
+          "value": "📥 Зняти з продажу"
+        },
+        {
+          "line": 2265,
+          "value": "ah_my_cancel_confirm:{lot_id}:{page}"
+        },
+        {
+          "line": 2266,
+          "value": "🔙 До моїх лотів"
+        },
+        {
+          "line": 2266,
+          "value": "ah_my_page:{page}"
+        },
+        {
+          "line": 2267,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2267,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2273,
+          "value": "✅ Підтвердити зняття"
+        },
+        {
+          "line": 2273,
+          "value": "ah_my_cancel_do:{lot_id}:{page}"
+        },
+        {
+          "line": 2274,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 2274,
+          "value": "ah_my_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 2434,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 2434,
+          "value": "ah_uncl_page:{page - 1}"
+        },
+        {
+          "line": 2436,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 2436,
+          "value": "ah_uncl_page:{page + 1}"
+        },
+        {
+          "line": 2440,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2440,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2461,
+          "value": "📥 Забрати предмет"
+        },
+        {
+          "line": 2461,
+          "value": "ah_uncl_claim_confirm:{lot_id}:{page}"
+        },
+        {
+          "line": 2462,
+          "value": "🔙 До незабраних"
+        },
+        {
+          "line": 2462,
+          "value": "ah_uncl_page:{page}"
+        },
+        {
+          "line": 2463,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2463,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2469,
+          "value": "✅ Підтвердити отримання"
+        },
+        {
+          "line": 2469,
+          "value": "ah_uncl_claim_do:{lot_id}:{page}"
+        },
+        {
+          "line": 2470,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 2470,
+          "value": "ah_uncl_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 2629,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 2629,
+          "value": "ah_sale_page:{page - 1}"
+        },
+        {
+          "line": 2631,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 2631,
+          "value": "ah_sale_page:{page + 1}"
+        },
+        {
+          "line": 2635,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2635,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2656,
+          "value": "💰 Забрати золото"
+        },
+        {
+          "line": 2656,
+          "value": "ah_sale_claim_confirm:{lot_id}:{page}"
+        },
+        {
+          "line": 2657,
+          "value": "🔙 До завершених продажів"
+        },
+        {
+          "line": 2657,
+          "value": "ah_sale_page:{page}"
+        },
+        {
+          "line": 2658,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2658,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2664,
+          "value": "✅ Підтвердити отримання золота"
+        },
+        {
+          "line": 2664,
+          "value": "ah_sale_claim_do:{lot_id}:{page}"
+        },
+        {
+          "line": 2665,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 2665,
+          "value": "ah_sale_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 2871,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 2871,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page - 1}"
+        },
+        {
+          "line": 2873,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 2873,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page + 1}"
+        },
+        {
+          "line": 2877,
+          "value": "🔙 Категорії"
+        },
+        {
+          "line": 2877,
+          "value": "ah_buy2_categories"
+        },
+        {
+          "line": 2878,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2878,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2909,
+          "value": "✅ Купити"
+        },
+        {
+          "line": 2909,
+          "value": "ah_buy2_confirm:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 2910,
+          "value": "🔙 До списку"
+        },
+        {
+          "line": 2910,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 2911,
+          "value": "🔙 Торговий дім"
+        },
+        {
+          "line": 2911,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2917,
+          "value": "✅ Підтвердити покупку"
+        },
+        {
+          "line": 2917,
+          "value": "ah_buy2_do:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 2918,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 2918,
+          "value": "ah_buy2_lot:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3293,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 3293,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page - 1}"
+        },
+        {
+          "line": 3295,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 3295,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page + 1}"
+        },
+        {
+          "line": 3301,
+          "value": "🔙 Категорії"
+        },
+        {
+          "line": 3301,
+          "value": "ah_buy2_categories"
+        },
+        {
+          "line": 3311,
+          "value": "✅ Купити"
+        },
+        {
+          "line": 3311,
+          "value": "ah_buy2_confirm:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3312,
+          "value": "🔙 До списку"
+        },
+        {
+          "line": 3312,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3322,
+          "value": "✅ Підтвердити покупку"
+        },
+        {
+          "line": 3322,
+          "value": "ah_buy2_do:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3323,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 3323,
+          "value": "ah_buy2_lot:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3537,
+          "value": "🔙 Категорії виставлення"
+        },
+        {
+          "line": 4085,
+          "value": "ah_search_page:{key}:0"
+        },
+        {
+          "line": 4123,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 4123,
+          "value": "ah_search_page:{sort_key}:{page - 1}"
+        },
+        {
+          "line": 4125,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 4125,
+          "value": "ah_search_page:{sort_key}:{page + 1}"
+        },
+        {
+          "line": 4130,
+          "value": "🔙 Категорії"
+        },
+        {
+          "line": 4130,
+          "value": "ah_buy2_categories"
+        },
+        {
+          "line": 4147,
+          "value": "✅ Купити"
+        },
+        {
+          "line": 4147,
+          "value": "ah_search_confirm:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4148,
+          "value": "🔙 До результатів"
+        },
+        {
+          "line": 4148,
+          "value": "ah_search_page:{sort_key}:{page}"
+        },
+        {
+          "line": 4154,
+          "value": "✅ Підтвердити покупку"
+        },
+        {
+          "line": 4154,
+          "value": "ah_search_do:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4155,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 4155,
+          "value": "ah_search_lot:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4412,
+          "value": "ah_hist:{key}:0"
+        },
+        {
+          "line": 4417,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 4417,
+          "value": "ah_hist:{mode}:{int(page) - 1}"
+        },
+        {
+          "line": 4419,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 4419,
+          "value": "ah_hist:{mode}:{int(page) + 1}"
+        },
+        {
+          "line": 4573,
+          "value": "✅ Купити"
+        },
+        {
+          "line": 4573,
+          "value": "ah_buy2_confirm:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 4574,
+          "value": "📈 Ринкові ціни"
+        },
+        {
+          "line": 4574,
+          "value": "ah_price_lot:{lot_id}"
+        },
+        {
+          "line": 4579,
+          "value": "📈 Ринкові ціни"
+        },
+        {
+          "line": 4579,
+          "value": "ah_price_lot:{lot_id}"
+        },
+        {
+          "line": 4598,
+          "value": "✅ Купити"
+        },
+        {
+          "line": 4598,
+          "value": "ah_search_confirm:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4599,
+          "value": "📈 Ринкові ціни"
+        },
+        {
+          "line": 4599,
+          "value": "ah_price_lot:{lot_id}"
+        },
+        {
+          "line": 4604,
+          "value": "📈 Ринкові ціни"
+        },
+        {
+          "line": 4604,
+          "value": "ah_price_lot:{lot_id}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 1479,
+          "value": "ah_sell_page:{category}:{page - 1}"
+        },
+        {
+          "line": 1481,
+          "value": "ah_sell_page:{category}:{page + 1}"
+        },
+        {
+          "line": 1485,
+          "value": "ah_menu"
+        },
+        {
+          "line": 1758,
+          "value": "ah_buy_page:{page - 1}"
+        },
+        {
+          "line": 1760,
+          "value": "ah_buy_page:{page + 1}"
+        },
+        {
+          "line": 1764,
+          "value": "ah_menu"
+        },
+        {
+          "line": 1785,
+          "value": "ah_buy_confirm:{lot_id}"
+        },
+        {
+          "line": 1786,
+          "value": "ah_buy_page:{page}"
+        },
+        {
+          "line": 1787,
+          "value": "ah_menu"
+        },
+        {
+          "line": 1793,
+          "value": "ah_buy_execute:{lot_id}"
+        },
+        {
+          "line": 1794,
+          "value": "ah_buy_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 1926,
+          "value": "ahsrp:{category}:{inventory_id}:{page}"
+        },
+        {
+          "line": 1928,
+          "value": "ahsrq:{category}:{inventory_id}:{page}"
+        },
+        {
+          "line": 1930,
+          "value": "ah_sell_page:{category}:{page}"
+        },
+        {
+          "line": 1931,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2238,
+          "value": "ah_my_page:{page - 1}"
+        },
+        {
+          "line": 2240,
+          "value": "ah_my_page:{page + 1}"
+        },
+        {
+          "line": 2244,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2265,
+          "value": "ah_my_cancel_confirm:{lot_id}:{page}"
+        },
+        {
+          "line": 2266,
+          "value": "ah_my_page:{page}"
+        },
+        {
+          "line": 2267,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2273,
+          "value": "ah_my_cancel_do:{lot_id}:{page}"
+        },
+        {
+          "line": 2274,
+          "value": "ah_my_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 2434,
+          "value": "ah_uncl_page:{page - 1}"
+        },
+        {
+          "line": 2436,
+          "value": "ah_uncl_page:{page + 1}"
+        },
+        {
+          "line": 2440,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2461,
+          "value": "ah_uncl_claim_confirm:{lot_id}:{page}"
+        },
+        {
+          "line": 2462,
+          "value": "ah_uncl_page:{page}"
+        },
+        {
+          "line": 2463,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2469,
+          "value": "ah_uncl_claim_do:{lot_id}:{page}"
+        },
+        {
+          "line": 2470,
+          "value": "ah_uncl_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 2629,
+          "value": "ah_sale_page:{page - 1}"
+        },
+        {
+          "line": 2631,
+          "value": "ah_sale_page:{page + 1}"
+        },
+        {
+          "line": 2635,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2656,
+          "value": "ah_sale_claim_confirm:{lot_id}:{page}"
+        },
+        {
+          "line": 2657,
+          "value": "ah_sale_page:{page}"
+        },
+        {
+          "line": 2658,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2664,
+          "value": "ah_sale_claim_do:{lot_id}:{page}"
+        },
+        {
+          "line": 2665,
+          "value": "ah_sale_lot:{lot_id}:{page}"
+        },
+        {
+          "line": 2871,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page - 1}"
+        },
+        {
+          "line": 2873,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page + 1}"
+        },
+        {
+          "line": 2877,
+          "value": "ah_buy2_categories"
+        },
+        {
+          "line": 2878,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2909,
+          "value": "ah_buy2_confirm:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 2910,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 2911,
+          "value": "ah_menu"
+        },
+        {
+          "line": 2917,
+          "value": "ah_buy2_do:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 2918,
+          "value": "ah_buy2_lot:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3293,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page - 1}"
+        },
+        {
+          "line": 3295,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page + 1}"
+        },
+        {
+          "line": 3301,
+          "value": "ah_buy2_categories"
+        },
+        {
+          "line": 3311,
+          "value": "ah_buy2_confirm:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3312,
+          "value": "ah_buy2_page:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3322,
+          "value": "ah_buy2_do:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 3323,
+          "value": "ah_buy2_lot:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 4085,
+          "value": "ah_search_page:{key}:0"
+        },
+        {
+          "line": 4123,
+          "value": "ah_search_page:{sort_key}:{page - 1}"
+        },
+        {
+          "line": 4125,
+          "value": "ah_search_page:{sort_key}:{page + 1}"
+        },
+        {
+          "line": 4130,
+          "value": "ah_buy2_categories"
+        },
+        {
+          "line": 4147,
+          "value": "ah_search_confirm:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4148,
+          "value": "ah_search_page:{sort_key}:{page}"
+        },
+        {
+          "line": 4154,
+          "value": "ah_search_do:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4155,
+          "value": "ah_search_lot:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4412,
+          "value": "ah_hist:{key}:0"
+        },
+        {
+          "line": 4417,
+          "value": "ah_hist:{mode}:{int(page) - 1}"
+        },
+        {
+          "line": 4419,
+          "value": "ah_hist:{mode}:{int(page) + 1}"
+        },
+        {
+          "line": 4573,
+          "value": "ah_buy2_confirm:{lot_id}:{category}:{sort_key}:{page}"
+        },
+        {
+          "line": 4574,
+          "value": "ah_price_lot:{lot_id}"
+        },
+        {
+          "line": 4579,
+          "value": "ah_price_lot:{lot_id}"
+        },
+        {
+          "line": 4598,
+          "value": "ah_search_confirm:{lot_id}:{sort_key}:{page}"
+        },
+        {
+          "line": 4599,
+          "value": "ah_price_lot:{lot_id}"
+        },
+        {
+          "line": 4604,
+          "value": "ah_price_lot:{lot_id}"
+        }
+      ],
+      "keyboard_lines": 141
+    },
+    {
+      "path": "handlers/blacksmith.py",
+      "labels": [
+        {
+          "line": 58,
+          "value": "✅ Підтвердити ремонт"
+        },
+        {
+          "line": 59,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 303,
+          "value": "✅ Підтвердити ремонт"
+        },
+        {
+          "line": 304,
+          "value": "❌ Скасувати"
+        }
+      ],
+      "callbacks": [],
+      "keyboard_lines": 6
+    },
+    {
+      "path": "handlers/blacksmith_repair_confirm.py",
+      "labels": [],
+      "callbacks": [],
+      "keyboard_lines": 7
+    },
+    {
+      "path": "handlers/city.py",
+      "labels": [
+        {
+          "line": 162,
+          "value": "🛒 Купити зілля"
+        },
+        {
+          "line": 162,
+          "value": "alchemist:buy"
+        },
+        {
+          "line": 163,
+          "value": "💰 Продати зілля"
+        },
+        {
+          "line": 163,
+          "value": "alchemist:sell"
+        },
+        {
+          "line": 183,
+          "value": "{potion["
+        },
+        {
+          "line": 183,
+          "value": "]} — {format_gold(potion["
+        },
+        {
+          "line": 183,
+          "value": "alchemist:buyitem:{item_id}"
+        },
+        {
+          "line": 190,
+          "value": "❌ Зілля не знайдено."
+        },
+        {
+          "line": 196,
+          "value": "alchemist:buyset:{item_id}:{max(1, quantity - 1)}"
+        },
+        {
+          "line": 196,
+          "value": "×{quantity}"
+        },
+        {
+          "line": 196,
+          "value": "alchemist:buyqty:{item_id}"
+        },
+        {
+          "line": 196,
+          "value": "alchemist:buyset:{item_id}:{min(999, quantity + 1)}"
+        },
+        {
+          "line": 197,
+          "value": "✏️ Вказати кількість"
+        },
+        {
+          "line": 197,
+          "value": "alchemist:buyqty:{item_id}"
+        },
+        {
+          "line": 198,
+          "value": "✅ Купити за {format_gold(total)}"
+        },
+        {
+          "line": 198,
+          "value": "alchemist:buydo:{item_id}:{quantity}"
+        },
+        {
+          "line": 199,
+          "value": "🔙 До зіль"
+        },
+        {
+          "line": 199,
+          "value": "alchemist:buy"
+        },
+        {
+          "line": 212,
+          "value": "{r["
+        },
+        {
+          "line": 212,
+          "value": "]} ×{r["
+        },
+        {
+          "line": 212,
+          "value": "]} — {format_gold(r["
+        },
+        {
+          "line": 212,
+          "value": "])}/шт."
+        },
+        {
+          "line": 212,
+          "value": "alchemist:sellitem:{r["
+        },
+        {
+          "line": 225,
+          "value": "alchemist:sellset:{item_id}:{max(1, quantity - 1)}"
+        },
+        {
+          "line": 225,
+          "value": "×{quantity}"
+        },
+        {
+          "line": 225,
+          "value": "alchemist:sellqty:{item_id}"
+        },
+        {
+          "line": 225,
+          "value": "alchemist:sellset:{item_id}:{min(available, quantity + 1)}"
+        },
+        {
+          "line": 226,
+          "value": "📦 Продати все ×{available}"
+        },
+        {
+          "line": 226,
+          "value": "alchemist:sellset:{item_id}:{available}"
+        },
+        {
+          "line": 227,
+          "value": "✏️ Вказати кількість"
+        },
+        {
+          "line": 227,
+          "value": "alchemist:sellqty:{item_id}"
+        },
+        {
+          "line": 228,
+          "value": "✅ Продати за {format_gold(total)}"
+        },
+        {
+          "line": 228,
+          "value": "alchemist:sellconfirm:{item_id}:{quantity}"
+        },
+        {
+          "line": 229,
+          "value": "🔙 До списку"
+        },
+        {
+          "line": 229,
+          "value": "alchemist:sell"
+        },
+        {
+          "line": 237,
+          "value": "✅ Продати"
+        },
+        {
+          "line": 237,
+          "value": "alchemist:selldo:{item_id}:{quantity}"
+        },
+        {
+          "line": 238,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 238,
+          "value": "alchemist:sellitem:{item_id}"
+        },
+        {
+          "line": 252,
+          "value": "Купити: {potion["
+        },
+        {
+          "line": 252,
+          "value": "]} — {format_gold(potion["
+        },
+        {
+          "line": 252,
+          "value": "buy_potion_{item_id}"
+        },
+        {
+          "line": 281,
+          "value": "🛠️ Ремонт: {name} — {format_gold(repair_cost)}"
+        },
+        {
+          "line": 281,
+          "value": "repair_prompt_one_v3_{inventory_id}"
+        },
+        {
+          "line": 290,
+          "value": "🛠️ Полагодити все за {format_gold(total_cost)}"
+        },
+        {
+          "line": 290,
+          "value": "repair_prompt_all_v3"
+        },
+        {
+          "line": 304,
+          "value": "{offer["
+        },
+        {
+          "line": 304,
+          "value": "]} — {format_gold(offer["
+        },
+        {
+          "line": 304,
+          "value": "])} (рівень {offer["
+        },
+        {
+          "line": 328,
+          "value": "{offer["
+        },
+        {
+          "line": 328,
+          "value": "]}{hands_text} — {format_gold(offer["
+        },
+        {
+          "line": 328,
+          "value": "])} (рівень {offer["
+        },
+        {
+          "line": 328,
+          "value": "buy_common_equipment:{slot_key}:{offer["
+        },
+        {
+          "line": 329,
+          "value": "⬅️ Назад до слотів"
+        },
+        {
+          "line": 329,
+          "value": "common_equipment_back_to_slots"
+        },
+        {
+          "line": 400,
+          "value": "⬅️ Назад до базового спорядження"
+        },
+        {
+          "line": 400,
+          "value": "common_equipment_back_to_slots"
+        },
+        {
+          "line": 430,
+          "value": "✅ Купити за {format_gold(price)}"
+        },
+        {
+          "line": 430,
+          "value": "common_shop_confirm:{item_id}"
+        },
+        {
+          "line": 431,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 431,
+          "value": "common_shop_cancel:{item_id}"
+        },
+        {
+          "line": 460,
+          "value": "{name}{durability_text} — {format_gold(total_price)}"
+        },
+        {
+          "line": 460,
+          "value": "sell_eq_confirm:{inv_id}:{page}"
+        },
+        {
+          "line": 463,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 463,
+          "value": "sell_eq_page:{page - 1}"
+        },
+        {
+          "line": 465,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 465,
+          "value": "sell_eq_page:{page + 1}"
+        },
+        {
+          "line": 475,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 475,
+          "value": "sell_eq_page:{page}"
+        },
+        {
+          "line": 486,
+          "value": "✅ Продати за {format_gold(total_price)}"
+        },
+        {
+          "line": 486,
+          "value": "sell_eq_do:{inventory_id}:{page}"
+        },
+        {
+          "line": 487,
+          "value": "❌ Назад"
+        },
+        {
+          "line": 487,
+          "value": "sell_eq_page:{page}"
+        },
+        {
+          "line": 1175,
+          "value": "🔙 Сховати опис"
+        },
+        {
+          "line": 1175,
+          "value": "location_desc:hide"
+        },
+        {
+          "line": 1177,
+          "value": "📖 Опис локації"
+        },
+        {
+          "line": 1177,
+          "value": "location_desc:show"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 162,
+          "value": "alchemist:buy"
+        },
+        {
+          "line": 163,
+          "value": "alchemist:sell"
+        },
+        {
+          "line": 183,
+          "value": "alchemist:buyitem:{item_id}"
+        },
+        {
+          "line": 196,
+          "value": "alchemist:buyset:{item_id}:{max(1, quantity - 1)}"
+        },
+        {
+          "line": 196,
+          "value": "alchemist:buyqty:{item_id}"
+        },
+        {
+          "line": 196,
+          "value": "alchemist:buyset:{item_id}:{min(999, quantity + 1)}"
+        },
+        {
+          "line": 197,
+          "value": "alchemist:buyqty:{item_id}"
+        },
+        {
+          "line": 198,
+          "value": "alchemist:buydo:{item_id}:{quantity}"
+        },
+        {
+          "line": 199,
+          "value": "alchemist:buy"
+        },
+        {
+          "line": 212,
+          "value": "alchemist:sellitem:{r["
+        },
+        {
+          "line": 225,
+          "value": "alchemist:sellset:{item_id}:{max(1, quantity - 1)}"
+        },
+        {
+          "line": 225,
+          "value": "alchemist:sellqty:{item_id}"
+        },
+        {
+          "line": 225,
+          "value": "alchemist:sellset:{item_id}:{min(available, quantity + 1)}"
+        },
+        {
+          "line": 226,
+          "value": "alchemist:sellset:{item_id}:{available}"
+        },
+        {
+          "line": 227,
+          "value": "alchemist:sellqty:{item_id}"
+        },
+        {
+          "line": 228,
+          "value": "alchemist:sellconfirm:{item_id}:{quantity}"
+        },
+        {
+          "line": 229,
+          "value": "alchemist:sell"
+        },
+        {
+          "line": 237,
+          "value": "alchemist:selldo:{item_id}:{quantity}"
+        },
+        {
+          "line": 238,
+          "value": "alchemist:sellitem:{item_id}"
+        },
+        {
+          "line": 252,
+          "value": "buy_potion_{item_id}"
+        },
+        {
+          "line": 281,
+          "value": "repair_prompt_one_v3_{inventory_id}"
+        },
+        {
+          "line": 290,
+          "value": "repair_prompt_all_v3"
+        },
+        {
+          "line": 328,
+          "value": "buy_common_equipment:{slot_key}:{offer["
+        },
+        {
+          "line": 329,
+          "value": "common_equipment_back_to_slots"
+        },
+        {
+          "line": 400,
+          "value": "common_equipment_back_to_slots"
+        },
+        {
+          "line": 430,
+          "value": "common_shop_confirm:{item_id}"
+        },
+        {
+          "line": 431,
+          "value": "common_shop_cancel:{item_id}"
+        },
+        {
+          "line": 460,
+          "value": "sell_eq_confirm:{inv_id}:{page}"
+        },
+        {
+          "line": 463,
+          "value": "sell_eq_page:{page - 1}"
+        },
+        {
+          "line": 465,
+          "value": "sell_eq_page:{page + 1}"
+        },
+        {
+          "line": 475,
+          "value": "sell_eq_page:{page}"
+        },
+        {
+          "line": 486,
+          "value": "sell_eq_do:{inventory_id}:{page}"
+        },
+        {
+          "line": 487,
+          "value": "sell_eq_page:{page}"
+        },
+        {
+          "line": 1175,
+          "value": "location_desc:hide"
+        },
+        {
+          "line": 1177,
+          "value": "location_desc:show"
+        }
+      ],
+      "keyboard_lines": 53
+    },
+    {
+      "path": "handlers/combat.py",
+      "labels": [
+        {
+          "line": 1141,
+          "value": "⬅️ Назад до бою"
+        },
+        {
+          "line": 1141,
+          "value": "combat_back"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 1141,
+          "value": "combat_back"
+        }
+      ],
+      "keyboard_lines": 9
+    },
+    {
+      "path": "handlers/contracts.py",
+      "labels": [],
+      "callbacks": [],
+      "keyboard_lines": 4
+    },
+    {
+      "path": "handlers/crystal_shop.py",
+      "labels": [
+        {
+          "line": 22,
+          "value": "cs:q:{iid}:{max(1,qty-1)}"
+        },
+        {
+          "line": 22,
+          "value": "×{qty}"
+        },
+        {
+          "line": 22,
+          "value": "cs:noop"
+        },
+        {
+          "line": 22,
+          "value": "cs:q:{iid}:{qty+1}"
+        },
+        {
+          "line": 22,
+          "value": "✍️ Ввести кількість"
+        },
+        {
+          "line": 22,
+          "value": "cs:input:{iid}"
+        },
+        {
+          "line": 22,
+          "value": "✅ Продовжити"
+        },
+        {
+          "line": 22,
+          "value": "cs:review:{iid}:{qty}"
+        },
+        {
+          "line": 22,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 22,
+          "value": "cs:cancel"
+        },
+        {
+          "line": 105,
+          "value": "➡️ Продовжити"
+        },
+        {
+          "line": 105,
+          "value": "bg:review:{p["
+        },
+        {
+          "line": 105,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 105,
+          "value": "bg:cancel"
+        },
+        {
+          "line": 119,
+          "value": "✅ Так, придбати"
+        },
+        {
+          "line": 119,
+          "value": "bg:buy:{target}"
+        },
+        {
+          "line": 119,
+          "value": "↩️ Ні, повернутися"
+        },
+        {
+          "line": 119,
+          "value": "bg:back:{target}"
+        },
+        {
+          "line": 120,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 120,
+          "value": "bg:cancel"
+        },
+        {
+          "line": 123,
+          "value": "➡️ Продовжити"
+        },
+        {
+          "line": 123,
+          "value": "bg:review:{target}"
+        },
+        {
+          "line": 123,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 123,
+          "value": "bg:cancel"
+        },
+        {
+          "line": 167,
+          "value": "✅ Підтвердити покупку"
+        },
+        {
+          "line": 167,
+          "value": "cs:buy:{iid}:{qty}"
+        },
+        {
+          "line": 167,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 167,
+          "value": "cs:cancel"
+        },
+        {
+          "line": 167,
+          "value": "✅ Підтвердження покупки\\n\\n{p["
+        },
+        {
+          "line": 167,
+          "value": "]}\\nКількість: {qty}\\nЦіна за 1: {p["
+        },
+        {
+          "line": 167,
+          "value": "]} 💎\\nРазом: {p["
+        },
+        {
+          "line": 167,
+          "value": "]} 💎\\nБаланс: {p["
+        },
+        {
+          "line": 167,
+          "value": "]} → {p["
+        },
+        {
+          "line": 167,
+          "value": "confirm"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 22,
+          "value": "cs:q:{iid}:{max(1,qty-1)}"
+        },
+        {
+          "line": 22,
+          "value": "cs:noop"
+        },
+        {
+          "line": 22,
+          "value": "cs:q:{iid}:{qty+1}"
+        },
+        {
+          "line": 22,
+          "value": "cs:input:{iid}"
+        },
+        {
+          "line": 22,
+          "value": "cs:review:{iid}:{qty}"
+        },
+        {
+          "line": 22,
+          "value": "cs:cancel"
+        },
+        {
+          "line": 105,
+          "value": "bg:review:{p["
+        },
+        {
+          "line": 105,
+          "value": "bg:cancel"
+        },
+        {
+          "line": 119,
+          "value": "bg:buy:{target}"
+        },
+        {
+          "line": 119,
+          "value": "bg:back:{target}"
+        },
+        {
+          "line": 120,
+          "value": "bg:cancel"
+        },
+        {
+          "line": 123,
+          "value": "bg:review:{target}"
+        },
+        {
+          "line": 123,
+          "value": "bg:cancel"
+        },
+        {
+          "line": 167,
+          "value": "cs:buy:{iid}:{qty}"
+        },
+        {
+          "line": 167,
+          "value": "cs:cancel"
+        }
+      ],
+      "keyboard_lines": 9
+    },
+    {
+      "path": "handlers/daily.py",
+      "labels": [],
+      "callbacks": [],
+      "keyboard_lines": 2
+    },
+    {
+      "path": "handlers/event_ui.py",
+      "labels": [
+        {
+          "line": 40,
+          "value": "{STATUS_LABELS[row["
+        },
+        {
+          "line": 40,
+          "value": "]]} · {row["
+        },
+        {
+          "line": 40,
+          "value": "{kind}:view:"
+        },
+        {
+          "line": 40,
+          "value": "event_key"
+        },
+        {
+          "line": 42,
+          "value": "{kind}:list:{page-1}"
+        },
+        {
+          "line": 43,
+          "value": "{kind}:list:{page+1}"
+        },
+        {
+          "line": 45,
+          "value": "🔄 Оновити"
+        },
+        {
+          "line": 45,
+          "value": "{kind}:list:{page}"
+        },
+        {
+          "line": 45,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 45,
+          "value": "catalog:list:1"
+        },
+        {
+          "line": 45,
+          "value": "archive"
+        },
+        {
+          "line": 45,
+          "value": "close"
+        },
+        {
+          "line": 54,
+          "value": "🏆 Рейтинг"
+        },
+        {
+          "line": 54,
+          "value": "rank:1"
+        },
+        {
+          "line": 54,
+          "value": "🛍 Крамниця"
+        },
+        {
+          "line": 54,
+          "value": "shop"
+        },
+        {
+          "line": 54,
+          "value": "ℹ️ Про івент"
+        },
+        {
+          "line": 54,
+          "value": "about"
+        },
+        {
+          "line": 54,
+          "value": "📚 Архів"
+        },
+        {
+          "line": 54,
+          "value": "archive:list:1"
+        },
+        {
+          "line": 54,
+          "value": "🔙 До списку івентів"
+        },
+        {
+          "line": 54,
+          "value": "catalog:list:1"
+        },
+        {
+          "line": 56,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 56,
+          "value": "home"
+        },
+        {
+          "line": 111,
+          "value": "rank:{page-1}"
+        },
+        {
+          "line": 112,
+          "value": "rank:{page+1}"
+        },
+        {
+          "line": 114,
+          "value": "🔄 Оновити"
+        },
+        {
+          "line": 114,
+          "value": "rank:{page}"
+        },
+        {
+          "line": 114,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 114,
+          "value": "home"
+        },
+        {
+          "line": 149,
+          "value": "🏆 Історичний рейтинг"
+        },
+        {
+          "line": 149,
+          "value": "rank:1"
+        },
+        {
+          "line": 149,
+          "value": "ℹ️ Про івент"
+        },
+        {
+          "line": 149,
+          "value": "about"
+        },
+        {
+          "line": 149,
+          "value": "🔙 До архіву"
+        },
+        {
+          "line": 149,
+          "value": "archive:list:1"
+        },
+        {
+          "line": 149,
+          "value": "📚 {row["
+        },
+        {
+          "line": 149,
+          "value": "]}\\n\\nСтатус: завершено\\nАрхів доступний лише для перегляду."
+        },
+        {
+          "line": 153,
+          "value": "Обміняти ×1"
+        },
+        {
+          "line": 153,
+          "value": "confirm"
+        },
+        {
+          "line": 153,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 153,
+          "value": "home"
+        },
+        {
+          "line": 153,
+          "value": "🛍 Крамниця\\n\\n3 × 🧪 Експериментальний жетон → 1 × 🎁 Пам’ятний знак випробування"
+        },
+        {
+          "line": 156,
+          "value": "✅ Підтвердити"
+        },
+        {
+          "line": 156,
+          "value": "exchange:{call.message.message_id}"
+        },
+        {
+          "line": 156,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 156,
+          "value": "shop"
+        },
+        {
+          "line": 156,
+          "value": "Підтвердити один обмін 3 жетонів на 1 знак?"
+        }
+      ],
+      "callbacks": [],
+      "keyboard_lines": 15
+    },
+    {
+      "path": "handlers/external_links.py",
+      "labels": [
+        {
+          "line": 29,
+          "value": "💬 Чат гри"
+        },
+        {
+          "line": 29,
+          "value": "game_chat"
+        },
+        {
+          "line": 31,
+          "value": "📰 Канал новин"
+        },
+        {
+          "line": 31,
+          "value": "news_channel"
+        },
+        {
+          "line": 33,
+          "value": "❤️ Підтримати проєкт"
+        },
+        {
+          "line": 33,
+          "value": "support"
+        },
+        {
+          "line": 34,
+          "value": "❌ Закрити"
+        }
+      ],
+      "callbacks": [],
+      "keyboard_lines": 5
+    },
+    {
+      "path": "handlers/fatigue_artifact.py",
+      "labels": [
+        {
+          "line": 12,
+          "value": "fa:q:{inv}:{max(1,qty-1)}"
+        },
+        {
+          "line": 12,
+          "value": "×{qty}"
+        },
+        {
+          "line": 12,
+          "value": "fa:noop"
+        },
+        {
+          "line": 12,
+          "value": "fa:q:{inv}:{min(maximum,qty+1)}"
+        },
+        {
+          "line": 12,
+          "value": "✅ Використати"
+        },
+        {
+          "line": 12,
+          "value": "fa:use:{inv}:{qty}"
+        },
+        {
+          "line": 12,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 12,
+          "value": "fa:cancel"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 12,
+          "value": "fa:q:{inv}:{max(1,qty-1)}"
+        },
+        {
+          "line": 12,
+          "value": "fa:noop"
+        },
+        {
+          "line": 12,
+          "value": "fa:q:{inv}:{min(maximum,qty+1)}"
+        },
+        {
+          "line": 12,
+          "value": "fa:use:{inv}:{qty}"
+        },
+        {
+          "line": 12,
+          "value": "fa:cancel"
+        }
+      ],
+      "keyboard_lines": 1
+    },
+    {
+      "path": "handlers/guild.py",
+      "labels": [
+        {
+          "line": 1692,
+          "value": "✅ Виключити"
+        },
+        {
+          "line": 1692,
+          "value": "guild_kick_confirm:{target_user_id}"
+        },
+        {
+          "line": 1693,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 1693,
+          "value": "guild_kick_cancel:{target_user_id}"
+        },
+        {
+          "line": 2868,
+          "value": "guild_leadership_select:{mode}:{uid}"
+        },
+        {
+          "line": 2869,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 2869,
+          "value": "guild_leadership_cancel"
+        },
+        {
+          "line": 2871,
+          "value": "✅ Підтвердити"
+        },
+        {
+          "line": 2871,
+          "value": "guild_leadership_confirm:{mode}:{int(target_id)}"
+        },
+        {
+          "line": 2871,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 2871,
+          "value": "guild_leadership_cancel"
+        },
+        {
+          "line": 2889,
+          "value": "✅ Покинути"
+        },
+        {
+          "line": 2889,
+          "value": "guild_leave:confirm"
+        },
+        {
+          "line": 2889,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 2889,
+          "value": "guild_leave:cancel"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 1692,
+          "value": "guild_kick_confirm:{target_user_id}"
+        },
+        {
+          "line": 1693,
+          "value": "guild_kick_cancel:{target_user_id}"
+        },
+        {
+          "line": 2868,
+          "value": "guild_leadership_select:{mode}:{uid}"
+        },
+        {
+          "line": 2869,
+          "value": "guild_leadership_cancel"
+        },
+        {
+          "line": 2871,
+          "value": "guild_leadership_confirm:{mode}:{int(target_id)}"
+        },
+        {
+          "line": 2871,
+          "value": "guild_leadership_cancel"
+        },
+        {
+          "line": 2889,
+          "value": "guild_leave:confirm"
+        },
+        {
+          "line": 2889,
+          "value": "guild_leave:cancel"
+        }
+      ],
+      "keyboard_lines": 25
+    },
+    {
+      "path": "handlers/inventory.py",
+      "labels": [
+        {
+          "line": 6250,
+          "value": "💠 Використати"
+        },
+        {
+          "line": 6250,
+          "value": "fa:q:{int(inventory_id)}:1"
+        },
+        {
+          "line": 6838,
+          "value": "⚖️ Порівняти"
+        },
+        {
+          "line": 7690,
+          "value": "✅ Продовжити"
+        },
+        {
+          "line": 7690,
+          "value": "rebirth:final:{inventory_id}:{category}:{page}"
+        },
+        {
+          "line": 7696,
+          "value": "♻️ Підтвердити скидання"
+        },
+        {
+          "line": 7696,
+          "value": "rebirth:confirm:{inventory_id}:{category}:{page}"
+        },
+        {
+          "line": 7762,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 7762,
+          "value": "item:{inventory_id}:{category}:{page}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 6250,
+          "value": "fa:q:{int(inventory_id)}:1"
+        },
+        {
+          "line": 7690,
+          "value": "rebirth:final:{inventory_id}:{category}:{page}"
+        },
+        {
+          "line": 7696,
+          "value": "rebirth:confirm:{inventory_id}:{category}:{page}"
+        },
+        {
+          "line": 7762,
+          "value": "item:{inventory_id}:{category}:{page}"
+        }
+      ],
+      "keyboard_lines": 27
+    },
+    {
+      "path": "handlers/map.py",
+      "labels": [
+        {
+          "line": 57,
+          "value": "🔄 Оновити"
+        },
+        {
+          "line": 57,
+          "value": "map:refresh:{active["
+        },
+        {
+          "line": 57,
+          "value": "]}:{active["
+        },
+        {
+          "line": 58,
+          "value": "❌ Скасувати подорож"
+        },
+        {
+          "line": 58,
+          "value": "map:cancel:{active["
+        },
+        {
+          "line": 58,
+          "value": "]}:{active["
+        },
+        {
+          "line": 71,
+          "value": "👥 Гравці локації"
+        },
+        {
+          "line": 71,
+          "value": "map:players"
+        },
+        {
+          "line": 81,
+          "value": "🚶 Вирушити"
+        },
+        {
+          "line": 81,
+          "value": "map:start:{target}"
+        },
+        {
+          "line": 82,
+          "value": "◀️ Повернутися до мапи"
+        },
+        {
+          "line": 82,
+          "value": "map:open"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 57,
+          "value": "map:refresh:{active["
+        },
+        {
+          "line": 58,
+          "value": "map:cancel:{active["
+        },
+        {
+          "line": 71,
+          "value": "map:players"
+        },
+        {
+          "line": 81,
+          "value": "map:start:{target}"
+        },
+        {
+          "line": 82,
+          "value": "map:open"
+        }
+      ],
+      "keyboard_lines": 8
+    },
+    {
+      "path": "handlers/name_rune.py",
+      "labels": [
+        {
+          "line": 29,
+          "value": "stage"
+        },
+        {
+          "line": 29,
+          "value": "confirm"
+        },
+        {
+          "line": 29,
+          "value": "new_name"
+        },
+        {
+          "line": 29,
+          "value": "new_name"
+        },
+        {
+          "line": 29,
+          "value": "inventory_id"
+        },
+        {
+          "line": 29,
+          "value": "inventory_id"
+        },
+        {
+          "line": 29,
+          "value": "✅ Підтвердити"
+        },
+        {
+          "line": 29,
+          "value": "nr:confirm"
+        },
+        {
+          "line": 29,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 29,
+          "value": "nr:cancel"
+        },
+        {
+          "line": 29,
+          "value": "✍️ Зміна імені персонажа\\n\\nПоточне ім’я: {p["
+        },
+        {
+          "line": 29,
+          "value": "]}\\nНове ім’я: {p["
+        },
+        {
+          "line": 29,
+          "value": "]}\\n\\nБуде використано:\\n✍️ Руна імені ×1"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 29,
+          "value": "nr:confirm"
+        },
+        {
+          "line": 29,
+          "value": "nr:cancel"
+        }
+      ],
+      "keyboard_lines": 1
+    },
+    {
+      "path": "handlers/player_interaction.py",
+      "labels": [
+        {
+          "line": 85,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 85,
+          "value": "pi:list:{page-1}"
+        },
+        {
+          "line": 87,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 87,
+          "value": "pi:list:{page+1}"
+        },
+        {
+          "line": 90,
+          "value": "🔄 Оновити"
+        },
+        {
+          "line": 90,
+          "value": "pi:list:{page}"
+        },
+        {
+          "line": 91,
+          "value": "🔙 До Мапи"
+        },
+        {
+          "line": 91,
+          "value": "pi:back:map"
+        },
+        {
+          "line": 111,
+          "value": "🤝 Запропонувати обмін"
+        },
+        {
+          "line": 111,
+          "value": "pi:trade:{target_id}"
+        },
+        {
+          "line": 112,
+          "value": "⚔️ Викликати на дуель"
+        },
+        {
+          "line": 112,
+          "value": "pi:duel:{target_id}"
+        },
+        {
+          "line": 113,
+          "value": "🔙 До гравців локації"
+        },
+        {
+          "line": 113,
+          "value": "pi:list:0"
+        },
+        {
+          "line": 169,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 169,
+          "value": "pi:te:list:{trade_id}:{page-1}"
+        },
+        {
+          "line": 171,
+          "value": "➡️ Далі"
+        },
+        {
+          "line": 171,
+          "value": "pi:te:list:{trade_id}:{page+1}"
+        },
+        {
+          "line": 174,
+          "value": "🔙 До обміну"
+        },
+        {
+          "line": 174,
+          "value": "pi:te:open:{trade_id}"
+        },
+        {
+          "line": 181,
+          "value": "pi:te:set:{trade_id}:{inventory_id}:{max(0, quantity-1)}:{page}"
+        },
+        {
+          "line": 182,
+          "value": "×{quantity}"
+        },
+        {
+          "line": 182,
+          "value": "pi:te:open:{trade_id}"
+        },
+        {
+          "line": 183,
+          "value": "pi:te:set:{trade_id}:{inventory_id}:{quantity+1}:{page}"
+        },
+        {
+          "line": 185,
+          "value": "🗑️ Прибрати"
+        },
+        {
+          "line": 185,
+          "value": "pi:te:remove:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 186,
+          "value": "🔙 До предметів"
+        },
+        {
+          "line": 186,
+          "value": "pi:te:list:{trade_id}:{page}"
+        },
+        {
+          "line": 319,
+          "value": "✅ Прийняти"
+        },
+        {
+          "line": 319,
+          "value": "pi:req:accept:{result["
+        },
+        {
+          "line": 320,
+          "value": "❌ Відхилити"
+        },
+        {
+          "line": 320,
+          "value": "pi:req:decline:{result["
+        },
+        {
+          "line": 596,
+          "value": "pi:teux:set:{trade_id}:{inventory_id}:{max(0, quantity-1)}"
+        },
+        {
+          "line": 597,
+          "value": "×{quantity}"
+        },
+        {
+          "line": 598,
+          "value": "pi:teux:set:{trade_id}:{inventory_id}:{min(maximum, quantity+1)}"
+        },
+        {
+          "line": 601,
+          "value": "📦 Додати все"
+        },
+        {
+          "line": 601,
+          "value": "pi:teux:all:{trade_id}:{inventory_id}"
+        },
+        {
+          "line": 602,
+          "value": "🗑️ Прибрати"
+        },
+        {
+          "line": 602,
+          "value": "pi:teux:remove:{trade_id}:{inventory_id}"
+        },
+        {
+          "line": 603,
+          "value": "🔙 До моєї пропозиції"
+        },
+        {
+          "line": 603,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 609,
+          "value": "🗑️ Прибрати з пропозиції"
+        },
+        {
+          "line": 609,
+          "value": "pi:teux:remove:{trade_id}:{inventory_id}"
+        },
+        {
+          "line": 610,
+          "value": "🔙 До моєї пропозиції"
+        },
+        {
+          "line": 610,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 742,
+          "value": "pi:te:gold:{trade_id}:-1"
+        },
+        {
+          "line": 742,
+          "value": "pi:te:gold:{trade_id}:1"
+        },
+        {
+          "line": 743,
+          "value": "🧹 Золото 0"
+        },
+        {
+          "line": 743,
+          "value": "pi:te:gold0:{trade_id}"
+        },
+        {
+          "line": 744,
+          "value": "🔙 До моєї пропозиції"
+        },
+        {
+          "line": 744,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 914,
+          "value": "pi:te:gold:{trade_id}:-1"
+        },
+        {
+          "line": 914,
+          "value": "pi:te:gold:{trade_id}:1"
+        },
+        {
+          "line": 915,
+          "value": "pi:te:gold:{trade_id}:10"
+        },
+        {
+          "line": 915,
+          "value": "🧹 Золото 0"
+        },
+        {
+          "line": 915,
+          "value": "pi:te:gold0:{trade_id}"
+        },
+        {
+          "line": 916,
+          "value": "🔙 До моєї пропозиції"
+        },
+        {
+          "line": 916,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 948,
+          "value": "pi:tea:gdelta:{trade_id}:-1"
+        },
+        {
+          "line": 948,
+          "value": "pi:tea:gdelta:{trade_id}:1"
+        },
+        {
+          "line": 949,
+          "value": "pi:tea:gdelta:{trade_id}:-10"
+        },
+        {
+          "line": 949,
+          "value": "pi:tea:gdelta:{trade_id}:10"
+        },
+        {
+          "line": 950,
+          "value": "⌨️ Ввести суму"
+        },
+        {
+          "line": 950,
+          "value": "pi:tea:ginput:{trade_id}"
+        },
+        {
+          "line": 951,
+          "value": "🧹 Очистити"
+        },
+        {
+          "line": 951,
+          "value": "pi:tea:gclear:{trade_id}"
+        },
+        {
+          "line": 952,
+          "value": "🔙 До обміну"
+        },
+        {
+          "line": 952,
+          "value": "pi:te:open:{trade_id}"
+        },
+        {
+          "line": 959,
+          "value": "pi:tep:set:{trade_id}:{inventory_id}:{max(0,quantity-1)}:{page}"
+        },
+        {
+          "line": 959,
+          "value": "×{quantity}"
+        },
+        {
+          "line": 959,
+          "value": "pi:tep:view:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 959,
+          "value": "pi:tep:set:{trade_id}:{inventory_id}:{min(maximum,quantity+1)}:{page}"
+        },
+        {
+          "line": 960,
+          "value": "📦 Додати все доступне"
+        },
+        {
+          "line": 960,
+          "value": "pi:tep:all:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 961,
+          "value": "⌨️ Ввести кількість"
+        },
+        {
+          "line": 961,
+          "value": "pi:tea:qinput:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 962,
+          "value": "🔙 До предметів"
+        },
+        {
+          "line": 962,
+          "value": "pi:teux:list:{trade_id}:{page}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 85,
+          "value": "pi:list:{page-1}"
+        },
+        {
+          "line": 87,
+          "value": "pi:list:{page+1}"
+        },
+        {
+          "line": 90,
+          "value": "pi:list:{page}"
+        },
+        {
+          "line": 91,
+          "value": "pi:back:map"
+        },
+        {
+          "line": 111,
+          "value": "pi:trade:{target_id}"
+        },
+        {
+          "line": 112,
+          "value": "pi:duel:{target_id}"
+        },
+        {
+          "line": 113,
+          "value": "pi:list:0"
+        },
+        {
+          "line": 169,
+          "value": "pi:te:list:{trade_id}:{page-1}"
+        },
+        {
+          "line": 171,
+          "value": "pi:te:list:{trade_id}:{page+1}"
+        },
+        {
+          "line": 174,
+          "value": "pi:te:open:{trade_id}"
+        },
+        {
+          "line": 181,
+          "value": "pi:te:set:{trade_id}:{inventory_id}:{max(0, quantity-1)}:{page}"
+        },
+        {
+          "line": 182,
+          "value": "pi:te:open:{trade_id}"
+        },
+        {
+          "line": 183,
+          "value": "pi:te:set:{trade_id}:{inventory_id}:{quantity+1}:{page}"
+        },
+        {
+          "line": 185,
+          "value": "pi:te:remove:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 186,
+          "value": "pi:te:list:{trade_id}:{page}"
+        },
+        {
+          "line": 319,
+          "value": "pi:req:accept:{result["
+        },
+        {
+          "line": 320,
+          "value": "pi:req:decline:{result["
+        },
+        {
+          "line": 596,
+          "value": "pi:teux:set:{trade_id}:{inventory_id}:{max(0, quantity-1)}"
+        },
+        {
+          "line": 598,
+          "value": "pi:teux:set:{trade_id}:{inventory_id}:{min(maximum, quantity+1)}"
+        },
+        {
+          "line": 601,
+          "value": "pi:teux:all:{trade_id}:{inventory_id}"
+        },
+        {
+          "line": 602,
+          "value": "pi:teux:remove:{trade_id}:{inventory_id}"
+        },
+        {
+          "line": 603,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 609,
+          "value": "pi:teux:remove:{trade_id}:{inventory_id}"
+        },
+        {
+          "line": 610,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 742,
+          "value": "pi:te:gold:{trade_id}:-1"
+        },
+        {
+          "line": 742,
+          "value": "pi:te:gold:{trade_id}:1"
+        },
+        {
+          "line": 743,
+          "value": "pi:te:gold0:{trade_id}"
+        },
+        {
+          "line": 744,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 914,
+          "value": "pi:te:gold:{trade_id}:-1"
+        },
+        {
+          "line": 914,
+          "value": "pi:te:gold:{trade_id}:1"
+        },
+        {
+          "line": 915,
+          "value": "pi:te:gold:{trade_id}:10"
+        },
+        {
+          "line": 915,
+          "value": "pi:te:gold0:{trade_id}"
+        },
+        {
+          "line": 916,
+          "value": "pi:teux:mine:{trade_id}"
+        },
+        {
+          "line": 948,
+          "value": "pi:tea:gdelta:{trade_id}:-1"
+        },
+        {
+          "line": 948,
+          "value": "pi:tea:gdelta:{trade_id}:1"
+        },
+        {
+          "line": 949,
+          "value": "pi:tea:gdelta:{trade_id}:-10"
+        },
+        {
+          "line": 949,
+          "value": "pi:tea:gdelta:{trade_id}:10"
+        },
+        {
+          "line": 950,
+          "value": "pi:tea:ginput:{trade_id}"
+        },
+        {
+          "line": 951,
+          "value": "pi:tea:gclear:{trade_id}"
+        },
+        {
+          "line": 952,
+          "value": "pi:te:open:{trade_id}"
+        },
+        {
+          "line": 959,
+          "value": "pi:tep:set:{trade_id}:{inventory_id}:{max(0,quantity-1)}:{page}"
+        },
+        {
+          "line": 959,
+          "value": "pi:tep:view:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 959,
+          "value": "pi:tep:set:{trade_id}:{inventory_id}:{min(maximum,quantity+1)}:{page}"
+        },
+        {
+          "line": 960,
+          "value": "pi:tep:all:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 961,
+          "value": "pi:tea:qinput:{trade_id}:{inventory_id}:{page}"
+        },
+        {
+          "line": 962,
+          "value": "pi:teux:list:{trade_id}:{page}"
+        }
+      ],
+      "keyboard_lines": 107
+    },
+    {
+      "path": "handlers/player_rankings.py",
+      "labels": [
+        {
+          "line": 21,
+          "value": "label"
+        },
+        {
+          "line": 21,
+          "value": "pr:category:{key}"
+        },
+        {
+          "line": 28,
+          "value": "ranking_key"
+        },
+        {
+          "line": 28,
+          "value": "page"
+        },
+        {
+          "line": 29,
+          "value": "has_previous"
+        },
+        {
+          "line": 29,
+          "value": "⬅️ Назад"
+        },
+        {
+          "line": 29,
+          "value": "pr:{key}:{page-1}"
+        },
+        {
+          "line": 30,
+          "value": "{page+1}/{data["
+        },
+        {
+          "line": 30,
+          "value": "pr:noop"
+        },
+        {
+          "line": 31,
+          "value": "has_next"
+        },
+        {
+          "line": 31,
+          "value": "Далі ➡️"
+        },
+        {
+          "line": 31,
+          "value": "pr:{key}:{page+1}"
+        },
+        {
+          "line": 32,
+          "value": "🔙 Категорії"
+        },
+        {
+          "line": 32,
+          "value": "pr:categories"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 21,
+          "value": "pr:category:{key}"
+        },
+        {
+          "line": 29,
+          "value": "pr:{key}:{page-1}"
+        },
+        {
+          "line": 30,
+          "value": "pr:noop"
+        },
+        {
+          "line": 31,
+          "value": "pr:{key}:{page+1}"
+        },
+        {
+          "line": 32,
+          "value": "pr:categories"
+        }
+      ],
+      "keyboard_lines": 8
+    },
+    {
+      "path": "handlers/profile.py",
+      "labels": [
+        {
+          "line": 822,
+          "value": "🤝 Історія обмінів"
+        },
+        {
+          "line": 822,
+          "value": "profile_history_trade:0"
+        },
+        {
+          "line": 824,
+          "value": "⚔️ Історія PvP"
+        },
+        {
+          "line": 824,
+          "value": "profile_history_pvp:0"
+        },
+        {
+          "line": 826,
+          "value": "🔙 Профіль"
+        },
+        {
+          "line": 826,
+          "value": "profile_character"
+        },
+        {
+          "line": 842,
+          "value": "{prefix}:{item["
+        },
+        {
+          "line": 842,
+          "value": "]}:{data["
+        },
+        {
+          "line": 846,
+          "value": "has_prev"
+        },
+        {
+          "line": 846,
+          "value": "profile_history_{kind}:{data["
+        },
+        {
+          "line": 848,
+          "value": "has_next"
+        },
+        {
+          "line": 848,
+          "value": "profile_history_{kind}:{data["
+        },
+        {
+          "line": 852,
+          "value": "🔙 Історія"
+        },
+        {
+          "line": 852,
+          "value": "profile_history"
+        },
+        {
+          "line": 1148,
+          "value": "🔙 До обмінів"
+        },
+        {
+          "line": 1148,
+          "value": "profile_history_trade:{page}"
+        },
+        {
+          "line": 1156,
+          "value": "🔙 До PvP"
+        },
+        {
+          "line": 1156,
+          "value": "profile_history_pvp:{page}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 822,
+          "value": "profile_history_trade:0"
+        },
+        {
+          "line": 824,
+          "value": "profile_history_pvp:0"
+        },
+        {
+          "line": 826,
+          "value": "profile_character"
+        },
+        {
+          "line": 842,
+          "value": "{prefix}:{item["
+        },
+        {
+          "line": 846,
+          "value": "profile_history_{kind}:{data["
+        },
+        {
+          "line": 848,
+          "value": "profile_history_{kind}:{data["
+        },
+        {
+          "line": 852,
+          "value": "profile_history"
+        },
+        {
+          "line": 1148,
+          "value": "profile_history_trade:{page}"
+        },
+        {
+          "line": 1156,
+          "value": "profile_history_pvp:{page}"
+        }
+      ],
+      "keyboard_lines": 17
+    },
+    {
+      "path": "handlers/pvp_interaction.py",
+      "labels": [
+        {
+          "line": 76,
+          "value": "✅ Прийняти дуель"
+        },
+        {
+          "line": 76,
+          "value": "pvp:req:accept:{result["
+        },
+        {
+          "line": 77,
+          "value": "❌ Відхилити"
+        },
+        {
+          "line": 77,
+          "value": "pvp:req:decline:{result["
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 76,
+          "value": "pvp:req:accept:{result["
+        },
+        {
+          "line": 77,
+          "value": "pvp:req:decline:{result["
+        }
+      ],
+      "keyboard_lines": 3
+    },
+    {
+      "path": "handlers/pvp_round_ui.py",
+      "labels": [
+        {
+          "line": 203,
+          "value": "🏳️ Так, здатися"
+        },
+        {
+          "line": 203,
+          "value": "pvp:surrender:confirm:{battle_id}:{revision}"
+        },
+        {
+          "line": 204,
+          "value": "↩️ Продовжити дуель"
+        },
+        {
+          "line": 204,
+          "value": "pvp:surrender:cancel:{battle_id}:{revision}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 203,
+          "value": "pvp:surrender:confirm:{battle_id}:{revision}"
+        },
+        {
+          "line": 204,
+          "value": "pvp:surrender:cancel:{battle_id}:{revision}"
+        }
+      ],
+      "keyboard_lines": 5
+    },
+    {
+      "path": "handlers/refine.py",
+      "labels": [
+        {
+          "line": 498,
+          "value": "✅ Підтвердити заточку"
+        },
+        {
+          "line": 498,
+          "value": "refine_exec:{inventory_id}:{1 if use_success_rune else 0}:{page}"
+        },
+        {
+          "line": 499,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 499,
+          "value": "refine_item:{inventory_id}:{page}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 498,
+          "value": "refine_exec:{inventory_id}:{1 if use_success_rune else 0}:{page}"
+        },
+        {
+          "line": 499,
+          "value": "refine_item:{inventory_id}:{page}"
+        }
+      ],
+      "keyboard_lines": 15
+    },
+    {
+      "path": "handlers/runes.py",
+      "labels": [
+        {
+          "line": 71,
+          "value": "message"
+        },
+        {
+          "line": 89,
+          "value": "rm:locked"
+        },
+        {
+          "line": 107,
+          "value": "message"
+        },
+        {
+          "line": 109,
+          "value": "❌ Рунний слот не існує."
+        },
+        {
+          "line": 391,
+          "value": "{item["
+        },
+        {
+          "line": 391,
+          "value": "]} [рун: {item["
+        },
+        {
+          "line": 401,
+          "value": "⬅️ До спорядження"
+        },
+        {
+          "line": 401,
+          "value": "re:home:{int(page)}"
+        },
+        {
+          "line": 401,
+          "value": "message"
+        },
+        {
+          "line": 407,
+          "value": "🧰 Використати простий ×{c["
+        },
+        {
+          "line": 407,
+          "value": "re:simple:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 408,
+          "value": "✨ Використати досконалий ×{c["
+        },
+        {
+          "line": 408,
+          "value": "re:perfect:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 409,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 409,
+          "value": "re:home:{int(page)}"
+        },
+        {
+          "line": 416,
+          "value": "⬅️ До спорядження"
+        },
+        {
+          "line": 416,
+          "value": "re:home:{int(page)}"
+        },
+        {
+          "line": 416,
+          "value": "message"
+        },
+        {
+          "line": 421,
+          "value": "✅ Використати Простий Екстрактор"
+        },
+        {
+          "line": 421,
+          "value": "re:confirm:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 422,
+          "value": "⬅️ Змінити Екстрактор"
+        },
+        {
+          "line": 422,
+          "value": "re:item:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 441,
+          "value": "🧰 До спорядження"
+        },
+        {
+          "line": 441,
+          "value": "re:home:{int(parts[3])}"
+        },
+        {
+          "line": 444,
+          "value": "🧰 До спорядження"
+        },
+        {
+          "line": 444,
+          "value": "re:home:{int(parts[3])}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 89,
+          "value": "rm:locked"
+        },
+        {
+          "line": 401,
+          "value": "re:home:{int(page)}"
+        },
+        {
+          "line": 407,
+          "value": "re:simple:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 408,
+          "value": "re:perfect:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 409,
+          "value": "re:home:{int(page)}"
+        },
+        {
+          "line": 416,
+          "value": "re:home:{int(page)}"
+        },
+        {
+          "line": 421,
+          "value": "re:confirm:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 422,
+          "value": "re:item:{equipment_id}:{int(page)}"
+        },
+        {
+          "line": 441,
+          "value": "re:home:{int(parts[3])}"
+        },
+        {
+          "line": 444,
+          "value": "re:home:{int(parts[3])}"
+        }
+      ],
+      "keyboard_lines": 57
+    },
+    {
+      "path": "handlers/start.py",
+      "labels": [],
+      "callbacks": [],
+      "keyboard_lines": 7
+    },
+    {
+      "path": "handlers/story_boss_invocation_wiring.py",
+      "labels": [],
+      "callbacks": [],
+      "keyboard_lines": 2
+    },
+    {
+      "path": "handlers/story_quest_hierarchy_ui.py",
+      "labels": [
+        {
+          "line": 100,
+          "value": "🔙 До профілю"
+        },
+        {
+          "line": 139,
+          "value": "🔙 Сюжетні історії"
+        },
+        {
+          "line": 164,
+          "value": "🔙 Розділи"
+        },
+        {
+          "line": 164,
+          "value": "loc"
+        },
+        {
+          "line": 165,
+          "value": "📜 Сюжетні історії"
+        }
+      ],
+      "callbacks": [],
+      "keyboard_lines": 13
+    },
+    {
+      "path": "handlers/story_quest_npc_runtime.py",
+      "labels": [
+        {
+          "line": 47,
+          "value": "quest"
+        },
+        {
+          "line": 51,
+          "value": "accept"
+        },
+        {
+          "line": 51,
+          "value": "npc_id"
+        },
+        {
+          "line": 57,
+          "value": "complete"
+        },
+        {
+          "line": 57,
+          "value": "npc_id"
+        },
+        {
+          "line": 62,
+          "value": "sqboss:v1:help:{definition.number}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 62,
+          "value": "sqboss:v1:help:{definition.number}"
+        }
+      ],
+      "keyboard_lines": 4
+    },
+    {
+      "path": "handlers/story_quests.py",
+      "labels": [
+        {
+          "line": 422,
+          "value": "🔙 Квести розділу"
+        }
+      ],
+      "callbacks": [],
+      "keyboard_lines": 3
+    },
+    {
+      "path": "handlers/timed_exp_bonus.py",
+      "labels": [
+        {
+          "line": 28,
+          "value": "15 днів — 100 💎"
+        },
+        {
+          "line": 28,
+          "value": "expb:preview:15"
+        },
+        {
+          "line": 28,
+          "value": "30 днів — 180 💎"
+        },
+        {
+          "line": 28,
+          "value": "expb:preview:30"
+        },
+        {
+          "line": 28,
+          "value": "+_format_premium_expiration_kyiv(st["
+        },
+        {
+          "line": 28,
+          "value": "]) if st["
+        },
+        {
+          "line": 28,
+          "value": "] else "
+        },
+        {
+          "line": 35,
+          "value": "✅ Придбати"
+        },
+        {
+          "line": 35,
+          "value": "expb:buy:{days}"
+        },
+        {
+          "line": 35,
+          "value": "❌ Скасувати"
+        },
+        {
+          "line": 35,
+          "value": "expb:cancel:{days}"
+        },
+        {
+          "line": 35,
+          "value": "price"
+        },
+        {
+          "line": 35,
+          "value": "balance"
+        },
+        {
+          "line": 35,
+          "value": "balance_after"
+        },
+        {
+          "line": 35,
+          "value": "expires_at_after"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 28,
+          "value": "expb:preview:15"
+        },
+        {
+          "line": 28,
+          "value": "expb:preview:30"
+        },
+        {
+          "line": 35,
+          "value": "expb:buy:{days}"
+        },
+        {
+          "line": 35,
+          "value": "expb:cancel:{days}"
+        }
+      ],
+      "keyboard_lines": 2
+    },
+    {
+      "path": "handlers/world_chronicles.py",
+      "labels": [
+        {
+          "line": 99,
+          "value": "wc:page:{page - 1}"
+        },
+        {
+          "line": 101,
+          "value": "wc:page:{page + 1}"
+        },
+        {
+          "line": 104,
+          "value": "🔄 Оновити"
+        },
+        {
+          "line": 104,
+          "value": "wc:refresh"
+        },
+        {
+          "line": 105,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 105,
+          "value": "wc:back"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 99,
+          "value": "wc:page:{page - 1}"
+        },
+        {
+          "line": 101,
+          "value": "wc:page:{page + 1}"
+        },
+        {
+          "line": 104,
+          "value": "wc:refresh"
+        },
+        {
+          "line": 105,
+          "value": "wc:back"
+        }
+      ],
+      "keyboard_lines": 5
+    },
+    {
+      "path": "keyboards.py",
+      "labels": [
+        {
+          "line": 21,
+          "value": "🔽 Згорнути мапу"
+        },
+        {
+          "line": 167,
+          "value": "⚔️ Атакувати"
+        },
+        {
+          "line": 167,
+          "value": "combat_attack"
+        },
+        {
+          "line": 168,
+          "value": "🧪 Зілля"
+        },
+        {
+          "line": 168,
+          "value": "combat_potion"
+        },
+        {
+          "line": 169,
+          "value": "🏃 Втекти"
+        },
+        {
+          "line": 169,
+          "value": "combat_flee"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 167,
+          "value": "combat_attack"
+        },
+        {
+          "line": 168,
+          "value": "combat_potion"
+        },
+        {
+          "line": 169,
+          "value": "combat_flee"
+        }
+      ],
+      "keyboard_lines": 25
+    },
+    {
+      "path": "systems/pvp_round_ui.py",
+      "labels": [
+        {
+          "line": 63,
+          "value": "🏳️ Здатися"
+        },
+        {
+          "line": 63,
+          "value": "pvp:surrender:ask:{bid}:{rev}"
+        },
+        {
+          "line": 64,
+          "value": "🔄 Оновити стан"
+        },
+        {
+          "line": 64,
+          "value": "pvp:round:refresh:{bid}:{rnd}:{rev}"
+        },
+        {
+          "line": 66,
+          "value": "⚔️ Звичайна атака"
+        },
+        {
+          "line": 66,
+          "value": "pvp:round:act:{bid}:{rnd}:{rev}:basic_attack"
+        },
+        {
+          "line": 73,
+          "value": "label"
+        },
+        {
+          "line": 73,
+          "value": "name"
+        },
+        {
+          "line": 73,
+          "value": "pvp:round:act:{bid}:{rnd}:{rev}:skill:{key}"
+        },
+        {
+          "line": 74,
+          "value": "🏳️ Здатися"
+        },
+        {
+          "line": 74,
+          "value": "pvp:surrender:ask:{bid}:{rev}"
+        },
+        {
+          "line": 75,
+          "value": "🔄 Оновити стан"
+        },
+        {
+          "line": 75,
+          "value": "pvp:round:refresh:{bid}:{rnd}:{rev}"
+        }
+      ],
+      "callbacks": [
+        {
+          "line": 63,
+          "value": "pvp:surrender:ask:{bid}:{rev}"
+        },
+        {
+          "line": 64,
+          "value": "pvp:round:refresh:{bid}:{rnd}:{rev}"
+        },
+        {
+          "line": 66,
+          "value": "pvp:round:act:{bid}:{rnd}:{rev}:basic_attack"
+        },
+        {
+          "line": 73,
+          "value": "pvp:round:act:{bid}:{rnd}:{rev}:skill:{key}"
+        },
+        {
+          "line": 74,
+          "value": "pvp:surrender:ask:{bid}:{rev}"
+        },
+        {
+          "line": 75,
+          "value": "pvp:round:refresh:{bid}:{rnd}:{rev}"
+        }
+      ],
+      "keyboard_lines": 7
+    }
+  ],
+  "v2_evidence": [
+    {
+      "path": "rom_v2/presentation/development_shell.py",
+      "exists": true,
+      "sha256": "7240d1c14bde4ea8b92d6187a13e54152e7b2989f6fbcb715e10d3c0d76bddba",
+      "builders": [
+        {
+          "line": 18,
+          "symbol": "build_start_view"
+        },
+        {
+          "line": 35,
+          "symbol": "build_status_view"
+        },
+        {
+          "line": 50,
+          "symbol": "route_shell_action"
+        }
+      ],
+      "navigation_literals": [
+        {
+          "line": 55,
+          "value": "v2:shell:status"
+        },
+        {
+          "line": 53,
+          "value": "v2:shell:start"
+        },
+        {
+          "line": 28,
+          "value": "Стан V2"
+        },
+        {
+          "line": 28,
+          "value": "v2:shell:status"
+        },
+        {
+          "line": 29,
+          "value": "Профіль"
+        },
+        {
+          "line": 29,
+          "value": "v2:profile:root"
+        },
+        {
+          "line": 45,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 45,
+          "value": "v2:shell:start"
+        },
+        {
+          "line": 59,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 59,
+          "value": "v2:shell:start"
+        }
+      ],
+      "dispatch_conditions": [
+        {
+          "line": 53,
+          "condition": "key in {\"/start\", \"v2:shell:start\"}"
+        },
+        {
+          "line": 55,
+          "condition": "key == \"v2:shell:status\""
+        }
+      ]
+    },
+    {
+      "path": "rom_v2/presentation/profile_flow.py",
+      "exists": true,
+      "sha256": "226e4e038058947a15d5ecdb6f330f387c80cda3450d2a470a9211cba2a4a39f",
+      "builders": [
+        {
+          "line": 17,
+          "symbol": "callback"
+        }
+      ],
+      "navigation_literals": [
+        {
+          "line": 13,
+          "value": "Профіль ще недоступний. Спочатку створіть персонажа через /start."
+        },
+        {
+          "line": 17,
+          "value": "v2:profile:root"
+        },
+        {
+          "line": 16,
+          "value": "Скинути персонажа"
+        },
+        {
+          "line": 16,
+          "value": "v2:character:reset:request"
+        },
+        {
+          "line": 16,
+          "value": "Назад"
+        },
+        {
+          "line": 16,
+          "value": "v2:shell:start"
+        },
+        {
+          "line": 13,
+          "value": "Назад"
+        },
+        {
+          "line": 13,
+          "value": "v2:shell:start"
+        }
+      ],
+      "dispatch_conditions": []
+    },
+    {
+      "path": "rom_v2/presentation/inventory_flow.py",
+      "exists": true,
+      "sha256": "4484ed45538d79c78736a3300ac3ed055f8fc8eae89536d26547a1a8798fd8e0",
+      "builders": [
+        {
+          "line": 36,
+          "symbol": "_equipment_view"
+        },
+        {
+          "line": 51,
+          "symbol": "callback"
+        }
+      ],
+      "navigation_literals": [
+        {
+          "line": 37,
+          "value": "Екіпірування"
+        },
+        {
+          "line": 53,
+          "value": "v2:inventory:open"
+        },
+        {
+          "line": 54,
+          "value": "v2:inventory:page:"
+        },
+        {
+          "line": 57,
+          "value": "v2:inventory:sort:"
+        },
+        {
+          "line": 58,
+          "value": "v2:inventory:item:"
+        },
+        {
+          "line": 61,
+          "value": "v2:equipment:open"
+        },
+        {
+          "line": 62,
+          "value": "v2:equipment:equip:"
+        },
+        {
+          "line": 65,
+          "value": "v2:equipment:unequip:"
+        },
+        {
+          "line": 20,
+          "value": "Інвентар • сторінка "
+        },
+        {
+          "line": 23,
+          "value": "Назад"
+        },
+        {
+          "line": 26,
+          "value": "Екіпірування"
+        },
+        {
+          "line": 26,
+          "value": "v2:equipment:open"
+        },
+        {
+          "line": 26,
+          "value": "За ID"
+        },
+        {
+          "line": 26,
+          "value": "v2:inventory:sort:inventory_id"
+        },
+        {
+          "line": 34,
+          "value": "v2:inventory:open"
+        },
+        {
+          "line": 43,
+          "value": "Інвентар"
+        },
+        {
+          "line": 43,
+          "value": "v2:inventory:open"
+        },
+        {
+          "line": 21,
+          "value": "v2:inventory:item:"
+        },
+        {
+          "line": 23,
+          "value": "v2:inventory:page:"
+        },
+        {
+          "line": 24,
+          "value": "v2:inventory:page:"
+        },
+        {
+          "line": 33,
+          "value": "v2:equipment:equip:"
+        },
+        {
+          "line": 15,
+          "value": "Назад"
+        },
+        {
+          "line": 15,
+          "value": "v2:shell:start"
+        },
+        {
+          "line": 30,
+          "value": "v2:inventory:open"
+        },
+        {
+          "line": 42,
+          "value": "v2:equipment:unequip:"
+        }
+      ],
+      "dispatch_conditions": [
+        {
+          "line": 53,
+          "condition": "value=='v2:inventory:open'"
+        },
+        {
+          "line": 54,
+          "condition": "value.startswith('v2:inventory:page:')"
+        },
+        {
+          "line": 57,
+          "condition": "value.startswith('v2:inventory:sort:')"
+        },
+        {
+          "line": 58,
+          "condition": "value.startswith('v2:inventory:item:')"
+        },
+        {
+          "line": 61,
+          "condition": "value=='v2:equipment:open'"
+        },
+        {
+          "line": 62,
+          "condition": "value.startswith('v2:equipment:equip:')"
+        },
+        {
+          "line": 65,
+          "condition": "value.startswith('v2:equipment:unequip:')"
+        }
+      ]
+    },
+    {
+      "path": "rom_v2/presentation/registration_flow.py",
+      "exists": true,
+      "sha256": "0ec3b7b86df868b5c2bbb15491385c91db3a068773070073df5bb15649679b91",
+      "builders": [
+        {
+          "line": 42,
+          "symbol": "callback"
+        }
+      ],
+      "navigation_literals": [
+        {
+          "line": 50,
+          "value": "v2:register:class:"
+        },
+        {
+          "line": 44,
+          "value": "v2:register:start"
+        },
+        {
+          "line": 45,
+          "value": "v2:register:cancel"
+        },
+        {
+          "line": 47,
+          "value": "v2:register:back"
+        },
+        {
+          "line": 40,
+          "value": "Назад"
+        },
+        {
+          "line": 40,
+          "value": "v2:register:back"
+        },
+        {
+          "line": 40,
+          "value": "Скасувати"
+        },
+        {
+          "line": 40,
+          "value": "v2:register:cancel"
+        },
+        {
+          "line": 39,
+          "value": "v2:register:class:"
+        },
+        {
+          "line": 32,
+          "value": "Скасувати"
+        },
+        {
+          "line": 32,
+          "value": "v2:register:cancel"
+        },
+        {
+          "line": 63,
+          "value": "До меню"
+        },
+        {
+          "line": 63,
+          "value": "v2:shell:start"
+        },
+        {
+          "line": 58,
+          "value": "До меню"
+        },
+        {
+          "line": 58,
+          "value": "v2:shell:start"
+        }
+      ],
+      "dispatch_conditions": [
+        {
+          "line": 44,
+          "condition": "data==\"v2:register:start\""
+        },
+        {
+          "line": 45,
+          "condition": "data==\"v2:register:cancel\""
+        },
+        {
+          "line": 47,
+          "condition": "data==\"v2:register:back\""
+        }
+      ]
+    },
+    {
+      "path": "rom_v2/presentation/reset_flow.py",
+      "exists": false
+    },
+    {
+      "path": "rom_v2/app/development_bot.py",
+      "exists": true,
+      "sha256": "a9bc47223f6ef97a0af4dbb994dba94b77d19215058bf0d7ea5a2dbbcc909518",
+      "builders": [
+        {
+          "line": 55,
+          "symbol": "_send_view"
+        }
+      ],
+      "navigation_literals": [
+        {
+          "line": 79,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 74,
+          "value": "👤 Профіль"
+        },
+        {
+          "line": 76,
+          "value": "v2:profile:root"
+        },
+        {
+          "line": 83,
+          "value": "🎒 Інвентар"
+        },
+        {
+          "line": 84,
+          "value": "v2:inventory:open"
+        },
+        {
+          "line": 132,
+          "value": "v2:register:"
+        },
+        {
+          "line": 118,
+          "value": "v2:inventory:"
+        },
+        {
+          "line": 118,
+          "value": "v2:equipment:"
+        },
+        {
+          "line": 73,
+          "value": "👤 Профіль"
+        },
+        {
+          "line": 75,
+          "value": "🎒 Інвентар"
+        },
+        {
+          "line": 75,
+          "value": "🔙 Назад"
+        },
+        {
+          "line": 80,
+          "value": "👤 Профіль"
+        }
+      ],
+      "dispatch_conditions": [
+        {
+          "line": 74,
+          "condition": "text == \"👤 Профіль\" and self._profile_flow is not None"
+        },
+        {
+          "line": 79,
+          "condition": "text == \"🔙 Назад\""
+        },
+        {
+          "line": 83,
+          "condition": "text == \"🎒 Інвентар\" and self._inventory_flow is not None"
+        },
+        {
+          "line": 118,
+          "condition": "self._inventory_flow is not None and (data.startswith(\"v2:inventory:\") or data.startswith(\"v2:equipment:\"))"
+        },
+        {
+          "line": 132,
+          "condition": "self._registration_flow is not None and data.startswith(\"v2:register:\")"
+        }
+      ]
+    }
+  ],
+  "v2_label_owners": {
+    "Стан V2": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 28,
+        "literal": "Стан V2"
+      }
+    ],
+    "Профіль": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 29,
+        "literal": "Профіль"
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 13,
+        "literal": "Профіль ще недоступний. Спочатку створіть персонажа через /start."
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 74,
+        "literal": "👤 Профіль"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 73,
+        "literal": "👤 Профіль"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 80,
+        "literal": "👤 Профіль"
+      }
+    ],
+    "Назад": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 45,
+        "literal": "🔙 Назад"
+      },
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 59,
+        "literal": "🔙 Назад"
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 16,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 13,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 23,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 15,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 40,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 79,
+        "literal": "🔙 Назад"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 75,
+        "literal": "🔙 Назад"
+      }
+    ],
+    "Скинути персонажа": [
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 16,
+        "literal": "Скинути персонажа"
+      }
+    ],
+    "Екіпірування": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 37,
+        "literal": "Екіпірування"
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 26,
+        "literal": "Екіпірування"
+      }
+    ],
+    "Інвентар": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 20,
+        "literal": "Інвентар • сторінка "
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 43,
+        "literal": "Інвентар"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 83,
+        "literal": "🎒 Інвентар"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 75,
+        "literal": "🎒 Інвентар"
+      }
+    ],
+    "За ID": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 26,
+        "literal": "За ID"
+      }
+    ],
+    "Скасувати": [
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 40,
+        "literal": "Скасувати"
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 32,
+        "literal": "Скасувати"
+      }
+    ],
+    "До меню": [
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 63,
+        "literal": "До меню"
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 58,
+        "literal": "До меню"
+      }
+    ]
+  },
+  "v2_callback_literal_owners": {
+    "v2:shell:status": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 55
+      },
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 28
+      }
+    ],
+    "v2:shell:start": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 53
+      },
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 45
+      },
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 59
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 16
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 13
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 15
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 63
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 58
+      }
+    ],
+    "v2:profile:root": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 29
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 17
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 76
+      }
+    ],
+    "v2:character:reset:request": [
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 16
+      }
+    ],
+    "v2:inventory:open": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 53
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 34
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 43
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 30
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 84
+      }
+    ],
+    "v2:inventory:page:": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 54
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 23
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 24
+      }
+    ],
+    "v2:inventory:sort:": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 57
+      }
+    ],
+    "v2:inventory:item:": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 58
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 21
+      }
+    ],
+    "v2:equipment:open": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 61
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 26
+      }
+    ],
+    "v2:equipment:equip:": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 62
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 33
+      }
+    ],
+    "v2:equipment:unequip:": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 65
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 42
+      }
+    ],
+    "v2:inventory:sort:inventory_id": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 26
+      }
+    ],
+    "v2:register:class:": [
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 50
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 39
+      }
+    ],
+    "v2:register:start": [
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 44
+      }
+    ],
+    "v2:register:cancel": [
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 45
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 40
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 32
+      }
+    ],
+    "v2:register:back": [
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 47
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 40
+      }
+    ],
+    "v2:register:": [
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 132
+      }
+    ],
+    "v2:inventory:": [
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 118
+      }
+    ],
+    "v2:equipment:": [
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 118
+      }
+    ]
+  },
+  "duplicated_entry_points": {
+    "Профіль": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 29,
+        "literal": "Профіль"
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 13,
+        "literal": "Профіль ще недоступний. Спочатку створіть персонажа через /start."
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 74,
+        "literal": "👤 Профіль"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 73,
+        "literal": "👤 Профіль"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 80,
+        "literal": "👤 Профіль"
+      }
+    ],
+    "Назад": [
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 45,
+        "literal": "🔙 Назад"
+      },
+      {
+        "path": "rom_v2/presentation/development_shell.py",
+        "line": 59,
+        "literal": "🔙 Назад"
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 16,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/profile_flow.py",
+        "line": 13,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 23,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 15,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/presentation/registration_flow.py",
+        "line": 40,
+        "literal": "Назад"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 79,
+        "literal": "🔙 Назад"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 75,
+        "literal": "🔙 Назад"
+      }
+    ],
+    "Інвентар": [
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 20,
+        "literal": "Інвентар • сторінка "
+      },
+      {
+        "path": "rom_v2/presentation/inventory_flow.py",
+        "line": 43,
+        "literal": "Інвентар"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 83,
+        "literal": "🎒 Інвентар"
+      },
+      {
+        "path": "rom_v2/app/development_bot.py",
+        "line": 75,
+        "literal": "🎒 Інвентар"
+      }
+    ]
+  },
+  "confirmed_findings": {
+    "inline_profile_duplicate_entry": true,
+    "inventory_sort_by_internal_id_exposed": true,
+    "distributed_markup_construction": true,
+    "duplicate_authoritative_owner_proven": false
+  },
+  "ownership_statement": "Multiple user-facing entry points and distributed markup are confirmed. Multiple authoritative behavior owners are NOT proven.",
+  "recommended_owner_model": {
+    "decision": "CREATE_SINGLE_V2_KEYBOARD_CATALOG_OWNER",
+    "proposed_owner": "rom_v2/presentation/navigation.py",
+    "reason": "centralize labels and markup builders without moving flow behavior or callback execution",
+    "rules": [
+      "presentation/navigation.py owns user-visible button labels and pure reply/inline markup builders",
+      "flows own behavior and choose a named navigation layout",
+      "development_bot.py dispatches text/callback inputs but does not construct keyboard dictionaries",
+      "callback constants may be exported by navigation.py only when they are presentation routes",
+      "business policy, SQL, character lookup and service calls remain outside navigation.py"
+    ],
+    "remove_or_change": [
+      "remove inline Профіль from canonical shell after persistent 👤 Профіль is authoritative",
+      "remove За ID because inventory_id is internal and already the default sort",
+      "retain inline action Скинути персонажа",
+      "retain inline Екіпірування and До інвентарю",
+      "evaluate inline Назад per flow; do not duplicate persistent 🔙 Назад unless needed for callback-only contexts"
+    ]
+  },
+  "candidate_migration_allowlist": [
+    "rom_v2/presentation/navigation.py",
+    "rom_v2/presentation/development_shell.py",
+    "rom_v2/presentation/profile_flow.py",
+    "rom_v2/presentation/inventory_flow.py",
+    "rom_v2/presentation/registration_flow.py",
+    "rom_v2/presentation/reset_flow.py",
+    "rom_v2/app/development_bot.py",
+    "tests_v2/test_v2_navigation_ownership.py",
+    "tests_v2/test_v2_navigation_transitions.py",
+    "reports/stage_21_18_1b_navigation_owner_migration.json",
+    "MD/STAGE_21_18_1B_NAVIGATION_OWNER_MIGRATION.md"
+  ],
+  "implementation_gates": [
+    "review exact callbacks before moving constants",
+    "preserve registration/reset acceptance contracts",
+    "keep persistent and inline Telegram markup separate",
+    "no production DB access",
+    "remove only redundant navigation, not destructive action controls"
+  ],
+  "manual_game_check": "NOT_REQUIRED"
+}
