@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1b-navigation-owner-migration-review",
+  "patch_revision": 1,
+  "status": "PASS_READ_ONLY",
+  "decision": "GO_TO_NAVIGATION_OWNER_MIGRATION_IMPLEMENTATION",
+  "generated_at_utc": "2026-10-31T22:01:56.204870+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "head": "a1d5d60ea550fb986a34d2e11eff946baee7d9fa"
+  },
+  "source_audit": "reports/stage_21_18_1b_v1_v2_keyboard_navigation_ownership_audit.json",
+  "authoritative_evidence": [
+    {
+      "path": "rom_v2/presentation/development_shell.py",
+      "sha256": "7240d1c14bde4ea8b92d6187a13e54152e7b2989f6fbcb715e10d3c0d76bddba",
+      "profile_inline": true,
+      "reset_public": false,
+      "id_sort_public": false,
+      "reply_markup_literal": false
+    },
+    {
+      "path": "rom_v2/presentation/profile_flow.py",
+      "sha256": "226e4e038058947a15d5ecdb6f330f387c80cda3450d2a470a9211cba2a4a39f",
+      "profile_inline": true,
+      "reset_public": true,
+      "id_sort_public": false,
+      "reply_markup_literal": false
+    },
+    {
+      "path": "rom_v2/presentation/inventory_flow.py",
+      "sha256": "4484ed45538d79c78736a3300ac3ed055f8fc8eae89536d26547a1a8798fd8e0",
+      "profile_inline": false,
+      "reset_public": false,
+      "id_sort_public": true,
+      "reply_markup_literal": false
+    },
+    {
+      "path": "rom_v2/presentation/registration_flow.py",
+      "sha256": "0ec3b7b86df868b5c2bbb15491385c91db3a068773070073df5bb15649679b91",
+      "profile_inline": false,
+      "reset_public": false,
+      "id_sort_public": false,
+      "reply_markup_literal": false
+    },
+    {
+      "path": "rom_v2/app/development_bot.py",
+      "sha256": "a9bc47223f6ef97a0af4dbb994dba94b77d19215058bf0d7ea5a2dbbcc909518",
+      "profile_inline": true,
+      "reset_public": false,
+      "id_sort_public": false,
+      "reply_markup_literal": true
+    }
+  ],
+  "ownership_statement": "One new pure navigation catalog owner is approved. Existing flows remain authoritative behavior owners; no behavior-owner merge is approved.",
+  "owner_matrix": {
+    "rom_v2/presentation/navigation.py": {
+      "state": "NEW_CANONICAL_OWNER",
+      "owns": [
+        "user-visible button labels",
+        "presentation callback constants used by markup/dispatch",
+        "pure reply keyboard builders",
+        "pure inline keyboard builders"
+      ],
+      "must_not_own": [
+        "flow behavior",
+        "service calls",
+        "SQL",
+        "character lookup",
+        "inventory/equipment policy"
+      ]
+    },
+    "rom_v2/app/development_bot.py": {
+      "state": "CONSUMER_AND_DISPATCHER",
+      "owns": [
+        "authorization",
+        "Telegram update parsing",
+        "delegation to canonical flows"
+      ],
+      "remove": [
+        "all literal reply keyboard dictionaries",
+        "duplicated navigation labels"
+      ],
+      "consume": [
+        "main_reply_keyboard",
+        "profile_reply_keyboard",
+        "PROFILE_TEXT",
+        "INVENTORY_TEXT",
+        "BACK_TEXT"
+      ]
+    },
+    "rom_v2/presentation/development_shell.py": {
+      "state": "SHELL_VIEW_OWNER",
+      "owns": [
+        "shell/status text and shell action routing"
+      ],
+      "remove": [
+        "inline Профіль entry"
+      ],
+      "consume": [
+        "shell_status_inline_keyboard",
+        "back_to_main_inline_keyboard where callback-only fallback is required"
+      ]
+    },
+    "rom_v2/presentation/profile_flow.py": {
+      "state": "PROFILE_BEHAVIOR_OWNER",
+      "owns": [
+        "profile rendering and profile callback behavior"
+      ],
+      "remove": [
+        "public Скинути персонажа button",
+        "public v2:character:reset:request entry",
+        "inline Назад when persistent back fully covers the section"
+      ],
+      "consume": [
+        "profile_actions_inline_keyboard without reset/back"
+      ]
+    },
+    "rom_v2/presentation/inventory_flow.py": {
+      "state": "INVENTORY_EQUIPMENT_BEHAVIOR_OWNER",
+      "owns": [
+        "inventory/equipment rendering and exact callback behavior"
+      ],
+      "remove": [
+        "За ID button and public sort callback entry for inventory_id",
+        "flow-local fixed navigation labels"
+      ],
+      "consume": [
+        "inventory_inline_keyboard",
+        "equipment_inline_keyboard",
+        "pagination builders"
+      ]
+    },
+    "rom_v2/presentation/registration_flow.py": {
+      "state": "REGISTRATION_BEHAVIOR_OWNER",
+      "owns": [
+        "registration state transitions"
+      ],
+      "remove": [
+        "flow-local fixed navigation labels and dictionaries"
+      ],
+      "consume": [
+        "registration class/cancel/back/menu builders"
+      ]
+    }
+  },
+  "public_reset_decision": {
+    "public_button": "REMOVE",
+    "public_callback_entry": "REMOVE_FROM_NAVIGATION",
+    "runtime_reset_flow": "PRESERVE_UNREACHABLE_IF_REQUIRED_BY_EXISTING_TESTS",
+    "application_reset_capability": "PRESERVE",
+    "future_exposure": "DEV_COMMAND_ONLY_IN_SEPARATE_ASSIGNED_WORK",
+    "reason": "user decision: character reset is not a player-facing navigation action"
+  },
+  "target_ui_contract": {
+    "main_reply_keyboard": [
+      [
+        "👤 Профіль"
+      ]
+    ],
+    "main_inline_actions": [
+      "Стан V2"
+    ],
+    "profile_reply_keyboard": [
+      [
+        "🎒 Інвентар"
+      ],
+      [
+        "🔙 Назад"
+      ]
+    ],
+    "profile_inline_actions": [],
+    "inventory_reply_keyboard": [
+      [
+        "🎒 Інвентар"
+      ],
+      [
+        "🔙 Назад"
+      ]
+    ],
+    "inventory_inline_actions": [
+      "Екіпірування",
+      "item details",
+      "pagination when required"
+    ],
+    "equipment_inline_actions": [
+      "До інвентарю",
+      "equip/unequip actions as applicable"
+    ],
+    "removed_public_actions": [
+      "Профіль (inline duplicate)",
+      "За ID",
+      "Скинути персонажа",
+      "profile inline Назад where persistent back is available"
+    ]
+  },
+  "callback_policy": {
+    "preserve": [
+      "v2:shell:start",
+      "v2:shell:status",
+      "v2:profile:root",
+      "v2:inventory:open",
+      "v2:inventory:page:<page>",
+      "v2:inventory:item:<inventory_id>",
+      "v2:equipment:open",
+      "v2:equipment:equip:<inventory_id>",
+      "v2:equipment:unequip:<slot_key>",
+      "v2:register:*"
+    ],
+    "remove_from_public_contract": [
+      "v2:inventory:sort:inventory_id",
+      "v2:character:reset:request"
+    ],
+    "fail_closed": [
+      "stale removed callbacks must return a safe view or no-op without mutation",
+      "removed reset callback must not reset a character"
+    ]
+  },
+  "exact_implementation_allowlist": [
+    "rom_v2/presentation/navigation.py",
+    "rom_v2/presentation/development_shell.py",
+    "rom_v2/presentation/profile_flow.py",
+    "rom_v2/presentation/inventory_flow.py",
+    "rom_v2/presentation/registration_flow.py",
+    "rom_v2/app/development_bot.py",
+    "tests_v2/test_v2_navigation_ownership.py",
+    "tests_v2/test_v2_navigation_transitions.py",
+    "tests_v2/test_v2_profile_menu_markup.py",
+    "tests_v2/test_v2_inventory_menu_entry.py",
+    "tests_v2/test_v2_profile_inventory_navigation.py",
+    "tests_v2/test_v2_telegram_inventory_equipment_slice.py",
+    "tests_v2/test_v2_existing_character_start_idempotency.py",
+    "tests_v2/test_independent_development_bot_shell.py",
+    "reports/stage_21_18_1b_navigation_owner_migration.json",
+    "MD/STAGE_21_18_1B_NAVIGATION_OWNER_MIGRATION.md"
+  ],
+  "mandatory_tests": {
+    "ownership": [
+      "no user-visible navigation label or literal keyboard dictionary outside navigation.py, except dynamic content labels",
+      "no public reset label/callback",
+      "no За ID label/callback",
+      "no inline profile entry in shell"
+    ],
+    "transitions": [
+      "/start installs profile reply keyboard and shell status inline action",
+      "profile text opens profile and installs inventory/back keyboard",
+      "inventory text opens inventory without changing reply section keyboard",
+      "back restores main profile keyboard",
+      "equipment returns to inventory",
+      "registration transitions remain unchanged",
+      "stale removed callbacks fail closed"
+    ],
+    "regression": [
+      "canonical V2 CI",
+      "runtime launcher isolated DB smoke",
+      "allowlist before response",
+      "profile/inventory/equipment UoW smoke"
+    ]
+  },
+  "implementation_gates": [
+    "backup exact allowlist before mutation",
+    "AST-validate every changed Python file",
+    "remove public reset UI without deleting application reset capability",
+    "do not create a developer reset command in this migration",
+    "preserve reply/inline keyboard separation",
+    "focused tests plus canonical side-effect-free V2 CI",
+    "exact staging allowlist",
+    "automatic rollback",
+    "manual Telegram matrix required"
+  ],
+  "production_database_opened": false,
+  "manual_game_check": "NOT_REQUIRED_FOR_REVIEW"
+}
