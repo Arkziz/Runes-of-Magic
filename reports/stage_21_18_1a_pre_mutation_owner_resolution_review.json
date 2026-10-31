@@ -1,0 +1,3503 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1a-pre",
+  "patch_revision": 1,
+  "status": "PASS_READ_ONLY",
+  "conclusion": "GO_TO_21_18_1A_IMPLEMENTATION_WITH_NARROW_INVENTORY_DOMAIN_OWNER",
+  "generated_at_utc": "2026-10-31T17:57:44.872724+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "head": "a98cc342142f87221d585106a8e8050df8f916cd"
+  },
+  "v1_owner_resolution": [
+    {
+      "path": "handlers/inventory.py",
+      "sha256": "f0e43d3d2dcc22bf8f28be61e0e843698b1337ca928d5d42034ebc49d8d3b95b",
+      "definitions": [
+        {
+          "symbol": "build_equipped_comparison_text",
+          "line": 1319,
+          "end_line": 1647,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 2291,
+          "end_line": 3151,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "register_inventory_handlers",
+          "line": 3179,
+          "end_line": 4171,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 4719,
+          "end_line": 4819,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 5809,
+          "end_line": 5893,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 6053,
+          "end_line": 6161,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 6189,
+          "end_line": 6261,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 6349,
+          "end_line": 6473,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_equipped_comparison_text",
+          "line": 6893,
+          "end_line": 6953,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 6965,
+          "end_line": 7029,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "register_inventory_handlers",
+          "line": 7137,
+          "end_line": 7341,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 7445,
+          "end_line": 7556,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "register_inventory_handlers",
+          "line": 7622,
+          "end_line": 7763,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 7807,
+          "end_line": 7857,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports_relevant": [
+        {
+          "line": 15,
+          "module": "db",
+          "names": [
+            "EQUIPMENT_SLOTS",
+            "SLOT_ORDER",
+            "CLASS_RESET_SPHERE_ITEM_ID",
+            "get_inventory_detailed",
+            "get_item_by_inventory_id_full",
+            "equip_inventory_item",
+            "unequip_inventory_item",
+            "get_inventory_used_slots",
+            "get_bag_capacity",
+            "is_inventory_item_equipped",
+            "find_equipped_slot_by_inventory_id",
+            "get_all_equipped_slots",
+            "get_player_stats",
+            "get_item_required_level_by_inventory_id",
+            "get_inventory_weapon_damage_display",
+            "get_item_classification_by_inventory_id",
+            "get_armor_type_label",
+            "get_item_subtype_label",
+            "is_armor_slot",
+            "ARMOR_ALLOWED_BY_CLASS",
+            "MAIN_HAND_ALLOWED_BY_CLASS",
+            "OFF_HAND_ALLOWED_BY_CLASS",
+            "CLASS_CONFIGS",
+            "is_class_reset_sphere_inventory_item",
+            "use_class_reset_sphere_from_inventory"
+          ]
+        },
+        {
+          "line": 139,
+          "module": "systems.potion_system",
+          "names": [
+            "use_potion_from_inventory"
+          ]
+        },
+        {
+          "line": 5841,
+          "module": "systems.rune_system",
+          "names": [
+            "format_equipment_rune_slots_text"
+          ]
+        },
+        {
+          "line": 6749,
+          "module": "systems.rune_system",
+          "names": [
+            "format_equipment_rune_slots_text"
+          ]
+        },
+        {
+          "line": 6921,
+          "module": "systems.rune_system",
+          "names": [
+            "format_equipment_rune_slots_text"
+          ]
+        }
+      ],
+      "core_calls": [
+        {
+          "symbol": "get_inventory_detailed",
+          "line": 895,
+          "call": "get_inventory_detailed"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 1371,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 2295,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 915,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 3463,
+          "call": "build_item_details"
+        },
+        {
+          "symbol": "equip_inventory_item",
+          "line": 3559,
+          "call": "equip_inventory_item"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 3595,
+          "call": "build_item_details"
+        },
+        {
+          "symbol": "unequip_inventory_item",
+          "line": 3683,
+          "call": "unequip_inventory_item"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 3719,
+          "call": "build_item_details"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 4643,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 4867,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 5641,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 6561,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 7245,
+          "call": "build_item_details"
+        },
+        {
+          "symbol": "build_equipped_comparison_text",
+          "line": 7265,
+          "call": "build_equipped_comparison_text"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 2071,
+          "call": "get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "build_equipped_comparison_text",
+          "line": 2967,
+          "call": "build_equipped_comparison_text"
+        },
+        {
+          "symbol": "build_item_details",
+          "line": 3967,
+          "call": "build_item_details"
+        }
+      ],
+      "registrations": [
+        {
+          "line": 3187,
+          "call": "bot.message_handler",
+          "snippet": "bot.message_handler(func=lambda m: m.text == \"🎒 Інвентар\")"
+        },
+        {
+          "line": 3235,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data == \"inv_home\")"
+        },
+        {
+          "line": 3291,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data == \"inv_profile\")"
+        },
+        {
+          "line": 3355,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data.startswith(\"invcat:\"))"
+        },
+        {
+          "line": 3427,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data.startswith(\"item:\"))"
+        },
+        {
+          "line": 3523,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data.startswith(\"equip:\"))"
+        },
+        {
+          "line": 3647,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data.startswith(\"unequip:\"))"
+        },
+        {
+          "line": 3771,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data.startswith(\"usepot:\"))"
+        },
+        {
+          "line": 7145,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(\n\n\n\n        func=lambda call: str(getattr(call, \"data\", \"\") or \"\").startswith(\"itemcmp:\")\n\n\n\n    )"
+        },
+        {
+          "line": 7341,
+          "call": "_EQUIPMENT_COMPARISON_BASE_REGISTER_HANDLERS_18_11_1",
+          "snippet": "_EQUIPMENT_COMPARISON_BASE_REGISTER_HANDLERS_18_11_1(bot)"
+        },
+        {
+          "line": 7625,
+          "call": "_SPHERE_BASE_REGISTER_INVENTORY_HANDLERS_18_16_10",
+          "snippet": "_SPHERE_BASE_REGISTER_INVENTORY_HANDLERS_18_16_10(bot)"
+        },
+        {
+          "line": 7631,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: str(call.data or \"\").startswith(\"rebirth:\"))"
+        }
+      ],
+      "final_bindings": [
+        {
+          "path": "handlers/inventory.py",
+          "symbol": "build_equipped_comparison_text",
+          "definitions": [
+            {
+              "line": 1319,
+              "end_line": 1647
+            },
+            {
+              "line": 6893,
+              "end_line": 6953
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 6893,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 1319,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 6893,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "handlers/inventory.py",
+          "symbol": "build_item_details",
+          "definitions": [
+            {
+              "line": 2291,
+              "end_line": 3151
+            },
+            {
+              "line": 4719,
+              "end_line": 4819
+            },
+            {
+              "line": 5809,
+              "end_line": 5893
+            },
+            {
+              "line": 6053,
+              "end_line": 6161
+            },
+            {
+              "line": 6189,
+              "end_line": 6261
+            },
+            {
+              "line": 6349,
+              "end_line": 6473
+            },
+            {
+              "line": 6965,
+              "end_line": 7029
+            },
+            {
+              "line": 7445,
+              "end_line": 7556
+            },
+            {
+              "line": 7807,
+              "end_line": 7857
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 7807,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 2291,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 4719,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 5809,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 6053,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 6189,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 6349,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 6965,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 7445,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 7807,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "handlers/inventory.py",
+          "symbol": "register_inventory_handlers",
+          "definitions": [
+            {
+              "line": 3179,
+              "end_line": 4171
+            },
+            {
+              "line": 7137,
+              "end_line": 7341
+            },
+            {
+              "line": 7622,
+              "end_line": 7763
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 7622,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 3179,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 7137,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 7622,
+              "status": "EFFECTIVE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "handlers/profile.py",
+      "sha256": "9546e06670a5bf830671d69b8006b0630edf9a95cb9365a9dff05630acf0524d",
+      "definitions": [],
+      "imports_relevant": [
+        {
+          "line": 7,
+          "module": "db",
+          "names": [
+            "get_player_stats",
+            "get_attack",
+            "get_magic_attack",
+            "get_current_hp",
+            "get_max_hp",
+            "get_user_energy",
+            "get_user_progress",
+            "get_physical_defense",
+            "get_magic_defense",
+            "get_physical_crit_chance_display",
+            "get_magical_crit_chance_display",
+            "get_base_dodge_chance_display",
+            "get_enemy_crit_chance_against_player",
+            "get_all_equipped_slots",
+            "get_item_by_inventory_id_full",
+            "get_inventory_weapon_damage_display",
+            "get_character_profile_summary",
+            "get_character_class",
+            "process_passive_regeneration",
+            "reset_daily_hunts_if_needed"
+          ]
+        },
+        {
+          "line": 541,
+          "module": "db",
+          "names": [
+            "SLOT_ORDER",
+            "EQUIPMENT_SLOTS"
+          ]
+        }
+      ],
+      "core_calls": [
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 575,
+          "call": "get_item_by_inventory_id_full"
+        }
+      ],
+      "registrations": [
+        {
+          "line": 889,
+          "call": "register_attribute_allocation_handlers",
+          "snippet": "register_attribute_allocation_handlers(bot, profile_inline_kb, build_character_text)"
+        },
+        {
+          "line": 895,
+          "call": "bot.message_handler",
+          "snippet": "bot.message_handler(func=lambda message: getattr(message, \"text\", None) == \"📜 Історія\")"
+        },
+        {
+          "line": 919,
+          "call": "bot.message_handler",
+          "snippet": "bot.message_handler(func=lambda m: m.text == \"👤 Профіль\")"
+        },
+        {
+          "line": 935,
+          "call": "bot.message_handler",
+          "snippet": "bot.message_handler(func=lambda m: m.text == \"📊 Параметри\")"
+        },
+        {
+          "line": 955,
+          "call": "bot.message_handler",
+          "snippet": "bot.message_handler(func=lambda m: m.text == \"🧰 Екіпірування\")"
+        },
+        {
+          "line": 975,
+          "call": "bot.message_handler",
+          "snippet": "bot.message_handler(func=lambda m: m.text == \"✨ Навички\")"
+        },
+        {
+          "line": 1003,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data == \"profile_character\")"
+        },
+        {
+          "line": 1027,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data == \"profile_stats\")"
+        },
+        {
+          "line": 1051,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data == \"profile_equipment\")"
+        },
+        {
+          "line": 1075,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: call.data == \"profile_skills\")"
+        },
+        {
+          "line": 1107,
+          "call": "bot.message_handler",
+          "snippet": "bot.message_handler(func=lambda m: m.text == \"🔙 Назад\")"
+        },
+        {
+          "line": 1121,
+          "call": "bot.callback_query_handler",
+          "snippet": "bot.callback_query_handler(func=lambda call: str(getattr(call,\"data\",\"\")).startswith(\"profile_history\"))"
+        }
+      ],
+      "final_bindings": []
+    },
+    {
+      "path": "db_modules/__init__.py",
+      "sha256": "cfe6b42026692106e98c89d22f3af0d1635c7914a2cb298412b0bbb6a36d00eb",
+      "definitions": [],
+      "imports_relevant": [
+        {
+          "line": 52,
+          "module": "equipment",
+          "names": [
+            "get_equipped_slot"
+          ]
+        },
+        {
+          "line": 54,
+          "module": "equipment",
+          "names": [
+            "check_armor_compatibility_for_class",
+            "check_main_hand_compatibility_for_class",
+            "check_off_hand_compatibility_for_class",
+            "check_two_handed_conflict_for_equip"
+          ]
+        },
+        {
+          "line": 72,
+          "module": "inventory_compat",
+          "names": [
+            "is_inventory_item_equipped",
+            "find_equipped_slot_by_inventory_id",
+            "get_item_required_level_by_inventory_id",
+            "get_item_classification_by_inventory_id",
+            "is_class_reset_sphere_inventory_item",
+            "use_class_reset_sphere_from_inventory",
+            "ARMOR_ALLOWED_BY_CLASS",
+            "MAIN_HAND_ALLOWED_BY_CLASS",
+            "OFF_HAND_ALLOWED_BY_CLASS"
+          ]
+        },
+        {
+          "line": 118,
+          "module": "equipment",
+          "names": [
+            "EQUIPMENT_SLOTS",
+            "ARMOR_SLOTS",
+            "ARMOR_TYPE_LABELS",
+            "ITEM_SUBTYPE_LABELS",
+            "normalize_equipment_restriction_value",
+            "is_armor_slot",
+            "get_armor_type_label",
+            "get_item_subtype_label",
+            "ensure_equipment_slots",
+            "get_all_equipped_items",
+            "get_all_equipped_slots",
+            "get_equipped_items_for_repair",
+            "get_total_repair_cost",
+            "get_inventory_detailed",
+            "get_inventory_entry",
+            "get_item_by_inventory_id",
+            "get_item_by_inventory_id_full",
+            "get_item_bonuses",
+            "get_equipped_item_defenses",
+            "get_sellable_equipment_items",
+            "init_weapon_damage_system",
+            "calculate_weapon_damage_by_values",
+            "get_weapon_damage_by_inventory_id",
+            "get_inventory_weapon_damage_display",
+            "get_inventory_refine_level",
+            "get_inventory_refined_display_name",
+            "format_refined_item_name",
+            "can_equip_item_by_class",
+            "can_equip_inventory_item_by_class",
+            "is_inventory_item_class_compatible",
+            "equip_inventory_item",
+            "unequip_inventory_item",
+            "unequip_incompatible_items_after_class_change",
+            "repair_equipped_item",
+            "repair_all_equipped",
+            "calculate_repair_cost",
+            "damage_equipped_items_on_death",
+            "apply_random_durability_wear_on_victory",
+            "sell_inventory_item_to_trader",
+            "buy_common_equipment_from_trader",
+            "buy_item_for_gold"
+          ]
+        },
+        {
+          "line": 142,
+          "module": "generated_equipment",
+          "names": [
+            "create_generated_equipment_item",
+            "create_generated_equipment_item_for_slot"
+          ]
+        },
+        {
+          "line": 145,
+          "module": "inventory",
+          "names": [
+            "get_bag_capacity",
+            "get_inventory_used_slots",
+            "get_inventory",
+            "get_item",
+            "add_item",
+            "consume_inventory_item",
+            "compact_user_item_stacks",
+            "count_user_item",
+            "consume_user_item_by_item_id",
+            "find_first_item_stack_by_type",
+            "sell_all_trash"
+          ]
+        },
+        {
+          "line": 168,
+          "module": "refine",
+          "names": [
+            "REFINE_STONE_ITEM_ID",
+            "SUCCESS_RUNE_ITEM_ID",
+            "init_refine_system",
+            "seed_refine_items",
+            "get_inventory_item_refine_info",
+            "set_inventory_refine_level",
+            "get_refine_resource_counts",
+            "get_refine_total_armor_hp_bonus_percent",
+            "get_refine_effects_summary_for_user",
+            "get_inventory_refine_display_line",
+            "ensure_refine_material_stack_sizes",
+            "get_refine_material_stack_debug"
+          ]
+        },
+        {
+          "line": 191,
+          "module": "shop",
+          "names": [
+            "get_common_equipment_price_for_slot",
+            "get_allowed_main_hand_subtypes_for_class",
+            "get_allowed_off_hand_subtypes_for_class",
+            "get_allowed_shop_main_hand_profiles",
+            "get_allowed_shop_off_hand_profiles",
+            "get_common_equipment_shop_offer",
+            "get_common_equipment_shop_suboffers",
+            "cleanup_shop_previews_for_user",
+            "is_shop_profile_allowed_for_user",
+            "create_common_equipment_shop_preview",
+            "get_shop_preview_item",
+            "cancel_common_equipment_shop_preview",
+            "confirm_common_equipment_shop_preview",
+            "get_shop_preview_weapon_damage_text",
+            "init_shop_preview_system",
+            "get_shop_preview_items",
+            "get_shop_preview_item_by_id",
+            "purchase_shop_preview_item",
+            "clear_shop_preview_items",
+            "init_class_reset_sphere",
+            "use_class_reset_sphere",
+            "can_class_equip_item",
+            "get_equippable_class_items",
+            "generate_class_shop_equipment",
+            "populate_class_shop_for_user"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": [],
+      "final_bindings": []
+    },
+    {
+      "path": "db_modules/equipment.py",
+      "sha256": "564b39777715db434017fbdb3ed01713d6503471564eb2a51d38be5324476276",
+      "definitions": [
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 74,
+          "end_line": 75,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_all_equipped_items",
+          "line": 78,
+          "end_line": 79,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_detailed",
+          "line": 130,
+          "end_line": 131,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_entry",
+          "line": 134,
+          "end_line": 159,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_item_by_inventory_id",
+          "line": 162,
+          "end_line": 163,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 166,
+          "end_line": 167,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "can_equip_item_by_class",
+          "line": 231,
+          "end_line": 235,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "can_equip_inventory_item_by_class",
+          "line": 238,
+          "end_line": 242,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "is_inventory_item_class_compatible",
+          "line": 245,
+          "end_line": 249,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "equip_inventory_item",
+          "line": 256,
+          "end_line": 260,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "unequip_inventory_item",
+          "line": 263,
+          "end_line": 267,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "check_main_hand_compatibility_for_class",
+          "line": 353,
+          "end_line": 359,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "check_off_hand_compatibility_for_class",
+          "line": 362,
+          "end_line": 368,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "check_two_handed_conflict_for_equip",
+          "line": 371,
+          "end_line": 385,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports_relevant": [
+        {
+          "line": 9,
+          "module": "data.equipment_profiles",
+          "names": [
+            "ARMOR_ALLOWED_BY_CLASS",
+            "MAIN_HAND_ALLOWED_BY_CLASS",
+            "OFF_HAND_ALLOWED_BY_CLASS"
+          ]
+        },
+        {
+          "line": 21,
+          "module": "data.equipment_profiles",
+          "names": [
+            "EQUIPMENT_SLOTS",
+            "ARMOR_TYPE_LABELS",
+            "ITEM_SUBTYPE_LABELS"
+          ]
+        },
+        {
+          "line": 13,
+          "module": "systems",
+          "names": [
+            "equipment_system"
+          ]
+        }
+      ],
+      "core_calls": [
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 75,
+          "call": "_equipment_system().ensure_equipment_slots"
+        },
+        {
+          "symbol": "get_all_equipped_items",
+          "line": 79,
+          "call": "_equipment_system().get_all_equipped_items"
+        },
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 88,
+          "call": "ensure_equipment_slots"
+        },
+        {
+          "symbol": "get_inventory_detailed",
+          "line": 131,
+          "call": "_equipment_system().get_inventory_detailed"
+        },
+        {
+          "symbol": "get_item_by_inventory_id",
+          "line": 163,
+          "call": "_equipment_system().get_item_by_inventory_id"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 167,
+          "call": "_equipment_system().get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "can_equip_item_by_class",
+          "line": 232,
+          "call": "_equipment_system().can_equip_item_by_class"
+        },
+        {
+          "symbol": "can_equip_inventory_item_by_class",
+          "line": 239,
+          "call": "_equipment_system().can_equip_inventory_item_by_class"
+        },
+        {
+          "symbol": "is_inventory_item_class_compatible",
+          "line": 246,
+          "call": "_equipment_system().is_inventory_item_class_compatible"
+        },
+        {
+          "symbol": "equip_inventory_item",
+          "line": 257,
+          "call": "_equipment_system().equip_inventory_item"
+        },
+        {
+          "symbol": "unequip_inventory_item",
+          "line": 264,
+          "call": "_equipment_system().unequip_inventory_item"
+        },
+        {
+          "symbol": "get_inventory_entry",
+          "line": 142,
+          "call": "_equipment_system().get_inventory_entry"
+        }
+      ],
+      "registrations": [],
+      "final_bindings": [
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "can_equip_inventory_item_by_class",
+          "definitions": [
+            {
+              "line": 238,
+              "end_line": 242
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 238,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 238,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "can_equip_item_by_class",
+          "definitions": [
+            {
+              "line": 231,
+              "end_line": 235
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 231,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 231,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "check_main_hand_compatibility_for_class",
+          "definitions": [
+            {
+              "line": 353,
+              "end_line": 359
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 353,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 353,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "check_off_hand_compatibility_for_class",
+          "definitions": [
+            {
+              "line": 362,
+              "end_line": 368
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 362,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 362,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "check_two_handed_conflict_for_equip",
+          "definitions": [
+            {
+              "line": 371,
+              "end_line": 385
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 371,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 371,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "ensure_equipment_slots",
+          "definitions": [
+            {
+              "line": 74,
+              "end_line": 75
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 74,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 74,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "equip_inventory_item",
+          "definitions": [
+            {
+              "line": 256,
+              "end_line": 260
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 256,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 256,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "get_all_equipped_items",
+          "definitions": [
+            {
+              "line": 78,
+              "end_line": 79
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 78,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 78,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "get_inventory_detailed",
+          "definitions": [
+            {
+              "line": 130,
+              "end_line": 131
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 130,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 130,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "get_inventory_entry",
+          "definitions": [
+            {
+              "line": 134,
+              "end_line": 159
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 134,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 134,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "get_item_by_inventory_id",
+          "definitions": [
+            {
+              "line": 162,
+              "end_line": 163
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 162,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 162,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "get_item_by_inventory_id_full",
+          "definitions": [
+            {
+              "line": 166,
+              "end_line": 167
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 166,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 166,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "is_inventory_item_class_compatible",
+          "definitions": [
+            {
+              "line": 245,
+              "end_line": 249
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 245,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 245,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "symbol": "unequip_inventory_item",
+          "definitions": [
+            {
+              "line": 263,
+              "end_line": 267
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 263,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 263,
+              "status": "EFFECTIVE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "db_modules/inventory.py",
+      "sha256": "4b44ec514027e2c49e275a0230a7f9c3415739b722dd108e9bc232e2cb85ad51",
+      "definitions": [],
+      "imports_relevant": [],
+      "core_calls": [],
+      "registrations": [],
+      "final_bindings": []
+    },
+    {
+      "path": "db_modules/inventory_compat.py",
+      "sha256": "e677a6b85bb25d2a8b28bde1d14a5023d755741e27476629777fdeb2a7460aa1",
+      "definitions": [
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 620,
+          "end_line": 622,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports_relevant": [
+        {
+          "line": 17,
+          "module": "equipment",
+          "names": [
+            "EQUIPMENT_SLOTS",
+            "ARMOR_SLOTS",
+            "ARMOR_TYPE_LABELS",
+            "ITEM_SUBTYPE_LABELS"
+          ]
+        },
+        {
+          "line": 25,
+          "module": "data.equipment_profiles",
+          "names": [
+            "ARMOR_ALLOWED_BY_CLASS",
+            "MAIN_HAND_ALLOWED_BY_CLASS",
+            "OFF_HAND_ALLOWED_BY_CLASS"
+          ]
+        },
+        {
+          "line": 614,
+          "module": "systems",
+          "names": [
+            "equipment_system"
+          ]
+        }
+      ],
+      "core_calls": [
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 35,
+          "call": "ensure_equipment_slots"
+        },
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 622,
+          "call": "_equipment_system_ro_v1().ensure_equipment_slots"
+        }
+      ],
+      "registrations": [],
+      "final_bindings": [
+        {
+          "path": "db_modules/inventory_compat.py",
+          "symbol": "ensure_equipment_slots",
+          "definitions": [
+            {
+              "line": 620,
+              "end_line": 622
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 620,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 620,
+              "status": "EFFECTIVE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "systems/equipment_system.py",
+      "sha256": "53e72297481aad38e9319bd69cee5a8a0056e46502bce78981b84686522836d4",
+      "definitions": [
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 92,
+          "end_line": 94,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_all_equipped_items",
+          "line": 98,
+          "end_line": 100,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_detailed",
+          "line": 110,
+          "end_line": 112,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_entry",
+          "line": 116,
+          "end_line": 118,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_item_by_inventory_id",
+          "line": 122,
+          "end_line": 124,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 128,
+          "end_line": 130,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "can_equip_item_by_class",
+          "line": 214,
+          "end_line": 292,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "can_equip_inventory_item_by_class",
+          "line": 298,
+          "end_line": 304,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "is_inventory_item_class_compatible",
+          "line": 310,
+          "end_line": 314,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "equip_inventory_item",
+          "line": 392,
+          "end_line": 400,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "unequip_inventory_item",
+          "line": 404,
+          "end_line": 412,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 618,
+          "end_line": 652,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_all_equipped_items",
+          "line": 688,
+          "end_line": 706,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_all_equipped_items",
+          "line": 882,
+          "end_line": 900,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_all_equipped_items",
+          "line": 936,
+          "end_line": 986,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_all_equipped_items",
+          "line": 1128,
+          "end_line": 1356,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_detailed",
+          "line": 1582,
+          "end_line": 1588,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_item_by_inventory_id",
+          "line": 1594,
+          "end_line": 1600,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 1606,
+          "end_line": 1612,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_entry",
+          "line": 1618,
+          "end_line": 1634,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "equip_inventory_item",
+          "line": 2313,
+          "end_line": 2391,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "unequip_inventory_item",
+          "line": 2399,
+          "end_line": 2417,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports_relevant": [],
+      "core_calls": [
+        {
+          "symbol": "check_two_handed_conflict_for_equip",
+          "line": 278,
+          "call": "db.check_two_handed_conflict_for_equip"
+        },
+        {
+          "symbol": "can_equip_item_by_class",
+          "line": 304,
+          "call": "can_equip_item_by_class"
+        },
+        {
+          "symbol": "can_equip_inventory_item_by_class",
+          "line": 312,
+          "call": "can_equip_inventory_item_by_class"
+        },
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 660,
+          "call": "ensure_equipment_slots"
+        },
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 716,
+          "call": "ensure_equipment_slots"
+        },
+        {
+          "symbol": "ensure_equipment_slots",
+          "line": 1160,
+          "call": "ensure_equipment_slots"
+        },
+        {
+          "symbol": "can_equip_inventory_item_by_class",
+          "line": 2355,
+          "call": "can_equip_inventory_item_by_class"
+        },
+        {
+          "symbol": "get_item_by_inventory_id_full",
+          "line": 700,
+          "call": "db.get_item_by_inventory_id_full"
+        },
+        {
+          "symbol": "can_equip_inventory_item_by_class",
+          "line": 2535,
+          "call": "can_equip_inventory_item_by_class"
+        }
+      ],
+      "registrations": [],
+      "final_bindings": [
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "can_equip_inventory_item_by_class",
+          "definitions": [
+            {
+              "line": 298,
+              "end_line": 304
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 298,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 298,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "can_equip_item_by_class",
+          "definitions": [
+            {
+              "line": 214,
+              "end_line": 292
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 214,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 214,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "ensure_equipment_slots",
+          "definitions": [
+            {
+              "line": 92,
+              "end_line": 94
+            },
+            {
+              "line": 618,
+              "end_line": 652
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 618,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 92,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 618,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "equip_inventory_item",
+          "definitions": [
+            {
+              "line": 392,
+              "end_line": 400
+            },
+            {
+              "line": 2313,
+              "end_line": 2391
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 2313,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 392,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 2313,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "get_all_equipped_items",
+          "definitions": [
+            {
+              "line": 98,
+              "end_line": 100
+            },
+            {
+              "line": 688,
+              "end_line": 706
+            },
+            {
+              "line": 882,
+              "end_line": 900
+            },
+            {
+              "line": 936,
+              "end_line": 986
+            },
+            {
+              "line": 1128,
+              "end_line": 1356
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 1128,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 98,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 688,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 882,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 936,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 1128,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "get_inventory_detailed",
+          "definitions": [
+            {
+              "line": 110,
+              "end_line": 112
+            },
+            {
+              "line": 1582,
+              "end_line": 1588
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 1582,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 110,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 1582,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "get_inventory_entry",
+          "definitions": [
+            {
+              "line": 116,
+              "end_line": 118
+            },
+            {
+              "line": 1618,
+              "end_line": 1634
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 1618,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 116,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 1618,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "get_item_by_inventory_id",
+          "definitions": [
+            {
+              "line": 122,
+              "end_line": 124
+            },
+            {
+              "line": 1594,
+              "end_line": 1600
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 1594,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 122,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 1594,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "get_item_by_inventory_id_full",
+          "definitions": [
+            {
+              "line": 128,
+              "end_line": 130
+            },
+            {
+              "line": 1606,
+              "end_line": 1612
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 1606,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 128,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 1606,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "is_inventory_item_class_compatible",
+          "definitions": [
+            {
+              "line": 310,
+              "end_line": 314
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 310,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 310,
+              "status": "EFFECTIVE"
+            }
+          ]
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "symbol": "unequip_inventory_item",
+          "definitions": [
+            {
+              "line": 404,
+              "end_line": 412
+            },
+            {
+              "line": 2399,
+              "end_line": 2417
+            }
+          ],
+          "effective_by_module_binding": {
+            "line": 2399,
+            "reason": "last top-level binding in module namespace"
+          },
+          "classification": [
+            {
+              "line": 404,
+              "status": "SUPERSEDED_IN_MODULE"
+            },
+            {
+              "line": 2399,
+              "status": "EFFECTIVE"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "v2_owner_matrix": {
+    "item_identity_and_item_definition": "rom_v2/domain/item.py",
+    "inventory_aggregate_and_membership_invariants": "rom_v2/domain/inventory.py (new, narrow owner approved)",
+    "equipment_compatibility_and_slot_policy": "rom_v2/domain/equipment.py",
+    "inventory_queries_and_inventory_mutations": "rom_v2/application/inventory_service.py",
+    "equip_unequip_orchestration": "rom_v2/application/equipment_service.py",
+    "inventory_repository_port": "rom_v2/application/inventory_ports.py",
+    "equipment_repository_port": "rom_v2/application/equipment_ports.py",
+    "inventory_persistence": "rom_v2/infrastructure/persistence/inventory_repository.py",
+    "equipment_persistence": "rom_v2/infrastructure/persistence/equipment_repository.py",
+    "inventory_transaction_boundary": "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+    "equipment_transaction_boundary": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+    "presentation_input_dto": "rom_v2/presentation/item_dto.py",
+    "telegram_inventory_ui": "NEW_IN_21_18_1B_NOT_21_18_1A",
+    "runtime_dispatch": "rom_v2/app/development_bot.py",
+    "runtime_composition": "rom_v2/app/runtime_launcher.py"
+  },
+  "v2_files": [
+    {
+      "role": "item_domain",
+      "path": "rom_v2/domain/item.py",
+      "exists": true,
+      "sha256": "fa797efef9e445235d256d6f31d5db16f79e765236e21f3d6cc7287b2b9c37f2",
+      "definitions": [
+        {
+          "symbol": "_positive",
+          "line": 7,
+          "end_line": 10,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "ItemDefinition",
+          "line": 14,
+          "end_line": 25,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "ItemInstance",
+          "line": 29,
+          "end_line": 45,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "StoryQuestItemIdentity",
+          "line": 49,
+          "end_line": 58,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__post_init__",
+          "line": 21,
+          "end_line": 25,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__post_init__",
+          "line": 37,
+          "end_line": 42,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "with_quantity",
+          "line": 44,
+          "end_line": 45,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__post_init__",
+          "line": 55,
+          "end_line": 58,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "typing",
+          "names": [
+            "Any",
+            "Mapping"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "equipment_domain",
+      "path": "rom_v2/domain/equipment.py",
+      "exists": true,
+      "sha256": "b315cdd10a82b4a6b0e779e25df66b584a54fb6d1ad79aa5f20ea82dc96e1cff",
+      "definitions": [
+        {
+          "symbol": "EquipmentItemPolicy",
+          "line": 7,
+          "end_line": 15,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "EquipmentSlot",
+          "line": 17,
+          "end_line": 21,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__post_init__",
+          "line": 10,
+          "end_line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__post_init__",
+          "line": 19,
+          "end_line": 21,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "inventory_domain_candidate",
+      "path": "rom_v2/domain/inventory.py",
+      "exists": false
+    },
+    {
+      "role": "inventory_service",
+      "path": "rom_v2/application/inventory_service.py",
+      "exists": true,
+      "sha256": "6bf6498fda0d290af266c51df92f892706279c937df9cc5d4467bd66030ef65e",
+      "definitions": [
+        {
+          "symbol": "InventoryResult",
+          "line": 8,
+          "end_line": 12,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "InventoryService",
+          "line": 14,
+          "end_line": 75,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 15,
+          "end_line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "list_inventory",
+          "line": 18,
+          "end_line": 25,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "add_item",
+          "line": 27,
+          "end_line": 43,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "consume_exact",
+          "line": 45,
+          "end_line": 55,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "consume_by_definition",
+          "line": 57,
+          "end_line": 75,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "rom_v2.application.inventory_ports",
+          "names": [
+            "InventoryReservationReaderPort",
+            "InventoryUnitOfWorkFactoryPort"
+          ]
+        },
+        {
+          "line": 5,
+          "module": "rom_v2.domain.item",
+          "names": [
+            "ItemInstance"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "equipment_service",
+      "path": "rom_v2/application/equipment_service.py",
+      "exists": true,
+      "sha256": "1b0b9c416886f067f5beb2a987ae4fa2b72309a37d8668f6095f2769d9dd8a09",
+      "definitions": [
+        {
+          "symbol": "EquipmentResult",
+          "line": 7,
+          "end_line": 8,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "EquipmentService",
+          "line": 9,
+          "end_line": 36,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 10,
+          "end_line": 10,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "list_slots",
+          "line": 11,
+          "end_line": 14,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "equip",
+          "line": 15,
+          "end_line": 29,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "unequip",
+          "line": 30,
+          "end_line": 36,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "rom_v2.application.equipment_ports",
+          "names": [
+            "EquipmentUnitOfWorkFactoryPort"
+          ]
+        },
+        {
+          "line": 5,
+          "module": "rom_v2.domain.equipment",
+          "names": [
+            "EquipmentItemPolicy",
+            "EquipmentSlot",
+            "SLOT_KEYS"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "inventory_ports",
+      "path": "rom_v2/application/inventory_ports.py",
+      "exists": true,
+      "sha256": "888e5d54e6e0f60efc438b3cc6ed3bfd178ccec1da86aa8e1f98f3aa64d85c82",
+      "definitions": [
+        {
+          "symbol": "InventoryRepositoryPort",
+          "line": 6,
+          "end_line": 12,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "InventoryReservationReaderPort",
+          "line": 14,
+          "end_line": 15,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "InventoryUnitOfWorkPort",
+          "line": 17,
+          "end_line": 22,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "InventoryUnitOfWorkFactoryPort",
+          "line": 24,
+          "end_line": 25,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "get_definition",
+          "line": 7,
+          "end_line": 7,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "list_by_owner",
+          "line": 8,
+          "end_line": 8,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_instance",
+          "line": 9,
+          "end_line": 9,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "insert_instance",
+          "line": 10,
+          "end_line": 10,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "change_quantity",
+          "line": 11,
+          "end_line": 11,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "delete_instance",
+          "line": 12,
+          "end_line": 12,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "reserved_quantity",
+          "line": 15,
+          "end_line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__enter__",
+          "line": 19,
+          "end_line": 19,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__exit__",
+          "line": 20,
+          "end_line": 20,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "commit",
+          "line": 21,
+          "end_line": 21,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "rollback",
+          "line": 22,
+          "end_line": 22,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__call__",
+          "line": 25,
+          "end_line": 25,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "typing",
+          "names": [
+            "Protocol",
+            "Sequence"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "rom_v2.domain.item",
+          "names": [
+            "ItemDefinition",
+            "ItemInstance"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "equipment_ports",
+      "path": "rom_v2/application/equipment_ports.py",
+      "exists": true,
+      "sha256": "d69599c10f4c81eca867e1e5037cd813f50971f28b71f294bf78196c53d98904",
+      "definitions": [
+        {
+          "symbol": "EquipmentRepositoryPort",
+          "line": 6,
+          "end_line": 10,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "EquipmentUnitOfWorkPort",
+          "line": 11,
+          "end_line": 16,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "EquipmentUnitOfWorkFactoryPort",
+          "line": 17,
+          "end_line": 18,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "list_slots",
+          "line": 7,
+          "end_line": 7,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_instance",
+          "line": 8,
+          "end_line": 8,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "set_slot",
+          "line": 9,
+          "end_line": 9,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "clear_slot",
+          "line": 10,
+          "end_line": 10,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__enter__",
+          "line": 13,
+          "end_line": 13,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__exit__",
+          "line": 14,
+          "end_line": 14,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "commit",
+          "line": 15,
+          "end_line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "rollback",
+          "line": 16,
+          "end_line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__call__",
+          "line": 18,
+          "end_line": 18,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "typing",
+          "names": [
+            "Protocol",
+            "Sequence"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "rom_v2.domain.equipment",
+          "names": [
+            "EquipmentSlot"
+          ]
+        },
+        {
+          "line": 5,
+          "module": "rom_v2.domain.item",
+          "names": [
+            "ItemInstance"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "inventory_repository",
+      "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+      "exists": true,
+      "sha256": "e404fa78d10aa15f7deab48d9101ecdb8a970bcd0d8d96fbaa28ee5975dd0dc0",
+      "definitions": [
+        {
+          "symbol": "SQLiteInventoryRepository",
+          "line": 6,
+          "end_line": 21,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 7,
+          "end_line": 7,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_definition",
+          "line": 8,
+          "end_line": 10,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "list_by_owner",
+          "line": 11,
+          "end_line": 13,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_instance",
+          "line": 14,
+          "end_line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "insert_instance",
+          "line": 17,
+          "end_line": 19,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "change_quantity",
+          "line": 20,
+          "end_line": 20,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "delete_instance",
+          "line": 21,
+          "end_line": 21,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": null,
+          "names": [
+            "json",
+            "sqlite3"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "rom_v2.domain.item",
+          "names": [
+            "ItemDefinition",
+            "ItemInstance"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "equipment_repository",
+      "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+      "exists": true,
+      "sha256": "a2502e256a385dd10381d2126ad00672dee7a2aeff9a08f02bc76e6b175a3245",
+      "definitions": [
+        {
+          "symbol": "SQLiteEquipmentRepository",
+          "line": 6,
+          "end_line": 16,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 7,
+          "end_line": 7,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "list_slots",
+          "line": 8,
+          "end_line": 10,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "get_inventory_instance",
+          "line": 11,
+          "end_line": 13,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "set_slot",
+          "line": 14,
+          "end_line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "clear_slot",
+          "line": 16,
+          "end_line": 16,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": null,
+          "names": [
+            "json",
+            "sqlite3"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "rom_v2.domain.equipment",
+          "names": [
+            "EquipmentSlot"
+          ]
+        },
+        {
+          "line": 5,
+          "module": "rom_v2.domain.item",
+          "names": [
+            "ItemInstance"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "inventory_uow",
+      "path": "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+      "exists": true,
+      "sha256": "8f7213c0018d4ad5a936c5c260e0f79d72be7e48ec7752efd569dc4b6dd8b4c9",
+      "definitions": [
+        {
+          "symbol": "SQLiteInventoryUnitOfWork",
+          "line": 4,
+          "end_line": 13,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "SQLiteInventoryUnitOfWorkFactory",
+          "line": 14,
+          "end_line": 16,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 5,
+          "end_line": 5,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__enter__",
+          "line": 6,
+          "end_line": 7,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "commit",
+          "line": 8,
+          "end_line": 8,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "rollback",
+          "line": 9,
+          "end_line": 9,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__exit__",
+          "line": 10,
+          "end_line": 13,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 15,
+          "end_line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__call__",
+          "line": 16,
+          "end_line": 16,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "rom_v2.infrastructure.persistence.inventory_repository",
+          "names": [
+            "SQLiteInventoryRepository"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "equipment_uow",
+      "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+      "exists": true,
+      "sha256": "cdeb81d4edc6c2635167c090c0e2b3a3f6cd2b71b5ef20f9640cf444656c9376",
+      "definitions": [
+        {
+          "symbol": "SQLiteEquipmentUnitOfWork",
+          "line": 4,
+          "end_line": 12,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "SQLiteEquipmentUnitOfWorkFactory",
+          "line": 13,
+          "end_line": 15,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 5,
+          "end_line": 5,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__enter__",
+          "line": 6,
+          "end_line": 6,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "commit",
+          "line": 7,
+          "end_line": 7,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "rollback",
+          "line": 8,
+          "end_line": 8,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__exit__",
+          "line": 9,
+          "end_line": 12,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 14,
+          "end_line": 14,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__call__",
+          "line": 15,
+          "end_line": 15,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": "rom_v2.infrastructure.persistence.equipment_repository",
+          "names": [
+            "SQLiteEquipmentRepository"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "item_dto",
+      "path": "rom_v2/presentation/item_dto.py",
+      "exists": true,
+      "sha256": "8a221e3444fc2c2454206a152f9199211c97c13e60551d7c626750d1a8734115",
+      "definitions": [
+        {
+          "symbol": "RunePresentation",
+          "line": 16,
+          "end_line": 22,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "ItemPresentationInput",
+          "line": 25,
+          "end_line": 52,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "PresentationField",
+          "line": 55,
+          "end_line": 59,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "ItemDescriptionDTO",
+          "line": 62,
+          "end_line": 67,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "ComparisonRow",
+          "line": 70,
+          "end_line": 74,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "ItemComparisonDTO",
+          "line": 77,
+          "end_line": 80,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "_value",
+          "line": 82,
+          "end_line": 84,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "_ordered_numeric",
+          "line": 86,
+          "end_line": 91,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_display_name",
+          "line": 93,
+          "end_line": 96,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_item_description",
+          "line": 98,
+          "end_line": 110,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "_number",
+          "line": 112,
+          "end_line": 114,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "compare_items",
+          "line": 116,
+          "end_line": 125,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__post_init__",
+          "line": 45,
+          "end_line": 52,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 7,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 8,
+          "module": "dataclasses",
+          "names": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "line": 9,
+          "module": "typing",
+          "names": [
+            "Iterable",
+            "Mapping"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "runtime_dispatch",
+      "path": "rom_v2/app/development_bot.py",
+      "exists": true,
+      "sha256": "ce5f1c377366a4244004bb53631e71b2b0e84eb760d99f89fcd8c485b38b9fdb",
+      "definitions": [
+        {
+          "symbol": "DevelopmentBotConfig",
+          "line": 20,
+          "end_line": 32,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "IndependentDevelopmentBot",
+          "line": 35,
+          "end_line": 135,
+          "kind": "ClassDef"
+        },
+        {
+          "symbol": "build_development_bot",
+          "line": 138,
+          "end_line": 144,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__post_init__",
+          "line": 28,
+          "end_line": 32,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "__init__",
+          "line": 38,
+          "end_line": 44,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "stop",
+          "line": 46,
+          "end_line": 48,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "_authorized",
+          "line": 50,
+          "end_line": 51,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "_send_view",
+          "line": 53,
+          "end_line": 54,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "handle_update",
+          "line": 56,
+          "end_line": 115,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "run",
+          "line": 117,
+          "end_line": 135,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 4,
+          "module": null,
+          "names": [
+            "logging"
+          ]
+        },
+        {
+          "line": 5,
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ]
+        },
+        {
+          "line": 6,
+          "module": "threading",
+          "names": [
+            "Event"
+          ]
+        },
+        {
+          "line": 7,
+          "module": "time",
+          "names": [
+            "sleep"
+          ]
+        },
+        {
+          "line": 8,
+          "module": "typing",
+          "names": [
+            "Iterable",
+            "Mapping"
+          ]
+        },
+        {
+          "line": 10,
+          "module": "rom_v2.infrastructure.telegram.bot_api",
+          "names": [
+            "TelegramBotApi",
+            "TelegramTransportError"
+          ]
+        },
+        {
+          "line": 11,
+          "module": "rom_v2.presentation.development_shell",
+          "names": [
+            "ShellView",
+            "route_shell_action"
+          ]
+        },
+        {
+          "line": 12,
+          "module": "rom_v2.presentation.registration_flow",
+          "names": [
+            "TelegramRegistrationFlow"
+          ]
+        },
+        {
+          "line": 13,
+          "module": "rom_v2.presentation.profile_flow",
+          "names": [
+            "TelegramProfileFlow"
+          ]
+        },
+        {
+          "line": 14,
+          "module": "rom_v2.presentation.character_reset_flow",
+          "names": [
+            "TelegramCharacterResetFlow"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    },
+    {
+      "role": "runtime_composition",
+      "path": "rom_v2/app/runtime_launcher.py",
+      "exists": true,
+      "sha256": "d42447a067b0df73aa8338eeadcd5bf589380577f77ca0540716b974e5c51045",
+      "definitions": [
+        {
+          "symbol": "_dotenv",
+          "line": 15,
+          "end_line": 22,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "_allowed_ids",
+          "line": 24,
+          "end_line": 27,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "build_runtime",
+          "line": 29,
+          "end_line": 43,
+          "kind": "FunctionDef"
+        },
+        {
+          "symbol": "main",
+          "line": 45,
+          "end_line": 49,
+          "kind": "FunctionDef"
+        }
+      ],
+      "imports": [
+        {
+          "line": 2,
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "line": 3,
+          "module": null,
+          "names": [
+            "os"
+          ]
+        },
+        {
+          "line": 4,
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        },
+        {
+          "line": 5,
+          "module": "rom_v2.app.development_bot",
+          "names": [
+            "DevelopmentBotConfig",
+            "IndependentDevelopmentBot"
+          ]
+        },
+        {
+          "line": 6,
+          "module": "rom_v2.application.account_service",
+          "names": [
+            "AccountService"
+          ]
+        },
+        {
+          "line": 7,
+          "module": "rom_v2.application.character_service",
+          "names": [
+            "CharacterService"
+          ]
+        },
+        {
+          "line": 8,
+          "module": "rom_v2.application.profile_query_service",
+          "names": [
+            "ProfileQueryService"
+          ]
+        },
+        {
+          "line": 9,
+          "module": "rom_v2.infrastructure.persistence",
+          "names": [
+            "SQLiteAccountUnitOfWorkFactory",
+            "SQLiteCharacterUnitOfWorkFactory",
+            "V2ConnectionFactory",
+            "V2Migrator"
+          ]
+        },
+        {
+          "line": 10,
+          "module": "rom_v2.infrastructure.telegram.bot_api",
+          "names": [
+            "TelegramBotApi"
+          ]
+        },
+        {
+          "line": 11,
+          "module": "rom_v2.presentation.registration_flow",
+          "names": [
+            "TelegramRegistrationFlow"
+          ]
+        },
+        {
+          "line": 12,
+          "module": "rom_v2.presentation.profile_flow",
+          "names": [
+            "TelegramProfileFlow"
+          ]
+        },
+        {
+          "line": 13,
+          "module": "rom_v2.presentation.character_reset_flow",
+          "names": [
+            "TelegramCharacterResetFlow"
+          ]
+        }
+      ],
+      "core_calls": [],
+      "registrations": []
+    }
+  ],
+  "v2_duplicate_symbol_groups": {
+    "get_inventory_instance": [
+      {
+        "role": "equipment_ports",
+        "path": "rom_v2/application/equipment_ports.py",
+        "line": 8
+      },
+      {
+        "role": "equipment_repository",
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "line": 11
+      }
+    ]
+  },
+  "blocking_conflicts": [],
+  "inventory_domain_decision": {
+    "decision": "APPROVED_AS_NEW_NARROW_CANONICAL_OWNER",
+    "path": "rom_v2/domain/inventory.py",
+    "reason": "A dedicated domain owner is acceptable for inventory aggregate/value invariants that are not already owned by item.py, services, ports, repositories or UoW.",
+    "allowed_responsibilities": [
+      "Inventory aggregate/value objects",
+      "capacity invariant",
+      "character ownership invariant",
+      "unique item-instance membership",
+      "pure add/remove/membership validation without persistence"
+    ],
+    "forbidden_responsibilities": [
+      "Item definition already owned by item.py",
+      "equipment compatibility already owned by equipment.py",
+      "SQL or repository access",
+      "Unit of Work and transaction management",
+      "pagination, sorting, localized labels or Telegram callbacks",
+      "equip/unequip orchestration",
+      "duplicate functions or constants already defined in another production module"
+    ],
+    "existing_symbol_inventory": {
+      "_positive": {
+        "path": "rom_v2/domain/item.py",
+        "role": "item_domain",
+        "line": 7
+      },
+      "ItemDefinition": {
+        "path": "rom_v2/domain/item.py",
+        "role": "item_domain",
+        "line": 14
+      },
+      "ItemInstance": {
+        "path": "rom_v2/domain/item.py",
+        "role": "item_domain",
+        "line": 29
+      },
+      "StoryQuestItemIdentity": {
+        "path": "rom_v2/domain/item.py",
+        "role": "item_domain",
+        "line": 49
+      },
+      "__post_init__": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 28
+      },
+      "with_quantity": {
+        "path": "rom_v2/domain/item.py",
+        "role": "item_domain",
+        "line": 44
+      },
+      "EquipmentItemPolicy": {
+        "path": "rom_v2/domain/equipment.py",
+        "role": "equipment_domain",
+        "line": 7
+      },
+      "EquipmentSlot": {
+        "path": "rom_v2/domain/equipment.py",
+        "role": "equipment_domain",
+        "line": 17
+      },
+      "InventoryResult": {
+        "path": "rom_v2/application/inventory_service.py",
+        "role": "inventory_service",
+        "line": 8
+      },
+      "InventoryService": {
+        "path": "rom_v2/application/inventory_service.py",
+        "role": "inventory_service",
+        "line": 14
+      },
+      "__init__": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 38
+      },
+      "list_inventory": {
+        "path": "rom_v2/application/inventory_service.py",
+        "role": "inventory_service",
+        "line": 18
+      },
+      "add_item": {
+        "path": "rom_v2/application/inventory_service.py",
+        "role": "inventory_service",
+        "line": 27
+      },
+      "consume_exact": {
+        "path": "rom_v2/application/inventory_service.py",
+        "role": "inventory_service",
+        "line": 45
+      },
+      "consume_by_definition": {
+        "path": "rom_v2/application/inventory_service.py",
+        "role": "inventory_service",
+        "line": 57
+      },
+      "EquipmentResult": {
+        "path": "rom_v2/application/equipment_service.py",
+        "role": "equipment_service",
+        "line": 7
+      },
+      "EquipmentService": {
+        "path": "rom_v2/application/equipment_service.py",
+        "role": "equipment_service",
+        "line": 9
+      },
+      "list_slots": {
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "role": "equipment_repository",
+        "line": 8
+      },
+      "equip": {
+        "path": "rom_v2/application/equipment_service.py",
+        "role": "equipment_service",
+        "line": 15
+      },
+      "unequip": {
+        "path": "rom_v2/application/equipment_service.py",
+        "role": "equipment_service",
+        "line": 30
+      },
+      "InventoryRepositoryPort": {
+        "path": "rom_v2/application/inventory_ports.py",
+        "role": "inventory_ports",
+        "line": 6
+      },
+      "InventoryReservationReaderPort": {
+        "path": "rom_v2/application/inventory_ports.py",
+        "role": "inventory_ports",
+        "line": 14
+      },
+      "InventoryUnitOfWorkPort": {
+        "path": "rom_v2/application/inventory_ports.py",
+        "role": "inventory_ports",
+        "line": 17
+      },
+      "InventoryUnitOfWorkFactoryPort": {
+        "path": "rom_v2/application/inventory_ports.py",
+        "role": "inventory_ports",
+        "line": 24
+      },
+      "get_definition": {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "role": "inventory_repository",
+        "line": 8
+      },
+      "list_by_owner": {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "role": "inventory_repository",
+        "line": 11
+      },
+      "get_instance": {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "role": "inventory_repository",
+        "line": 14
+      },
+      "insert_instance": {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "role": "inventory_repository",
+        "line": 17
+      },
+      "change_quantity": {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "role": "inventory_repository",
+        "line": 20
+      },
+      "delete_instance": {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "role": "inventory_repository",
+        "line": 21
+      },
+      "reserved_quantity": {
+        "path": "rom_v2/application/inventory_ports.py",
+        "role": "inventory_ports",
+        "line": 15
+      },
+      "__enter__": {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "role": "equipment_uow",
+        "line": 6
+      },
+      "__exit__": {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "role": "equipment_uow",
+        "line": 9
+      },
+      "commit": {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "role": "equipment_uow",
+        "line": 7
+      },
+      "rollback": {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "role": "equipment_uow",
+        "line": 8
+      },
+      "__call__": {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "role": "equipment_uow",
+        "line": 15
+      },
+      "EquipmentRepositoryPort": {
+        "path": "rom_v2/application/equipment_ports.py",
+        "role": "equipment_ports",
+        "line": 6
+      },
+      "EquipmentUnitOfWorkPort": {
+        "path": "rom_v2/application/equipment_ports.py",
+        "role": "equipment_ports",
+        "line": 11
+      },
+      "EquipmentUnitOfWorkFactoryPort": {
+        "path": "rom_v2/application/equipment_ports.py",
+        "role": "equipment_ports",
+        "line": 17
+      },
+      "get_inventory_instance": {
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "role": "equipment_repository",
+        "line": 11
+      },
+      "set_slot": {
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "role": "equipment_repository",
+        "line": 14
+      },
+      "clear_slot": {
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "role": "equipment_repository",
+        "line": 16
+      },
+      "SQLiteInventoryRepository": {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "role": "inventory_repository",
+        "line": 6
+      },
+      "SQLiteEquipmentRepository": {
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "role": "equipment_repository",
+        "line": 6
+      },
+      "SQLiteInventoryUnitOfWork": {
+        "path": "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+        "role": "inventory_uow",
+        "line": 4
+      },
+      "SQLiteInventoryUnitOfWorkFactory": {
+        "path": "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+        "role": "inventory_uow",
+        "line": 14
+      },
+      "SQLiteEquipmentUnitOfWork": {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "role": "equipment_uow",
+        "line": 4
+      },
+      "SQLiteEquipmentUnitOfWorkFactory": {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "role": "equipment_uow",
+        "line": 13
+      },
+      "RunePresentation": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 16
+      },
+      "ItemPresentationInput": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 25
+      },
+      "PresentationField": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 55
+      },
+      "ItemDescriptionDTO": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 62
+      },
+      "ComparisonRow": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 70
+      },
+      "ItemComparisonDTO": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 77
+      },
+      "_value": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 82
+      },
+      "_ordered_numeric": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 86
+      },
+      "build_display_name": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 93
+      },
+      "build_item_description": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 98
+      },
+      "_number": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 112
+      },
+      "compare_items": {
+        "path": "rom_v2/presentation/item_dto.py",
+        "role": "item_dto",
+        "line": 116
+      },
+      "DevelopmentBotConfig": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 20
+      },
+      "IndependentDevelopmentBot": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 35
+      },
+      "build_development_bot": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 138
+      },
+      "stop": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 46
+      },
+      "_authorized": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 50
+      },
+      "_send_view": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 53
+      },
+      "handle_update": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 56
+      },
+      "run": {
+        "path": "rom_v2/app/development_bot.py",
+        "role": "runtime_dispatch",
+        "line": 117
+      },
+      "_dotenv": {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "role": "runtime_composition",
+        "line": 15
+      },
+      "_allowed_ids": {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "role": "runtime_composition",
+        "line": 24
+      },
+      "build_runtime": {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "role": "runtime_composition",
+        "line": 29
+      },
+      "main": {
+        "path": "rom_v2/app/runtime_launcher.py",
+        "role": "runtime_composition",
+        "line": 45
+      }
+    },
+    "creation_gate": "Before writing each public symbol, scan rom_v2 for the same name and semantic responsibility; if an owner exists, import/reuse it instead of redefining it."
+  },
+  "implementation_contract": {
+    "target_stage": "21.18.1a",
+    "exact_candidate_allowlist": [
+      "rom_v2/domain/inventory.py",
+      "rom_v2/application/inventory_service.py",
+      "rom_v2/application/equipment_service.py",
+      "rom_v2/application/inventory_ports.py",
+      "rom_v2/application/equipment_ports.py",
+      "rom_v2/infrastructure/persistence/inventory_repository.py",
+      "rom_v2/infrastructure/persistence/equipment_repository.py",
+      "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+      "rom_v2/infrastructure/persistence/migrations/<only-if-schema-gap-proven>.py",
+      "tests_v2/test_v2_inventory_equipment_application_completion.py",
+      "reports/stage_21_18_1a_inventory_equipment_application_completion.json",
+      "MD/STAGE_21_18_1A_INVENTORY_EQUIPMENT_APPLICATION_COMPLETION.md"
+    ],
+    "rules": [
+      "one semantic responsibility has one authoritative owner",
+      "no duplicate public function/class/constant names in production scope",
+      "reuse existing item and equipment policies instead of copying",
+      "inventory_id is the stable item-instance identity",
+      "validate ownership, level, class, slot and two-handed/off-hand conflicts before side effects",
+      "equip/unequip is atomic within one UoW",
+      "query sorting/pagination/details/compare remain pure and do not mutate",
+      "no Telegram or localized presentation work until 21.18.1b",
+      "migration allowed only when a concrete schema gap is proven by integration tests"
+    ],
+    "required_tests": [
+      "duplicate/public-symbol ownership scan",
+      "temporary SQLite add/read/equip/unequip/restart",
+      "foreign-character inventory_id rejection",
+      "unknown/stale inventory_id rejection",
+      "class and required-level rejection without mutation",
+      "two-handed main-hand clears or rejects off-hand according to canonical equipment policy",
+      "off-hand rejects conflict with equipped two-handed main-hand",
+      "transaction rollback restores inventory and equipment slots",
+      "canonical V2 CI remains side-effect-free"
+    ]
+  },
+  "safety": {
+    "production_files_modified": false,
+    "database_opened": false,
+    "telegram_started": false,
+    "v1_runtime_executed": false,
+    "wal_shm_manipulated": false
+  },
+  "manual_game_check": "NOT_REQUIRED"
+}
