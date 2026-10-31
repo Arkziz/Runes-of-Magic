@@ -1,0 +1,5856 @@
+{
+  "schema_version": 1,
+  "stage": "21.18.1",
+  "patch_revision": 1,
+  "status": "PASS_READ_ONLY",
+  "conclusion": "GO_TO_21_18_1A_APPLICATION_COMPLETION",
+  "generated_at_utc": "2026-10-31T17:47:46.861534+00:00",
+  "git": {
+    "branch": "rewrite/rom-v2",
+    "head": "12f29f1b7a930356914e0cca12093b30f99d7c46"
+  },
+  "roadmap": {
+    "block": "21.18 Core gameplay playable slices",
+    "scope": "effective inventory, sorting, pagination, item details, instance identity, equip/unequip, two-handed/off-hand rules and duplicate builders/handlers",
+    "acceptance": "authoritative V1 behavior fixtures and dependency map completed",
+    "manual_game_check": "NOT_REQUIRED"
+  },
+  "v1": {
+    "candidate_files": [
+      {
+        "path": "data/drop_tables.py",
+        "sha256": "94d03fe78492d06e11a873ada35bab991eb35b4dfa5a053d42c55d92579c7cf4",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "data/equipment_identity_stat_policy.py",
+        "sha256": "50256d38297c990cf994f1d165236395303db7ab4bb7ae75cbc67e834be88bf1",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "data/equipment_profiles.py",
+        "sha256": "f936cef3c3eae91b347a991c01ceb032dd6f7601ba82e3cd26b53f5abc4ea988",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "data/equipment_stat_policy.py",
+        "sha256": "2d7f0e0ce17ae316dc8eaa4c01a3451607c8f1de2bf7b6644ea9ded7ccc24b2f",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "normalize_equipment_class",
+            "kind": "FunctionDef",
+            "line": 93
+          },
+          {
+            "name": "get_equipment_stat_weights",
+            "kind": "FunctionDef",
+            "line": 122
+          },
+          {
+            "name": "get_allowed_equipment_stats",
+            "kind": "FunctionDef",
+            "line": 149
+          },
+          {
+            "name": "validate_equipment_stat_policy",
+            "kind": "FunctionDef",
+            "line": 153
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "data/runes.py",
+        "sha256": "0085766c321b0827e05f9a17d737b5c7999693e3e786df56e9b2c3033594475a",
+        "terms": [
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "data/story_quest_definitions.py",
+        "sha256": "be180e71dc857923517284b4e92aa14bec602baef0751eeec49662abe5a430d2",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "data/story_quest_item_identity.py",
+        "sha256": "c7dca9648fd758dc8417b748023bcb77ce706e83852c8151fc79bfa388935044",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "data/story_quests/start_path_41_50.py",
+        "sha256": "7cd79f589061ba7c543f99b37c942c9ce65037d08fce7b9c5fbf49e6f26539ad",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "db.py",
+        "sha256": "3e0797cb4a8f41b9241a4f4cbc640f39d16eb57e7ad608e57c25aacbdd5ab5e2",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/__init__.py",
+        "sha256": "cfe6b42026692106e98c89d22f3af0d1635c7914a2cb298412b0bbb6a36d00eb",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_detail",
+          "main_hand",
+          "off_hand",
+          "two_hand",
+          "unequip"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/connection.py",
+        "sha256": "65c0b4b8aea6a7809354dc96f94780bfdbada117ce0f53da8fc5346f05fa2e4a",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/dev_compat.py",
+        "sha256": "c140072edbb338a6f7ca396d0b442f559962a8dc8d7aa1148f7e2d3314069741",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "get_inventory_used_slots",
+            "kind": "FunctionDef",
+            "line": 51
+          },
+          {
+            "name": "init_dynamic_equipment_system",
+            "kind": "FunctionDef",
+            "line": 520
+          },
+          {
+            "name": "get_random_main_hand_profile",
+            "kind": "FunctionDef",
+            "line": 547
+          },
+          {
+            "name": "get_random_off_hand_profile",
+            "kind": "FunctionDef",
+            "line": 550
+          },
+          {
+            "name": "generate_dynamic_equipment_stats",
+            "kind": "FunctionDef",
+            "line": 583
+          },
+          {
+            "name": "init_class_equipment_restrictions_system",
+            "kind": "FunctionDef",
+            "line": 811
+          },
+          {
+            "name": "normalize_equipment_restriction_value",
+            "kind": "FunctionDef",
+            "line": 831
+          },
+          {
+            "name": "_equipment_system_ro_v1",
+            "kind": "FunctionDef",
+            "line": 1569
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/equipment.py",
+        "sha256": "564b39777715db434017fbdb3ed01713d6503471564eb2a51d38be5324476276",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_info",
+          "main_hand",
+          "off_hand",
+          "two_hand",
+          "unequip"
+        ],
+        "symbols": [
+          {
+            "name": "_equipment_system",
+            "kind": "FunctionDef",
+            "line": 12
+          },
+          {
+            "name": "normalize_equipment_restriction_value",
+            "kind": "FunctionDef",
+            "line": 46
+          },
+          {
+            "name": "ensure_equipment_slots",
+            "kind": "FunctionDef",
+            "line": 74
+          },
+          {
+            "name": "get_all_equipped_items",
+            "kind": "FunctionDef",
+            "line": 78
+          },
+          {
+            "name": "get_all_equipped_slots",
+            "kind": "FunctionDef",
+            "line": 82
+          },
+          {
+            "name": "get_equipped_slot",
+            "kind": "FunctionDef",
+            "line": 110
+          },
+          {
+            "name": "get_equipped_items_for_repair",
+            "kind": "FunctionDef",
+            "line": 118
+          },
+          {
+            "name": "get_inventory_detailed",
+            "kind": "FunctionDef",
+            "line": 130
+          },
+          {
+            "name": "get_inventory_entry",
+            "kind": "FunctionDef",
+            "line": 134
+          },
+          {
+            "name": "get_item_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 162
+          },
+          {
+            "name": "get_item_by_inventory_id_full",
+            "kind": "FunctionDef",
+            "line": 166
+          },
+          {
+            "name": "get_equipped_item_defenses",
+            "kind": "FunctionDef",
+            "line": 174
+          },
+          {
+            "name": "get_sellable_equipment_items",
+            "kind": "FunctionDef",
+            "line": 178
+          },
+          {
+            "name": "get_weapon_damage_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 198
+          },
+          {
+            "name": "get_inventory_weapon_damage_display",
+            "kind": "FunctionDef",
+            "line": 202
+          },
+          {
+            "name": "get_inventory_refine_level",
+            "kind": "FunctionDef",
+            "line": 210
+          },
+          {
+            "name": "get_inventory_refined_display_name",
+            "kind": "FunctionDef",
+            "line": 214
+          },
+          {
+            "name": "can_equip_item_by_class",
+            "kind": "FunctionDef",
+            "line": 231
+          },
+          {
+            "name": "can_equip_inventory_item_by_class",
+            "kind": "FunctionDef",
+            "line": 238
+          },
+          {
+            "name": "is_inventory_item_class_compatible",
+            "kind": "FunctionDef",
+            "line": 245
+          },
+          {
+            "name": "equip_inventory_item",
+            "kind": "FunctionDef",
+            "line": 256
+          },
+          {
+            "name": "unequip_inventory_item",
+            "kind": "FunctionDef",
+            "line": 263
+          },
+          {
+            "name": "unequip_incompatible_items_after_class_change",
+            "kind": "FunctionDef",
+            "line": 270
+          },
+          {
+            "name": "repair_equipped_item",
+            "kind": "FunctionDef",
+            "line": 278
+          },
+          {
+            "name": "repair_all_equipped",
+            "kind": "FunctionDef",
+            "line": 285
+          },
+          {
+            "name": "damage_equipped_items_on_death",
+            "kind": "FunctionDef",
+            "line": 297
+          },
+          {
+            "name": "sell_inventory_item_to_trader",
+            "kind": "FunctionDef",
+            "line": 315
+          },
+          {
+            "name": "buy_common_equipment_from_trader",
+            "kind": "FunctionDef",
+            "line": 322
+          },
+          {
+            "name": "check_main_hand_compatibility_for_class",
+            "kind": "FunctionDef",
+            "line": 353
+          },
+          {
+            "name": "check_off_hand_compatibility_for_class",
+            "kind": "FunctionDef",
+            "line": 362
+          },
+          {
+            "name": "check_two_handed_conflict_for_equip",
+            "kind": "FunctionDef",
+            "line": 371
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/generated_equipment.py",
+        "sha256": "a23b6558917037098873de61f79c45ab347cf7587a8c5a5977230fb69dd11a4b",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "_class_aware_equipment_kind",
+            "kind": "FunctionDef",
+            "line": 25
+          },
+          {
+            "name": "get_inventory_used_slots",
+            "kind": "FunctionDef",
+            "line": 73
+          },
+          {
+            "name": "init_dynamic_equipment_system",
+            "kind": "FunctionDef",
+            "line": 148
+          },
+          {
+            "name": "get_random_main_hand_profile",
+            "kind": "FunctionDef",
+            "line": 175
+          },
+          {
+            "name": "get_random_off_hand_profile",
+            "kind": "FunctionDef",
+            "line": 178
+          },
+          {
+            "name": "generate_dynamic_equipment_stats",
+            "kind": "FunctionDef",
+            "line": 211
+          },
+          {
+            "name": "create_generated_equipment_item_for_slot",
+            "kind": "FunctionDef",
+            "line": 366
+          },
+          {
+            "name": "init_class_equipment_restrictions_system",
+            "kind": "FunctionDef",
+            "line": 558
+          },
+          {
+            "name": "normalize_equipment_restriction_value",
+            "kind": "FunctionDef",
+            "line": 578
+          },
+          {
+            "name": "get_allowed_main_hand_subtypes_for_class",
+            "kind": "FunctionDef",
+            "line": 590
+          },
+          {
+            "name": "get_allowed_off_hand_subtypes_for_class",
+            "kind": "FunctionDef",
+            "line": 593
+          },
+          {
+            "name": "get_random_class_aware_equipment_choice",
+            "kind": "FunctionDef",
+            "line": 929
+          },
+          {
+            "name": "get_random_unrestricted_equipment_choice",
+            "kind": "FunctionDef",
+            "line": 987
+          },
+          {
+            "name": "create_generated_equipment_item",
+            "kind": "FunctionDef",
+            "line": 1006
+          },
+          {
+            "name": "_equipment_system_ro_v1",
+            "kind": "FunctionDef",
+            "line": 1280
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/inventory.py",
+        "sha256": "4b44ec514027e2c49e275a0230a7f9c3415739b722dd108e9bc232e2cb85ad51",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "get_inventory_used_slots",
+            "kind": "FunctionDef",
+            "line": 34
+          },
+          {
+            "name": "get_inventory",
+            "kind": "FunctionDef",
+            "line": 57
+          },
+          {
+            "name": "_inventory_table_exists",
+            "kind": "FunctionDef",
+            "line": 96
+          },
+          {
+            "name": "_inventory_reserved_ids_for_item",
+            "kind": "FunctionDef",
+            "line": 104
+          },
+          {
+            "name": "_inventory_required_new_stacks",
+            "kind": "FunctionDef",
+            "line": 123
+          },
+          {
+            "name": "consume_inventory_item",
+            "kind": "FunctionDef",
+            "line": 270
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/inventory_compat.py",
+        "sha256": "e677a6b85bb25d2a8b28bde1d14a5023d755741e27476629777fdeb2a7460aa1",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "get_all_equipped_slots",
+            "kind": "FunctionDef",
+            "line": 33
+          },
+          {
+            "name": "is_inventory_item_equipped",
+            "kind": "FunctionDef",
+            "line": 73
+          },
+          {
+            "name": "find_equipped_slot_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 81
+          },
+          {
+            "name": "get_item_required_level_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 99
+          },
+          {
+            "name": "init_dynamic_equipment_system",
+            "kind": "FunctionDef",
+            "line": 147
+          },
+          {
+            "name": "is_class_reset_sphere_inventory_item",
+            "kind": "FunctionDef",
+            "line": 349
+          },
+          {
+            "name": "use_class_reset_sphere_from_inventory",
+            "kind": "FunctionDef",
+            "line": 397
+          },
+          {
+            "name": "init_class_equipment_restrictions_system",
+            "kind": "FunctionDef",
+            "line": 420
+          },
+          {
+            "name": "normalize_equipment_restriction_value",
+            "kind": "FunctionDef",
+            "line": 460
+          },
+          {
+            "name": "get_item_classification_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 472
+          },
+          {
+            "name": "_equipment_system_ro_v1",
+            "kind": "FunctionDef",
+            "line": 612
+          },
+          {
+            "name": "ensure_equipment_slots",
+            "kind": "FunctionDef",
+            "line": 620
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/player.py",
+        "sha256": "611815281e1169e7324285ea0d81f30f63e3d2f0834e8681a9de7c7c601d602a",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/quests.py",
+        "sha256": "40219bf84d6cad04ee592f112583429458708cc97878cf83a9aa1462551a5f30",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/refine.py",
+        "sha256": "fff3c35da75ae1fa0adceff00926950ab05b7c197b49c77b7d50190cf5e89279",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "get_inventory_item_refine_info",
+            "kind": "FunctionDef",
+            "line": 87
+          },
+          {
+            "name": "set_inventory_refine_level",
+            "kind": "FunctionDef",
+            "line": 116
+          },
+          {
+            "name": "get_inventory_refine_display_line",
+            "kind": "FunctionDef",
+            "line": 219
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/shop.py",
+        "sha256": "9da1260fa7b375485480cd9a06d93b485efff54bae2ec369e560aa8e384facc0",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "get_common_equipment_price_for_slot",
+            "kind": "FunctionDef",
+            "line": 39
+          },
+          {
+            "name": "get_allowed_main_hand_subtypes_for_class",
+            "kind": "FunctionDef",
+            "line": 45
+          },
+          {
+            "name": "get_allowed_off_hand_subtypes_for_class",
+            "kind": "FunctionDef",
+            "line": 50
+          },
+          {
+            "name": "get_allowed_shop_main_hand_profiles",
+            "kind": "FunctionDef",
+            "line": 55
+          },
+          {
+            "name": "get_allowed_shop_off_hand_profiles",
+            "kind": "FunctionDef",
+            "line": 69
+          },
+          {
+            "name": "get_common_equipment_shop_offer",
+            "kind": "FunctionDef",
+            "line": 83
+          },
+          {
+            "name": "get_common_equipment_shop_suboffers",
+            "kind": "FunctionDef",
+            "line": 104
+          },
+          {
+            "name": "create_common_equipment_shop_preview",
+            "kind": "FunctionDef",
+            "line": 190
+          },
+          {
+            "name": "cancel_common_equipment_shop_preview",
+            "kind": "FunctionDef",
+            "line": 444
+          },
+          {
+            "name": "confirm_common_equipment_shop_preview",
+            "kind": "FunctionDef",
+            "line": 465
+          },
+          {
+            "name": "can_class_equip_item",
+            "kind": "FunctionDef",
+            "line": 775
+          },
+          {
+            "name": "get_equippable_class_items",
+            "kind": "FunctionDef",
+            "line": 803
+          },
+          {
+            "name": "generate_class_shop_equipment",
+            "kind": "FunctionDef",
+            "line": 816
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/story_quests.py",
+        "sha256": "cedc91f344f44dafc6daf35c6ba93d54e280f0f17b00709b32142abe503a4975",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "db_modules/systems_wrappers.py",
+        "sha256": "2100be668336ab18f896ba1082cf136fd9a943a3def60402e07228b842e5eda7",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_detail"
+        ],
+        "symbols": [
+          {
+            "name": "get_user_sellable_equipment_for_auction",
+            "kind": "FunctionDef",
+            "line": 431
+          },
+          {
+            "name": "get_inventory_item_snapshot_for_auction",
+            "kind": "FunctionDef",
+            "line": 437
+          },
+          {
+            "name": "validate_inventory_item_for_auction_equipment",
+            "kind": "FunctionDef",
+            "line": 443
+          },
+          {
+            "name": "create_equipment_auction_lot",
+            "kind": "FunctionDef",
+            "line": 449
+          },
+          {
+            "name": "validate_inventory_stack_item_for_auction",
+            "kind": "FunctionDef",
+            "line": 461
+          },
+          {
+            "name": "build_user_unclaimed_auction_item_details",
+            "kind": "FunctionDef",
+            "line": 521
+          },
+          {
+            "name": "get_inventory_runes",
+            "kind": "FunctionDef",
+            "line": 632
+          },
+          {
+            "name": "get_inventory_rune_capacity",
+            "kind": "FunctionDef",
+            "line": 636
+          },
+          {
+            "name": "get_inventory_rune_socket_summary",
+            "kind": "FunctionDef",
+            "line": 640
+          },
+          {
+            "name": "get_equipped_rune_stat_totals",
+            "kind": "FunctionDef",
+            "line": 644
+          },
+          {
+            "name": "get_equipment_rune_slot_info",
+            "kind": "FunctionDef",
+            "line": 656
+          },
+          {
+            "name": "get_user_rune_slot_equipment",
+            "kind": "FunctionDef",
+            "line": 660
+          },
+          {
+            "name": "format_equipment_rune_slots_text",
+            "kind": "FunctionDef",
+            "line": 664
+          },
+          {
+            "name": "get_user_inventory_rune_stacks",
+            "kind": "FunctionDef",
+            "line": 668
+          },
+          {
+            "name": "insert_rune_into_equipment",
+            "kind": "FunctionDef",
+            "line": 678
+          },
+          {
+            "name": "get_extractor_equipment",
+            "kind": "FunctionDef",
+            "line": 704
+          },
+          {
+            "name": "get_rune_equipment_display_name",
+            "kind": "FunctionDef",
+            "line": 718
+          },
+          {
+            "name": "get_inventory_reserved_quantity",
+            "kind": "FunctionDef",
+            "line": 919
+          },
+          {
+            "name": "get_inventory_available_quantity",
+            "kind": "FunctionDef",
+            "line": 923
+          },
+          {
+            "name": "reserve_inventory_for_trade",
+            "kind": "FunctionDef",
+            "line": 927
+          },
+          {
+            "name": "release_trade_inventory_reservations",
+            "kind": "FunctionDef",
+            "line": 933
+          },
+          {
+            "name": "assert_inventory_not_reserved",
+            "kind": "FunctionDef",
+            "line": 937
+          },
+          {
+            "name": "recover_orphan_inventory_reservations",
+            "kind": "FunctionDef",
+            "line": 941
+          },
+          {
+            "name": "get_tradeable_inventory_for_trade",
+            "kind": "FunctionDef",
+            "line": 953
+          },
+          {
+            "name": "get_tradeable_inventory_for_trade_category",
+            "kind": "FunctionDef",
+            "line": 995
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "handlers/auction_house.py",
+        "sha256": "9cd9b0ccccae8ea2f0bfb24abdc6428ae5691ba78a33a60d9b3fed84c4215f7a",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_detail",
+          "pagination"
+        ],
+        "symbols": [
+          {
+            "name": "_auction_equipment_typed_name_11_4_1",
+            "kind": "FunctionDef",
+            "line": 13
+          },
+          {
+            "name": "_auction_parse_inventory_id_from_button",
+            "kind": "FunctionDef",
+            "line": 475
+          },
+          {
+            "name": "_auction_register_sell_equipment_handlers",
+            "kind": "FunctionDef",
+            "line": 482
+          },
+          {
+            "name": "_auction_call_equipment_sell_list_v1",
+            "kind": "FunctionDef",
+            "line": 3539
+          },
+          {
+            "name": "auction_sell_category_equipment_v1",
+            "kind": "FunctionDef",
+            "line": 3660
+          }
+        ],
+        "registrations": [
+          {
+            "line": 672,
+            "call": "_auction_register_sell_equipment_handlers"
+          },
+          {
+            "line": 3659,
+            "call": "bot.message_handler"
+          },
+          {
+            "line": 675,
+            "call": "_auction_base_register_handlers_before_sell_equipment_v1"
+          }
+        ]
+      },
+      {
+        "path": "handlers/blacksmith.py",
+        "sha256": "8a6a64840f8b5a600d19d632114736af18824a02fd44b0651237d389e2897ad7",
+        "terms": [
+          "equip",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "handlers/blacksmith_repair_confirm.py",
+        "sha256": "16803c5d5bad701d626846156e5942b8a6edd64dc36aeb758c4ba790c44414c0",
+        "terms": [
+          "equip",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "handlers/city.py",
+        "sha256": "a73373e0bf4ae90e2d7d4e6c7b417847d401c6b4555514431a3acfed3836b0c3",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "build_common_equipment_shop_text",
+            "kind": "FunctionDef",
+            "line": 288
+          },
+          {
+            "name": "build_common_equipment_slot_choice_text",
+            "kind": "FunctionDef",
+            "line": 302
+          },
+          {
+            "name": "build_base_equipment_return_view_17_11_1_1",
+            "kind": "FunctionDef",
+            "line": 377
+          },
+          {
+            "name": "get_base_equipment_preview_slot_17_11_1_1",
+            "kind": "FunctionDef",
+            "line": 383
+          },
+          {
+            "name": "build_sell_equipment_list_text",
+            "kind": "FunctionDef",
+            "line": 429
+          },
+          {
+            "name": "build_sell_equipment_confirm_text",
+            "kind": "FunctionDef",
+            "line": 465
+          },
+          {
+            "name": "get_sellable_equipment_items",
+            "kind": "FunctionDef",
+            "line": 925
+          },
+          {
+            "name": "get_item_by_inventory_id_full",
+            "kind": "FunctionDef",
+            "line": 937
+          },
+          {
+            "name": "get_sellable_equipment_items",
+            "kind": "FunctionDef",
+            "line": 1028
+          },
+          {
+            "name": "get_item_by_inventory_id_full",
+            "kind": "FunctionDef",
+            "line": 1040
+          },
+          {
+            "name": "_city_equipment_typed_name_11_4_1",
+            "kind": "FunctionDef",
+            "line": 1071
+          },
+          {
+            "name": "get_sellable_equipment_items",
+            "kind": "FunctionDef",
+            "line": 1096
+          },
+          {
+            "name": "get_item_by_inventory_id_full",
+            "kind": "FunctionDef",
+            "line": 1108
+          },
+          {
+            "name": "show_sell_equipment",
+            "kind": "FunctionDef",
+            "line": 591
+          },
+          {
+            "name": "sell_equipment_page",
+            "kind": "FunctionDef",
+            "line": 598
+          },
+          {
+            "name": "sell_equipment_confirm",
+            "kind": "FunctionDef",
+            "line": 606
+          },
+          {
+            "name": "sell_equipment_do",
+            "kind": "FunctionDef",
+            "line": 616
+          },
+          {
+            "name": "show_common_equipment_shop",
+            "kind": "FunctionDef",
+            "line": 628
+          },
+          {
+            "name": "common_equipment_back_to_slots",
+            "kind": "FunctionDef",
+            "line": 635
+          },
+          {
+            "name": "common_equipment_slot_choice",
+            "kind": "FunctionDef",
+            "line": 642
+          },
+          {
+            "name": "preview_common_equipment",
+            "kind": "FunctionDef",
+            "line": 650
+          }
+        ],
+        "registrations": [
+          {
+            "line": 634,
+            "call": "bot.callback_query_handler"
+          },
+          {
+            "line": 641,
+            "call": "bot.callback_query_handler"
+          },
+          {
+            "line": 649,
+            "call": "bot.callback_query_handler"
+          },
+          {
+            "line": 804,
+            "call": "bot.callback_query_handler"
+          }
+        ]
+      },
+      {
+        "path": "handlers/combat.py",
+        "sha256": "325e99a1825cec61bae628f878fdf1c8f04a2f4cc62fd38bd87329d8d8e9b409",
+        "terms": [
+          "equip",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "get_potion_cooldown_turns_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 1573
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "handlers/dev.py",
+        "sha256": "c161907aa3d965cbb3f2ce50d1b6f46c181027ff7a3b517ae852a026b5827352",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "handlers/guild.py",
+        "sha256": "de39b8627b59b33ad1500086b9862f775237c780d4718e8bc389e4ef88365d40",
+        "terms": [
+          "pagination"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "handlers/inventory.py",
+        "sha256": "f0e43d3d2dcc22bf8f28be61e0e843698b1337ca928d5d42034ebc49d8d3b95b",
+        "terms": [
+          "compare",
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_detail",
+          "main_hand",
+          "off_hand",
+          "unequip"
+        ],
+        "symbols": [
+          {
+            "name": "get_inventory_full_items",
+            "kind": "FunctionDef",
+            "line": 891
+          },
+          {
+            "name": "build_equipped_comparison_text",
+            "kind": "FunctionDef",
+            "line": 1319
+          },
+          {
+            "name": "build_inventory_home",
+            "kind": "FunctionDef",
+            "line": 1675
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 2291
+          },
+          {
+            "name": "register_inventory_handlers",
+            "kind": "FunctionDef",
+            "line": 3179
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 4719
+          },
+          {
+            "name": "_inventory_ui_normalized_name_17_7_1",
+            "kind": "FunctionDef",
+            "line": 5155
+          },
+          {
+            "name": "_inventory_ui_category_key_17_7_1",
+            "kind": "FunctionDef",
+            "line": 5207
+          },
+          {
+            "name": "_inventory_ui_sort_key_17_7_1",
+            "kind": "FunctionDef",
+            "line": 5255
+          },
+          {
+            "name": "_get_rune_inventory_description",
+            "kind": "FunctionDef",
+            "line": 5391
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 5809
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 6053
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 6189
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 6349
+          },
+          {
+            "name": "_inventory_comparison_owned_item_18_11_1",
+            "kind": "FunctionDef",
+            "line": 6521
+          },
+          {
+            "name": "_inventory_comparison_target_18_11_1",
+            "kind": "FunctionDef",
+            "line": 6581
+          },
+          {
+            "name": "_inventory_remove_automatic_comparison_18_11_1",
+            "kind": "FunctionDef",
+            "line": 6681
+          },
+          {
+            "name": "_inventory_selected_rune_block_18_11_2",
+            "kind": "FunctionDef",
+            "line": 6729
+          },
+          {
+            "name": "_inventory_insert_compare_button_18_11_1",
+            "kind": "FunctionDef",
+            "line": 6781
+          },
+          {
+            "name": "build_equipped_comparison_text",
+            "kind": "FunctionDef",
+            "line": 6893
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 6965
+          },
+          {
+            "name": "_inventory_comparison_keyboard_18_11_1",
+            "kind": "FunctionDef",
+            "line": 7041
+          },
+          {
+            "name": "register_inventory_handlers",
+            "kind": "FunctionDef",
+            "line": 7137
+          },
+          {
+            "name": "_sphere_inventory_item_18_16_10",
+            "kind": "FunctionDef",
+            "line": 7421
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 7445
+          },
+          {
+            "name": "register_inventory_handlers",
+            "kind": "FunctionDef",
+            "line": 7622
+          },
+          {
+            "name": "build_item_details",
+            "kind": "FunctionDef",
+            "line": 7807
+          },
+          {
+            "name": "show_inventory",
+            "kind": "FunctionDef",
+            "line": 3191
+          },
+          {
+            "name": "inventory_home_callback",
+            "kind": "FunctionDef",
+            "line": 3239
+          },
+          {
+            "name": "inventory_profile_callback",
+            "kind": "FunctionDef",
+            "line": 3295
+          },
+          {
+            "name": "inventory_category_callback",
+            "kind": "FunctionDef",
+            "line": 3359
+          },
+          {
+            "name": "item_details_callback",
+            "kind": "FunctionDef",
+            "line": 3431
+          },
+          {
+            "name": "equip_callback",
+            "kind": "FunctionDef",
+            "line": 3527
+          },
+          {
+            "name": "unequip_callback",
+            "kind": "FunctionDef",
+            "line": 3651
+          },
+          {
+            "name": "equipment_comparison_callback_18_11_1",
+            "kind": "FunctionDef",
+            "line": 7157
+          }
+        ],
+        "registrations": [
+          {
+            "line": 3523,
+            "call": "bot.callback_query_handler"
+          },
+          {
+            "line": 3647,
+            "call": "bot.callback_query_handler"
+          },
+          {
+            "line": 7341,
+            "call": "_EQUIPMENT_COMPARISON_BASE_REGISTER_HANDLERS_18_11_1"
+          },
+          {
+            "line": 7625,
+            "call": "_SPHERE_BASE_REGISTER_INVENTORY_HANDLERS_18_16_10"
+          }
+        ]
+      },
+      {
+        "path": "handlers/name_rune.py",
+        "sha256": "45085c6ae4b1ca356955f127d2838a1ab46ddc2f6ca72ed5e43fcdb7e69c2c44",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "inventory_use",
+            "kind": "FunctionDef",
+            "line": 14
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "handlers/player_interaction.py",
+        "sha256": "799e9ad6e745b3995886c6e504019b7c1b01073c917a0ae1b9ccc05b8948b0b9",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand",
+          "pagination"
+        ],
+        "symbols": [
+          {
+            "name": "_trade_inventory_text",
+            "kind": "FunctionDef",
+            "line": 147
+          },
+          {
+            "name": "_trade_inventory_kb",
+            "kind": "FunctionDef",
+            "line": 151
+          },
+          {
+            "name": "_trade_ux_is_equipment",
+            "kind": "FunctionDef",
+            "line": 569
+          },
+          {
+            "name": "_trade_ux_equipment_kb",
+            "kind": "FunctionDef",
+            "line": 602
+          },
+          {
+            "name": "_trade_preview_equipment_kb_12_6_2",
+            "kind": "FunctionDef",
+            "line": 810
+          },
+          {
+            "name": "_trade_ux_inventory_kb",
+            "kind": "FunctionDef",
+            "line": 1110
+          },
+          {
+            "name": "_trade_equipment_usage_label_12_6_3b",
+            "kind": "FunctionDef",
+            "line": 1151
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "handlers/profile.py",
+        "sha256": "9546e06670a5bf830671d69b8006b0630edf9a95cb9365a9dff05630acf0524d",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand"
+        ],
+        "symbols": [
+          {
+            "name": "format_equipment_bonuses",
+            "kind": "FunctionDef",
+            "line": 245
+          },
+          {
+            "name": "build_equipment_text",
+            "kind": "FunctionDef",
+            "line": 539
+          },
+          {
+            "name": "equipment",
+            "kind": "FunctionDef",
+            "line": 957
+          },
+          {
+            "name": "profile_equipment_callback",
+            "kind": "FunctionDef",
+            "line": 1053
+          }
+        ],
+        "registrations": [
+          {
+            "line": 1051,
+            "call": "bot.callback_query_handler"
+          }
+        ]
+      },
+      {
+        "path": "handlers/refine.py",
+        "sha256": "62037f4fa72024f61856d883e875a95a5b6a618d4d249321caa19565944cd1ab",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "get_refinable_inventory_items",
+            "kind": "FunctionDef",
+            "line": 64
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "handlers/runes.py",
+        "sha256": "f2fd721c396fa957f9cbd74b85e5ae445d602545cfe417cf288bb9401231941a",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "pagination"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "handlers/start.py",
+        "sha256": "45817027f66031a8a464dc890e701d0bc191e1543fe00745505e64918969fd75",
+        "terms": [
+          "equip",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand",
+          "unequip"
+        ],
+        "symbols": [
+          {
+            "name": "build_class_change_unequip_text_local",
+            "kind": "FunctionDef",
+            "line": 104
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "handlers/world_chronicles.py",
+        "sha256": "f968928ca676a4a7c462c15f2fc9741c402615ba7dc1ef359bcdf6d96f458712",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "migrations/040_generated_equipment_namespace.py",
+        "sha256": "54b746737f665fa4b075491b0c1122ed8f09726c840796c614b46d6f990995b6",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/attribute_respec_system.py",
+        "sha256": "b53fa3d60119429332fccb3ce7607a55ae9dc0e0425fee63bca30c99bdd5cdd2",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/auction_house_system.py",
+        "sha256": "664cfe8a60f7728e7364f542c936d52328bc5ba89a022b686a6c3be1f3b1ab59",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_detail",
+          "main_hand",
+          "off_hand",
+          "two_hand"
+        ],
+        "symbols": [
+          {
+            "name": "_auction_get_inventory_row",
+            "kind": "FunctionDef",
+            "line": 760
+          },
+          {
+            "name": "_auction_is_inventory_equipped",
+            "kind": "FunctionDef",
+            "line": 882
+          },
+          {
+            "name": "_auction_is_equipment_row",
+            "kind": "FunctionDef",
+            "line": 914
+          },
+          {
+            "name": "_auction_equipment_type_label",
+            "kind": "FunctionDef",
+            "line": 996
+          },
+          {
+            "name": "_auction_equipment_type_line",
+            "kind": "FunctionDef",
+            "line": 1009
+          },
+          {
+            "name": "get_inventory_item_snapshot_for_auction",
+            "kind": "FunctionDef",
+            "line": 1040
+          },
+          {
+            "name": "validate_inventory_item_for_auction_equipment",
+            "kind": "FunctionDef",
+            "line": 1099
+          },
+          {
+            "name": "get_user_sellable_equipment_for_auction",
+            "kind": "FunctionDef",
+            "line": 1131
+          },
+          {
+            "name": "create_equipment_auction_lot",
+            "kind": "FunctionDef",
+            "line": 1181
+          },
+          {
+            "name": "_auction_get_inventory_row",
+            "kind": "FunctionDef",
+            "line": 1360
+          },
+          {
+            "name": "validate_inventory_stack_item_for_auction",
+            "kind": "FunctionDef",
+            "line": 1484
+          },
+          {
+            "name": "_auction_count_inventory_rows",
+            "kind": "FunctionDef",
+            "line": 1816
+          },
+          {
+            "name": "_auction_get_inventory_limit",
+            "kind": "FunctionDef",
+            "line": 1825
+          },
+          {
+            "name": "_auction_has_inventory_space",
+            "kind": "FunctionDef",
+            "line": 1857
+          },
+          {
+            "name": "_auction_get_existing_stack_inventory_id",
+            "kind": "FunctionDef",
+            "line": 1861
+          },
+          {
+            "name": "_auction_insert_inventory_from_snapshot",
+            "kind": "FunctionDef",
+            "line": 1875
+          },
+          {
+            "name": "_auction_collect_equipment_stat_lines",
+            "kind": "FunctionDef",
+            "line": 2335
+          },
+          {
+            "name": "_auction_enrich_equipment_snapshot_with_runtime_details",
+            "kind": "FunctionDef",
+            "line": 2461
+          },
+          {
+            "name": "create_equipment_auction_lot",
+            "kind": "FunctionDef",
+            "line": 2506
+          },
+          {
+            "name": "_auction_collect_inventory_style_bonus_lines",
+            "kind": "FunctionDef",
+            "line": 2790
+          },
+          {
+            "name": "_auction_collect_inventory_style_defense_lines",
+            "kind": "FunctionDef",
+            "line": 2811
+          },
+          {
+            "name": "_auction_inventory_style_slot",
+            "kind": "FunctionDef",
+            "line": 2828
+          },
+          {
+            "name": "_auction_inventory_style_type_line",
+            "kind": "FunctionDef",
+            "line": 2851
+          },
+          {
+            "name": "_auction_inventory_style_damage_lines",
+            "kind": "FunctionDef",
+            "line": 2958
+          },
+          {
+            "name": "build_user_unclaimed_auction_item_details",
+            "kind": "FunctionDef",
+            "line": 3477
+          },
+          {
+            "name": "build_user_unclaimed_auction_item_details",
+            "kind": "FunctionDef",
+            "line": 4022
+          },
+          {
+            "name": "_auction_inventory_style_weapon_type_line",
+            "kind": "FunctionDef",
+            "line": 5258
+          },
+          {
+            "name": "_auction_inventory_style_weapon_type_line",
+            "kind": "FunctionDef",
+            "line": 5273
+          },
+          {
+            "name": "validate_inventory_stack_item_for_auction",
+            "kind": "FunctionDef",
+            "line": 5443
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/character_system.py",
+        "sha256": "edb9128e33c5ce3e88c9cbc9a5c79a20bdd23bc721e461beacfb4a1a7e27468b",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/crystal_shop_system.py",
+        "sha256": "601b1d678835a18e20c99daa4236e38cf419f25d5e1e13b9b8dc4f6eb80b6bc2",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/drop_system.py",
+        "sha256": "bf3fbf54da608e719516727509fe51c5df26815c7d8576bb4f02105cf9f0cd9c",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [
+          {
+            "name": "roll_central_equipment_drop",
+            "kind": "FunctionDef",
+            "line": 752
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/dynamic_equipment_system.py",
+        "sha256": "177ce0c862cf5e5079aadbb252cbafd7ccd6aa4ebfaff5a62746f65405bf0a4c",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "init_dynamic_equipment_system",
+            "kind": "FunctionDef",
+            "line": 32
+          },
+          {
+            "name": "get_random_main_hand_profile",
+            "kind": "FunctionDef",
+            "line": 40
+          },
+          {
+            "name": "get_random_off_hand_profile",
+            "kind": "FunctionDef",
+            "line": 44
+          },
+          {
+            "name": "generate_dynamic_equipment_stats",
+            "kind": "FunctionDef",
+            "line": 61
+          },
+          {
+            "name": "normalize_equipment_restriction_value",
+            "kind": "FunctionDef",
+            "line": 77
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/equipment_system.py",
+        "sha256": "53e72297481aad38e9319bd69cee5a8a0056e46502bce78981b84686522836d4",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_info",
+          "main_hand",
+          "off_hand",
+          "two_hand",
+          "unequip"
+        ],
+        "symbols": [
+          {
+            "name": "ensure_equipment_slots",
+            "kind": "FunctionDef",
+            "line": 92
+          },
+          {
+            "name": "get_all_equipped_items",
+            "kind": "FunctionDef",
+            "line": 98
+          },
+          {
+            "name": "get_equipped_items_for_repair",
+            "kind": "FunctionDef",
+            "line": 104
+          },
+          {
+            "name": "get_inventory_detailed",
+            "kind": "FunctionDef",
+            "line": 110
+          },
+          {
+            "name": "get_inventory_entry",
+            "kind": "FunctionDef",
+            "line": 116
+          },
+          {
+            "name": "get_item_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 122
+          },
+          {
+            "name": "get_item_by_inventory_id_full",
+            "kind": "FunctionDef",
+            "line": 128
+          },
+          {
+            "name": "get_sellable_equipment_items",
+            "kind": "FunctionDef",
+            "line": 140
+          },
+          {
+            "name": "get_weapon_damage_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 158
+          },
+          {
+            "name": "get_inventory_weapon_damage_display",
+            "kind": "FunctionDef",
+            "line": 164
+          },
+          {
+            "name": "get_inventory_refine_level",
+            "kind": "FunctionDef",
+            "line": 170
+          },
+          {
+            "name": "get_inventory_refined_display_name",
+            "kind": "FunctionDef",
+            "line": 176
+          },
+          {
+            "name": "can_equip_item_by_class",
+            "kind": "FunctionDef",
+            "line": 214
+          },
+          {
+            "name": "can_equip_inventory_item_by_class",
+            "kind": "FunctionDef",
+            "line": 298
+          },
+          {
+            "name": "is_inventory_item_class_compatible",
+            "kind": "FunctionDef",
+            "line": 310
+          },
+          {
+            "name": "_extract_equipment_user_id",
+            "kind": "FunctionDef",
+            "line": 348
+          },
+          {
+            "name": "_sync_equipment_player_hp",
+            "kind": "FunctionDef",
+            "line": 362
+          },
+          {
+            "name": "equip_inventory_item",
+            "kind": "FunctionDef",
+            "line": 392
+          },
+          {
+            "name": "unequip_inventory_item",
+            "kind": "FunctionDef",
+            "line": 404
+          },
+          {
+            "name": "unequip_incompatible_items_after_class_change",
+            "kind": "FunctionDef",
+            "line": 416
+          },
+          {
+            "name": "repair_equipped_item",
+            "kind": "FunctionDef",
+            "line": 504
+          },
+          {
+            "name": "repair_all_equipped",
+            "kind": "FunctionDef",
+            "line": 516
+          },
+          {
+            "name": "damage_equipped_items_on_death",
+            "kind": "FunctionDef",
+            "line": 538
+          },
+          {
+            "name": "sell_inventory_item_to_trader",
+            "kind": "FunctionDef",
+            "line": 550
+          },
+          {
+            "name": "buy_common_equipment_from_trader",
+            "kind": "FunctionDef",
+            "line": 562
+          },
+          {
+            "name": "_equipment_real_db_v1",
+            "kind": "FunctionDef",
+            "line": 608
+          },
+          {
+            "name": "ensure_equipment_slots",
+            "kind": "FunctionDef",
+            "line": 618
+          },
+          {
+            "name": "_equipment_slot_rows_real_v1",
+            "kind": "FunctionDef",
+            "line": 658
+          },
+          {
+            "name": "get_all_equipped_items",
+            "kind": "FunctionDef",
+            "line": 688
+          },
+          {
+            "name": "_equipment_aggregate_row_real_v1",
+            "kind": "FunctionDef",
+            "line": 712
+          },
+          {
+            "name": "get_equipped_item_defenses",
+            "kind": "FunctionDef",
+            "line": 766
+          },
+          {
+            "name": "_equipment_item_dict_real_v2",
+            "kind": "FunctionDef",
+            "line": 786
+          },
+          {
+            "name": "get_all_equipped_items",
+            "kind": "FunctionDef",
+            "line": 882
+          },
+          {
+            "name": "get_all_equipped_items",
+            "kind": "FunctionDef",
+            "line": 936
+          },
+          {
+            "name": "_equipment_refined_name_real_v2",
+            "kind": "FunctionDef",
+            "line": 1028
+          },
+          {
+            "name": "_equipment_nested_item_tuple_real_v2",
+            "kind": "FunctionDef",
+            "line": 1078
+          },
+          {
+            "name": "get_all_equipped_items",
+            "kind": "FunctionDef",
+            "line": 1128
+          },
+          {
+            "name": "_inventory_refine_db_v3",
+            "kind": "FunctionDef",
+            "line": 1376
+          },
+          {
+            "name": "_inventory_refine_level_v3",
+            "kind": "FunctionDef",
+            "line": 1386
+          },
+          {
+            "name": "get_inventory_refine_level",
+            "kind": "FunctionDef",
+            "line": 1442
+          },
+          {
+            "name": "get_inventory_refined_display_name",
+            "kind": "FunctionDef",
+            "line": 1450
+          },
+          {
+            "name": "_inventory_read_rows_v3",
+            "kind": "FunctionDef",
+            "line": 1476
+          },
+          {
+            "name": "get_inventory_detailed",
+            "kind": "FunctionDef",
+            "line": 1582
+          },
+          {
+            "name": "get_item_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 1594
+          },
+          {
+            "name": "get_item_by_inventory_id_full",
+            "kind": "FunctionDef",
+            "line": 1606
+          },
+          {
+            "name": "get_inventory_entry",
+            "kind": "FunctionDef",
+            "line": 1618
+          },
+          {
+            "name": "get_weapon_damage_by_inventory_id",
+            "kind": "FunctionDef",
+            "line": 1863
+          },
+          {
+            "name": "get_inventory_weapon_damage_display",
+            "kind": "FunctionDef",
+            "line": 1991
+          },
+          {
+            "name": "_equipment_write_db_v5",
+            "kind": "FunctionDef",
+            "line": 2063
+          },
+          {
+            "name": "_equipment_write_sync_hp_v5",
+            "kind": "FunctionDef",
+            "line": 2073
+          },
+          {
+            "name": "_equipment_write_ensure_slots_v5",
+            "kind": "FunctionDef",
+            "line": 2099
+          },
+          {
+            "name": "_equipment_write_get_slot_v5",
+            "kind": "FunctionDef",
+            "line": 2133
+          },
+          {
+            "name": "_equipment_write_set_slot_v5",
+            "kind": "FunctionDef",
+            "line": 2153
+          },
+          {
+            "name": "_equipment_write_find_slot_v5",
+            "kind": "FunctionDef",
+            "line": 2173
+          },
+          {
+            "name": "_equipment_write_item_v5",
+            "kind": "FunctionDef",
+            "line": 2193
+          },
+          {
+            "name": "_equipment_write_required_level_v5",
+            "kind": "FunctionDef",
+            "line": 2249
+          },
+          {
+            "name": "_equipment_write_player_level_v5",
+            "kind": "FunctionDef",
+            "line": 2275
+          },
+          {
+            "name": "_equipment_write_main_hand_two_handed_v5",
+            "kind": "FunctionDef",
+            "line": 2287
+          },
+          {
+            "name": "equip_inventory_item",
+            "kind": "FunctionDef",
+            "line": 2313
+          },
+          {
+            "name": "unequip_inventory_item",
+            "kind": "FunctionDef",
+            "line": 2399
+          },
+          {
+            "name": "_equipment_write_reason_v5",
+            "kind": "FunctionDef",
+            "line": 2423
+          },
+          {
+            "name": "_equipment_write_display_name_v5",
+            "kind": "FunctionDef",
+            "line": 2451
+          },
+          {
+            "name": "unequip_incompatible_items_after_class_change",
+            "kind": "FunctionDef",
+            "line": 2505
+          },
+          {
+            "name": "_equipment_db_9_0_12h2",
+            "kind": "FunctionDef",
+            "line": 2643
+          },
+          {
+            "name": "_equipment_sync_hp_9_0_12h2",
+            "kind": "FunctionDef",
+            "line": 2653
+          },
+          {
+            "name": "_equipment_display_name_9_0_12h2",
+            "kind": "FunctionDef",
+            "line": 2673
+          },
+          {
+            "name": "_equipment_slot_rows_9_0_12h2",
+            "kind": "FunctionDef",
+            "line": 2727
+          },
+          {
+            "name": "get_equipped_items_for_repair",
+            "kind": "FunctionDef",
+            "line": 2827
+          },
+          {
+            "name": "_equipment_wallet_9_0_12h2",
+            "kind": "FunctionDef",
+            "line": 2917
+          },
+          {
+            "name": "repair_equipped_item",
+            "kind": "FunctionDef",
+            "line": 2927
+          },
+          {
+            "name": "repair_inventory_item",
+            "kind": "FunctionDef",
+            "line": 3039
+          },
+          {
+            "name": "repair_all_equipped",
+            "kind": "FunctionDef",
+            "line": 3047
+          },
+          {
+            "name": "set_inventory_item_durability",
+            "kind": "FunctionDef",
+            "line": 3119
+          },
+          {
+            "name": "damage_equipped_items",
+            "kind": "FunctionDef",
+            "line": 3155
+          },
+          {
+            "name": "damage_equipped_items_on_death",
+            "kind": "FunctionDef",
+            "line": 3235
+          },
+          {
+            "name": "reduce_equipped_item_durability",
+            "kind": "FunctionDef",
+            "line": 3243
+          },
+          {
+            "name": "apply_equipment_wear",
+            "kind": "FunctionDef",
+            "line": 3283
+          },
+          {
+            "name": "apply_equipment_wear_after_combat",
+            "kind": "FunctionDef",
+            "line": 3291
+          },
+          {
+            "name": "roll_equipment_wear_after_combat",
+            "kind": "FunctionDef",
+            "line": 3349
+          },
+          {
+            "name": "damage_equipped_items_on_death",
+            "kind": "FunctionDef",
+            "line": 3367
+          },
+          {
+            "name": "roll_equipment_wear_after_combat",
+            "kind": "FunctionDef",
+            "line": 3537
+          },
+          {
+            "name": "get_sellable_equipment_items",
+            "kind": "FunctionDef",
+            "line": 3639
+          },
+          {
+            "name": "sell_inventory_item_to_trader",
+            "kind": "FunctionDef",
+            "line": 3691
+          },
+          {
+            "name": "buy_common_equipment_from_trader",
+            "kind": "FunctionDef",
+            "line": 3935
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/event_shop_system.py",
+        "sha256": "569f7a833db0ae817d83fd9e5d805ace3ce21f6cfe3eaadba84733db6b2ae83c",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/fatigue_artifact_system.py",
+        "sha256": "03432d9774eec8ce9f2edc334d37caa8771dbd0402e86363b09a7cd8e1747cd4",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/item_id_allocator_system.py",
+        "sha256": "36a0497ed8ed00e91e4fea6cf56347774690f671b772c1269efc65552f045045",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/level_up_reward_system.py",
+        "sha256": "dca636a71be6f0b0a967647d9300269c2d0fce92f963814a87e1bebbc35d25fc",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/name_rune_system.py",
+        "sha256": "d576015b5de121b89ed428bc534bc7002de2c831245d3c24593267bbbc003f6a",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "get_name_rune_inventory",
+            "kind": "FunctionDef",
+            "line": 30
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/notifications.py",
+        "sha256": "d2649d55e5f59eec2f0de6198e575e1818b607fd93ff295fc8e7a554a0867590",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "get_equipped_stat_bonus",
+            "kind": "FunctionDef",
+            "line": 218
+          },
+          {
+            "name": "get_worker_equipped_rune_sta_bonus_v2",
+            "kind": "FunctionDef",
+            "line": 628
+          },
+          {
+            "name": "get_worker_equipped_rune_int_wis_bonus_17_15_1_1",
+            "kind": "FunctionDef",
+            "line": 935
+          },
+          {
+            "name": "get_worker_equipped_int_wis_totals_18_15_8c",
+            "kind": "FunctionDef",
+            "line": 969
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/player_interaction_system.py",
+        "sha256": "7e0569317cab32cba42826dedfde2f804472c993b53250fc4497237d0004b171",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "_init_inventory_reservation_schema",
+            "kind": "FunctionDef",
+            "line": 1196
+          },
+          {
+            "name": "_inventory_columns",
+            "kind": "FunctionDef",
+            "line": 1239
+          },
+          {
+            "name": "_inventory_is_equipped",
+            "kind": "FunctionDef",
+            "line": 1273
+          },
+          {
+            "name": "get_inventory_reserved_quantity",
+            "kind": "FunctionDef",
+            "line": 1287
+          },
+          {
+            "name": "get_inventory_available_quantity",
+            "kind": "FunctionDef",
+            "line": 1301
+          },
+          {
+            "name": "reserve_inventory_for_trade",
+            "kind": "FunctionDef",
+            "line": 1469
+          },
+          {
+            "name": "release_trade_inventory_reservations",
+            "kind": "FunctionDef",
+            "line": 1501
+          },
+          {
+            "name": "assert_inventory_not_reserved",
+            "kind": "FunctionDef",
+            "line": 1509
+          },
+          {
+            "name": "recover_orphan_inventory_reservations",
+            "kind": "FunctionDef",
+            "line": 1517
+          },
+          {
+            "name": "_trade_offer_is_equipment_snapshot",
+            "kind": "FunctionDef",
+            "line": 1778
+          },
+          {
+            "name": "get_tradeable_inventory_for_trade",
+            "kind": "FunctionDef",
+            "line": 1814
+          },
+          {
+            "name": "get_tradeable_inventory_for_trade_category",
+            "kind": "FunctionDef",
+            "line": 2318
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/player_system.py",
+        "sha256": "b503e2514dd7b35136384561c873d03be27afb9cdd31325530e15a0df67c3571",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/potion_system.py",
+        "sha256": "0528917e22044b8f4465190aaf93e0e80cd3be149ce164c9845f81253017d0d7",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "use_potion_from_inventory",
+            "kind": "FunctionDef",
+            "line": 345
+          },
+          {
+            "name": "use_potion_from_inventory",
+            "kind": "FunctionDef",
+            "line": 525
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/premium_item_policy_system.py",
+        "sha256": "76e66c69839815c79597703c49955d04156092861015e3e2032813ce23cb0fea",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "_inventory_columns",
+            "kind": "FunctionDef",
+            "line": 178
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/pvp_adaptive_balance_optimizer.py",
+        "sha256": "e763a33f8663d2a15b11fe038c67efcf7af6138b331db7c46c52e91df8c1c371",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/pvp_config.py",
+        "sha256": "9e317a0ecdc043cc7ca38909514a54f59b118a8fd85c5d026f6e891865d70a5c",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/pvp_production_calibration.py",
+        "sha256": "ed0dd17745fb90e3dfbc4061a907af0044fe846d7a92747d0443339567bd324c",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/pvp_production_fixture_audit.py",
+        "sha256": "439783778fe5d6c28fdbcafebdb968cf8015c9228402585f0402168ad6ef201e",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/pvp_real_actor_state_replay.py",
+        "sha256": "5278d52021ba62b5b43e35a71a3d8fe83877a1381c6ffcf7c24e6a5d77541807",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/pvp_real_equipment_fixture_audit.py",
+        "sha256": "d7a6491c57afb3ff9ab5b97f8a48545df7e17f0c38b8f81d32e68d460a7505e3",
+        "terms": [
+          "equip",
+          "equipment",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/refine_system.py",
+        "sha256": "aebb056cf40ef532eee63d70451f201960073155c52cda58dc537ef75759c879",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_info",
+          "main_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/regen_system.py",
+        "sha256": "3856becec64edf57f1e49ce9e84505d515d20c5161cfd52e17ec32136e9cc94b",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/reward_system.py",
+        "sha256": "87a5d92d94735dd2593c5d847502622dd96bab75acf2c2177e48654d5608f5e5",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "roll_normal_equipment_rarity",
+            "kind": "FunctionDef",
+            "line": 57
+          },
+          {
+            "name": "roll_elite_equipment_rarity",
+            "kind": "FunctionDef",
+            "line": 75
+          },
+          {
+            "name": "roll_equipment_drop",
+            "kind": "FunctionDef",
+            "line": 615
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/rune_system.py",
+        "sha256": "56e988aee115054422cf6277065c498777e0329a087f1088d7808e4fe7836a04",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "get_inventory_runes",
+            "kind": "FunctionDef",
+            "line": 130
+          },
+          {
+            "name": "get_inventory_rune_capacity",
+            "kind": "FunctionDef",
+            "line": 152
+          },
+          {
+            "name": "get_inventory_rune_socket_summary",
+            "kind": "FunctionDef",
+            "line": 165
+          },
+          {
+            "name": "get_equipped_rune_stat_totals",
+            "kind": "FunctionDef",
+            "line": 177
+          },
+          {
+            "name": "get_equipment_rune_slot_info",
+            "kind": "FunctionDef",
+            "line": 394
+          },
+          {
+            "name": "get_user_rune_slot_equipment",
+            "kind": "FunctionDef",
+            "line": 467
+          },
+          {
+            "name": "format_equipment_rune_slots_text",
+            "kind": "FunctionDef",
+            "line": 488
+          },
+          {
+            "name": "get_user_inventory_rune_stacks",
+            "kind": "FunctionDef",
+            "line": 520
+          },
+          {
+            "name": "insert_rune_into_equipment",
+            "kind": "FunctionDef",
+            "line": 618
+          },
+          {
+            "name": "insert_rune_into_equipment",
+            "kind": "FunctionDef",
+            "line": 707
+          },
+          {
+            "name": "_inventory_item_total",
+            "kind": "FunctionDef",
+            "line": 749
+          },
+          {
+            "name": "get_extractor_equipment",
+            "kind": "FunctionDef",
+            "line": 1035
+          },
+          {
+            "name": "_insert_armor_type_into_equipment_name_10_9_2",
+            "kind": "FunctionDef",
+            "line": 1120
+          },
+          {
+            "name": "get_rune_equipment_display_name",
+            "kind": "FunctionDef",
+            "line": 1137
+          },
+          {
+            "name": "get_equipment_rune_slot_info",
+            "kind": "FunctionDef",
+            "line": 1162
+          },
+          {
+            "name": "get_extractor_equipment",
+            "kind": "FunctionDef",
+            "line": 1175
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/__init__.py",
+        "sha256": "c82325c2657dc3eec182155088447b49ccda6e781f9bc820664e690bcd33cf26",
+        "terms": [
+          "compare",
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/asset_valuation.py",
+        "sha256": "44f4b2dc94dff79b630d5870866510410791b92390df3c5c366813dc8962e0df",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [
+          {
+            "name": "_equipped_ids",
+            "kind": "FunctionDef",
+            "line": 51
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/balance_analyzer.py",
+        "sha256": "53b05bffaf7a8667dde6f2206f43bc1b4ba47a9fa12d318a98b42d488023c631",
+        "terms": [
+          "compare",
+          "equip",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/behavior_policy.py",
+        "sha256": "01739d438c9e319a9c5afca6ea87defe05b4d0893e2f85445917184b8910fc69",
+        "terms": [
+          "equip",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/canonical_rules.py",
+        "sha256": "53669cf984766aed47c371f1a87bfc0b1d66a38feed8fb3eca7439a8cf157f85",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/capacity_analysis.py",
+        "sha256": "e995012ce8412af24cf834f93c66c229c64e7a92d12ac47603584c98e23b31d8",
+        "terms": [
+          "compare",
+          "inventory"
+        ],
+        "symbols": [
+          {
+            "name": "compare_40_60",
+            "kind": "FunctionDef",
+            "line": 13
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/class_progression.py",
+        "sha256": "c1554cb617c25f61bdc0fe6b3e51a45b32cf3edad3b567297390f43f594496de",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/combat_actor_stats.py",
+        "sha256": "589eb92a3d7679e9162155370fbc2a0764b6cc53368dd84b35f0960983a4f589",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand"
+        ],
+        "symbols": [
+          {
+            "name": "_equipped",
+            "kind": "FunctionDef",
+            "line": 18
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/config.py",
+        "sha256": "3c34b2e4c54890708f3138fe2a54484b62bd9b4a60a4484b33c0aaf9ff82e3b3",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/drop_inventory.py",
+        "sha256": "88d1a01123abf32d14ad48a1dbce886c292e30cbf025f5e8bdbf620c03141a34",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [
+          {
+            "name": "SimulationDropInventoryEngine",
+            "kind": "ClassDef",
+            "line": 9
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/economic_ledger.py",
+        "sha256": "301030fe7241c7c8c232a4305ceb19273648b5f7b2c8e3d6d48344c8511c9284",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "unequip"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/economic_progression.py",
+        "sha256": "648da76a8f7773e07c02abf1827771620b15864e3069847373dd37efb058c73b",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/economy_guild_acceptance.py",
+        "sha256": "85319d94267f681da9f1e67b08e5e6d764a9b2c1e1c0e1042fdbbf9d7c953318",
+        "terms": [
+          "equip",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/equipment_policy.py",
+        "sha256": "077542208208c6c3ed5eb44c95d9495bd52b51034109dbe84877c2aa7fcc69f9",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "EquipmentScore",
+            "kind": "ClassDef",
+            "line": 30
+          },
+          {
+            "name": "EquipmentDecision",
+            "kind": "ClassDef",
+            "line": 38
+          },
+          {
+            "name": "equipped_set_score",
+            "kind": "FunctionDef",
+            "line": 104
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/equipment_service.py",
+        "sha256": "2c0a4a1759dda4bd8d53f10ccd7126f7818f02d7e3a63a85f7a4a6d97e53153b",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "SimulationEquipmentService",
+            "kind": "ClassDef",
+            "line": 6
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/excel_reporting.py",
+        "sha256": "8ca15fb6c4fbfd3bbf76e21fcabcb6b9f7f4a2e3d67c1d8c97214fdc67c01945",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/inventory_engine.py",
+        "sha256": "04596ec44aae83e463194ecd6cea180b39efd86efd8f212f2caac67cc1eaf559",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [
+          {
+            "name": "InventoryAward",
+            "kind": "ClassDef",
+            "line": 5
+          },
+          {
+            "name": "InventoryAwardResult",
+            "kind": "ClassDef",
+            "line": 11
+          },
+          {
+            "name": "SimulationInventoryEngine",
+            "kind": "ClassDef",
+            "line": 14
+          },
+          {
+            "name": "is_equipment",
+            "kind": "FunctionDef",
+            "line": 8
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/loot_equipment_city.py",
+        "sha256": "650c5afa0020ec1e5062bac24b3a7d7c90bf8b03beda1171ddcf12f5fc923dc9",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "SimulationLootEquipmentCityService",
+            "kind": "ClassDef",
+            "line": 29
+          },
+          {
+            "name": "_equipment_award",
+            "kind": "FunctionDef",
+            "line": 33
+          },
+          {
+            "name": "equip_upgrades",
+            "kind": "FunctionDef",
+            "line": 74
+          },
+          {
+            "name": "resolve_equipment_after_victory",
+            "kind": "FunctionDef",
+            "line": 83
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/meta_progression.py",
+        "sha256": "81b021b7088035c082bc0e63eb1bc7d3e0dc834a77508cbb58b99366aeb5141a",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/models.py",
+        "sha256": "3223c8ae846790563c5ff88c3cb187bde86f88d92ad60ed055174b35d253c741",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand",
+          "two-handed"
+        ],
+        "symbols": [
+          {
+            "name": "SimulationInventoryItem",
+            "kind": "ClassDef",
+            "line": 21
+          },
+          {
+            "name": "SimulationInventory",
+            "kind": "ClassDef",
+            "line": 62
+          },
+          {
+            "name": "SimulationEquipment",
+            "kind": "ClassDef",
+            "line": 107
+          },
+          {
+            "name": "is_equipment",
+            "kind": "FunctionDef",
+            "line": 53
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/parity_foundation.py",
+        "sha256": "48031062b3e44b94d3eb24c6fee02ae4f01f5802a921b7b481e18370e4fa9470",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/patch_regression.py",
+        "sha256": "77005eb8136f176fcc63110a672de4b37d9b48c0f6d01948b00ccd801e181da4",
+        "terms": [
+          "compare",
+          "inventory"
+        ],
+        "symbols": [
+          {
+            "name": "compare_reports",
+            "kind": "FunctionDef",
+            "line": 166
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/population_cache.py",
+        "sha256": "b413357ad54c2363f0b04831c22082f30f2f49d09db934dc25c40b63a7977e58",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/potion_affordability.py",
+        "sha256": "ea6335198cd81ef15cc38d43934e17ea1e2cf0d62a148ad0e489d7b482965e27",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [
+          {
+            "name": "inventory_potions",
+            "kind": "FunctionDef",
+            "line": 19
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/progression_economy_reporting.py",
+        "sha256": "6f107e8ea0d4e858f077397231220db2f808e0685d08724fea668ec6ef9fa153",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [
+          {
+            "name": "build_economy_equipment_report",
+            "kind": "FunctionDef",
+            "line": 39
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/progression_provider.py",
+        "sha256": "e835c07d721ef049884358d91b7607884db97afe22e9de83dcbce9312a8c6bcd",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/progression_reporting.py",
+        "sha256": "34a00157e0e0bc1111791131b37722e7ab7c779167d2d182311ef6319ef34b51",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/progression_wall_analyzer.py",
+        "sha256": "f9c6863d4172b5dbb9148ef27263716e17fbcbe5f3782768410155073cbe98a6",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/reporting.py",
+        "sha256": "0254bcbca39bb4d0ed733190bbd3c26dcf5911ccc6f2f696e8fe186f0b892d0e",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/survival_state.py",
+        "sha256": "cd7e848fbd0b7ac4559dacab0267437e07f7be366bf6c649200da876883689b4",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [
+          {
+            "name": "equipped_items",
+            "kind": "FunctionDef",
+            "line": 55
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "systems/simulation/world_progression.py",
+        "sha256": "a8532f594dbb836c9fef79dc1ef27ab37316f3eab3c15967bb326972b834ba90",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/stat_system.py",
+        "sha256": "fcacaf99c218d85f6632e9f74ca4bbef082faffe77340a7aa647823cae3b81bc",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/story_quest_item_drop_system.py",
+        "sha256": "5c17d4f4beb3a2d83720bb489733ea541ce6892da3cbe032df21e6261475847b",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "systems/world_chronicle_system.py",
+        "sha256": "6ae4c77cdc82c2f3028b7074a26faafaa3a8e7256b89c831bf0f32a3e59c5527",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/acceptance_stage_20_6_6_travel_equipment.py",
+        "sha256": "13baabc9bedb68c081c60862d4f6917851a3fe274de9d05db26b1e29a6026952",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/audit_dynamic_equipment_compatibility_18_17_4.py",
+        "sha256": "b6467f0258dbcc16b4cfeb4b48f41fc131826dafd83a140f5da473854b03484f",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/audit_equipment_defense_refine_and_combat_chance_18_30_5b1.py",
+        "sha256": "855dfd02ad2ad3fc5ed2baab332f2725519b2599f028ee0a2819b92e62bb2352",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/audit_equipment_readonly_duplicates.py",
+        "sha256": "ea834f4006dfbfa2eb7c859239bea44b6cdc5a4cb4406ba3fea99b2caf50f444",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/audit_equipment_stat_policy_18_17_0.py",
+        "sha256": "ddaba5a8646a550667d9825819c9a7e09f96f293f04e1760450b02dfdfd2f957",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/audit_equipment_write_repair_trader.py",
+        "sha256": "1cbd180b6e3c872caab76b138abb134c97e4ae91e946a18dd9e54d35fefcfb18",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "unequip"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/check_common_equipment_hand_slot_text.py",
+        "sha256": "b568c3df298b0a6860fa7b5c94df5cdf76d4019654df13b4b63664a8e618dbb9",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/check_stage_21_10_3c_base_equipment_shop.py",
+        "sha256": "0d994448f0079fd1acc4673633e3a11cd5aa628835d0e9fc7edc1edbbbf66666",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/check_story_quest_11_availability_and_pagination.py",
+        "sha256": "47d5cb63787bac96162fea803b433c10bab48d5e61a9e8a4dae20b00adf6e36d",
+        "terms": [
+          "pagination"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/close_equipment_stat_policy_stage_18_17.py",
+        "sha256": "3caab870057c762716ce7403f0b7c9b23eddfb398f74009f13f92794621ff2ad",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_admin_menu_close_and_history_pagination_18_3_1a.py",
+        "sha256": "995a1eb674bceb8b7203b71be3ababeeccb784311512ba4333db114a00e00b60",
+        "terms": [
+          "pagination"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_auction_equipment_runes_canonical_17_1_0.py",
+        "sha256": "aaa538786a6cf1793b1d7f785890e997eef2a13b188abfa2cd6768dbaea7ecd3",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_base_equipment_context_navigation_recovery_17_11_1_1.py",
+        "sha256": "a711473d89769733e5bcf9e99dbf9d9862836c678a3f20d48d4aabea62d8b41c",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_base_equipment_selection_text_18_xx_9.py",
+        "sha256": "b258f8498ca4c285ea610b86b82afeb17809df91298f7047d478c8d30edd1f8a",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_central_drop_equipment_migration.py",
+        "sha256": "d2c1d683d5bafeb3e39ba24278799fbaf7c676a1d6337514db986a3fcd3e43b2",
+        "terms": [
+          "compare",
+          "equip",
+          "equipment"
+        ],
+        "symbols": [
+          {
+            "name": "compare",
+            "kind": "FunctionDef",
+            "line": 44
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_class_aware_equipment_stat_policy_18_17_1.py",
+        "sha256": "adb9f264f63516e2a781984d8894c8995e89bdeacd0ac12806eeab8cf910d642",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_class_aware_generated_equipment_18_17_2.py",
+        "sha256": "b7b06ba60948771b715b29f5de6a568e170d8b1278e7a02f69d7bfc59a615273",
+        "terms": [
+          "equip",
+          "equipment",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_consumables_inventory_category_17_31_1_3.py",
+        "sha256": "8d07d323af1ccb79e3c524091b5f8b04de98b4a7acd175b30fc600a413add13f",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_consume_inventory_item_signature_16_1_6.py",
+        "sha256": "c4b65cb76a50c4b58586e77882467f202d0e042054d4cd1dacfafba019ce03e1",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_dynamic_equipment_repair_contracts.py",
+        "sha256": "4ec5fc9d7c72fc23b51824604b6789bd115fede0079850418cb79965341927bf",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_dynamic_equipment_system_16_1_14.py",
+        "sha256": "9473e6ac073f2dff0cab38cf4a0b49637c999b7dc037a823e26e9915645b3574",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_dynamic_equipment_thin_delegate_18_17_8.py",
+        "sha256": "2ca3df1d71b14d1221523193e7a4a6e92131f9e298036c3455f37515e2cf5ac8",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_class_compatibility.py",
+        "sha256": "ccfd6306a9e65e6cec362db8f15323e0efd99c1ae6014873dc87724981571bd6",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_compatibility_db_api_16_1_3.py",
+        "sha256": "eca8149fa29c8ec4c87619a7edbbbc1cfc6bf715be46047e3b43d553c1250139",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand",
+          "two_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_durability_contracts.py",
+        "sha256": "095dd7b5c5d03378e42d9b80d3c4b5d36376f4c4e7d65c4f73a227439d8693ee",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_metadata_propagation_18_30_4b.py",
+        "sha256": "054eb5407a5536317fbf76a542045b6d3d2e61c8068b35b459f41dbc341841a5",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_readonly_core.py",
+        "sha256": "5061b9f8d7df680ab0177b66779ddcdf2defb289cd43200032b446c06c434485",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_rune_comparison_18_11_1.py",
+        "sha256": "0e611c1ee88a1acb4af6bb7b88b50253abb83e2ed16d563d445f035c4f577a50",
+        "terms": [
+          "compare",
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "unequip"
+        ],
+        "symbols": [],
+        "registrations": [
+          {
+            "line": 22,
+            "call": "source.index"
+          }
+        ]
+      },
+      {
+        "path": "tools/smoke_test_equipment_rune_comparison_item_identity_18_11_2.py",
+        "sha256": "36c20448ca74acf31cdbc459c3294f239a69663ecb4b82d4ecd147a1f53895c0",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "item_detail",
+          "unequip"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_rune_slots.py",
+        "sha256": "5cd5304ef9e5a9837af3845ff5460e85892240a6039439c2609b120f3b70dd2c",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_trader_contracts.py",
+        "sha256": "d7b88644c41695f42e13e5c591771ba0e226901468e10ceb1d6a274e02ee26d3",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_equipment_write_contracts.py",
+        "sha256": "3bc100eeb200377a2329039aa971a46a1da970c1bb6aeb46cae297f19b1d0f0b",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "unequip"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_extractor_inventory_text_18_31_1b.py",
+        "sha256": "ecc20eb0dfed9c37af07161f748f3c1e97fc75923663e494e4a5dae432bcb25c",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_firius_token_inventory_description.py",
+        "sha256": "fb58e4f7a3669f765cc68d78887afb37340eefc6d86d0488feb01163ac95d036",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_generated_equipment_db_api_16_0_1_1.py",
+        "sha256": "7e12b8e701ffa5c28b3d7768e3171d2cc70c1f434735dd68cacadbee9e973fed",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_get_equipped_slot_runtime_16_1_7_1.py",
+        "sha256": "6b58b0aca9900cc3cc89adef0461b3dc7d50de7a44b34ee2a53218d593c4fcb4",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_global_pagination_button_labels_17_9_1.py",
+        "sha256": "60af106f978e69dc3cddec76be42dd8cefc2b2468daab3742aa67bef56839bc7",
+        "terms": [
+          "pagination"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_inventory_canonical_ui_sorting_17_7_1.py",
+        "sha256": "17c22b28725c7f4e4a9d7e053572c16c7641caf440838e721dd6260fb5aa0de2",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_inventory_entry_signature_16_1_4_1.py",
+        "sha256": "c4046af4878bca05f51cec672588a5a45dcfd28cf32f136a5808272085d68eaf",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_inventory_handler_db_api_16_0_3_1.py",
+        "sha256": "32566cdb938e4859d8402fb42ab863e97c98ab3c204eb20b4a712d625f8434c6",
+        "terms": [
+          "equip",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_inventory_refine_contracts.py",
+        "sha256": "0ab770fcb7ca1c1097cc9c893b6db105c4bd07fb016f827b5e2dee5acbb17d44",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_inventory_rune_mobile_message_width_17_6_1.py",
+        "sha256": "05685ef26b48aa2fe65b218bf6ddc6085a54ca26523a15d598bc9ac856fa0aa0",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_inventory_stack_normalization_17_2_0.py",
+        "sha256": "08841c36fb6510bddc97173e641dc8e424427847ab1e5c1329bce471456176ec",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_name_rune_inventory_use_17_28_1_3.py",
+        "sha256": "5cee9926731f93328a84683623a66ce5451e0df96ca7e604d3d66b254dd3b497",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_player_trade_category_pagination_labels.py",
+        "sha256": "25e0c7a9b2e1637ce65fc1ce1e42553d0c6b28abb37ec7ae801b340a54c34ee5",
+        "terms": [
+          "pagination"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_player_trade_datetime_and_equipment_type_hotfix.py",
+        "sha256": "5afd34fbd3717db913858de78330c2378d75c17ba5aa55d0eebd1950f7a87108",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_player_trade_equipment_usage_and_quantity_labels.py",
+        "sha256": "4e03cb71ed09202c7116267e46a4133d452deb47c2e200dfa117177193402f64",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand",
+          "two-handed"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_pvp_real_equipment_fixture_and_matchup_dominance_audit.py",
+        "sha256": "a9d48317796d214efe18b053206aeaec176c5ddfea7d058b1839ac8c96c00477",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_rebirth_sphere_inventory_ui_18_16_10.py",
+        "sha256": "6b4af907bb4166a067820a3d367b86c58cc859f187cd2a1160c01808a788425a",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_rune_equipment_display_names.py",
+        "sha256": "42e522782ed476f4e960f808a458040b44f8a3f5610eb197572da606d4a9bf30",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_rune_inventory_and_dev_commands.py",
+        "sha256": "1858f7894f9ce20c8c4ed8c40df8264e6527ae2fa2d3c6967cf957fc86c4fc22",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_simulation_behavior_equipment_policy.py",
+        "sha256": "fc6d0c4c36a05ab67943b3470c3214a65e1c8ae2632f3278ad89c952092d3c9e",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_simulation_drop_inventory_capacity.py",
+        "sha256": "4b6406492e143ed7356fdc7abeab368e608c479bc47e1564907cadb87e4882dc",
+        "terms": [
+          "compare",
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_simulation_loot_equipment_city.py",
+        "sha256": "a6f4dbaf2bb7e592657ec54027bb63fb7e811668d34444ebfcec832d88c7ca08",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_sphere_inventory_card_style_18_16_10c.py",
+        "sha256": "cb51fe71ad8664ee56f041ce925208cdebadef4838ec23cadc6fc9b8f6778297",
+        "terms": [
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_stage_20_6_5_identity_aware_equipment_stats.py",
+        "sha256": "25eb87286e9e49fb1f03072519dda2ab61f5231cd89b8ed678940bb0ebf6b8a9",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_trade_equipment_preview_inventory_style_17_4_3_2.py",
+        "sha256": "11e0cdb817202accbb80e5b4b9a30f8df976abe44c75790cac10da77406f5baf",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_trade_equipment_type_ui_17_4_3.py",
+        "sha256": "aa9a90578fd6c5517737df4b9f12b86715e75cd1c39ef248f95474ffe9e4d240",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/smoke_test_trader_auction_equipment_type_display.py",
+        "sha256": "fb924356327807669c93a01439061717a08f7a32c50cab5ec579c1a52648ac98",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/verify_dynamic_equipment_behavioral_parity_18_17_7.py",
+        "sha256": "72932f16c2699344568b00ed28790d0b9a3702b176bbe646dd3e022a7349319e",
+        "terms": [
+          "compare",
+          "equip",
+          "equipment"
+        ],
+        "symbols": [
+          {
+            "name": "compare_mutator",
+            "kind": "FunctionDef",
+            "line": 77
+          },
+          {
+            "name": "compare_pure",
+            "kind": "FunctionDef",
+            "line": 85
+          }
+        ],
+        "registrations": []
+      },
+      {
+        "path": "tools/verify_equipment_drop_shop_parity_18_17_3.py",
+        "sha256": "9fc85e6377a9e7a6b24740a42d96f785a1a66521ada030edf8b941cdced18978",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "symbols": [],
+        "registrations": []
+      },
+      {
+        "path": "tools/verify_stage_21_13_2c_no_regular_inventory_leakage.py",
+        "sha256": "2f2b8c48764f7ac82aeb22c167c80ce4698878b0b392224e7c5aaacb6fa523f8",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "symbols": [],
+        "registrations": []
+      }
+    ],
+    "candidate_file_count": 161,
+    "relevant_symbol_count": 378,
+    "registration_evidence": [
+      {
+        "path": "handlers/auction_house.py",
+        "line": 672,
+        "call": "_auction_register_sell_equipment_handlers"
+      },
+      {
+        "path": "handlers/auction_house.py",
+        "line": 3659,
+        "call": "bot.message_handler"
+      },
+      {
+        "path": "handlers/auction_house.py",
+        "line": 675,
+        "call": "_auction_base_register_handlers_before_sell_equipment_v1"
+      },
+      {
+        "path": "handlers/city.py",
+        "line": 634,
+        "call": "bot.callback_query_handler"
+      },
+      {
+        "path": "handlers/city.py",
+        "line": 641,
+        "call": "bot.callback_query_handler"
+      },
+      {
+        "path": "handlers/city.py",
+        "line": 649,
+        "call": "bot.callback_query_handler"
+      },
+      {
+        "path": "handlers/city.py",
+        "line": 804,
+        "call": "bot.callback_query_handler"
+      },
+      {
+        "path": "handlers/inventory.py",
+        "line": 3523,
+        "call": "bot.callback_query_handler"
+      },
+      {
+        "path": "handlers/inventory.py",
+        "line": 3647,
+        "call": "bot.callback_query_handler"
+      },
+      {
+        "path": "handlers/inventory.py",
+        "line": 7341,
+        "call": "_EQUIPMENT_COMPARISON_BASE_REGISTER_HANDLERS_18_11_1"
+      },
+      {
+        "path": "handlers/inventory.py",
+        "line": 7625,
+        "call": "_SPHERE_BASE_REGISTER_INVENTORY_HANDLERS_18_16_10"
+      },
+      {
+        "path": "handlers/profile.py",
+        "line": 1051,
+        "call": "bot.callback_query_handler"
+      },
+      {
+        "path": "tools/smoke_test_equipment_rune_comparison_18_11_1.py",
+        "line": 22,
+        "call": "source.index"
+      }
+    ],
+    "duplicate_symbol_groups": {
+      "_auction_get_inventory_row": [
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 760,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 1360,
+          "kind": "FunctionDef"
+        }
+      ],
+      "_auction_inventory_style_weapon_type_line": [
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 5258,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 5273,
+          "kind": "FunctionDef"
+        }
+      ],
+      "_equipment_system_ro_v1": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 1569,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 1280,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/inventory_compat.py",
+          "line": 612,
+          "kind": "FunctionDef"
+        }
+      ],
+      "_inventory_columns": [
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1239,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/premium_item_policy_system.py",
+          "line": 178,
+          "kind": "FunctionDef"
+        }
+      ],
+      "assert_inventory_not_reserved": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 937,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1509,
+          "kind": "FunctionDef"
+        }
+      ],
+      "build_equipped_comparison_text": [
+        {
+          "path": "handlers/inventory.py",
+          "line": 1319,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 6893,
+          "kind": "FunctionDef"
+        }
+      ],
+      "build_item_details": [
+        {
+          "path": "handlers/inventory.py",
+          "line": 2291,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 4719,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 5809,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 6053,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 6189,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 6349,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 6965,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 7445,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 7807,
+          "kind": "FunctionDef"
+        }
+      ],
+      "build_user_unclaimed_auction_item_details": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 521,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 3477,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 4022,
+          "kind": "FunctionDef"
+        }
+      ],
+      "buy_common_equipment_from_trader": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 322,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 562,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3935,
+          "kind": "FunctionDef"
+        }
+      ],
+      "can_equip_inventory_item_by_class": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 238,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 298,
+          "kind": "FunctionDef"
+        }
+      ],
+      "can_equip_item_by_class": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 231,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 214,
+          "kind": "FunctionDef"
+        }
+      ],
+      "create_equipment_auction_lot": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 449,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 1181,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 2506,
+          "kind": "FunctionDef"
+        }
+      ],
+      "damage_equipped_items_on_death": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 297,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 538,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3235,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3367,
+          "kind": "FunctionDef"
+        }
+      ],
+      "ensure_equipment_slots": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 74,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/inventory_compat.py",
+          "line": 620,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 92,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 618,
+          "kind": "FunctionDef"
+        }
+      ],
+      "equip_inventory_item": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 256,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 392,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 2313,
+          "kind": "FunctionDef"
+        }
+      ],
+      "format_equipment_rune_slots_text": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 664,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 488,
+          "kind": "FunctionDef"
+        }
+      ],
+      "generate_dynamic_equipment_stats": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 583,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 211,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/dynamic_equipment_system.py",
+          "line": 61,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_all_equipped_items": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 78,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 98,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 688,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 882,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 936,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1128,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_all_equipped_slots": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 82,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/inventory_compat.py",
+          "line": 33,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_allowed_main_hand_subtypes_for_class": [
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 590,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/shop.py",
+          "line": 45,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_allowed_off_hand_subtypes_for_class": [
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 593,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/shop.py",
+          "line": 50,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_equipment_rune_slot_info": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 656,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 394,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 1162,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_equipped_item_defenses": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 174,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 766,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_equipped_items_for_repair": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 118,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 104,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 2827,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_equipped_rune_stat_totals": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 644,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 177,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_extractor_equipment": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 704,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 1035,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 1175,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_available_quantity": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 923,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1301,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_detailed": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 130,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 110,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1582,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_entry": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 134,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 116,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1618,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_item_snapshot_for_auction": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 437,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 1040,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_refine_level": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 210,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 170,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1442,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_refined_display_name": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 214,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 176,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1450,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_reserved_quantity": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 919,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1287,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_rune_capacity": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 636,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 152,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_rune_socket_summary": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 640,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 165,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_runes": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 632,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 130,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_used_slots": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 51,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 73,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/inventory.py",
+          "line": 34,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_inventory_weapon_damage_display": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 202,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 164,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1991,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_item_by_inventory_id": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 162,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 122,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1594,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_item_by_inventory_id_full": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 166,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/city.py",
+          "line": 937,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/city.py",
+          "line": 1040,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/city.py",
+          "line": 1108,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 128,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1606,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_random_main_hand_profile": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 547,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 175,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/dynamic_equipment_system.py",
+          "line": 40,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_random_off_hand_profile": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 550,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 178,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/dynamic_equipment_system.py",
+          "line": 44,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_rune_equipment_display_name": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 718,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 1137,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_sellable_equipment_items": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 178,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/city.py",
+          "line": 925,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/city.py",
+          "line": 1028,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/city.py",
+          "line": 1096,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 140,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3639,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_tradeable_inventory_for_trade": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 953,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1814,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_tradeable_inventory_for_trade_category": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 995,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 2318,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_user_inventory_rune_stacks": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 668,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 520,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_user_rune_slot_equipment": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 660,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 467,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_user_sellable_equipment_for_auction": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 431,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 1131,
+          "kind": "FunctionDef"
+        }
+      ],
+      "get_weapon_damage_by_inventory_id": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 198,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 158,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 1863,
+          "kind": "FunctionDef"
+        }
+      ],
+      "init_class_equipment_restrictions_system": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 811,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 558,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/inventory_compat.py",
+          "line": 420,
+          "kind": "FunctionDef"
+        }
+      ],
+      "init_dynamic_equipment_system": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 520,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 148,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/inventory_compat.py",
+          "line": 147,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/dynamic_equipment_system.py",
+          "line": 32,
+          "kind": "FunctionDef"
+        }
+      ],
+      "insert_rune_into_equipment": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 678,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 618,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/rune_system.py",
+          "line": 707,
+          "kind": "FunctionDef"
+        }
+      ],
+      "is_equipment": [
+        {
+          "path": "systems/simulation/inventory_engine.py",
+          "line": 8,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/simulation/models.py",
+          "line": 53,
+          "kind": "FunctionDef"
+        }
+      ],
+      "is_inventory_item_class_compatible": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 245,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 310,
+          "kind": "FunctionDef"
+        }
+      ],
+      "normalize_equipment_restriction_value": [
+        {
+          "path": "db_modules/dev_compat.py",
+          "line": 831,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/equipment.py",
+          "line": 46,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/generated_equipment.py",
+          "line": 578,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "db_modules/inventory_compat.py",
+          "line": 460,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/dynamic_equipment_system.py",
+          "line": 77,
+          "kind": "FunctionDef"
+        }
+      ],
+      "recover_orphan_inventory_reservations": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 941,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1517,
+          "kind": "FunctionDef"
+        }
+      ],
+      "register_inventory_handlers": [
+        {
+          "path": "handlers/inventory.py",
+          "line": 3179,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 7137,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "handlers/inventory.py",
+          "line": 7622,
+          "kind": "FunctionDef"
+        }
+      ],
+      "release_trade_inventory_reservations": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 933,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1501,
+          "kind": "FunctionDef"
+        }
+      ],
+      "repair_all_equipped": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 285,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 516,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3047,
+          "kind": "FunctionDef"
+        }
+      ],
+      "repair_equipped_item": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 278,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 504,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 2927,
+          "kind": "FunctionDef"
+        }
+      ],
+      "reserve_inventory_for_trade": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 927,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/player_interaction_system.py",
+          "line": 1469,
+          "kind": "FunctionDef"
+        }
+      ],
+      "roll_equipment_wear_after_combat": [
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3349,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3537,
+          "kind": "FunctionDef"
+        }
+      ],
+      "sell_inventory_item_to_trader": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 315,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 550,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 3691,
+          "kind": "FunctionDef"
+        }
+      ],
+      "unequip_incompatible_items_after_class_change": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 270,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 416,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 2505,
+          "kind": "FunctionDef"
+        }
+      ],
+      "unequip_inventory_item": [
+        {
+          "path": "db_modules/equipment.py",
+          "line": 263,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 404,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/equipment_system.py",
+          "line": 2399,
+          "kind": "FunctionDef"
+        }
+      ],
+      "use_potion_from_inventory": [
+        {
+          "path": "systems/potion_system.py",
+          "line": 345,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/potion_system.py",
+          "line": 525,
+          "kind": "FunctionDef"
+        }
+      ],
+      "validate_inventory_item_for_auction_equipment": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 443,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 1099,
+          "kind": "FunctionDef"
+        }
+      ],
+      "validate_inventory_stack_item_for_auction": [
+        {
+          "path": "db_modules/systems_wrappers.py",
+          "line": 461,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 1484,
+          "kind": "FunctionDef"
+        },
+        {
+          "path": "systems/auction_house_system.py",
+          "line": 5443,
+          "kind": "FunctionDef"
+        }
+      ]
+    },
+    "coverage": {
+      "list_sort_pagination": [
+        "data/story_quest_definitions.py",
+        "data/story_quest_item_identity.py",
+        "db.py",
+        "db_modules/__init__.py",
+        "db_modules/connection.py",
+        "db_modules/dev_compat.py",
+        "db_modules/equipment.py",
+        "db_modules/generated_equipment.py",
+        "db_modules/inventory.py",
+        "db_modules/inventory_compat.py",
+        "db_modules/player.py",
+        "db_modules/quests.py",
+        "db_modules/refine.py",
+        "db_modules/shop.py",
+        "db_modules/story_quests.py",
+        "db_modules/systems_wrappers.py",
+        "handlers/auction_house.py",
+        "handlers/blacksmith.py",
+        "handlers/blacksmith_repair_confirm.py",
+        "handlers/city.py",
+        "handlers/combat.py",
+        "handlers/guild.py",
+        "handlers/inventory.py",
+        "handlers/name_rune.py",
+        "handlers/player_interaction.py",
+        "handlers/profile.py",
+        "handlers/refine.py",
+        "handlers/runes.py",
+        "handlers/start.py",
+        "migrations/040_generated_equipment_namespace.py",
+        "systems/attribute_respec_system.py",
+        "systems/auction_house_system.py",
+        "systems/character_system.py",
+        "systems/crystal_shop_system.py",
+        "systems/equipment_system.py",
+        "systems/event_shop_system.py",
+        "systems/fatigue_artifact_system.py",
+        "systems/item_id_allocator_system.py",
+        "systems/level_up_reward_system.py",
+        "systems/name_rune_system.py",
+        "systems/notifications.py",
+        "systems/player_interaction_system.py",
+        "systems/player_system.py",
+        "systems/potion_system.py",
+        "systems/premium_item_policy_system.py",
+        "systems/pvp_production_calibration.py",
+        "systems/refine_system.py",
+        "systems/reward_system.py",
+        "systems/rune_system.py",
+        "systems/simulation/__init__.py",
+        "systems/simulation/asset_valuation.py",
+        "systems/simulation/balance_analyzer.py",
+        "systems/simulation/behavior_policy.py",
+        "systems/simulation/capacity_analysis.py",
+        "systems/simulation/class_progression.py",
+        "systems/simulation/combat_actor_stats.py",
+        "systems/simulation/config.py",
+        "systems/simulation/drop_inventory.py",
+        "systems/simulation/economic_ledger.py",
+        "systems/simulation/economic_progression.py",
+        "systems/simulation/economy_guild_acceptance.py",
+        "systems/simulation/equipment_policy.py",
+        "systems/simulation/equipment_service.py",
+        "systems/simulation/inventory_engine.py",
+        "systems/simulation/loot_equipment_city.py",
+        "systems/simulation/meta_progression.py",
+        "systems/simulation/models.py",
+        "systems/simulation/parity_foundation.py",
+        "systems/simulation/patch_regression.py",
+        "systems/simulation/population_cache.py",
+        "systems/simulation/potion_affordability.py",
+        "systems/simulation/progression_economy_reporting.py",
+        "systems/simulation/progression_provider.py",
+        "systems/simulation/progression_reporting.py",
+        "systems/simulation/progression_wall_analyzer.py",
+        "systems/simulation/reporting.py",
+        "systems/simulation/survival_state.py",
+        "systems/simulation/world_progression.py",
+        "systems/story_quest_item_drop_system.py",
+        "tools/audit_equipment_defense_refine_and_combat_chance_18_30_5b1.py",
+        "tools/audit_equipment_readonly_duplicates.py",
+        "tools/audit_equipment_write_repair_trader.py",
+        "tools/check_stage_21_10_3c_base_equipment_shop.py",
+        "tools/check_story_quest_11_availability_and_pagination.py",
+        "tools/close_equipment_stat_policy_stage_18_17.py",
+        "tools/smoke_test_admin_menu_close_and_history_pagination_18_3_1a.py",
+        "tools/smoke_test_auction_equipment_runes_canonical_17_1_0.py",
+        "tools/smoke_test_consumables_inventory_category_17_31_1_3.py",
+        "tools/smoke_test_consume_inventory_item_signature_16_1_6.py",
+        "tools/smoke_test_dynamic_equipment_repair_contracts.py",
+        "tools/smoke_test_equipment_class_compatibility.py",
+        "tools/smoke_test_equipment_readonly_core.py",
+        "tools/smoke_test_equipment_rune_comparison_18_11_1.py",
+        "tools/smoke_test_equipment_rune_comparison_item_identity_18_11_2.py",
+        "tools/smoke_test_equipment_rune_slots.py",
+        "tools/smoke_test_equipment_trader_contracts.py",
+        "tools/smoke_test_equipment_write_contracts.py",
+        "tools/smoke_test_extractor_inventory_text_18_31_1b.py",
+        "tools/smoke_test_firius_token_inventory_description.py",
+        "tools/smoke_test_global_pagination_button_labels_17_9_1.py",
+        "tools/smoke_test_inventory_canonical_ui_sorting_17_7_1.py",
+        "tools/smoke_test_inventory_entry_signature_16_1_4_1.py",
+        "tools/smoke_test_inventory_handler_db_api_16_0_3_1.py",
+        "tools/smoke_test_inventory_refine_contracts.py",
+        "tools/smoke_test_inventory_rune_mobile_message_width_17_6_1.py",
+        "tools/smoke_test_inventory_stack_normalization_17_2_0.py",
+        "tools/smoke_test_name_rune_inventory_use_17_28_1_3.py",
+        "tools/smoke_test_player_trade_category_pagination_labels.py",
+        "tools/smoke_test_rebirth_sphere_inventory_ui_18_16_10.py",
+        "tools/smoke_test_rune_equipment_display_names.py",
+        "tools/smoke_test_rune_inventory_and_dev_commands.py",
+        "tools/smoke_test_simulation_behavior_equipment_policy.py",
+        "tools/smoke_test_simulation_drop_inventory_capacity.py",
+        "tools/smoke_test_simulation_loot_equipment_city.py",
+        "tools/smoke_test_sphere_inventory_card_style_18_16_10c.py",
+        "tools/smoke_test_trade_equipment_preview_inventory_style_17_4_3_2.py",
+        "tools/smoke_test_trader_auction_equipment_type_display.py",
+        "tools/verify_stage_21_13_2c_no_regular_inventory_leakage.py"
+      ],
+      "item_details_compare": [
+        "db_modules/__init__.py",
+        "db_modules/equipment.py",
+        "db_modules/systems_wrappers.py",
+        "handlers/auction_house.py",
+        "handlers/inventory.py",
+        "systems/auction_house_system.py",
+        "systems/equipment_system.py",
+        "systems/refine_system.py",
+        "systems/simulation/__init__.py",
+        "systems/simulation/balance_analyzer.py",
+        "systems/simulation/capacity_analysis.py",
+        "systems/simulation/patch_regression.py",
+        "tools/smoke_test_central_drop_equipment_migration.py",
+        "tools/smoke_test_equipment_rune_comparison_18_11_1.py",
+        "tools/smoke_test_equipment_rune_comparison_item_identity_18_11_2.py",
+        "tools/smoke_test_simulation_drop_inventory_capacity.py",
+        "tools/verify_dynamic_equipment_behavioral_parity_18_17_7.py"
+      ],
+      "equip_unequip": [
+        "data/drop_tables.py",
+        "data/equipment_identity_stat_policy.py",
+        "data/equipment_profiles.py",
+        "data/equipment_stat_policy.py",
+        "data/story_quests/start_path_41_50.py",
+        "db.py",
+        "db_modules/__init__.py",
+        "db_modules/connection.py",
+        "db_modules/dev_compat.py",
+        "db_modules/equipment.py",
+        "db_modules/generated_equipment.py",
+        "db_modules/inventory_compat.py",
+        "db_modules/player.py",
+        "db_modules/refine.py",
+        "db_modules/shop.py",
+        "db_modules/systems_wrappers.py",
+        "handlers/auction_house.py",
+        "handlers/blacksmith.py",
+        "handlers/blacksmith_repair_confirm.py",
+        "handlers/city.py",
+        "handlers/combat.py",
+        "handlers/dev.py",
+        "handlers/inventory.py",
+        "handlers/player_interaction.py",
+        "handlers/profile.py",
+        "handlers/runes.py",
+        "handlers/start.py",
+        "handlers/world_chronicles.py",
+        "migrations/040_generated_equipment_namespace.py",
+        "systems/auction_house_system.py",
+        "systems/drop_system.py",
+        "systems/dynamic_equipment_system.py",
+        "systems/equipment_system.py",
+        "systems/item_id_allocator_system.py",
+        "systems/notifications.py",
+        "systems/player_interaction_system.py",
+        "systems/player_system.py",
+        "systems/pvp_adaptive_balance_optimizer.py",
+        "systems/pvp_config.py",
+        "systems/pvp_production_calibration.py",
+        "systems/pvp_production_fixture_audit.py",
+        "systems/pvp_real_actor_state_replay.py",
+        "systems/pvp_real_equipment_fixture_audit.py",
+        "systems/refine_system.py",
+        "systems/regen_system.py",
+        "systems/reward_system.py",
+        "systems/rune_system.py",
+        "systems/simulation/__init__.py",
+        "systems/simulation/asset_valuation.py",
+        "systems/simulation/balance_analyzer.py",
+        "systems/simulation/behavior_policy.py",
+        "systems/simulation/canonical_rules.py",
+        "systems/simulation/class_progression.py",
+        "systems/simulation/combat_actor_stats.py",
+        "systems/simulation/economic_ledger.py",
+        "systems/simulation/economic_progression.py",
+        "systems/simulation/economy_guild_acceptance.py",
+        "systems/simulation/equipment_policy.py",
+        "systems/simulation/equipment_service.py",
+        "systems/simulation/excel_reporting.py",
+        "systems/simulation/inventory_engine.py",
+        "systems/simulation/loot_equipment_city.py",
+        "systems/simulation/meta_progression.py",
+        "systems/simulation/models.py",
+        "systems/simulation/parity_foundation.py",
+        "systems/simulation/progression_economy_reporting.py",
+        "systems/simulation/progression_provider.py",
+        "systems/simulation/survival_state.py",
+        "systems/simulation/world_progression.py",
+        "systems/stat_system.py",
+        "systems/world_chronicle_system.py",
+        "tools/acceptance_stage_20_6_6_travel_equipment.py",
+        "tools/audit_dynamic_equipment_compatibility_18_17_4.py",
+        "tools/audit_equipment_defense_refine_and_combat_chance_18_30_5b1.py",
+        "tools/audit_equipment_readonly_duplicates.py",
+        "tools/audit_equipment_stat_policy_18_17_0.py",
+        "tools/audit_equipment_write_repair_trader.py",
+        "tools/check_common_equipment_hand_slot_text.py",
+        "tools/check_stage_21_10_3c_base_equipment_shop.py",
+        "tools/close_equipment_stat_policy_stage_18_17.py",
+        "tools/smoke_test_auction_equipment_runes_canonical_17_1_0.py",
+        "tools/smoke_test_base_equipment_context_navigation_recovery_17_11_1_1.py",
+        "tools/smoke_test_base_equipment_selection_text_18_xx_9.py",
+        "tools/smoke_test_central_drop_equipment_migration.py",
+        "tools/smoke_test_class_aware_equipment_stat_policy_18_17_1.py",
+        "tools/smoke_test_class_aware_generated_equipment_18_17_2.py",
+        "tools/smoke_test_dynamic_equipment_repair_contracts.py",
+        "tools/smoke_test_dynamic_equipment_system_16_1_14.py",
+        "tools/smoke_test_dynamic_equipment_thin_delegate_18_17_8.py",
+        "tools/smoke_test_equipment_class_compatibility.py",
+        "tools/smoke_test_equipment_compatibility_db_api_16_1_3.py",
+        "tools/smoke_test_equipment_durability_contracts.py",
+        "tools/smoke_test_equipment_metadata_propagation_18_30_4b.py",
+        "tools/smoke_test_equipment_readonly_core.py",
+        "tools/smoke_test_equipment_rune_comparison_18_11_1.py",
+        "tools/smoke_test_equipment_rune_comparison_item_identity_18_11_2.py",
+        "tools/smoke_test_equipment_rune_slots.py",
+        "tools/smoke_test_equipment_trader_contracts.py",
+        "tools/smoke_test_equipment_write_contracts.py",
+        "tools/smoke_test_generated_equipment_db_api_16_0_1_1.py",
+        "tools/smoke_test_get_equipped_slot_runtime_16_1_7_1.py",
+        "tools/smoke_test_inventory_canonical_ui_sorting_17_7_1.py",
+        "tools/smoke_test_inventory_entry_signature_16_1_4_1.py",
+        "tools/smoke_test_inventory_handler_db_api_16_0_3_1.py",
+        "tools/smoke_test_player_trade_datetime_and_equipment_type_hotfix.py",
+        "tools/smoke_test_player_trade_equipment_usage_and_quantity_labels.py",
+        "tools/smoke_test_pvp_real_equipment_fixture_and_matchup_dominance_audit.py",
+        "tools/smoke_test_rune_equipment_display_names.py",
+        "tools/smoke_test_simulation_behavior_equipment_policy.py",
+        "tools/smoke_test_simulation_drop_inventory_capacity.py",
+        "tools/smoke_test_simulation_loot_equipment_city.py",
+        "tools/smoke_test_stage_20_6_5_identity_aware_equipment_stats.py",
+        "tools/smoke_test_trade_equipment_preview_inventory_style_17_4_3_2.py",
+        "tools/smoke_test_trade_equipment_type_ui_17_4_3.py",
+        "tools/smoke_test_trader_auction_equipment_type_display.py",
+        "tools/verify_dynamic_equipment_behavioral_parity_18_17_7.py",
+        "tools/verify_equipment_drop_shop_parity_18_17_3.py",
+        "tools/verify_stage_21_13_2c_no_regular_inventory_leakage.py"
+      ],
+      "identity": [
+        "data/story_quest_item_identity.py",
+        "db_modules/__init__.py",
+        "db_modules/connection.py",
+        "db_modules/dev_compat.py",
+        "db_modules/equipment.py",
+        "db_modules/generated_equipment.py",
+        "db_modules/inventory.py",
+        "db_modules/inventory_compat.py",
+        "db_modules/player.py",
+        "db_modules/refine.py",
+        "db_modules/systems_wrappers.py",
+        "handlers/auction_house.py",
+        "handlers/blacksmith.py",
+        "handlers/blacksmith_repair_confirm.py",
+        "handlers/city.py",
+        "handlers/combat.py",
+        "handlers/inventory.py",
+        "handlers/name_rune.py",
+        "handlers/player_interaction.py",
+        "handlers/profile.py",
+        "handlers/refine.py",
+        "handlers/runes.py",
+        "handlers/start.py",
+        "systems/attribute_respec_system.py",
+        "systems/auction_house_system.py",
+        "systems/character_system.py",
+        "systems/crystal_shop_system.py",
+        "systems/equipment_system.py",
+        "systems/event_shop_system.py",
+        "systems/fatigue_artifact_system.py",
+        "systems/name_rune_system.py",
+        "systems/notifications.py",
+        "systems/player_interaction_system.py",
+        "systems/player_system.py",
+        "systems/potion_system.py",
+        "systems/premium_item_policy_system.py",
+        "systems/refine_system.py",
+        "systems/reward_system.py",
+        "systems/rune_system.py",
+        "systems/simulation/asset_valuation.py",
+        "tools/audit_equipment_readonly_duplicates.py",
+        "tools/smoke_test_consume_inventory_item_signature_16_1_6.py",
+        "tools/smoke_test_dynamic_equipment_repair_contracts.py",
+        "tools/smoke_test_equipment_readonly_core.py",
+        "tools/smoke_test_equipment_rune_comparison_18_11_1.py",
+        "tools/smoke_test_equipment_rune_comparison_item_identity_18_11_2.py",
+        "tools/smoke_test_equipment_rune_slots.py",
+        "tools/smoke_test_equipment_trader_contracts.py",
+        "tools/smoke_test_equipment_write_contracts.py",
+        "tools/smoke_test_inventory_entry_signature_16_1_4_1.py",
+        "tools/smoke_test_inventory_handler_db_api_16_0_3_1.py",
+        "tools/smoke_test_inventory_refine_contracts.py",
+        "tools/smoke_test_name_rune_inventory_use_17_28_1_3.py",
+        "tools/smoke_test_rune_equipment_display_names.py",
+        "tools/smoke_test_trader_auction_equipment_type_display.py",
+        "tools/verify_stage_21_13_2c_no_regular_inventory_leakage.py"
+      ],
+      "hand_conflicts": [
+        "data/equipment_identity_stat_policy.py",
+        "data/equipment_profiles.py",
+        "data/equipment_stat_policy.py",
+        "data/runes.py",
+        "db_modules/__init__.py",
+        "db_modules/connection.py",
+        "db_modules/dev_compat.py",
+        "db_modules/equipment.py",
+        "db_modules/generated_equipment.py",
+        "db_modules/inventory_compat.py",
+        "db_modules/player.py",
+        "db_modules/shop.py",
+        "handlers/city.py",
+        "handlers/dev.py",
+        "handlers/inventory.py",
+        "handlers/player_interaction.py",
+        "handlers/profile.py",
+        "handlers/start.py",
+        "systems/auction_house_system.py",
+        "systems/dynamic_equipment_system.py",
+        "systems/equipment_system.py",
+        "systems/pvp_production_calibration.py",
+        "systems/pvp_production_fixture_audit.py",
+        "systems/pvp_real_equipment_fixture_audit.py",
+        "systems/refine_system.py",
+        "systems/simulation/combat_actor_stats.py",
+        "systems/simulation/equipment_policy.py",
+        "systems/simulation/equipment_service.py",
+        "systems/simulation/loot_equipment_city.py",
+        "systems/simulation/models.py",
+        "systems/simulation/progression_economy_reporting.py",
+        "tools/acceptance_stage_20_6_6_travel_equipment.py",
+        "tools/audit_equipment_defense_refine_and_combat_chance_18_30_5b1.py",
+        "tools/audit_equipment_stat_policy_18_17_0.py",
+        "tools/close_equipment_stat_policy_stage_18_17.py",
+        "tools/smoke_test_base_equipment_context_navigation_recovery_17_11_1_1.py",
+        "tools/smoke_test_class_aware_equipment_stat_policy_18_17_1.py",
+        "tools/smoke_test_class_aware_generated_equipment_18_17_2.py",
+        "tools/smoke_test_dynamic_equipment_repair_contracts.py",
+        "tools/smoke_test_dynamic_equipment_thin_delegate_18_17_8.py",
+        "tools/smoke_test_equipment_compatibility_db_api_16_1_3.py",
+        "tools/smoke_test_equipment_metadata_propagation_18_30_4b.py",
+        "tools/smoke_test_get_equipped_slot_runtime_16_1_7_1.py",
+        "tools/smoke_test_inventory_canonical_ui_sorting_17_7_1.py",
+        "tools/smoke_test_inventory_handler_db_api_16_0_3_1.py",
+        "tools/smoke_test_player_trade_datetime_and_equipment_type_hotfix.py",
+        "tools/smoke_test_player_trade_equipment_usage_and_quantity_labels.py",
+        "tools/smoke_test_simulation_behavior_equipment_policy.py",
+        "tools/smoke_test_stage_20_6_5_identity_aware_equipment_stats.py",
+        "tools/smoke_test_trade_equipment_type_ui_17_4_3.py",
+        "tools/verify_equipment_drop_shop_parity_18_17_3.py"
+      ]
+    }
+  },
+  "v2": {
+    "capability_matrix": {
+      "domain": [
+        {
+          "path": "rom_v2/domain/item.py",
+          "exists": true
+        },
+        {
+          "path": "rom_v2/domain/inventory.py",
+          "exists": false
+        },
+        {
+          "path": "rom_v2/domain/equipment.py",
+          "exists": true
+        },
+        {
+          "path": "rom_v2/domain/equipment_generation.py",
+          "exists": true
+        }
+      ],
+      "application": [
+        {
+          "path": "rom_v2/application/inventory_service.py",
+          "exists": true
+        },
+        {
+          "path": "rom_v2/application/equipment_service.py",
+          "exists": true
+        }
+      ],
+      "presentation": [
+        {
+          "path": "rom_v2/presentation/item_dto.py",
+          "exists": true
+        }
+      ],
+      "persistence": [
+        {
+          "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+          "exists": true
+        },
+        {
+          "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+          "exists": true
+        }
+      ]
+    },
+    "mention_inventory": [
+      {
+        "path": "rom_v2/application/auction_service.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "a6e1022320f1b3ba95a3572db8cb94a90e40170b6f3ada1cb99e5109afb25ccd"
+      },
+      {
+        "path": "rom_v2/application/base_equipment_shop.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "295f1d18d797ed80b57b58cdf9cc247a5469fe8e3ff604031ecfb4c33e19c885"
+      },
+      {
+        "path": "rom_v2/application/daily_reward.py",
+        "terms": [
+          "inventory"
+        ],
+        "sha256": "aaaba0ac866cb7fdd1cf008e9ca0733262c307d7bea4b36d249d31eff01a2e23"
+      },
+      {
+        "path": "rom_v2/application/durability_service.py",
+        "terms": [
+          "equip",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "e329f32931aeddae1a8235e1274f88441406b7ccf0b6b65f1f47f93ee887b1f8"
+      },
+      {
+        "path": "rom_v2/application/enhancement_service.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "9f85c908f833e38411a66987b855e72a13e58332f776b87318da8eab60bb1c7e"
+      },
+      {
+        "path": "rom_v2/application/equipment_generation_ports.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "39b21fec6d3fba2102aaca518a9b113e4e18dddb9ef7e79ff94ad27f2688a6af"
+      },
+      {
+        "path": "rom_v2/application/equipment_generation_service.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "61fa00d463fadb3b0d5ecaf39f41d61058537a64102919c6aee973dc2dda623d"
+      },
+      {
+        "path": "rom_v2/application/equipment_ports.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "d69599c10f4c81eca867e1e5037cd813f50971f28b71f294bf78196c53d98904"
+      },
+      {
+        "path": "rom_v2/application/equipment_service.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand",
+          "unequip"
+        ],
+        "sha256": "1b0b9c416886f067f5beb2a987ae4fa2b72309a37d8668f6095f2769d9dd8a09"
+      },
+      {
+        "path": "rom_v2/application/inventory_ports.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "888e5d54e6e0f60efc438b3cc6ed3bfd178ccec1da86aa8e1f98f3aa64d85c82"
+      },
+      {
+        "path": "rom_v2/application/inventory_service.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "6bf6498fda0d290af266c51df92f892706279c937df9cc5d4467bd66030ef65e"
+      },
+      {
+        "path": "rom_v2/application/potion_trading.py",
+        "terms": [
+          "inventory"
+        ],
+        "sha256": "b55b6ee63fd7cfa6b4dcceecc6d0c93c123373b0dff7837cd32ddf2b76706769"
+      },
+      {
+        "path": "rom_v2/content/story_start_path_41_50.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "8d70fb5d417358b4fc5464ad64212cc253d3ea60d6299112ce0c7345d3bc1874"
+      },
+      {
+        "path": "rom_v2/domain/auction.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "8ff0d5906cf96929f2f9bd044e057c40c9a58c721776a1b0f21e76be3ae2a593"
+      },
+      {
+        "path": "rom_v2/domain/battle.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "931282d411f257cf1aab992b04ac63c019e58e50f2745d2023dffe6c425869ab"
+      },
+      {
+        "path": "rom_v2/domain/central_loot.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "sha256": "96509c933eeb02063eb1688a8da017a9becaece2124b00b57670f74b34fd3ce6"
+      },
+      {
+        "path": "rom_v2/domain/class_catalog.py",
+        "terms": [
+          "main_hand",
+          "off_hand"
+        ],
+        "sha256": "a3185a616704b5061bc8ec49cd54d2dd4830de6429c6858952df523bc5f6ef83"
+      },
+      {
+        "path": "rom_v2/domain/derived_stats.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "a6fdd9905c227549addf310c3b873b96bbc9e6d09a20b979f851a04fc8df6e1c"
+      },
+      {
+        "path": "rom_v2/domain/direct_trade.py",
+        "terms": [
+          "equip",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "ee0e7db9df7dfc3bda64d22829b2a4c982779332966224d1d698336f8481c180"
+      },
+      {
+        "path": "rom_v2/domain/durability.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "5010a635664242767bdaedc8a84a443892062f3c5a6a1baf100f3d6a6ea112a9"
+      },
+      {
+        "path": "rom_v2/domain/enhancement.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "d738bb2c5a30480b9cec875eda720d79dd33340ae7ea4fbd32a608fbb0c83bb8"
+      },
+      {
+        "path": "rom_v2/domain/equipment.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "sha256": "b315cdd10a82b4a6b0e779e25df66b584a54fb6d1ad79aa5f20ea82dc96e1cff"
+      },
+      {
+        "path": "rom_v2/domain/equipment_generation.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "main_hand",
+          "off_hand"
+        ],
+        "sha256": "50d9291f57dfd206c232a33a778d403f76a2ae0ecc52c0494eb1d38ec7f532fb"
+      },
+      {
+        "path": "rom_v2/domain/full_stat_snapshot.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "7efd1d0de4693f549910797c0a617271a016d34b0d75e44d7fc2677b4ca81b14"
+      },
+      {
+        "path": "rom_v2/domain/item.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "fa797efef9e445235d256d6f31d5db16f79e765236e21f3d6cc7287b2b9c37f2"
+      },
+      {
+        "path": "rom_v2/domain/primary_stats.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "904560126d76a237afff801c8fc274d0ad9b5a1d7849b949b2db1328904059c6"
+      },
+      {
+        "path": "rom_v2/domain/ratings_history_chronicles.py",
+        "terms": [
+          "pagination"
+        ],
+        "sha256": "a71b29b2448815f6cae66e52929d876632e925771669067f97f05556b04cf09d"
+      },
+      {
+        "path": "rom_v2/domain/runes.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "e24f4459584dc1f23e503e7740ec2e6782d740657c0d6c03344a47a1013f9fc0"
+      },
+      {
+        "path": "rom_v2/domain/six_class_simulation_matrix.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "58ec17722aa9ab72654d54146acd3b4a71490b6731ec3eed0fb695fbd8e5dc5a"
+      },
+      {
+        "path": "rom_v2/presentation/item_dto.py",
+        "terms": [
+          "compare",
+          "equip",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "8a221e3444fc2c2454206a152f9199211c97c13e60551d7c626750d1a8734115"
+      },
+      {
+        "path": "rom_v2/presentation/profile_menu.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "8e10161806c7a0df9f4967bf5559d1a6648e6d8fb213d405e4de689c56eb2ca4"
+      },
+      {
+        "path": "rom_v2/presentation/profile_presenter.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "20942b1f245c9d9734a2d7cbf24c4f2b2afc6f987289fce0c8f307bf6d2b3e89"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/character_repository.py",
+        "terms": [
+          "compare"
+        ],
+        "sha256": "464e1bbe09cbb213f07c1991a0601a7d2c6d32016b1584e9950a9e049b9e842a"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/equipment_repository.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "sha256": "a2502e256a385dd10381d2126ad00672dee7a2aeff9a08f02bc76e6b175a3245"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/equipment_unit_of_work.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "cdeb81d4edc6c2635167c090c0e2b3a3f6cd2b71b5ef20f9640cf444656c9376"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "e404fa78d10aa15f7deab48d9101ecdb8a970bcd0d8d96fbaa28ee5975dd0dc0"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/inventory_unit_of_work.py",
+        "terms": [
+          "inventory"
+        ],
+        "sha256": "8f7213c0018d4ad5a936c5c260e0f79d72be7e48ec7752efd569dc4b6dd8b4c9"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/schema_contract.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory"
+        ],
+        "sha256": "f3699faa19e2a4777e047da987807fb26b929dcb51663c1ee4c317a74da5972c"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v001_v2_baseline.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "d145d8a5bffb90f1bcd36a73a3b131e041c15c8a0d7f517664880a997915c6b7"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v003_item_identity_parity.py",
+        "terms": [
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "644335d83dba5b91d23cf18b0ddba5f32a45d17b6dcac2f74b3615989d73b209"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/v004_equipment_slots_parity.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id",
+          "main_hand",
+          "off_hand"
+        ],
+        "sha256": "4e0bc38b4bd570c54a3e9adbd2f55ab1a34a968269b357f7ea317a8a2b2e1b6d"
+      },
+      {
+        "path": "rom_v2/infrastructure/persistence/migrations/__init__.py",
+        "terms": [
+          "equip",
+          "equipment"
+        ],
+        "sha256": "56e2a241f6046a218d493cd2fbfe382db128e79c4621c0358bd641656f4c4049"
+      },
+      {
+        "path": "rom_v2/application/services/rune_lifecycle.py",
+        "terms": [
+          "equip",
+          "equipment",
+          "inventory",
+          "inventory_id"
+        ],
+        "sha256": "3caa305dac297272aaa07f107ba6b01178a4044024e8a1281b3c8d4016fe90c7"
+      }
+    ],
+    "readiness_gaps": {
+      "expected_v2_owners_present": [
+        "rom_v2/domain/item.py",
+        "rom_v2/domain/equipment.py",
+        "rom_v2/domain/equipment_generation.py",
+        "rom_v2/application/inventory_service.py",
+        "rom_v2/application/equipment_service.py",
+        "rom_v2/presentation/item_dto.py",
+        "rom_v2/infrastructure/persistence/inventory_repository.py",
+        "rom_v2/infrastructure/persistence/equipment_repository.py"
+      ],
+      "expected_v2_owners_missing": [
+        "rom_v2/domain/inventory.py"
+      ],
+      "telegram_inventory_slice_present": false,
+      "runtime_dispatch_requires_audit": true,
+      "repository_uow_requires_audit": true
+    }
+  },
+  "contract_for_next_stage": {
+    "stage": "21.18.1a",
+    "title": "Inventory/equipment application completion",
+    "required_before_mutation": [
+      "resolve effective V1 callback and call paths from recorded candidates",
+      "classify duplicate symbols as effective, superseded, dead or uncertain",
+      "name authoritative V2 query/command/repository/UoW owners",
+      "preserve exact inventory_id identity",
+      "keep sorting/pagination/details/compare out of business mutation",
+      "validate two-handed/off-hand conflicts before mutation",
+      "prove atomic equip/unequip and restart persistence"
+    ],
+    "prohibited": [
+      "V1 runtime import",
+      "overlay or shadow owner",
+      "SQL in Telegram handlers",
+      "UI-side compatibility rules",
+      "text as item identity"
+    ]
+  },
+  "safety": {
+    "production_files_modified": false,
+    "database_opened": false,
+    "wal_shm_manipulated": false,
+    "telegram_started": false,
+    "v1_runtime_executed": false
+  }
+}
